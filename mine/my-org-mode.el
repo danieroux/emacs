@@ -1,7 +1,7 @@
 ;; From the rich resource at http://doc.norang.ca/org-mode.html
 
-(add-to-list 'load-path (concat external-dir "/org-7.8/lisp"))
-(add-to-list 'load-path (concat external-dir "/org-7.8/contrib/lisp"))
+(add-to-list 'load-path (concat external-dir "/org-mode/lisp"))
+(add-to-list 'load-path (concat external-dir "/org-mode/contrib/lisp"))
 
 (require 'org-install)
 (require 'org)
