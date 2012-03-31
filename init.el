@@ -11,6 +11,7 @@
 
 (if (eq window-system 'x)
     (add-hook 'window-setup-hook (lambda nil (set-default-font "Bitstream Vera Sans Mono-14"))))
+(setq default-frame-alist '((font . "Bitstream Vera Sans Mono 14")))
 
 (setq dotfiles-dir (file-name-directory load-file-name))
 (add-to-list 'load-path dotfiles-dir)
