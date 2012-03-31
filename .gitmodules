@@ -1,0 +1,3 @@
+[submodule "external/evil"]
+	path = external/evil
+	url = git://gitorious.org/evil/evil.git

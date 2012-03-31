@@ -1,0 +1,4 @@
+*.elc
+org-clock-save.el
+*~
+archive-contents
