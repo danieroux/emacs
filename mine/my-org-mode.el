@@ -17,6 +17,11 @@
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-default-notes-file "~/Dropbox/Documents/gtd/notes.org")
 
+(org-add-link-type
+ "gmail"
+ (lambda (link)
+   (browse-url (concat "https://mail.google.com/mail/?shva=1#all/" link))))
+
 (setq org-blank-before-new-entry nil)
 (setq org-enforce-todo-dependencies t)
 (setq org-fast-tag-selection-include-todo t)

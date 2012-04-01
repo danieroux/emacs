@@ -63,6 +63,7 @@
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 
 ;; My packages
+(require 'private)
 (require 'my-defuns)
 (require 'my-keybindings)
 (require 'my-vim)
@@ -72,7 +73,6 @@
 (require 'my-really-autosave)
 (require 'my-clean-emacs-directory)
 (require 'my-calendar)
-(require 'private)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
