@@ -138,29 +138,9 @@
 ;; Crypt
 (require 'org-crypt)
 ;; (org-crypt-use-before-save-magic)
-
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 (setq org-crypt-key "978D4E9F")
 (setq org-crypt-disable-auto-save 'ask)
-
-;; Google calendars
-(setq mark-diary-entries-in-calendar t)
-(defun getcal (url)
-  "Download ics file and add to diary"
-  (let ((tmpfile (url-file-local-copy url)))
-    (icalendar-import-file tmpfile "~/diary" t)
-    (kill-buffer (car (last (split-string tmpfile "/"))))))
-
-; (setq google-calendars '("urg, old private URL was exposed"))
-
-(defun getcals ()
-  (interactive)
-  (find-file "~/diary")
-  (flush-lines "^[& ]")
-  (dolist (url google-calendars) (getcal url))
-  (kill-buffer "diary"))
-
-(global-set-key (kbd "<f9>c") 'getcals)
 
 (setq org-agenda-include-diary t)
 ;; Keep tasks with dates on the global todo lists

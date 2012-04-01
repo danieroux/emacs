@@ -71,6 +71,8 @@
 (require 'my-autocompile)
 (require 'my-really-autosave)
 (require 'my-clean-emacs-directory)
+(require 'my-calendar)
+(require 'private)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
