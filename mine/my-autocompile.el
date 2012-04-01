@@ -20,7 +20,4 @@
            (get-buffer-create "*compilation*"))
           (message "No Compilation Errors!"))))
 
-;; one-button testing, tada!
-(key-chord-define-global ",c" 'compile)
-
 (provide 'my-autocompile)

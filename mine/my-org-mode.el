@@ -17,17 +17,6 @@
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-default-notes-file "~/Dropbox/Documents/gtd/notes.org")
 
-;; (define-key viper-vi-global-user-map "C-c /" 'org-sparse-tree)
-(global-set-key "\C-cl" 'org-store-link)
-
-(key-chord-define-global ",a" 'org-agenda)
-(key-chord-define-global ",." 'org-velocity-read)
-(key-chord-define-global ",r" 'org-capture)
-(key-chord-define-global ",h" '(lambda () (interactive) (org-agenda nil "H")))
-(key-chord-define-global ",w" '(lambda () (interactive) (org-agenda nil "W")))
-
-(global-set-key (kbd "C-M-r") 'org-capture)
-
 (setq org-blank-before-new-entry nil)
 (setq org-enforce-todo-dependencies t)
 (setq org-fast-tag-selection-include-todo t)
