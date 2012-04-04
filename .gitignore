@@ -3,3 +3,4 @@ org-clock-save.el
 *~
 archive-contents
 /private.el
+/ac-comphist.dat
