@@ -88,6 +88,7 @@
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (ansi-color-for-comint-mode-on)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (setq visible-bell t
       echo-keystrokes 0.1
@@ -97,4 +98,7 @@
       mouse-yank-at-point t
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'post-forward
+      enable-recursive-minibuffers t ;; http://www.masteringemacs.org/articles/2011/10/19/executing-shell-commands-emacs
+      minibuffer-depth-indicate-mode t
+      redisplay-dont-pause t ;; http://www.masteringemacs.org/articles/2011/10/02/improving-performance-emacs-display-engine
       xterm-mouse-mode t)

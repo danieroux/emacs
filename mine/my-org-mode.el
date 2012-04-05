@@ -142,7 +142,7 @@
   
 ;; Crypt
 (require 'org-crypt)
-;; (org-crypt-use-before-save-magic)
+(org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 (setq org-crypt-key "978D4E9F")
 (setq org-crypt-disable-auto-save 'ask)
