@@ -80,6 +80,7 @@
 (require 'my-autocomplete)
 (require 'my-frequency)
 (require 'my-dired-open)
+(require 'my-mu4e)
 (require 'my-keybindings)
 
 (setq browse-url-browser-function (quote browse-url-generic)

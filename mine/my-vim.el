@@ -6,4 +6,8 @@
 
 (setq evil-normal-state-cursor '("green" box))
 
+(add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
+(add-to-list 'evil-emacs-state-modes 'mu4e-hdrs-mode)
+(add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
+
 (provide 'my-vim)
