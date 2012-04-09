@@ -83,13 +83,14 @@
 
 (mouse-avoidance-mode 'exile)
 (turn-off-auto-fill)
-(windmove-default-keybindings)
+(windmove-default-keybindings 'meta)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (ansi-color-for-comint-mode-on)
 (fset 'yes-or-no-p 'y-or-n-p)
+(global-hl-line-mode 1)
 
 (setq visible-bell t
       echo-keystrokes 0.1

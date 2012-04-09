@@ -2,7 +2,10 @@
 (global-set-key [f11] 'toggle-maximize)
 (global-set-key [S-f11] 'djcb-full-screen-toggle)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+
+(global-set-key (kbd "M-o") 'ido-find-file)
+(global-set-key (kbd "M-O") 'recentf-ido-find-file)
+(global-set-key (kbd "M-b") 'ido-switch-buffer)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key (kbd "C-M-r") 'org-capture)
