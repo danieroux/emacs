@@ -11,6 +11,9 @@
 (global-set-key (kbd "C-M-r") 'org-capture)
 (global-set-key (kbd "<f9>c") 'getcals)
 
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
 (key-chord-define-global ",a" 'org-agenda)
 (key-chord-define-global ",." 'org-velocity-read)
 (key-chord-define-global ",r" 'org-capture)

@@ -64,6 +64,9 @@
 (require 'rainbow-delimiters)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 
+(require 'smex)
+(smex-initialize)
+
 ;; My packages
 (require 'private)
 (require 'my-defuns)
