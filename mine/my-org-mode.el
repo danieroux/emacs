@@ -176,6 +176,8 @@
 (setq org-cycle-separator-lines 0)
 (setq org-log-done 'time)
 
+(setq org-src-fontify-natively t)
+
 ; 
 ; (setq org-ditaa-jar-path "~/java/ditaa0_6b.jar")
 (setq org-plantuml-jar-path "~/Dropbox/java/plantuml.jar")
