@@ -70,7 +70,6 @@
 ;; My packages
 (require 'private)
 (require 'my-defuns)
-(require 'my-keybindings)
 (require 'my-vim)
 (require 'my-org-mode)
 (require 'my-haskell)
@@ -81,6 +80,7 @@
 (require 'my-autocomplete)
 (require 'my-frequency)
 (require 'my-dired-open)
+(require 'my-keybindings)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
