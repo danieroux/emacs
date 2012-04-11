@@ -80,6 +80,7 @@
 (require 'my-calendar)
 (require 'my-autocomplete)
 (require 'my-frequency)
+(require 'my-dired-open)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")

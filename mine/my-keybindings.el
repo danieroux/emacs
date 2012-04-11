@@ -21,4 +21,18 @@
 (key-chord-define-global ",w" '(lambda () (interactive) (org-agenda nil "W")))
 (key-chord-define-global ",c" 'compile)
 
+(mapcar (lambda (state)
+	  (evil-declare-key state org-mode-map
+			    (kbd "M-l") 'org-metaright
+			    (kbd "M-h") 'org-metaleft
+			    (kbd "M-k") 'org-metaup
+			    (kbd "M-j") 'org-metadown
+			    (kbd "M-L") 'org-shiftmetaright
+			    (kbd "M-H") 'org-shiftmetaleft
+			    (kbd "M-K") 'org-shiftmetaup
+			    (kbd "M-J") 'org-shiftmetadown)
+	  (evil-declare-key state dired-mode-map
+			    (kbd "E") 'open-in-external-app))
+	'(normal insert))
+
 (provide 'my-keybindings)
