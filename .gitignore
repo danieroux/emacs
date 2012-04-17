@@ -4,3 +4,5 @@ org-clock-save.el
 archive-contents
 /private.el
 /ac-comphist.dat
+# Not happy about this
+/url/cache/*
