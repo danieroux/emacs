@@ -4,3 +4,6 @@
 [submodule "external/org-mode"]
 	path = external/org-mode
 	url = git://orgmode.org/org-mode.git
+[submodule "external/google-contacts"]
+	path = external/google-contacts
+	url = git://git.naquadah.org/google-contacts.el.git
