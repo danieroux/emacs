@@ -112,9 +112,10 @@
                                    ("c" tags "@calls-TODO=\"done\"" nil)
                                    ("w" tags "TODO=\"waiting\"" nil)
                                    ("r" tags "refile" nil)
+                                   ("p" tags "+LEVEL=1+project" nil)
                                    ("s" tags "+LEVEL=1+maybe" nil)
                                    ("E" "Todo items without context (in error)" 
-                                    (( tags "+project+TODO=\"next\"-{@.*}"))))))
+                                    ((tags "+project+TODO=\"next\"-{@.*}"))))))
 
 ;; Refile
 (setq org-completion-use-ido t)
