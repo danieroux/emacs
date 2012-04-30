@@ -36,7 +36,6 @@
 ;;{{{      Internal cooking
 
 (defvar eudc-mab-conversion-alist nil)
-(defvar eudc-buffer-time nil)
 (defvar eudc-contacts-file
   "~/Library/Application Support/AddressBook/AddressBook.data")
 
@@ -57,13 +56,10 @@ RETURN-ATTRS is a list of attributes to return, defaulting to
 	(modified (nth 5 (file-attributes eudc-contacts-file)))
 	result)
     (with-current-buffer mab-buffer
-      (make-local-variable 'eudc-buffer-time)
       (goto-char (point-min))
-      (when (or (eobp) (time-less-p eudc-buffer-time modified))
-	(erase-buffer)
-	(call-process (executable-find "contacts") nil t nil
-		      "-H" "-l" "-f" fmt-string)
-	(setq eudc-buffer-time modified))
+      (erase-buffer)
+      (call-process (executable-find "contacts") nil t nil
+		    "-H" "-l" "-f" fmt-string)
       (goto-char (point-min))
       (while (not (eobp))
 	(let* ((args (split-string (buffer-substring (point)
