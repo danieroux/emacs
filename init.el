@@ -82,6 +82,7 @@
 (require 'my-frequency)
 (require 'my-dired-open)
 (require 'my-keybindings)
+(require 'my-addressbook)
 
 ;; mu4e setup is currently specific to my Mac
 (if (equal system-type 'darwin)
