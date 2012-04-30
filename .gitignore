@@ -7,3 +7,4 @@ archive-contents
 # Not happy about this
 /url/cache/*
 /.AppleDouble
+/bookmarks
