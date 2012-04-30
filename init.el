@@ -33,7 +33,8 @@
 (add-to-list 'load-path external-dir)
 (add-to-list 'load-path my-dir)
 
-(setq exec-path (cons "/usr/local/bin" exec-path))
+(add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "~/bin")
 
 ;; Standard EMACS packages
 (require 'cl)
