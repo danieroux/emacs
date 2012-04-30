@@ -10,3 +10,6 @@
 [submodule "external/offlineimap"]
 	path = external/offlineimap
 	url = git://git.naquadah.org/offlineimap-el.git
+[submodule "external/helm"]
+	path = external/helm
+	url = https://github.com/emacs-helm/helm.git

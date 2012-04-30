@@ -83,6 +83,7 @@
 (require 'my-dired-open)
 (require 'my-keybindings)
 (require 'my-addressbook)
+(require 'my-helm)
 
 ;; mu4e setup is currently specific to my Mac
 (if (equal system-type 'darwin)
