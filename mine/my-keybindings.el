@@ -16,7 +16,7 @@
 
 (key-chord-define-global ",a" 'org-agenda)
 (key-chord-define-global ",." 'org-velocity-read)
-(key-chord-define-global "./" 'helm-mini)
+(key-chord-define-global "./" 'my-helm-invoke)
 (key-chord-define-global ",r" 'org-capture)
 (key-chord-define-global ",h" '(lambda () (interactive) (org-agenda nil "H")))
 (key-chord-define-global ",w" '(lambda () (interactive) (org-agenda nil "W")))
