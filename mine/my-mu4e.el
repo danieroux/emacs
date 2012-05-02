@@ -43,6 +43,7 @@
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-stream-type 'ssl
       smtpmail-smtp-server "smtp.gmail.com"
+      message-user-fqdn "danieroux.com"
       smtpmail-smtp-service 465)
 
 (require 'mu4e)
