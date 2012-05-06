@@ -1,7 +1,9 @@
-(add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")
+(if (equal system-type 'darwin)
+    (progn
+      (setq mu4e-mu-binary "/usr/pkg/bin/mu")
+      (add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")))
 
 (setq mu4e-maildir (expand-file-name "~/Maildir"))
-(setq mu4e-mu-binary "/usr/pkg/bin/mu")
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
 ;; Not synced with offlineimap
@@ -11,8 +13,7 @@
       ;; offlineimap.el handles the get
       mu4e-get-mail-command "mu index"
       ;; Do not wrap by default
-      mu4e-view-wrap-lines nil
-      mu4e-html2text-command "/usr/pkg/bin/html2text")
+      mu4e-view-wrap-lines nil)
 
 (setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
       smtpmail-queue-dir   "~/Maildir/queue/cur")
