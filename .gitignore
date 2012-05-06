@@ -6,5 +6,6 @@ archive-contents
 /ac-comphist.dat
 # Not happy about this
 /url/cache/*
-/.AppleDouble
+.AppleDouble
 /bookmarks
+/swank
