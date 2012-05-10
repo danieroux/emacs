@@ -92,29 +92,25 @@
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
                                      (agenda "" nil)
-                                     (tags "@calls-TODO=\"DONE\""
-                                           ((org-agenda-overriding-header "Calls")
-                                            (org-agenda-tags-todo-honor-ignore-options )
-                                            (org-agenda-todo-ignore-scheduled 'future)
-                                            (org-tags-match-list-sublevels t)))
+				     (tags "@calls-TODO=\"DONE\""
+					   ((org-agenda-overriding-header "Calls")
+					    (org-agenda-tags-todo-honor-ignore-options )
+					    (org-agenda-todo-ignore-scheduled 'future)
+					    (org-tags-match-list-sublevels t)))
                                      (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
-
                                    ("n" "Next and Started tasks" tags-todo "+project-lautus-WAITING-CANCELLED/!NEXT|STARTED"
                                     ((org-agenda-overriding-header "Next Personal Tasks")
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("N" "Next and Started tasks" tags-todo "+project+lautus-WAITING-CANCELLED/!NEXT|STARTED"
-                                    ((org-agenda-overriding-header "Next Lautus Tasks ")
-                                     (org-agenda-tags-todo-honor-ignore-options t)
-                                     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("e" tags-todo "@errands-TODO=\"DONE\"" nil)
-                                   ("c" tags "@calls-TODO=\"DONE\"" nil)
-                                   ("w" tags "TODO=\"WAITING\"" nil)
-                                   ("r" tags "refile" nil)
-                                   ("p" tags "+LEVEL=1+project" nil)
-                                   ("s" tags "+LEVEL=1+MAYBE" nil)
+                                   ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))
+                                   ("c" "Calls" tags "@calls-TODO=\"DONE\"" ((org-agenda-overriding-header "Calls")))
+                                   ("w" "Waiting" tags "TODO=\"WAITING\"" ((org-agenda-overriding-header "Waiting")))
+                                   ("r" "Refile" tags "refile" nil)
+                                   ("p" "Projects" tags "+LEVEL=1+project" nil)
+                                   ("s" "Maybe" tags "+LEVEL=1+MAYBE" nil)
                                    ("E" "Todo items without context (in error)" 
-                                    ((tags "+project+TODO=\"NEXT\"-{@.*}"))))))
+                                    ((tags "+project+TODO=\"NEXT\"-{@.*}"))
+				    ((org-agenda-overriding-header "Context free todos"))))))
 
 ;; Refile
 (setq org-completion-use-ido t)
