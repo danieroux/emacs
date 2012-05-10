@@ -31,20 +31,20 @@
 
 (setq org-hide-leading-stars t)
 ;; Todo config
-(setq org-todo-keywords (quote ((sequence "next(n)" "maybe(m)" "started(s)"  "waiting(w)" "|" "done(d)" "cancelled(z) | note(t)"))))
+(setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
 (setq org-use-fast-todo-selection t)
 
 (setq org-capture-templates (quote (("p" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org") "* %^{Project name}
-** next %^{First task}%?" :clock-in t :clock-resume t)
+** NEXT %^{First task}%?" :clock-in t :clock-resume t)
                                     ("j" "Journal" entry (file "~/Dropbox/Documents/gtd/journal.org") "* %?" :clock-in t :clock-resume t)
                                     ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
-                                    ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* next %?
+                                    ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
 	%u %a")
-                                    ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* note %?
+                                    ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
 	%u %a"))))
 
 ;; Mirror the inbox above
-(setq org-velocity-capture-templates (quote (("v" "From velocity inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* next %:search
+(setq org-velocity-capture-templates (quote (("v" "From velocity inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %:search
 	%u %a"))))
 
 (setq org-velocity-bucket "~/Dropbox/Documents/gtd/inbox.org")
@@ -52,7 +52,7 @@
 (setq org-velocity-exit-on-match nil)
 ;; Agenda
 (setq org-stuck-projects
-      '("+LEVEL=1+project/-done" ("next" "started") ()))
+      '("+LEVEL=1+project/-done" ("NEXT" "STARTED") ()))
 
 (setq org-tag-alist (quote ((:startgroup)
                             ("@errands" . ?e)
@@ -77,13 +77,12 @@
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
                                      (agenda "" nil)
-                                     (tags "@calls-TODO=\"done\""
+                                     (tags "@calls-TODO=\"DONE\""
                                            ((org-agenda-overriding-header "Calls")
                                             (org-agenda-tags-todo-honor-ignore-options )
                                             (org-agenda-todo-ignore-scheduled 'future)
                                             (org-tags-match-list-sublevels t)))
-                                     (tags-todo "@errands-TODO=\"done\"" ((org-agenda-overriding-header "Errands")))))
-
+                                     (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
                                    ("H" "@home"
                                     ((tags-todo "+project+@home"
                                                 ((org-agenda-overriding-header "Next Task")
@@ -93,29 +92,29 @@
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
                                      (agenda "" nil)
-                                     (tags "@calls-TODO=\"done\""
+                                     (tags "@calls-TODO=\"DONE\""
                                            ((org-agenda-overriding-header "Calls")
                                             (org-agenda-tags-todo-honor-ignore-options )
                                             (org-agenda-todo-ignore-scheduled 'future)
                                             (org-tags-match-list-sublevels t)))
-                                     (tags-todo "@errands-TODO=\"done\"" ((org-agenda-overriding-header "Errands")))))
+                                     (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
 
-                                   ("n" "Next and Started tasks" tags-todo "+project-lautus-waiting-cancelled/!next|started"
+                                   ("n" "Next and Started tasks" tags-todo "+project-lautus-WAITING-CANCELLED/!NEXT|STARTED"
                                     ((org-agenda-overriding-header "Next Personal Tasks")
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("N" "Next and Started tasks" tags-todo "+project+lautus-waiting-cancelled/!next|started"
+                                   ("N" "Next and Started tasks" tags-todo "+project+lautus-WAITING-CANCELLED/!NEXT|STARTED"
                                     ((org-agenda-overriding-header "Next Lautus Tasks ")
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("e" tags-todo "@errands-TODO=\"done\"" nil)
-                                   ("c" tags "@calls-TODO=\"done\"" nil)
-                                   ("w" tags "TODO=\"waiting\"" nil)
+                                   ("e" tags-todo "@errands-TODO=\"DONE\"" nil)
+                                   ("c" tags "@calls-TODO=\"DONE\"" nil)
+                                   ("w" tags "TODO=\"WAITING\"" nil)
                                    ("r" tags "refile" nil)
                                    ("p" tags "+LEVEL=1+project" nil)
-                                   ("s" tags "+LEVEL=1+maybe" nil)
+                                   ("s" tags "+LEVEL=1+MAYBE" nil)
                                    ("E" "Todo items without context (in error)" 
-                                    ((tags "+project+TODO=\"next\"-{@.*}"))))))
+                                    ((tags "+project+TODO=\"NEXT\"-{@.*}"))))))
 
 ;; Refile
 (setq org-completion-use-ido t)
@@ -138,8 +137,8 @@
 (setq org-clock-report-include-clocking-task t)
 
 (defun life/clock-in-to-started (kw)
-  (if (member (org-get-todo-state) (list "inbox" "next"))
-      "started"))
+  (if (member (org-get-todo-state) (list "INBOX" "NEXT"))
+      "STARTED"))
   
 ;; Crypt
 (require 'org-crypt)
