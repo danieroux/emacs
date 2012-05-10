@@ -14,6 +14,13 @@
 
 ;; Files
 (setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd")))
+(setq org-directory "~/Dropbox/Documents/gtd")
+
+(setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
+      org-mobile-directory "~/Dropbox/MobileOrg"
+      org-mobile-agendas (quote ("e" "c" "n" "E" "w"))
+      org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
+
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-default-notes-file "~/Dropbox/Documents/gtd/notes.org")
 
@@ -61,6 +68,7 @@
                             ("@online" . ?o)
                             (:endgroup)
                             ("crypt" . ?s)
+                            ("project" . ?p)
                             )))
 
 (setq org-agenda-tags-todo-honor-ignore-options t)
