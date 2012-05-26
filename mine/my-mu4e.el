@@ -67,10 +67,11 @@
 	     (shell-quote-argument temporary-file-directory)
 	     mu4e-mu-binary shellpath (substring partnum 0 -1)))))
 
-(require 'mu4e)
-(require 'org-mu4e)
-
-(add-to-list 'mu4e-view-actions
-	     '("View in browser" ?v mu4e-action-view-in-browser) t)
+(autoload 'mu4e "mu4e")
+(eval-after-load "mu4e"
+ '(progn
+    (require 'org-mu4e)
+    (add-to-list 'mu4e-view-actions
+		 '("View in browser" ?v mu4e-action-view-in-browser) t)))
 
 (provide 'my-mu4e)
