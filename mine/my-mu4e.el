@@ -12,6 +12,7 @@
 (setq mail-host-address "danie-notebook"
       ;; offlineimap.el handles the get
       mu4e-get-mail-command "mu index"
+      ;mu4e-split-view nil
       ;; Do not wrap by default
       mu4e-view-wrap-lines nil)
 
@@ -19,6 +20,11 @@
       smtpmail-queue-dir   "~/Maildir/queue/cur")
 
 (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
+
+(add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
+(add-to-list 'evil-emacs-state-modes 'mu4e-headers-mode)
+;(add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
+(add-hook 'mu4e-view-mode-hook 'evil-emacs-state)
 
 ;; More bookmarks (with email addresses) in private.el
 (setq mu4e-bookmarks
@@ -34,8 +40,7 @@
 ;; More shortcuts (with email addresses) in private.el
 (setq mu4e-maildir-shortcuts
       '( ("/INBOX"               . ?i)
-	 ("/me"                  . ?m)
-	 ("/others"              . ?o)
+         ("/gtd"                 . ?g)
 	 ("/accounts"            . ?a)))
 
 (require 'smtpmail)
@@ -47,7 +52,25 @@
       message-user-fqdn "danieroux.com"
       smtpmail-smtp-service 465)
 
+;; From mu4e mailing list ce50fd59-4694-40ae-98f0-fcd2b9ed2d32@dg7g2000vbb.googlegroups.com - Re: missing link in the view buffer
+(defun mu4e-action-view-in-browser (msg)
+  "Hack to view the html part for MSG in a web browser."
+  (let* ((shellpath (shell-quote-argument (mu4e-msg-field msg :path)))
+	 (partnum
+	  (shell-command-to-string
+	   (format "%s extract %s | grep 'text/html' | awk '{print $1}'"
+		   mu4e-mu-binary shellpath))))
+    (unless (> (length partnum) 0)
+      (error "No html part for this message"))
+    (call-process-shell-command
+     (format "cd %s; %s extract %s --parts=%s --overwrite --play"
+	     (shell-quote-argument temporary-file-directory)
+	     mu4e-mu-binary shellpath (substring partnum 0 -1)))))
+
 (require 'mu4e)
 (require 'org-mu4e)
+
+(add-to-list 'mu4e-view-actions
+	     '("View in browser" ?v mu4e-action-view-in-browser) t)
 
 (provide 'my-mu4e)
