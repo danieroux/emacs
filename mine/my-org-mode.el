@@ -18,7 +18,7 @@
 
 (setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
-      org-mobile-agendas (quote ("e" "c" "n" "E" "w"))
+      org-mobile-agendas (quote ("e" "c" "n" "H" "E" "w"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -65,11 +65,12 @@
                             ("@errands" . ?e)
                             ("@calls" . ?c)
                             ("@home" . ?h)
+			    ("@notebook" . ?a)
+			    ("@cellphone" . ?p)
                             ("@online" . ?o)
                             (:endgroup)
                             ("crypt" . ?s)
-                            ("project" . ?p)
-                            )))
+                            ("project" . ?P))))
 
 (setq org-agenda-tags-todo-honor-ignore-options t)
 (setq org-agenda-todo-ignore-scheduled 'future)
@@ -92,8 +93,23 @@
                                             (org-tags-match-list-sublevels t)))
                                      (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
                                    ("H" "@home"
-                                    ((tags-todo "+project+@home"
-                                                ((org-agenda-overriding-header "Next Task")
+                                    (
+				     (tags-todo "+project+@home"
+                                                ((org-agenda-overriding-header "Home")
+                                                 (org-agenda-tags-todo-honor-ignore-options t)
+                                                 (org-agenda-todo-ignore-scheduled 'future)
+                                                 (org-tags-match-list-sublevels t)
+                                                 (org-agenda-sorting-strategy
+                                                  '(todo-state-down effort-up category-keep))))
+				     (tags-todo "+project+@online"
+                                                ((org-agenda-overriding-header "Online")
+                                                 (org-agenda-tags-todo-honor-ignore-options t)
+                                                 (org-agenda-todo-ignore-scheduled 'future)
+                                                 (org-tags-match-list-sublevels t)
+                                                 (org-agenda-sorting-strategy
+                                                  '(todo-state-down effort-up category-keep))))
+				     (tags-todo "+project+@notebook"
+                                                ((org-agenda-overriding-header "Notebook")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
                                                  (org-tags-match-list-sublevels t)
@@ -111,7 +127,10 @@
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
                                    ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "@errands")))
-                                   ("c" "Calls" tags "@calls-TODO=\"DONE\"" ((org-agenda-overriding-header "@calls")))
+                                   ("c" "Calls" tags "@calls-TODO=\"DONE\""
+				    ((org-agenda-overriding-header "@calls")
+				     (org-agenda-tags-todo-honor-ignore-options )
+				     (org-agenda-todo-ignore-scheduled 'future)))
                                    ("w" "Waiting" tags "TODO=\"WAITING\"" ((org-agenda-overriding-header "@waiting")))
                                    ("r" "Refile" tags "refile" nil)
                                    ("p" "Projects" tags "+LEVEL=1+project" nil)
