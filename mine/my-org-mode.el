@@ -59,7 +59,7 @@
 (setq org-velocity-exit-on-match nil)
 ;; Agenda
 (setq org-stuck-projects
-      '("+LEVEL=1+project/-done" ("NEXT" "STARTED") ()))
+      '("+LEVEL=1+project/-DONE-CANCELLED" ("NEXT" "STARTED") ()))
 
 (setq org-tag-alist (quote ((:startgroup)
                             ("@errands" . ?e)
@@ -122,8 +122,8 @@
 					    (org-agenda-todo-ignore-scheduled 'future)
 					    (org-tags-match-list-sublevels t)))
                                      (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
-                                   ("n" "Next and Started tasks" tags-todo "+project-lautus-WAITING-CANCELLED/!NEXT|STARTED"
-                                    ((org-agenda-overriding-header "Next Personal Tasks")
+                                   ("n" "Notebook tasks" tags-todo "+project+@notebook-WAITING-CANCELLED/!NEXT|STARTED"
+                                    ((org-agenda-overriding-header "Notebook context")
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
                                    ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "@errands")))
@@ -133,7 +133,7 @@
 				     (org-agenda-todo-ignore-scheduled 'future)))
                                    ("w" "Waiting" tags "TODO=\"WAITING\"" ((org-agenda-overriding-header "@waiting")))
                                    ("r" "Refile" tags "refile" nil)
-                                   ("p" "Projects" tags "+LEVEL=1+project" nil)
+                                   ("p" "Projects" tags "+LEVEL=1+project/-CANCELLED-DONE" nil)
                                    ("s" "Maybe" tags "+LEVEL=1+MAYBE" nil)
                                    ("E" "Todo items without context (in error)" 
                                     ((tags "+project+TODO=\"NEXT\"-{@.*}"))
