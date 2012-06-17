@@ -11,7 +11,7 @@
 
 (setq mail-host-address "danie-notebook"
       ;; offlineimap.el handles the get
-      mu4e-get-mail-command "mu index"
+      mu4e-get-mail-command "true"
       ;mu4e-split-view nil
       ;; Do not wrap by default
       mu4e-view-wrap-lines nil)
