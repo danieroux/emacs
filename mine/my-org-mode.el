@@ -249,4 +249,7 @@
 
 (run-at-time "00:05" 86400 '(lambda () (org-mobile-push-with-delay 1))) ;; refreshes agenda file each day
 
+;; I prefer to keep archived entries within the original file
+(setq org-archive-default-command (quote org-archive-set-tag))
+
 (provide 'my-org-mode)
