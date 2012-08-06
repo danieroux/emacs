@@ -35,6 +35,7 @@
 
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/bin")
+(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
 
 ;; Standard EMACS packages
 (require 'cl)
