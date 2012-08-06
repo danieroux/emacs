@@ -18,7 +18,7 @@
 
 (setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
-      org-mobile-agendas (quote ("e" "c" "n" "H" "E" "w"))
+      org-mobile-agendas (quote ("e" "c" "n" "H" "E" "w" "A"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -68,6 +68,7 @@
 			    ("@notebook" . ?a)
 			    ("@cellphone" . ?p)
                             ("@online" . ?o)
+                            ("@agenda" . ?A)
                             (:endgroup)
                             ("crypt" . ?s)
                             ("project" . ?P))))
@@ -127,7 +128,8 @@
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
                                    ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "@errands")))
-                                   ("c" "Calls" tags "@calls-TODO=\"DONE\""
+                                   ("A" "Agenda items" tags-todo "@agenda-TODO=\"DONE\"" ((org-agenda-overriding-header "Stuff to talk about")))
+                                   ("c" "Calls" tags-todo "@calls-DONE-CANCELLED"
 				    ((org-agenda-overriding-header "@calls")
 				     (org-agenda-tags-todo-honor-ignore-options )
 				     (org-agenda-todo-ignore-scheduled 'future)))
