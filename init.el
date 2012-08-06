@@ -83,7 +83,6 @@
 (require 'my-dired-open)
 (require 'my-keybindings)
 (require 'my-addressbook)
-(require 'my-helm)
 (require 'my-mu4e)
 (require 'my-offlineimap)
 
