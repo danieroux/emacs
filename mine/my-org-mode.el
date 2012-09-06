@@ -18,7 +18,7 @@
 
 (setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
-      org-mobile-agendas (quote ("e" "c" "n" "H" "E" "w" "A"))
+      org-mobile-agendas (quote ("e" "c" "o" "n" "h" "A" "w" "E"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -110,7 +110,7 @@
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
 				     (tags-todo "+project+@notebook"
-                                                ((org-agenda-overriding-header "Notebook")
+                                                ((org-agenda-overriding-header "@notebook")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
                                                  (org-tags-match-list-sublevels t)
@@ -124,14 +124,19 @@
 					    (org-tags-match-list-sublevels t)))
                                      (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
                                    ("n" "Notebook tasks" tags-todo "+project+@notebook-WAITING-CANCELLED/!NEXT|STARTED"
-                                    ((org-agenda-overriding-header "Notebook context")
+                                    ((org-agenda-overriding-header "@notebook")
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
                                    ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "@errands")))
-                                   ("A" "Agenda items" tags-todo "@agenda-TODO=\"DONE\"" ((org-agenda-overriding-header "Stuff to talk about")))
+                                   ("o" "Online" tags-todo "@online-TODO=\"DONE\"" ((org-agenda-overriding-header "@online")))
+                                   ("A" "Agenda items" tags-todo "@agenda-TODO=\"DONE\"" ((org-agenda-overriding-header "@agenda")))
+                                   ("h" "@home" tags-todo "+project+@home"
+				    ((org-agenda-overriding-header "@home")
+				     (org-agenda-tags-todo-honor-ignore-options 't)
+				     (org-agenda-todo-ignore-scheduled 'future)))
                                    ("c" "Calls" tags-todo "@calls-DONE-CANCELLED"
 				    ((org-agenda-overriding-header "@calls")
-				     (org-agenda-tags-todo-honor-ignore-options )
+				     (org-agenda-tags-todo-honor-ignore-options 't)
 				     (org-agenda-todo-ignore-scheduled 'future)))
                                    ("w" "Waiting" tags "TODO=\"WAITING\"" ((org-agenda-overriding-header "@waiting")))
                                    ("r" "Refile" tags "refile" nil)
@@ -139,7 +144,7 @@
                                    ("s" "Maybe" tags "+LEVEL=1+MAYBE" nil)
                                    ("E" "Todo items without context (in error)" 
                                     ((tags "+project+TODO=\"NEXT\"-{@.*}"))
-				    ((org-agenda-overriding-header "Context free todos"))))))
+				    ((org-agenda-overriding-header "context free"))))))
 
 ;; Refile
 (setq org-completion-use-ido t)
@@ -170,7 +175,7 @@
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 (setq org-crypt-key "978D4E9F")
-(setq org-crypt-disable-auto-save 'ask)
+(setq org-crypt-disable-auto-save t)
 
 (setq org-agenda-include-diary t)
 ;; Keep tasks with dates on the global todo lists
