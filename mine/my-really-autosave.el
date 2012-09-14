@@ -1,3 +1,5 @@
+(defvar my-org-really-auto-save t)
+
 (defun really-auto-save-some-modes (&optional args)
   (interactive)
   (dolist (buffer (buffer-list))
@@ -5,7 +7,8 @@
       (when (and
              (buffer-file-name)
              (buffer-modified-p)
-             (eq major-mode 'org-mode))
+             (eq major-mode 'org-mode)
+	     (eq my-org-really-auto-save t))
         (message (concat "Really auto-saving " buffer-file-name))
         (save-buffer args)))))
 
