@@ -81,18 +81,18 @@
                                    ("W" "@work"
                                     ((tags-todo "+project+lautus"
                                                 ((org-agenda-overriding-header "Next Task")
-                                                 (org-agenda-tags-todo-honor-ignore-options )
+                                                 (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
                                                  (org-tags-match-list-sublevels t)
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
-                                     (agenda "" nil)
-                                     (tags "@calls-TODO=\"DONE\""
+                                     (tags-todo "@calls-TODO-CANCELLED"
                                            ((org-agenda-overriding-header "Calls")
-                                            (org-agenda-tags-todo-honor-ignore-options )
+                                            (org-agenda-tags-todo-honor-ignore-options t)
                                             (org-agenda-todo-ignore-scheduled 'future)
                                             (org-tags-match-list-sublevels t)))
-                                     (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
+                                     (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))
+                                     (agenda "" nil)))
                                    ("H" "@home"
                                     (
 				     (tags-todo "+project+@home"
@@ -116,13 +116,12 @@
                                                  (org-tags-match-list-sublevels t)
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
-                                     (agenda "" nil)
-				     (tags "@calls-TODO=\"DONE\""
+				     (tags-todo "@calls-TODO-CANCELLED"
 					   ((org-agenda-overriding-header "Calls")
-					    (org-agenda-tags-todo-honor-ignore-options )
+					    (org-agenda-tags-todo-honor-ignore-options t)
 					    (org-agenda-todo-ignore-scheduled 'future)
 					    (org-tags-match-list-sublevels t)))
-                                     (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))))
+				     (agenda "" nil)))
                                    ("n" "Notebook tasks" tags-todo "+project+@notebook-WAITING-CANCELLED/!NEXT|STARTED"
                                     ((org-agenda-overriding-header "@notebook")
                                      (org-agenda-tags-todo-honor-ignore-options t)
