@@ -18,7 +18,7 @@
 
 (setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
-      org-mobile-agendas (quote ("e" "c" "o" "n" "h" "A" "w" "E"))
+      org-mobile-agendas (quote ("e" "c" "b" "o" "n" "h" "A" "w" "E"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -63,6 +63,7 @@
 
 (setq org-tag-alist (quote ((:startgroup)
                             ("@errands" . ?e)
+                            ("@banking" . ?b)
                             ("@calls" . ?c)
                             ("@home" . ?h)
 			    ("@notebook" . ?a)
@@ -131,6 +132,10 @@
                                    ("A" "Agenda items" tags-todo "@agenda-TODO=\"DONE\"" ((org-agenda-overriding-header "@agenda")))
                                    ("h" "@home" tags-todo "+project+@home"
 				    ((org-agenda-overriding-header "@home")
+				     (org-agenda-tags-todo-honor-ignore-options 't)
+				     (org-agenda-todo-ignore-scheduled 'future)))
+                                   ("b" "Banking" tags-todo "@banking-DONE-CANCELLED"
+				    ((org-agenda-overriding-header "@banking")
 				     (org-agenda-tags-todo-honor-ignore-options 't)
 				     (org-agenda-todo-ignore-scheduled 'future)))
                                    ("c" "Calls" tags-todo "@calls-DONE-CANCELLED"
