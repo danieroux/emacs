@@ -3,6 +3,8 @@
       (setq mu4e-mu-binary "/usr/pkg/bin/mu")
       (add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")))
 
+(require 'org-mu4e)
+
 (setq mu4e-maildir (expand-file-name "~/Maildir"))
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
@@ -52,26 +54,19 @@
       message-user-fqdn "danieroux.com"
       smtpmail-smtp-service 465)
 
-;; From mu4e mailing list ce50fd59-4694-40ae-98f0-fcd2b9ed2d32@dg7g2000vbb.googlegroups.com - Re: missing link in the view buffer
-(defun mu4e-action-view-in-browser (msg)
-  "Hack to view the html part for MSG in a web browser."
-  (let* ((shellpath (shell-quote-argument (mu4e-msg-field msg :path)))
-	 (partnum
-	  (shell-command-to-string
-	   (format "%s extract %s | grep 'text/html' | awk '{print $1}'"
-		   mu4e-mu-binary shellpath))))
-    (unless (> (length partnum) 0)
-      (error "No html part for this message"))
-    (call-process-shell-command
-     (format "cd %s; %s extract %s --parts=%s --overwrite --play"
-	     (shell-quote-argument temporary-file-directory)
-	     mu4e-mu-binary shellpath (substring partnum 0 -1)))))
-
 (autoload 'mu4e "mu4e")
+
 (eval-after-load "mu4e"
  '(progn
-    (require 'org-mu4e)
-    (add-to-list 'mu4e-view-actions
-		 '("View in browser" ?v mu4e-action-view-in-browser) t)))
+    (defun my-mu4e-file-email-in-gtd ()
+      (interactive)
+      ;; (mu4e-view-mark-for-delete) - screws up the flow
+      (make-capture-frame))
 
+    (defun my-mu4e-gtd-inbox ()
+      (interactive)
+      (mu4e~proc-index mu4e-maildir)
+      (sleep-for 5)
+      (mu4e-headers-search "maildir:/gtd"))))
+   
 (provide 'my-mu4e)
