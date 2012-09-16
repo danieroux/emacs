@@ -16,7 +16,8 @@
 
 (key-chord-define-global ",a" 'org-agenda)
 (key-chord-define-global "./" 'org-velocity-read)
-(key-chord-define-global ",r" 'org-capture)
+(key-chord-define-global ",r" 'make-capture-frame)
+(key-chord-define-global ",i" 'my-mu4e-gtd-inbox)
 (key-chord-define-global ",h" '(lambda () (interactive) (org-agenda nil "H")))
 (key-chord-define-global ",w" '(lambda () (interactive) (org-agenda nil "W")))
 (key-chord-define-global ",c" 'compile)
@@ -36,5 +37,9 @@
 		      (evil-declare-key state dired-mode-map
 					(kbd "E") 'open-in-external-app))
 		    '(normal insert))))
+
+(add-hook 'mu4e-view-mode-hook
+	  (lambda ()
+	    (define-key mu4e-view-mode-map "f" 'my-mu4e-file-email-in-gtd)))
 
 (provide 'my-keybindings)
