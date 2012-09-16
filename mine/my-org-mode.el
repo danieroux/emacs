@@ -256,4 +256,35 @@
 ;; I prefer to keep archived entries within the original file
 (setq org-archive-default-command (quote org-archive-set-tag))
 
+;; Pretty capturing
+;; TODO Find source of most of this code
+
+(defadvice org-capture-finalize
+  (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame"
+  (if (equal "single-frame-capture" (frame-parameter nil 'name))
+      (delete-frame)))
+   
+(defadvice org-capture-destroy
+  (after delete-capture-frame activate)
+  "Advise capture-destroy to close the frame"
+  (if (equal "single-frame-capture" (frame-parameter nil 'name))
+      (delete-frame)))
+
+;; make the frame contain a single window. by default org-capture
+;; splits the window.
+(add-hook 'org-capture-mode-hook
+	  'delete-other-windows)
+
+(defun make-capture-frame ()
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "single-frame-capture")
+		(width . 120)
+		(height . 15)))
+  (select-frame-by-name "single-frame-capture")
+  (setq word-wrap 1)
+  (setq truncate-lines nil)
+  (org-capture nil "i"))
+
 (provide 'my-org-mode)
