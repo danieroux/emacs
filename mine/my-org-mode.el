@@ -87,12 +87,12 @@
                                                  (org-tags-match-list-sublevels t)
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
-                                     (tags-todo "@calls-TODO-CANCELLED"
+                                     (tags-todo "@calls/!-WAITING"
                                            ((org-agenda-overriding-header "Calls")
                                             (org-agenda-tags-todo-honor-ignore-options t)
                                             (org-agenda-todo-ignore-scheduled 'future)
                                             (org-tags-match-list-sublevels t)))
-                                     (tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "Errands")))
+                                     (tags-todo "@errands/!-DONE" ((org-agenda-overriding-header "Errands")))
                                      (agenda "" nil)))
                                    ("H" "@home"
                                     (
@@ -103,7 +103,7 @@
                                                  (org-tags-match-list-sublevels t)
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
-				     (tags-todo "+project+@online"
+				     (tags-todo "+project+@online/!-WAITING"
                                                 ((org-agenda-overriding-header "Online")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
@@ -117,7 +117,7 @@
                                                  (org-tags-match-list-sublevels t)
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
-				     (tags-todo "@calls-TODO-CANCELLED"
+				     (tags-todo "@calls/!-CANCELLED-WAITING"
 					   ((org-agenda-overriding-header "Calls")
 					    (org-agenda-tags-todo-honor-ignore-options t)
 					    (org-agenda-todo-ignore-scheduled 'future)
@@ -128,7 +128,7 @@
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
                                    ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "@errands")))
-                                   ("o" "Online" tags-todo "@online-TODO=\"DONE\"" ((org-agenda-overriding-header "@online")))
+                                   ("o" "Online" tags-todo "@online-DONE-CANCELLED-MAYBE" ((org-agenda-overriding-header "@online")))
                                    ("A" "Agenda items" tags-todo "@agenda-TODO=\"DONE\"" ((org-agenda-overriding-header "@agenda")))
                                    ("h" "@home" tags-todo "+project+@home"
 				    ((org-agenda-overriding-header "@home")
@@ -138,7 +138,7 @@
 				    ((org-agenda-overriding-header "@banking")
 				     (org-agenda-tags-todo-honor-ignore-options 't)
 				     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("c" "Calls" tags-todo "@calls-DONE-CANCELLED"
+                                   ("c" "Calls" tags-todo "@calls-DONE-CANCELLED-WAITING"
 				    ((org-agenda-overriding-header "@calls")
 				     (org-agenda-tags-todo-honor-ignore-options 't)
 				     (org-agenda-todo-ignore-scheduled 'future)))
