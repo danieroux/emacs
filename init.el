@@ -101,6 +101,14 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode 1)
 
+(set-language-environment 'utf-8)
+(prefer-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-input-method nil)
+
 (setq visible-bell t
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
