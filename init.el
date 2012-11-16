@@ -121,3 +121,6 @@
       minibuffer-depth-indicate-mode t
       redisplay-dont-pause t ;; http://www.masteringemacs.org/articles/2011/10/02/improving-performance-emacs-display-engine
       xterm-mouse-mode t)
+
+(setq custom-file (concat dotfiles-dir "custom.el"))
+(load custom-file 'noerror)
