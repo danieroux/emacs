@@ -13,12 +13,12 @@
 (setq org-modules (quote (org-habit)))
 
 ;; Files
-(setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd")))
+(setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd" "~/Dropbox/Documents/gtd/work")))
 (setq org-directory "~/Dropbox/Documents/gtd")
 
 (setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
-      org-mobile-agendas (quote ("e" "c" "b" "o" "n" "h" "A" "w" "E"))
+      org-mobile-agendas (quote ("P" "e" "c" "b" "o" "n" "h" "A" "w" "E"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -67,7 +67,7 @@
                             ("@calls" . ?c)
                             ("@home" . ?h)
 			    ("@notebook" . ?a)
-			    ("@cellphone" . ?p)
+			    ("@cellphone" . ?P)
                             ("@online" . ?o)
                             ("@agenda" . ?A)
                             (:endgroup)
@@ -128,17 +128,21 @@
                                      (org-agenda-tags-todo-honor-ignore-options t)
                                      (org-agenda-todo-ignore-scheduled 'future)))
                                    ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "@errands")))
-                                   ("o" "Online" tags-todo "@online-DONE-CANCELLED-MAYBE" ((org-agenda-overriding-header "@online")))
+                                   ("o" "Online" tags-todo "@online-MAYBE/!-CANCELLED-WAITING" ((org-agenda-overriding-header "@online")))
                                    ("A" "Agenda items" tags-todo "@agenda-TODO=\"DONE\"" ((org-agenda-overriding-header "@agenda")))
                                    ("h" "@home" tags-todo "+project+@home"
 				    ((org-agenda-overriding-header "@home")
+				     (org-agenda-tags-todo-honor-ignore-options 't)
+				     (org-agenda-todo-ignore-scheduled 'future)))
+                                   ("P" "Phone" tags-todo "@cellphone-DONE-CANCELLED"
+				    ((org-agenda-overriding-header "@cellphone")
 				     (org-agenda-tags-todo-honor-ignore-options 't)
 				     (org-agenda-todo-ignore-scheduled 'future)))
                                    ("b" "Banking" tags-todo "@banking-DONE-CANCELLED"
 				    ((org-agenda-overriding-header "@banking")
 				     (org-agenda-tags-todo-honor-ignore-options 't)
 				     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("c" "Calls" tags-todo "@calls-DONE-CANCELLED-WAITING"
+                                   ("c" "Calls" tags-todo "@calls/!-DONE-CANCELLED-WAITING"
 				    ((org-agenda-overriding-header "@calls")
 				     (org-agenda-tags-todo-honor-ignore-options 't)
 				     (org-agenda-todo-ignore-scheduled 'future)))
@@ -212,8 +216,7 @@
 
 (setq org-src-fontify-natively t)
 
-; 
-; (setq org-ditaa-jar-path "~/java/ditaa0_6b.jar")
+(setq org-ditaa-jar-path "~/Dropbox/java/ditaa0_90.jar")
 (setq org-plantuml-jar-path "~/Dropbox/java/plantuml.jar")
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
@@ -247,7 +250,7 @@
     (cancel-timer org-mobile-push-timer))
   (setq org-mobile-push-timer
         (run-with-idle-timer
-         (* 1 secs) nil 'org-mobile-push)))
+         (* 60 secs) nil 'org-mobile-push)))
 
 (add-hook 'after-save-hook
  (lambda ()
