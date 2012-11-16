@@ -5,7 +5,7 @@
 
 (global-set-key (kbd "M-o") 'ido-find-file)
 (global-set-key (kbd "M-O") 'recentf-ido-find-file)
-(global-set-key (kbd "M-b") 'ido-switch-buffer)
+(global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key (kbd "C-M-r") 'org-capture)
@@ -41,5 +41,8 @@
 (add-hook 'mu4e-view-mode-hook
 	  (lambda ()
 	    (define-key mu4e-view-mode-map "f" 'my-mu4e-file-email-in-gtd)))
+
+(add-hook 'org-mode-hook (lambda ()
+	    (evil-declare-key 'normal org-mode-map (kbd "\C-i") 'org-cycle)))
 
 (provide 'my-keybindings)
