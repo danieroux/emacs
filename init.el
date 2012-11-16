@@ -35,7 +35,10 @@
 
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/bin")
+(add-to-list 'exec-path "/usr/pkg/bin")
+
 (setenv "PATH" (concat (getenv "PATH") ":~/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/pkg/bin"))
 
 ;; Standard EMACS packages
 (require 'cl)
