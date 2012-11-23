@@ -12,7 +12,8 @@
 
 (setq mail-host-address "danie-notebook"
       ;; offlineimap handles the get
-      mu4e-get-mail-command "true"
+      ;; mu4e-get-mail-command "true"
+      mu4e-get-mail-command "/usr/pkg/bin/offlineimap -o"
       mu4e-view-wrap-lines t)
 
 (setq smtpmail-queue-mail  nil  ;; start in non-queuing mode

@@ -42,6 +42,10 @@
 	  (lambda ()
 	    (define-key mu4e-view-mode-map "f" 'my-mu4e-file-email-in-gtd)))
 
+(add-hook 'mu4e-main-mode-hook
+	  (lambda ()
+	    (define-key mu4e-main-mode-map "g" 'mu4e-update-mail-show-window)))
+
 (add-hook 'org-mode-hook (lambda ()
 	    (evil-declare-key 'normal org-mode-map (kbd "\C-i") 'org-cycle)))
 
