@@ -114,6 +114,8 @@
 (set-selection-coding-system 'utf-8)
 (set-input-method nil)
 
+(blink-cursor-mode (- (*) (*) (*)))
+
 (setq visible-bell t
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
