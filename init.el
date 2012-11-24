@@ -91,6 +91,7 @@
 (require 'my-mu4e)
 (require 'my-offlineimap)
 (require 'my-twitter)
+(require 'my-clojure)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
