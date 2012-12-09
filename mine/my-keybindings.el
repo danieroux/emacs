@@ -18,8 +18,11 @@
 (key-chord-define-global "./" 'org-velocity-read)
 (key-chord-define-global ",r" 'make-capture-frame)
 (key-chord-define-global ",i" 'my-mu4e-gtd-inbox)
+
 (key-chord-define-global ",h" '(lambda () (interactive) (org-agenda nil "H")))
 (key-chord-define-global ",w" '(lambda () (interactive) (org-agenda nil "W")))
+(key-chord-define-global ",n" '(lambda () (interactive) (org-agenda nil "n")))
+
 (key-chord-define-global ",c" 'compile)
 
 (add-hook 'dired-mode-hook

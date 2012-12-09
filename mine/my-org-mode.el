@@ -151,7 +151,7 @@
 				     (org-agenda-todo-ignore-scheduled 'future)))
                                    ("w" "Waiting" tags "TODO=\"WAITING\"" ((org-agenda-overriding-header "@waiting")))
                                    ("r" "Refile" tags "refile" nil)
-                                   ("p" "Projects" tags "+LEVEL=1+project/-CANCELLED-DONE" nil)
+                                   ("p" "Projects" tags "+LEVEL=1+project-persistent-MAYBE/-CANCELLED-DONE" nil)
                                    ("s" "Maybe" tags "+LEVEL=1+MAYBE" nil)
                                    ("E" "Todo items without context (in error)" 
                                     ((tags "+project+TODO=\"NEXT\"-{@.*}"))

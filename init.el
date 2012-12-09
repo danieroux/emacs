@@ -28,17 +28,20 @@
 
 ;; Extensions that have been downloaded manually (not through ELPA)
 (setq external-dir (concat dotfiles-dir "external"))
+
 ;; My own files
 (setq my-dir (concat dotfiles-dir "mine"))
 (add-to-list 'load-path external-dir)
 (add-to-list 'load-path my-dir)
 
 (add-to-list 'exec-path "/usr/local/bin")
+(add-to-list 'exec-path "/opt/local/bin")
 (add-to-list 'exec-path "~/bin")
 (add-to-list 'exec-path "/usr/pkg/bin")
 
 (setenv "PATH" (concat (getenv "PATH") ":~/bin"))
 (setenv "PATH" (concat (getenv "PATH") ":/usr/pkg/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":/opt/local/bin"))
 
 ;; Standard EMACS packages
 (require 'cl)
@@ -91,7 +94,9 @@
 (require 'my-mu4e)
 (require 'my-offlineimap)
 (require 'my-twitter)
+(require 'my-paredit)
 (require 'my-clojure)
+(require 'my-ledger)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
@@ -100,9 +105,6 @@
 (turn-off-auto-fill)
 (windmove-default-keybindings 'meta)
 
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
 (ansi-color-for-comint-mode-on)
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode 1)
@@ -114,6 +116,8 @@
 (setq locale-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (set-input-method nil)
+
+(icomplete-mode 1) 
 
 (blink-cursor-mode (- (*) (*) (*)))
 
