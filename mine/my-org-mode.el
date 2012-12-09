@@ -9,6 +9,9 @@
 (require 'org-collector)
 (require 'org-checklist)
 (require 'org-velocity)
+(require 'org-mobile)
+
+(require 'my-org-timeout)
 
 (setq org-modules (quote (org-habit)))
 
@@ -294,5 +297,7 @@
   (setq word-wrap 1)
   (setq truncate-lines nil)
   (org-capture nil "i"))
+
+(my-auto-clocking-out)
 
 (provide 'my-org-mode)
