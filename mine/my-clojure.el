@@ -1,12 +1,3 @@
-(when (not (package-installed-p 'nrepl))
-  (package-install 'nrepl))
-
-(when (not (package-installed-p 'clojure-mode))
-  (package-install 'clojure-mode))
-
-(when (not (package-installed-p 'ac-nrepl))
-  (package-install 'ac-nrepl))
-
 (add-hook 'nrepl-interaction-mode-hook
   'nrepl-turn-on-eldoc-mode)
 
@@ -14,7 +5,16 @@
 
 (add-to-list 'same-window-buffer-names "*nrepl*")
 
-(add-hook 'nrepl-interaction-mode 'paredit-mode)
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(defvar my-packages '(clojure-mode
+                      nrepl
+                      nrepl-ritz))
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
 
 (require 'ac-nrepl)
 
