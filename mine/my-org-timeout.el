@@ -13,8 +13,8 @@
   (let* ((overtime-difference
 	  (- the-current-time expected-timeout))
 	 (overtime-difference-time (seconds-to-time overtime-difference))
-	 (overtime-string (format-time-string "%H:%M:%S" overtime-difference-time t))
-	 (clockout-string (format-time-string "%d-%m-%y %H:%M:%S" (seconds-to-time expected-timeout) t)))
+	 (clockout-string (format-time-string "%d-%m-%y %H:%M:%S" (seconds-to-time expected-timeout)))
+	 (overtime-string (format-time-string "%H:%M:%S" overtime-difference-time t)))
     (message "Host OS was suspended, clocked out org-mode at %s, %s ago." clockout-string overtime-string)
     (sit-for 3)))
 
