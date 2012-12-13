@@ -11,7 +11,7 @@
 (require 'org-velocity)
 (require 'org-mobile)
 
-(require 'my-org-timeout)
+(require 'djr-org-timeout)
 
 (setq org-modules (quote (org-habit)))
 
@@ -299,6 +299,6 @@
   (setq truncate-lines nil)
   (org-capture nil "i"))
 
-(my-auto-clocking-out)
+(djr/auto-clocking-out)
 
 (provide 'my-org-mode)
