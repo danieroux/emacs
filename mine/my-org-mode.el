@@ -49,9 +49,9 @@
                                     ("j" "Journal" entry (file "~/Dropbox/Documents/gtd/journal.org") "* %?" :clock-in t :clock-resume t)
                                     ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
                                     ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
-	%u %a")
+	%u %a" :clock-in t :clock-resume t)
                                     ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
-	%u %a"))))
+	%u %a" :clock-in t :clock-resume t))))
 
 ;; Mirror the inbox above
 (setq org-velocity-capture-templates (quote (("v" "From velocity inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %:search
@@ -70,7 +70,7 @@
                             ("@calls" . ?c)
                             ("@home" . ?h)
 			    ("@notebook" . ?a)
-			    ("@cellphone" . ?P)
+			    ("@cellphone" . ?m)
                             ("@online" . ?o)
                             ("@agenda" . ?A)
                             (:endgroup)
@@ -166,22 +166,11 @@
 (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
 ;; Clocking
-(org-clock-persistence-insinuate)
-(setq org-clock-history-length 28)
-(setq org-clock-in-resume t)
-(setq org-clock-in-switch-to-state (quote life/clock-in-to-started))
-(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-(setq org-clock-into-drawer t)
-(setq org-clock-out-remove-zero-time-clocks t)
-(setq org-clock-out-when-done t)
-(setq org-clock-persist (quote history))
-(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-(setq org-clock-report-include-clocking-task t)
+(require 'bh-org-mode)  
 
-(defun life/clock-in-to-started (kw)
-  (if (member (org-get-todo-state) (list "INBOX" "NEXT"))
-      "STARTED"))
-  
+(setq org-agenda-clockreport-parameter-plist
+      (quote (:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)))
+
 ;; Crypt
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
@@ -300,5 +289,22 @@
   (org-capture nil "i"))
 
 (djr/auto-clocking-out)
+
+;; Dim blocked tasks
+(setq org-agenda-dim-blocked-tasks 'invisible)
+
+;; Compact the block agenda view
+(setq org-agenda-compact-blocks t)
+
+(setq org-enforce-todo-checkbox-dependencies t)
+(setq org-enforce-todo-dependencies t)
+
+
+(setq org-use-speed-commands t
+      org-speed-commands-user (quote (("0" . ignore)
+				     ("w" . org-refile)
+				     )))
+
+(setq org-agenda-persistent-filter t)
 
 (provide 'my-org-mode)
