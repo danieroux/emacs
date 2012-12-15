@@ -12,6 +12,7 @@
 (require 'org-mobile)
 
 (require 'djr-org-timeout)
+(require 'djr-org-drill)
 
 (setq org-modules (quote (org-habit)))
 
@@ -75,6 +76,7 @@
                             ("@agenda" . ?A)
                             (:endgroup)
                             ("crypt" . ?s)
+                            ("drill" . ?D)
                             ("project" . ?P))))
 
 (setq org-agenda-tags-todo-honor-ignore-options t)
