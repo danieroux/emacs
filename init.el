@@ -97,6 +97,7 @@
 (require 'my-paredit)
 (require 'my-clojure)
 (require 'my-ledger)
+(require 'djr-erc)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
@@ -136,3 +137,21 @@
 
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (load custom-file 'noerror)
+
+(defun djr/kitchen-sink ()
+  "Open my Emacs kitchen sink"
+  (interactive)
+
+  (select-frame (make-frame))
+  (org-agenda nil "H")
+  (delete-other-windows)
+
+  (select-frame (make-frame))
+  (twit)
+
+  (select-frame (make-frame))
+  (mu4e)
+
+  ;(select-frame (make-frame))
+  ;(djr/irc)
+)
