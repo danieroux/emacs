@@ -98,6 +98,8 @@
 (require 'my-clojure)
 (require 'my-ledger)
 (require 'djr-erc)
+(require 'djr-blog)
+(require 'djr-elim)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
@@ -146,8 +148,8 @@
   (org-agenda nil "H")
   (delete-other-windows)
 
-  (select-frame (make-frame))
-  (twit)
+  ;(select-frame (make-frame))
+  ;(twit)
 
   (select-frame (make-frame))
   (mu4e)

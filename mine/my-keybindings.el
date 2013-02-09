@@ -4,15 +4,23 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 (global-set-key (kbd "M-o") 'ido-find-file)
-(global-set-key (kbd "M-O") 'recentf-ido-find-file)
+;(global-set-key (kbd "M-O") 'recentf-ido-find-file)
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key (kbd "C-M-r") 'org-capture)
-(global-set-key (kbd "<f9>c") 'getcals)
+
+(global-set-key (kbd "S-<f1>") '(lambda () (interactive) (org-agenda nil "H")))
+(global-set-key (kbd "<f1>") 'org-agenda)
+(global-set-key (kbd "<f2> c") 'getcals)
+(global-set-key (kbd "<f2> j") 'org-clock-goto)
+(global-set-key (kbd "<f2> I") 'bh/punch-in)
+(global-set-key (kbd "<f2> O") 'bh/punch-out)
+(global-set-key (kbd "<f3>") 'tracking-next-buffer)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
 
 (key-chord-define-global ",a" 'org-agenda)
 (key-chord-define-global "./" 'org-velocity-read)
