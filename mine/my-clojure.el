@@ -9,6 +9,7 @@
   (package-refresh-contents))
 
 (defvar my-packages '(clojure-mode
+                      ac-nrepl
                       nrepl
                       nrepl-ritz))
 
