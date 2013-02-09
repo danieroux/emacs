@@ -26,6 +26,10 @@
     (if (> (float-time)
 	   djr/auto-clocking-out-overtime)
 	(progn
+	  (setq bh/keep-clock-running nil)
+	  ; Child clock
+	  (org-clock-out t (seconds-to-time djr/auto-clocking-out-expected-timeout))
+	  ; Possible parent clock
 	  (org-clock-out t (seconds-to-time djr/auto-clocking-out-expected-timeout))
 	  (djr/auto-clock-message (float-time) djr/auto-clocking-out-expected-timeout)))))
 

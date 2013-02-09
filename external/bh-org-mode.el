@@ -1,6 +1,6 @@
 ; From version 2012.11-12-ga784 of http://doc.norang.ca/org-mode.html
 
-(defvar bh/organization-task-id "eb155a82-92b2-4f25-a3c6-0304591af2f9")
+(defvar bh/organization-task-id "FF5747E1-02B0-46D0-8CD7-0537D8DE16D4")
 
 (defun bh/is-project-p ()
   "Any task with a todo keyword subtask"
@@ -107,7 +107,8 @@ as the default task."
     (save-restriction
       (widen)
       ; Find the tags on the current task
-      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
+      (if (and (equal major-mode 'org-mode)
+	       (not (org-before-first-heading-p)))
           (org-clock-in '(16))
         (bh/clock-in-organization-task-as-default)))))
 
