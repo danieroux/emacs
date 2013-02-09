@@ -13,8 +13,7 @@
                       nrepl-ritz))
 
 (dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+  (djr/ensure-package p))
 
 (require 'ac-nrepl)
 
