@@ -13,9 +13,6 @@
 [submodule "external/twittering-mode"]
 	path = external/twittering-mode
 	url = https://github.com/hayamiz/twittering-mode.git
-[submodule "external/elim"]
-	path = external/elim
-	url = git://git.sv.gnu.org/elim.git
 [submodule "external/emacs-jabber-git"]
 	path = external/emacs-jabber-git
 	url = git://emacs-jabber.git.sourceforge.net/gitroot/emacs-jabber/emacs-jabber
