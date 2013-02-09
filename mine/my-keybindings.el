@@ -16,7 +16,7 @@
 (global-set-key (kbd "<f2> j") 'org-clock-goto)
 (global-set-key (kbd "<f2> I") 'bh/punch-in)
 (global-set-key (kbd "<f2> O") 'bh/punch-out)
-(global-set-key (kbd "<f3>") 'tracking-next-buffer)
+(global-set-key (kbd "<f3>") 'jabber-activity-switch-to)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
