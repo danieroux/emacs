@@ -11,3 +11,5 @@ archive-contents
 /swank
 /url/cookies
 /.org-id-locations
+elim
+elpa
