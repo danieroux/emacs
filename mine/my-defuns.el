@@ -40,4 +40,8 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+(defun djr/bootstrap ()
+  (interactive)
+  (package-refresh-contents))
+
 (provide 'my-defuns)
