@@ -301,7 +301,6 @@
 (setq org-enforce-todo-checkbox-dependencies t)
 (setq org-enforce-todo-dependencies t)
 
-
 (setq org-use-speed-commands t
       org-speed-commands-user (quote (("0" . ignore)
 				     ("w" . org-refile)
@@ -309,4 +308,13 @@
 
 (setq org-agenda-persistent-filter t)
 
+(setq org-agenda-clock-consistency-checks
+      (quote (:max-duration "4:00"
+              :min-duration 0
+              :max-gap 0
+              :gap-ok-around ("4:00"))))
+
+(setq org-agenda-clockreport-parameter-plist
+      (quote (:link nil :maxlevel 10 :fileskip0 t :compact t :narrow 150)))
+  
 (provide 'my-org-mode)
