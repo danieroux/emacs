@@ -76,7 +76,9 @@
 (smex-initialize)
 
 ;; My packages
+(add-to-list 'load-suffixes ".el.gpg")
 (require 'private)
+
 (require 'my-defuns)
 (require 'my-vim)
 (require 'my-org-mode)
