@@ -5,4 +5,6 @@
 ; (twittering-icon-mode)
 (setq twittering-use-master-password t)
 
+(setq twittering-private-info-file (expand-file-name "~/.emacs.d/twittering-mode.gpg"))
+
 (provide 'my-twitter)
