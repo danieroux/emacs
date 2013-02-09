@@ -16,16 +16,6 @@
 (setq dotfiles-dir (file-name-directory load-file-name))
 (add-to-list 'load-path dotfiles-dir)
 
-;; Initialise ELPA with all three sources I know of
-(require 'package)
-(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-                  ("elpa" . "http://tromey.com/elpa/")
-                  ("gnu" . "http://elpa.gnu.org/packages/")))
-  (add-to-list 'package-archives source t))
-(package-initialize)
-
-(load-theme 'zenburn t)
-
 ;; Extensions that have been downloaded manually (not through ELPA)
 (setq external-dir (concat dotfiles-dir "external"))
 
@@ -65,6 +55,12 @@
 (require 'saveplace)
 (setq-default save-place t)
 
+(require 'my-defuns)
+
+(djr/initialise-package)
+
+(load-theme 'zenburn t)
+
 ;; External packages
 (require 'key-chord)
 (key-chord-mode 1)
@@ -79,7 +75,6 @@
 (add-to-list 'load-suffixes ".el.gpg")
 (require 'private)
 
-(require 'my-defuns)
 (require 'my-vim)
 (require 'my-org-mode)
 (require 'my-haskell)

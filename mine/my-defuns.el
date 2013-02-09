@@ -36,12 +36,23 @@
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
 
+(defun djr/initialise-package ()
+  (interactive)
+  (require 'package)
+  ;; Initialise ELPA with all three sources I know of
+  (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
+		    ("elpa" . "http://tromey.com/elpa/")
+		    ("gnu" . "http://elpa.gnu.org/packages/")))
+    (add-to-list 'package-archives source t))
+  (package-initialize))
+
 (defun djr/ensure-package (p)
   (when (not (package-installed-p p))
     (package-install p)))
 
 (defun djr/bootstrap ()
   (interactive)
+  (djr/initialise-package)
   (package-refresh-contents))
 
 (provide 'my-defuns)
