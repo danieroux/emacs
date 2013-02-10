@@ -53,6 +53,7 @@
 (defun djr/bootstrap ()
   (interactive)
   (djr/initialise-package)
-  (package-refresh-contents))
+  (package-refresh-contents)
+  (save-buffers-kill-terminal))
 
 (provide 'my-defuns)

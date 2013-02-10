@@ -55,7 +55,7 @@
 (require 'saveplace)
 (setq-default save-place t)
 
-(require 'my-defuns)
+(require 'djr-defuns)
 
 (djr/initialise-package)
 
