@@ -56,4 +56,4 @@
   (package-refresh-contents)
   (save-buffers-kill-terminal))
 
-(provide 'my-defuns)
+(provide 'djr-defuns)
