@@ -1,23 +1,21 @@
+; Protect myself against myself
 (if (equal system-type 'darwin)
-    (progn
-      (setq mu4e-mu-binary "/usr/pkg/bin/mu")
-      (add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")))
+    (error "Wrong box to be launching mu4e..."))
 
-(setq mu4e-maildir (expand-file-name "~/Maildir"))
+(setq mu4e-maildir (expand-file-name "~/Dropbox/Maildir"))
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
 ;; Not synced with offlineimap
 (setq mu4e-trash-folder  "/trash")
 (setq mu4e-refile-folder "/gtd.support")
 
-(setq mail-host-address "danie-notebook"
+(setq mail-host-address "loom"
       ;; offlineimap handles the get
-      ;; mu4e-get-mail-command "true"
-      mu4e-get-mail-command "/usr/pkg/bin/offlineimap -o"
+      mu4e-get-mail-command "true"
       mu4e-view-wrap-lines t)
 
 (setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
-      smtpmail-queue-dir   "~/Maildir/queue/cur")
+      smtpmail-queue-dir (concat mu4e-maildir "/queue/cur"))
 
 (setq
  mu4e-use-fancy-chars t
@@ -28,7 +26,7 @@
 
 (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
 
-(setq mu4e-html2text-command "html2text -width 72")
+(setq mu4e-html2text-command "w3m -dump -T text/html")
 
 (setq mu4e-view-show-images t)
 
