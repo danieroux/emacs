@@ -1,6 +1,7 @@
 ;; Make Emacs feel like home
 
-(add-to-list 'load-path (concat external-dir "/evil"))
+(djr/ensure-package 'evil)
+
 (require 'evil)
 (evil-mode 1)
 
