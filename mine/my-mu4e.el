@@ -1,7 +1,3 @@
-; Protect myself against myself
-(if (equal system-type 'darwin)
-    (error "Wrong box to be launching mu4e..."))
-
 (setq mu4e-maildir (expand-file-name "~/Dropbox/Maildir"))
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
@@ -10,9 +6,15 @@
 (setq mu4e-refile-folder "/gtd.support")
 
 (setq mail-host-address "loom"
-      ;; offlineimap handles the get
+      ;; offlineimap (on loom) handles the get
       mu4e-get-mail-command "true"
       mu4e-view-wrap-lines t)
+
+(if (equal system-type 'darwin)
+    (progn
+      (setq mu4e-mu-binary "/usr/pkg/bin/mu"
+	    mail-host-address "danie-notebook")
+      (add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")))
 
 (setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
       smtpmail-queue-dir (concat mu4e-maildir "/queue/cur"))
@@ -69,7 +71,7 @@
 (autoload 'mu4e "mu4e")
 
 (eval-after-load "mu4e"
- '(progn
+  '(progn
     (require 'org-mu4e)
 
     (defun my-mu4e-file-email-in-gtd ()
