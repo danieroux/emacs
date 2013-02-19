@@ -36,15 +36,6 @@
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    (mapcar (lambda (state)
-		      (evil-declare-key state org-mode-map
-					(kbd "M-l") 'org-metaright
-					(kbd "M-h") 'org-metaleft
-					(kbd "M-k") 'org-metaup
-					(kbd "M-j") 'org-metadown
-					(kbd "M-L") 'org-shiftmetaright
-					(kbd "M-H") 'org-shiftmetaleft
-					(kbd "M-K") 'org-shiftmetaup
-					(kbd "M-J") 'org-shiftmetadown)
 		      (evil-declare-key state dired-mode-map
 					(kbd "E") 'open-in-external-app))
 		    '(normal insert))))
@@ -58,6 +49,16 @@
 	    (define-key mu4e-main-mode-map "g" 'mu4e-update-mail-show-window)))
 
 (add-hook 'org-mode-hook (lambda ()
-	    (evil-declare-key 'normal org-mode-map (kbd "\C-i") 'org-cycle)))
+	    (mapcar (lambda (state)
+		      (evil-declare-key state org-mode-map
+					(kbd "M-l") 'org-metaright
+					(kbd "M-h") 'org-metaleft
+					(kbd "M-k") 'org-metaup
+					(kbd "M-j") 'org-metadown
+					(kbd "M-L") 'org-shiftmetaright
+					(kbd "M-H") 'org-shiftmetaleft
+					(kbd "M-K") 'org-shiftmetaup
+					(kbd "M-J") 'org-shiftmetadown))
+		    '(normal insert))))
 
 (provide 'my-keybindings)
