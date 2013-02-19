@@ -5,4 +5,4 @@
 
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 
-(provide djr-w3m)
+(provide 'djr-w3m)
