@@ -13,6 +13,11 @@
     (add-hook 'window-setup-hook (lambda nil (set-default-font "Bitstream Vera Sans Mono-14"))))
 (setq default-frame-alist '((font . "Bitstream Vera Sans Mono 14")))
 
+;; after copy Ctrl+c in X11 apps, you can paste by `yank' in emacs
+(setq x-select-enable-clipboard t
+;; after mouse selection in X11, you can paste by `yank' in emacs
+      x-select-enable-primary t)
+
 (setq dotfiles-dir (file-name-directory load-file-name))
 (add-to-list 'load-path dotfiles-dir)
 
