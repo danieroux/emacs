@@ -2,9 +2,11 @@
 
 (djr/ensure-package 'evil)
 
-(require 'evil)
-(evil-mode 1)
+(setq evil-want-C-i-jump nil
+      evil-normal-state-cursor '("green" box))
 
-(setq evil-normal-state-cursor '("green" box))
+(require 'evil)
+
+(evil-mode t)
 
 (provide 'my-vim)
