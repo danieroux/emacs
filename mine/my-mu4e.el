@@ -1,4 +1,8 @@
 (setq mu4e-maildir (expand-file-name "~/Dropbox/Maildir"))
+
+(setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
+      smtpmail-queue-dir (concat mu4e-maildir "/mu4e-queue"))
+
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
 ;; Not synced with offlineimap
@@ -15,9 +19,6 @@
       (setq mu4e-mu-binary "/usr/pkg/bin/mu"
 	    mail-host-address "danie-notebook")
       (add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")))
-
-(setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
-      smtpmail-queue-dir (concat mu4e-maildir "/queue/cur"))
 
 (setq
  mu4e-use-fancy-chars t
