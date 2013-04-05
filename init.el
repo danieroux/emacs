@@ -67,8 +67,8 @@
 (load-theme 'zenburn t)
 
 ;; External packages
-(require 'key-chord)
-(key-chord-mode 1)
+; (require 'key-chord)
+; (key-chord-mode 1)
 
 (require 'rainbow-delimiters)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)

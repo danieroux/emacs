@@ -74,6 +74,7 @@
 			    ("@cellphone" . ?m)
                             ("@online" . ?o)
                             ("@agenda" . ?A)
+                            ("@watch" . ?W)
                             (:endgroup)
                             ("crypt" . ?s)
                             ("drill" . ?D)
@@ -82,27 +83,24 @@
 (setq org-agenda-tags-todo-honor-ignore-options t)
 (setq org-agenda-todo-ignore-scheduled 'future)
 
+;(setq org-agenda-skip-function-global nil)
+;            '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project")))
+
+(setq org-agenda-skip-function-global nil)
+
 (setq org-agenda-custom-commands (quote
                                   (
-                                   ("W" "@work"
-                                    ((agenda "" nil)
-				     (tags-todo "+project+lautus"
-                                                ((org-agenda-overriding-header "Next Task")
+                                   ("H" "@home"
+                                    ((agenda "-MAYBE" (org-agenda-skip-function 'nottodo ))
+				     (tags-todo "+project+@home"
+                                                ((org-agenda-overriding-header "Home")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
                                                  (org-tags-match-list-sublevels t)
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
-                                     (tags-todo "@calls-WAITING-DONE-MAYBE"
-                                           ((org-agenda-overriding-header "Calls")
-                                            (org-agenda-tags-todo-honor-ignore-options t)
-                                            (org-agenda-todo-ignore-scheduled 'future)
-                                            (org-tags-match-list-sublevels t)))
-                                     (tags-todo "@errands-WAITING-DONE-MAYBE" ((org-agenda-overriding-header "Errands")))))
-                                   ("H" "@home"
-                                    ((agenda "" nil)
-				     (tags-todo "+project+@home"
-                                                ((org-agenda-overriding-header "Home")
+				     (tags-todo "+project+@banking/!-WAITING"
+                                                ((org-agenda-overriding-header "Banking")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
                                                  (org-tags-match-list-sublevels t)
@@ -213,6 +211,7 @@
 
 (setq org-ditaa-jar-path "~/Dropbox/java/ditaa0_90.jar")
 (setq org-plantuml-jar-path "~/Dropbox/java/plantuml.jar")
+
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
 (org-babel-do-load-languages
