@@ -1,3 +1,5 @@
+(djr/ensure-package 'auto-complete)
+
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -9,10 +11,10 @@
                      ac-source-features
                      ac-source-symbols
                      ac-source-words-in-same-mode-buffers)))
-(add-hook 'ielm-mode-hook 'ielm-auto-complete)
 
 (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
 (add-to-list 'ac-modes 'emacs-lisp-mode)
+
 (auto-complete-mode 1)
 
 (provide 'my-autocomplete)

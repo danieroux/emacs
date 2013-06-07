@@ -22,38 +22,48 @@
     (when file
       (find-file file))))
 
-;; From djcb
-(defun djcb-full-screen-toggle ()
-  (interactive)
-  (shell-command "wmctrl -r :ACTIVE: -btoggle,fullscreen"))
-
-;; From emacs-starter-kit
-(defun toggle-maximize ()
-  (interactive)
-  ;; TODO: this only works for X. patches welcome for other OSes.
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                         '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                         '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
-
 (defun djr/initialise-package ()
   (interactive)
+
   (require 'package)
+
   ;; Initialise ELPA with all three sources I know of
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")))
     (add-to-list 'package-archives source t))
+
   (package-initialize))
 
 (defun djr/ensure-package (p)
   (when (not (package-installed-p p))
     (package-install p)))
 
+(defun djr/install-packages (packages)
+  "Ensures that the packages are installed"
+  (dolist (p packages)
+    (djr/ensure-package p)))
+
 (defun djr/bootstrap ()
   (interactive)
   (djr/initialise-package)
   (package-refresh-contents)
   (save-buffers-kill-terminal))
+
+(defun djr/agenda ()
+  (interactive)
+  (org-agenda nil "H"))
+
+(defun djr/split-window-below ()
+  (interactive)
+  (if (getenv "TMUX")
+      (shell-command "tmux split-window -h e")
+    (split-window-below)))
+
+(defun djr/split-window-right ()
+  (interactive)
+  (if (getenv "TMUX")
+      (shell-command "tmux split-window -v e")
+    (split-window-right)))
 
 (provide 'djr-defuns)

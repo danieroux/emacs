@@ -64,6 +64,7 @@
 
 (djr/initialise-package)
 
+(djr/ensure-package 'zenburn-theme)
 (load-theme 'zenburn t)
 
 ;; External packages
@@ -73,6 +74,7 @@
 (require 'rainbow-delimiters)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 
+(djr/ensure-package 'smex)
 (require 'smex)
 (smex-initialize)
 
@@ -103,6 +105,9 @@
 (require 'djr-blog)
 (require 'djr-jabber)
 (require 'djr-w3m)
+(require 'djr-expand-region)
+(require 'djr-projectile)
+(require 'djr-magit)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
@@ -125,6 +130,10 @@
 
 (icomplete-mode 1) 
 
+(delete-selection-mode 1)
+
+(global-highlight-changes-mode t)
+
 (blink-cursor-mode (- (*) (*) (*)))
 
 (setq visible-bell t
@@ -143,20 +152,5 @@
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (load custom-file 'noerror)
 
-(defun djr/kitchen-sink ()
-  "Open my Emacs kitchen sink"
-  (interactive)
-
-  (select-frame (make-frame))
-  (org-agenda nil "H")
-  (delete-other-windows)
-
-  ;(select-frame (make-frame))
-  ;(twit)
-
-  (select-frame (make-frame))
-  (mu4e)
-
-  ;(select-frame (make-frame))
-  ;(djr/irc)
-)
+(setq server-socket-dir "/tmp/danie-emacs-shared")
+(server-start)

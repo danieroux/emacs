@@ -83,15 +83,13 @@
 (setq org-agenda-tags-todo-honor-ignore-options t)
 (setq org-agenda-todo-ignore-scheduled 'future)
 
-;(setq org-agenda-skip-function-global nil)
-;            '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project")))
 
 (setq org-agenda-skip-function-global nil)
 
 (setq org-agenda-custom-commands (quote
                                   (
                                    ("H" "@home"
-                                    ((agenda "-MAYBE" (org-agenda-skip-function 'nottodo ))
+                                    ((agenda "-MAYBE" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project")))))
 				     (tags-todo "+project+@home"
                                                 ((org-agenda-overriding-header "Home")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
@@ -122,6 +120,11 @@
                                                   '(todo-state-down effort-up category-keep))))
 				     (tags-todo "@calls/!-CANCELLED-WAITING"
 					   ((org-agenda-overriding-header "Calls")
+					    (org-agenda-tags-todo-honor-ignore-options t)
+					    (org-agenda-todo-ignore-scheduled 'future)
+					    (org-tags-match-list-sublevels t)))
+				     (tags-todo "@watch/!-CANCELLED-WAITING"
+					   ((org-agenda-overriding-header "Watch")
 					    (org-agenda-tags-todo-honor-ignore-options t)
 					    (org-agenda-todo-ignore-scheduled 'future)
 					    (org-tags-match-list-sublevels t)))
