@@ -12,4 +12,4 @@ archive-contents
 /url/cookies
 /.org-id-locations
 elim
-elpa
+elpa/*
