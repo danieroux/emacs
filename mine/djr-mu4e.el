@@ -86,4 +86,4 @@
       (sleep-for 5)
       (mu4e-headers-search "maildir:/gtd"))))
    
-(provide 'my-mu4e)
+(provide 'djr-mu4e)

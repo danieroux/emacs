@@ -4,4 +4,4 @@
 (command-frequency-mode 1)
 (command-frequency-autosave-mode 1)
 
-(provide 'my-frequency)
+(provide 'djr-frequency)

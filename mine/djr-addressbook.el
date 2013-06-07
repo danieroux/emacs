@@ -20,4 +20,4 @@
 		   '("%s <%s>" name email)
 		   'mab)
 
-(provide 'my-addressbook)
+(provide 'djr-addressbook)

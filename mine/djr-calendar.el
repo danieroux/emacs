@@ -21,4 +21,4 @@
   (dolist (url google-calendars) (getcal url))
   (kill-buffer "diary.el"))
 
-(provide 'my-calendar)
+(provide 'djr-calendar)

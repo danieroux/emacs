@@ -16,4 +16,4 @@
       auto-save-interval 20)
 (add-hook 'auto-save-hook 'really-auto-save-some-modes)
 
-(provide 'my-really-autosave)
+(provide 'djr-really-autosave)

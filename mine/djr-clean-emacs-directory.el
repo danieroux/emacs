@@ -13,5 +13,5 @@
       auto-save-list-file-prefix (concat autosave-directory ".saves-")
       auto-save-file-name-transforms `((".*", autosave-directory t)))
 
-(provide 'my-clean-emacs-directory) 
+(provide 'djr-clean-emacs-directory) 
 

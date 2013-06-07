@@ -319,4 +319,4 @@
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link nil :maxlevel 10 :fileskip0 t :compact t :narrow 150)))
   
-(provide 'my-org-mode)
+(provide 'djr-org-mode)

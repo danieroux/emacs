@@ -7,4 +7,4 @@
 
 (setq twittering-private-info-file (expand-file-name "~/.emacs.d/twittering-mode.gpg"))
 
-(provide 'my-twitter)
+(provide 'djr-twitter)

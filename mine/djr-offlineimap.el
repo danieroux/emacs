@@ -10,5 +10,5 @@
 				       '(offlineimap-mode
 					 mu4e-main-mode)))
 
-(provide 'my-offlineimap)
+(provide 'djr-offlineimap)
 

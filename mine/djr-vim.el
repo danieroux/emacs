@@ -9,4 +9,4 @@
 
 (evil-mode t)
 
-(provide 'my-vim)
+(provide 'djr-vim)

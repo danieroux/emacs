@@ -24,4 +24,4 @@
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'nrepl-mode))
 
-(provide 'my-clojure)
+(provide 'djr-clojure)

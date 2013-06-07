@@ -8,4 +8,4 @@
 
 (guru-global-mode +1)
 
-(provide 'my-guru-mode)
+(provide 'djr-guru-mode)

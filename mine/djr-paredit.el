@@ -1,5 +1,4 @@
-(when (not (package-installed-p 'paredit))
-  (package-install 'paredit))
+(djr/ensure-package 'paredit)
 
 (autoload 'paredit-mode "paredit"
   "Minor mode for pseudo-structurally editing Lisp code." t)
@@ -11,4 +10,4 @@
 
 (add-hook 'clojure-mode-hook          (lambda () (paredit-mode +1)))
 
-(provide 'my-paredit)
+(provide 'djr-paredit)

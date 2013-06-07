@@ -29,7 +29,7 @@
 ; (key-chord-define-global ",a" 'org-agenda)
 ; (key-chord-define-global "./" 'org-velocity-read)
 ; (key-chord-define-global "\r" 'make-capture-frame)
-; (key-chord-define-global ",i" 'my-mu4e-gtd-inbox)
+; (key-chord-define-global ",i" 'djr-mu4e-gtd-inbox)
 
 ; (key-chord-define-global "\h" '(lambda () (interactive) (org-agenda nil "H")))
 ; (key-chord-define-global "\n" '(lambda () (interactive) (org-agenda nil "n")))
@@ -74,4 +74,4 @@
 					(kbd "M-J") 'org-shiftmetadown))
 		    '(normal insert))))
 
-(provide 'my-keybindings)
+(provide 'djr-keybindings)

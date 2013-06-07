@@ -23,4 +23,4 @@
        ((string-equal system-type "gnu/linux")
         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList))))))
 
-(provide 'my-dired-open)
+(provide 'djr-dired-open)
