@@ -1,9 +1,11 @@
 ;; From the rich resource at http://doc.norang.ca/org-mode.html
 
-(add-to-list 'load-path (concat external-dir "/org-mode/lisp"))
-(add-to-list 'load-path (concat external-dir "/org-mode/contrib/lisp"))
+;(add-to-list 'load-path (concat external-dir "/org-mode/lisp"))
+;(add-to-list 'load-path (concat external-dir "/org-mode/contrib/lisp"))
 
-(require 'org-install)
+(djr/ensure-package 'org-plus-contrib)
+
+;(require 'org-install)
 (require 'org)
 
 (require 'org-collector)
@@ -17,7 +19,7 @@
 (setq org-modules (quote (org-habit)))
 
 ;; Files
-(setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd" "~/Dropbox/Documents/gtd/work")))
+(setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd")))
 (setq org-directory "~/Dropbox/Documents/gtd")
 
 (setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
