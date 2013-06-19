@@ -66,4 +66,30 @@
       (shell-command "tmux split-window -v e")
     (split-window-right)))
 
+(defun djr/org-capture-exit ()
+  (if (equal "single-frame-capture" (frame-parameter nil 'name))
+      (save-buffers-kill-terminal)))
+
+(defun djr/org-capture ()
+  "Create a new frame and run org-capture."
+  (interactive)
+  (make-frame '((name . "single-frame-capture")))
+  (select-frame-by-name "single-frame-capture")
+  (setq word-wrap 1)
+  (setq truncate-lines nil)
+  (org-capture nil "i"))
+
+(defadvice org-capture-finalize
+  (after delete-capture-frame activate)
+  (djr/org-capture-exit))
+
+(defadvice org-capture-destroy
+  (after delete-capture-frame activate)
+  (djr/org-capture-exit))
+
+;; make the frame contain a single window. by default org-capture
+;; splits the window.
+(add-hook 'org-capture-mode-hook
+	  'delete-other-windows)
+
 (provide 'djr-defuns)

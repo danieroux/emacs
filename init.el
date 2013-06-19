@@ -111,7 +111,6 @@
 
 (mouse-avoidance-mode 'exile)
 (turn-off-auto-fill)
-(windmove-default-keybindings 'meta)
 
 (ansi-color-for-comint-mode-on)
 (fset 'yes-or-no-p 'y-or-n-p)

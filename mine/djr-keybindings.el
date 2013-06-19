@@ -7,15 +7,17 @@
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 
 (global-set-key "\C-cl" 'org-store-link)
-(global-set-key (kbd "C-M-r") 'org-capture)
 
-(global-set-key (kbd "S-<f1>") 'djr/agenda)
-(global-set-key (kbd "<f1>") 'org-agenda)
-(global-set-key (kbd "<f2> c") 'getcals)
-(global-set-key (kbd "<f2> j") 'org-clock-goto)
-(global-set-key (kbd "<f2> I") 'bh/punch-in)
-(global-set-key (kbd "<f2> O") 'bh/punch-out)
-(global-set-key (kbd "<f3>") 'jabber-activity-switch-to)
+; Should be mirrored in .tmux.commands
+(global-set-key (kbd "<f1>") 'org-capture)
+(global-set-key (kbd "S-<f2>") 'org-agenda)
+(global-set-key (kbd "<f2>") 'djr/agenda)
+
+; (global-set-key (kbd "<f2> c") 'getcals)
+; (global-set-key (kbd "<f2> j") 'org-clock-goto)
+; (global-set-key (kbd "<f2> I") 'bh/punch-in)
+; (global-set-key (kbd "<f2> O") 'bh/punch-out)
+; (global-set-key (kbd "<f3>") 'jabber-activity-switch-to)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -26,15 +28,12 @@
 ; Ctrl-Space 
 (global-set-key (kbd "C-@") 'er/expand-region)
 
-; (key-chord-define-global ",a" 'org-agenda)
-; (key-chord-define-global "./" 'org-velocity-read)
-; (key-chord-define-global "\r" 'make-capture-frame)
-; (key-chord-define-global ",i" 'djr-mu4e-gtd-inbox)
+(global-set-key (kbd "C-c <left>")  'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>")    'windmove-up)
+(global-set-key (kbd "C-c <down>")  'windmove-down)
 
 ; (key-chord-define-global "\h" '(lambda () (interactive) (org-agenda nil "H")))
-; (key-chord-define-global "\n" '(lambda () (interactive) (org-agenda nil "n")))
-
-; (key-chord-define-global ",c" 'compile)
 
 (add-hook 'nrepl-mode-hook
 	  (lambda ()
