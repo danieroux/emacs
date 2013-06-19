@@ -1,6 +1,7 @@
 (require 'guru-mode)
 
-(defvar my-affected-bindings-list '(("C-x b" . "M-SPC")))
+(defvar my-affected-bindings-list '(("C-x b" . "M-SPC")
+				    ("C-x C-f" . "M-o")))
 
 (dolist (cell my-affected-bindings-list)
   (define-key guru-mode-map
