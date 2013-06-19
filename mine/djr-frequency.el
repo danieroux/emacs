@@ -1,7 +1,8 @@
-(require 'command-frequency)
+(djr/ensure-package 'keyfreq)
 
-(command-frequency-table-load)
-(command-frequency-mode 1)
-(command-frequency-autosave-mode 1)
+(require 'keyfreq)
+
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
 
 (provide 'djr-frequency)

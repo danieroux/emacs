@@ -88,7 +88,7 @@
 (require 'djr-clean-emacs-directory)
 (require 'djr-calendar)
 (require 'djr-autocomplete)
-; (require 'djr-frequency)
+(require 'djr-frequency)
 (require 'djr-dired-open)
 (require 'djr-guru-mode)
 (require 'djr-keybindings)
