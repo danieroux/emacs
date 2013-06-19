@@ -100,7 +100,7 @@
 (require 'djr-clojure)
 (require 'djr-ledger)
 (require 'djr-erc)
-(require 'djr-blog)
+;(require 'djr-blog)
 (require 'djr-w3m)
 (require 'djr-expand-region)
 (require 'djr-projectile)
