@@ -105,6 +105,7 @@
 (require 'djr-expand-region)
 (require 'djr-projectile)
 (require 'djr-magit)
+(require 'djr-modeline)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
