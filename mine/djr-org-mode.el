@@ -1,16 +1,11 @@
 ;; From the rich resource at http://doc.norang.ca/org-mode.html
 
-;(add-to-list 'load-path (concat external-dir "/org-mode/lisp"))
-;(add-to-list 'load-path (concat external-dir "/org-mode/contrib/lisp"))
-
 (djr/ensure-package 'org-plus-contrib)
 
-;(require 'org-install)
 (require 'org)
 
 (require 'org-collector)
 (require 'org-checklist)
-(require 'org-velocity)
 (require 'org-mobile)
 
 (require 'djr-org-timeout)
@@ -22,7 +17,7 @@
 (setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd")))
 (setq org-directory "~/Dropbox/Documents/gtd")
 
-(setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org"))
+(setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org" "~/Dropbox/Documents/gtd/consulting.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
       org-mobile-agendas (quote ("P" "e" "c" "b" "o" "n" "h" "A" "w" "E"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
@@ -35,17 +30,16 @@
  (lambda (link)
    (browse-url (concat "https://mail.google.com/mail/?shva=1#all/" link))))
 
-(setq org-blank-before-new-entry nil)
-(setq org-enforce-todo-dependencies t)
-(setq org-fast-tag-selection-include-todo t)
-(setq org-fast-tag-selection-single-key t)
-(setq org-use-fast-todo-selection t)
-(setq org-agenda-skip-additional-timestamps-same-entry nil)
+(setq org-blank-before-new-entry nil
+      org-enforce-todo-dependencies t
+      org-fast-tag-selection-include-todo t
+      org-fast-tag-selection-single-key t
+      org-use-fast-todo-selection t
+      org-hide-leading-stars t
+      org-agenda-skip-additional-timestamps-same-entry nil)
 
-(setq org-hide-leading-stars t)
 ;; Todo config
 (setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
-(setq org-use-fast-todo-selection t)
 
 (setq org-capture-templates (quote (("p" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org") "* %^{Project name}
 ** NEXT %^{First task}%?" :clock-in t :clock-resume t)
@@ -56,14 +50,6 @@
                                     ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
 	%u %a" :clock-in t :clock-resume t))))
 
-;; Mirror the inbox above
-(setq org-velocity-capture-templates (quote (("v" "From velocity inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %:search
-	%u %a"))))
-
-(setq org-velocity-bucket "~/Dropbox/Documents/gtd/inbox.org")
-;; (setq org-velocity-force-new t)
-(setq org-velocity-exit-on-match nil)
-;; Agenda
 (setq org-stuck-projects
       '("+LEVEL=1+project/-DONE-CANCELLED" ("NEXT" "STARTED") ()))
 
@@ -85,14 +71,15 @@
 (setq org-agenda-tags-todo-honor-ignore-options t)
 (setq org-agenda-todo-ignore-scheduled 'future)
 
-
 (setq org-agenda-skip-function-global nil)
 
 (setq org-agenda-custom-commands (quote
                                   (
                                    ("H" "@home"
-                                    ((agenda "-MAYBE" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project")))))
-				     (tags-todo "+project+@home"
+                                    ((tags "refile"
+                                                ((org-agenda-overriding-header "Inbox")))
+				     (agenda "-MAYBE" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project")))))
+				     (tags-todo "+project+@home/!-WAITING"
                                                 ((org-agenda-overriding-header "Home")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
@@ -113,7 +100,7 @@
                                                  (org-tags-match-list-sublevels t)
                                                  (org-agenda-sorting-strategy
                                                   '(todo-state-down effort-up category-keep))))
-				     (tags-todo "project+@notebook-MAYBE"
+				     (tags-todo "+project+@notebook/!-WAITING"
                                                 ((org-agenda-overriding-header "@notebook")
                                                  (org-agenda-tags-todo-honor-ignore-options t)
                                                  (org-agenda-todo-ignore-scheduled 'future)
@@ -164,11 +151,11 @@
 				    ((org-agenda-overriding-header "context free"))))))
 
 ;; Refile
-(setq org-completion-use-ido t)
-(setq org-refile-targets (quote ((org-agenda-files :maxlevel . 1) (nil :maxlevel . 1))))
-(setq org-refile-use-outline-path (quote file))
-(setq org-outline-path-complete-in-steps t)
-(setq org-refile-allow-creating-parent-nodes (quote confirm))
+(setq org-completion-use-ido t
+      org-refile-targets (quote ((org-agenda-files :maxlevel . 1) (nil :maxlevel . 1)))
+      org-refile-use-outline-path (quote file)
+      org-outline-path-complete-in-steps t
+      org-refile-allow-creating-parent-nodes (quote confirm))
 
 ;; Clocking
 (require 'bh-org-mode)  
@@ -178,10 +165,11 @@
 
 ;; Crypt
 (require 'org-crypt)
+
 (org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
-(setq org-crypt-key "978D4E9F")
-(setq org-crypt-disable-auto-save t)
+(setq org-tags-exclude-from-inheritance (quote ("crypt"))
+      org-crypt-key "978D4E9F"
+      org-crypt-disable-auto-save t)
 
 (setq org-agenda-include-diary t)
 ;; Keep tasks with dates on the global todo lists

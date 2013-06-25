@@ -25,6 +25,7 @@
  mu4e-attachment-dir "~/Desktop"
  mu4e-view-show-images t
  mu4e-view-image-max-width 800
+ message-kill-buffer-on-exit t
  mu4e-view-show-addresses t)
 
 (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
@@ -39,6 +40,7 @@
 (add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
 (add-to-list 'evil-emacs-state-modes 'mu4e-headers-mode)
 (add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
+
 (add-hook 'mu4e-view-mode-hook 'evil-emacs-state)
 
 ;; More bookmarks (with email 
@@ -56,7 +58,8 @@
 ;; More shortcuts (with email addresses) in private.el
 (setq mu4e-maildir-shortcuts
       '( ("/INBOX"               . ?i)
-         ("/gtd"                 . ?g)
+         ("/me"                  . ?m)
+         ("/others"              . ?O)
 	 ("/accounts"            . ?a)))
 
 (require 'smtpmail)
@@ -73,17 +76,6 @@
 
 (eval-after-load "mu4e"
   '(progn
-    (require 'org-mu4e)
-
-    (defun my-mu4e-file-email-in-gtd ()
-      (interactive)
-      ;; (mu4e-view-mark-for-delete)
-      (make-capture-frame))
-
-    (defun my-mu4e-gtd-inbox ()
-      (interactive)
-      (mu4e~proc-index mu4e-maildir)
-      (sleep-for 5)
-      (mu4e-headers-search "maildir:/gtd"))))
+    (require 'org-mu4e)))
    
 (provide 'djr-mu4e)

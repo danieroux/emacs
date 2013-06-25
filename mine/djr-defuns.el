@@ -52,7 +52,9 @@
 
 (defun djr/agenda ()
   (interactive)
-  (org-agenda nil "H"))
+  (org-mobile-pull)
+  (org-agenda nil "H")
+  (delete-other-windows))
 
 (defun djr/split-window-below ()
   (interactive)
