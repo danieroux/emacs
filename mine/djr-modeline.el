@@ -41,9 +41,19 @@
 		    :inherit 'mode-line-face
 		    :foreground "gray80")
 
+(setq djr-mode-line-modified-never-saveable
+      (list 'org-agenda-mode
+	    'org-agenda-commands-mode
+	    'mu4e-main-mode
+	    'mu4e-view-mode
+	    'magit-status-mode
+	    'mu4e-headers-mode))
+
 (setq djr-mode-line-buffer-status
       '(:eval (cond 
-	       ((buffer-modified-p)
+	       ((and (buffer-modified-p)
+		     (not
+		      (member major-mode djr-mode-line-modified-never-saveable)))
 		(propertize "*" 'face 'mode-line-buffer-status-face-modified))
 	       (t
 		(propertize " " 'face 'mode-line-buffer-status-face)))))
@@ -54,6 +64,8 @@
 		(propertize "V" 'face 'mode-line-evil-status-normal-face))
 	       ((evil-insert-state-p)
 		(propertize "I" 'face 'mode-line-evil-status-insert-face))
+	       ((member major-mode evil-emacs-state-modes)
+		(propertize "E" 'face 'mode-line-evil-status-normal-face))
 	       ((evil-emacs-state-p)
 		(propertize "E" 'face 'mode-line-evil-status-emacs-face))
 	       (t
