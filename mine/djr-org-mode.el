@@ -42,13 +42,17 @@
 (setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
 
 (setq org-capture-templates (quote (("p" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org") "* %^{Project name}
-** NEXT %^{First task}%?" :clock-in t :clock-resume t)
+** NEXT %^{First task}%?")
                                     ("j" "Journal" entry (file "~/Dropbox/Documents/gtd/journal.org") "* %?" :clock-in t :clock-resume t)
                                     ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
                                     ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
-	%u %a" :clock-in t :clock-resume t)
+	%u %a")
+                                    ("e" "Follow up email" entry (id "4566445f-82d5-47c7-86c7-dee29ef82112") "* NEXT %?                      :@online:
+  SCHEDULED: %^t
+
+  %a")
                                     ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
-	%u %a" :clock-in t :clock-resume t))))
+	%u %a"))))
 
 (setq org-stuck-projects
       '("+LEVEL=1+project/-DONE-CANCELLED" ("NEXT" "STARTED") ()))

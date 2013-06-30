@@ -52,10 +52,12 @@
 					(kbd "E") 'open-in-external-app))
 		    '(normal insert))))
 
+(add-hook 'mu4e-headers-mode-hook
+	  (lambda ()
+	    (define-key mu4e-headers-mode-map "f" 'djr/mu4e-compose-reply-with-follow-up)))
 (add-hook 'mu4e-view-mode-hook
 	  (lambda ()
-	    (define-key mu4e-view-mode-map "f" 'my-mu4e-file-email-in-gtd)))
-
+	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-compose-reply-with-follow-up)))
 (add-hook 'mu4e-main-mode-hook
 	  (lambda ()
 	    (define-key mu4e-main-mode-map "g" 'mu4e-update-mail-show-window)))
