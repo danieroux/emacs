@@ -17,7 +17,7 @@
 (setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd")))
 (setq org-directory "~/Dropbox/Documents/gtd")
 
-(setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org" "~/Dropbox/Documents/gtd/consulting.org"))
+(setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org" "~/Dropbox/Documents/gtd/consulting.org" "~/Dropbox/Documents/gtd/agenda.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
       org-mobile-agendas (quote ("P" "e" "c" "b" "o" "n" "h" "A" "w" "E"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
@@ -175,7 +175,7 @@
       org-crypt-key "978D4E9F"
       org-crypt-disable-auto-save t)
 
-(setq org-agenda-include-diary t)
+(setq org-agenda-include-diary nil)
 ;; Keep tasks with dates on the global todo lists
 ;(setq org-agenda-todo-ignore-with-date nil)
 
@@ -262,6 +262,8 @@
 
 ;; Compact the block agenda view
 (setq org-agenda-compact-blocks t)
+
+(setq org-agenda-sticky nil)
 
 (setq org-enforce-todo-checkbox-dependencies t)
 (setq org-enforce-todo-dependencies t)
