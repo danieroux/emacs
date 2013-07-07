@@ -108,7 +108,7 @@
       (let* ((msgid (message-fetch-field "Message-ID"))
 	     (description (message-fetch-field "Subject")))
 	(djr~org-mu4e-store-link-on-sent-message msgid description))))
-
+  
 (defun djr~org-mu4e-store-link-on-sent-message (msgid description)
   (let* ((link (concat "mu4e:msgid:" msgid)))
     (setq djr/org-mu4e-captured-message-p
@@ -131,5 +131,16 @@
   (interactive)
   (djr/org-mu4e-capture-next-message)
   (mu4e-compose-reply))
+
+(defun djr/mu4e-view-related-search ()
+  (interactive)
+  (mu4e-view-raw-message)
+  (message-narrow-to-headers-or-head)
+  (setq mu4e-headers-include-related t)
+  (let* ((raw-msgid (message-fetch-field "Message-ID"))
+	 (msgid (remove ?>
+			(remove ?< raw-msgid))))
+    (kill-buffer)
+    (mu4e~headers-search-execute msgid 't)))
 
 (provide 'djr-mu4e)

@@ -57,7 +57,9 @@
 	    (define-key mu4e-headers-mode-map "f" 'djr/mu4e-compose-reply-with-follow-up)))
 (add-hook 'mu4e-view-mode-hook
 	  (lambda ()
-	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-compose-reply-with-follow-up)))
+	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-compose-reply-with-follow-up)
+	    (define-key mu4e-view-mode-map "c" 'djr/mu4e-view-related-search)))
+
 (add-hook 'mu4e-main-mode-hook
 	  (lambda ()
 	    (define-key mu4e-main-mode-map "g" 'mu4e-update-mail-show-window)))
