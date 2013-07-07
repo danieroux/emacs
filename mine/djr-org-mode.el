@@ -77,82 +77,41 @@
 
 (setq org-agenda-skip-function-global nil)
 
-(setq org-agenda-custom-commands (quote
-                                  (
-                                   ("H" "@home"
-                                    ((tags "refile"
-                                                ((org-agenda-overriding-header "Inbox")))
+(defun gtd-context (tag)
+  `(tags-todo ,(concat "+project+" tag "/!-DONE-CANCELLED-WAITING")
+	      ((org-agenda-overriding-header ,tag)
+	       (org-tags-match-list-sublevels t)
+	       (org-agenda-sorting-strategy
+		'(todo-state-down effort-up category-keep))
+	       (org-agenda-tags-todo-honor-ignore-options t)
+	       (org-agenda-todo-ignore-scheduled 'future))))
+
+(defun gtd-agenda-entry (key context-tag)
+  `((,key ,context-tag ,@(gtd-context context-tag))))
+
+(setq org-agenda-custom-commands `(("H" "@home"
+                                    ((tags "refile" ((org-agenda-overriding-header "Inbox")))
 				     (agenda "-MAYBE" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project")))))
-				     (tags-todo "+project+@home/!-WAITING"
-                                                ((org-agenda-overriding-header "Home")
-                                                 (org-agenda-tags-todo-honor-ignore-options t)
-                                                 (org-agenda-todo-ignore-scheduled 'future)
-                                                 (org-tags-match-list-sublevels t)
-                                                 (org-agenda-sorting-strategy
-                                                  '(todo-state-down effort-up category-keep))))
-				     (tags-todo "+project+@banking/!-WAITING"
-                                                ((org-agenda-overriding-header "Banking")
-                                                 (org-agenda-tags-todo-honor-ignore-options t)
-                                                 (org-agenda-todo-ignore-scheduled 'future)
-                                                 (org-tags-match-list-sublevels t)
-                                                 (org-agenda-sorting-strategy
-                                                  '(todo-state-down effort-up category-keep))))
-				     (tags-todo "+project+@online/!-WAITING"
-                                                ((org-agenda-overriding-header "Online")
-                                                 (org-agenda-tags-todo-honor-ignore-options t)
-                                                 (org-agenda-todo-ignore-scheduled 'future)
-                                                 (org-tags-match-list-sublevels t)
-                                                 (org-agenda-sorting-strategy
-                                                  '(todo-state-down effort-up category-keep))))
-				     (tags-todo "+project+@notebook/!-WAITING"
-                                                ((org-agenda-overriding-header "@notebook")
-                                                 (org-agenda-tags-todo-honor-ignore-options t)
-                                                 (org-agenda-todo-ignore-scheduled 'future)
-                                                 (org-tags-match-list-sublevels t)
-                                                 (org-agenda-sorting-strategy
-                                                  '(todo-state-down effort-up category-keep))))
-				     (tags-todo "@calls/!-CANCELLED-WAITING"
-					   ((org-agenda-overriding-header "Calls")
-					    (org-agenda-tags-todo-honor-ignore-options t)
-					    (org-agenda-todo-ignore-scheduled 'future)
-					    (org-tags-match-list-sublevels t)))
-				     (tags-todo "@watch/!-CANCELLED-WAITING"
-					   ((org-agenda-overriding-header "Watch")
-					    (org-agenda-tags-todo-honor-ignore-options t)
-					    (org-agenda-todo-ignore-scheduled 'future)
-					    (org-tags-match-list-sublevels t)))
-				     )
-				    )
-                                   ("n" "Notebook tasks" tags-todo "+project+@notebook-WAITING-CANCELLED/!NEXT|STARTED"
-                                    ((org-agenda-overriding-header "@notebook")
-                                     (org-agenda-tags-todo-honor-ignore-options t)
-                                     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("e" "Errands" tags-todo "@errands-TODO=\"DONE\"" ((org-agenda-overriding-header "@errands")))
-                                   ("o" "Online" tags-todo "@online-MAYBE/!-CANCELLED-WAITING" ((org-agenda-overriding-header "@online")))
-                                   ("A" "Agenda items" tags-todo "@agenda-TODO=\"DONE\"" ((org-agenda-overriding-header "@agenda")))
-                                   ("h" "@home" tags-todo "+project+@home"
-				    ((org-agenda-overriding-header "@home")
-				     (org-agenda-tags-todo-honor-ignore-options 't)
-				     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("P" "Phone" tags-todo "@cellphone-DONE-CANCELLED"
-				    ((org-agenda-overriding-header "@cellphone")
-				     (org-agenda-tags-todo-honor-ignore-options 't)
-				     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("b" "Banking" tags-todo "@banking-DONE-CANCELLED"
-				    ((org-agenda-overriding-header "@banking")
-				     (org-agenda-tags-todo-honor-ignore-options 't)
-				     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("c" "Calls" tags-todo "@calls/!-DONE-CANCELLED-WAITING"
-				    ((org-agenda-overriding-header "@calls")
-				     (org-agenda-tags-todo-honor-ignore-options 't)
-				     (org-agenda-todo-ignore-scheduled 'future)))
-                                   ("w" "Waiting" tags "TODO=\"WAITING\"" ((org-agenda-overriding-header "@waiting")))
-                                   ("r" "Refile" tags "refile" nil)
-                                   ("p" "Projects" tags "+LEVEL=1+project-persistent-MAYBE/-CANCELLED-DONE" nil)
+				     ,(gtd-context "@home")
+				     ,(gtd-context "@banking")
+				     ,(gtd-context "@online")
+				     ,(gtd-context "@notebook")
+				     ,(gtd-context "@calls")
+				     ,(gtd-context "@watch")))
+                                   ,@(gtd-agenda-entry "n" "@notebook")
+                                   ,@(gtd-agenda-entry "e" "@errands")
+                                   ,@(gtd-agenda-entry "o" "@online")
+                                   ,@(gtd-agenda-entry "a" "@agenda")
+                                   ,@(gtd-agenda-entry "h" "@home")
+                                   ,@(gtd-agenda-entry "b" "@banking")
+                                   ,@(gtd-agenda-entry "c" "@calls")
+				   ("w" "Waiting" todo "WAITING" ((org-agenda-overriding-header "Waiting")))
+                                   ("r" "refile" tags "refile" nil)
+                                   ("p" "projects" tags "+LEVEL=1+project-persistent-MAYBE/-CANCELLED-DONE" nil)
                                    ("s" "Maybe" tags "+LEVEL=1+MAYBE" nil)
                                    ("E" "Todo items without context (in error)" 
                                     ((tags "+project+TODO=\"NEXT\"-{@.*}"))
-				    ((org-agenda-overriding-header "context free"))))))
+				    ((org-agenda-overriding-header "context free")))))
 
 ;; Refile
 (setq org-completion-use-ido t
