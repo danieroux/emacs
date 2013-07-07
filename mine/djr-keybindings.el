@@ -13,12 +13,6 @@
 (global-set-key (kbd "S-<f2>") 'org-agenda)
 (global-set-key (kbd "<f2>") 'djr/agenda)
 
-; (global-set-key (kbd "<f2> c") 'getcals)
-; (global-set-key (kbd "<f2> j") 'org-clock-goto)
-; (global-set-key (kbd "<f2> I") 'bh/punch-in)
-; (global-set-key (kbd "<f2> O") 'bh/punch-out)
-; (global-set-key (kbd "<f3>") 'jabber-activity-switch-to)
-
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
@@ -27,11 +21,6 @@
 
 ; Ctrl-Space 
 (global-set-key (kbd "C-@") 'er/expand-region)
-
-(global-set-key (kbd "C-c <left>")  'windmove-left)
-(global-set-key (kbd "C-c <right>") 'windmove-right)
-(global-set-key (kbd "C-c <up>")    'windmove-up)
-(global-set-key (kbd "C-c <down>")  'windmove-down)
 
 ; (key-chord-define-global "\h" '(lambda () (interactive) (org-agenda nil "H")))
 
