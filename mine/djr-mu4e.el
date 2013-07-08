@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (setq mu4e-maildir (expand-file-name "~/Dropbox/Maildir"))
 
 (setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
@@ -109,8 +111,15 @@
 	     (description (message-fetch-field "Subject")))
 	(djr~org-mu4e-store-link-on-sent-message msgid description))))
   
+(defun djr~wipe-brackets (msgid)
+  (interactive)
+  (remove-if (lambda (c)
+	       (or (equal c ?>)
+		   (equal c ?<)))
+	     msgid))
+
 (defun djr~org-mu4e-store-link-on-sent-message (msgid description)
-  (let* ((link (concat "mu4e:msgid:" msgid)))
+  (let* ((link (concat "mu4e:msgid:" (djr~wipe-brackets msgid))))
     (setq djr/org-mu4e-captured-message-p
 	  `(:type mu4e
 		  :description ,description
@@ -142,5 +151,51 @@
 			(remove ?< raw-msgid))))
     (kill-buffer)
     (mu4e~headers-search-execute msgid 't)))
+
+(setq djr~mu4e-inbox-buffer-name "*djr-mu4e-inbox*")
+
+(defun djr~mu4e-message-to-orgline (msg &optional point)
+  (switch-to-buffer djr~mu4e-inbox-buffer-name)
+  (let ((msgid (mu4e-message-field msg :message-id))
+	(subject (mu4e-message-field msg :subject)))
+    (progn
+      (insert (format "* [[mu4e:msgid:%s][%s]]" msgid subject))
+      (newline))))
+
+(setq djr~mu4e-to-org-continue-fun nil)
+
+(defun djr~mu4e-write-file (count)
+  (switch-to-buffer djr~mu4e-inbox-buffer-name)
+  (write-region nil
+		nil
+		(concat org-directory "/" "mail-inbox.org"))
+  (kill-buffer)
+  (if (get-buffer "mail-inbox.org")
+      (save-excursion
+	(switch-to-buffer "mail-inbox.org")
+	(revert-buffer t t)))
+  (setq mu4e-header-func 'mu4e~headers-header-handler
+	mu4e-view-func 'mu4e~headers-view-handler
+	mu4e-update-func 'mu4e~headers-update-handler
+	mu4e-remove-func 'mu4e~headers-remove-handler
+	mu4e-found-func 'mu4e~headers-found-handler)
+  (if djr~mu4e-to-org-continue-fun
+      (funcall djr~mu4e-to-org-continue-fun))) 
+
+(defun djr/mu4e-to-org (&optional continue-fun)
+  (interactive)
+  (mu4e)
+  (setq mu4e-headers-include-related nil)
+  (setq djr~mu4e-to-org-continue-fun continue-fun)
+  (setq mu4e-header-func 'djr~mu4e-message-to-orgline
+	mu4e-found-func 'djr~mu4e-write-file
+	mu4e-view-func 'identity
+	mu4e-update-func 'identity
+	mu4e-remove-func 'identity)
+  (get-buffer-create djr~mu4e-inbox-buffer-name)
+  (switch-to-buffer djr~mu4e-inbox-buffer-name)
+  (insert "#+FILETAGS: refile mail")
+  (newline)
+  (mu4e~headers-search-execute "maildir:/INBOX" 't))
 
 (provide 'djr-mu4e)

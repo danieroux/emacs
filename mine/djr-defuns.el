@@ -30,7 +30,8 @@
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")
-		    ("org" . "http://orgmode.org/elpa/")))
+		    ("org" . "http://orgmode.org/elpa/")
+		    ("melpa" . "http://melpa.milkbox.net/packages/")))
     (add-to-list 'package-archives source t))
 
   (package-initialize))
@@ -52,9 +53,10 @@
 
 (defun djr/agenda ()
   (interactive)
-  (org-mobile-pull)
-  (org-agenda nil "H")
-  (delete-other-windows))
+  (djr/mu4e-to-org (lambda ()
+		     (org-mobile-pull)
+		     (org-agenda nil "H")
+		     (delete-other-windows))))
 
 (defun djr/split-window-below ()
   (interactive)
