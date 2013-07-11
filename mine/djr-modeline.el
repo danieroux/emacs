@@ -16,6 +16,12 @@
 		    :foreground "#ffffff"
 		    :background "#e80000")
 
+(make-face 'mode-line-mail-queued-face)
+(set-face-attribute 'mode-line-mail-queued-face nil
+		    :inherit 'mode-line-face
+		    :foreground "#ffffff"
+		    :background "#e80000")
+
 (make-face 'mode-line-buffer-status-face)
 (set-face-attribute 'mode-line-buffer-status-face nil
 		    :inherit 'mode-line-face)
@@ -58,6 +64,10 @@
 	       (t
 		(propertize " " 'face 'mode-line-buffer-status-face)))))
 
+(setq djr-mode-line-mail-status
+      '(:eval (if smtpmail-queue-mail
+		  (propertize " Q " 'face 'mode-line-mail-queued-face))))
+
 (setq djr-mode-line-evil-status
       '(:eval (cond 
 	       ((evil-normal-state-p)
@@ -88,15 +98,17 @@
 
 (setq djr-mode-line-format 
       (list "-- "
+	    djr-mode-line-mail-status
 	    djr-mode-line-evil-status
 	    djr-mode-line-buffer-status
 	    " "
 	    djr-mode-line-buffer-name
-	    " "
+	    "  "
 	    djr-mode-line-mode-name
 	    " "
 	    (propertize "%M" 'face 'font-lock-type-face)
-	    "%-"))
+	    ; "%l"
+	    " %-"))
 
 (setq-default mode-line-format djr-mode-line-format)
 (setq mode-line-format djr-mode-line-format)
