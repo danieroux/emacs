@@ -112,7 +112,7 @@
       (let* ((msgid (message-fetch-field "Message-ID"))
 	     (description (message-fetch-field "Subject")))
 	(djr~org-mu4e-store-link-on-sent-message msgid description))))
-  
+
 (defun djr~wipe-brackets (msgid)
   (interactive)
   (remove-if (lambda (c)
@@ -142,6 +142,11 @@
   (interactive)
   (djr/org-mu4e-capture-next-message)
   (mu4e-compose-reply))
+
+(defun djr/mu4e-forward-with-follow-up ()
+  (interactive)
+  (djr/org-mu4e-capture-next-message)
+  (mu4e-compose-forward))
 
 (defun djr/mu4e-view-related-search ()
   (interactive)
