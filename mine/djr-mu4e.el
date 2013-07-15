@@ -99,11 +99,13 @@
 
 (defun djr/org-mu4e-capture-cancel ()
   (interactive)
-  (setq djr/org-mu4e-must-capture-message nil))
+  (setq djr/org-mu4e-must-capture-message nil
+	global-mode-string ""))
 (djr/org-mu4e-capture-cancel)
 
 (defun djr/org-mu4e-capture-next-message ()
-  (setq djr/org-mu4e-must-capture-message t))
+  (setq djr/org-mu4e-must-capture-message t
+	global-mode-string "Org capturing this mail"))
 
 (defun djr/org-mu4e-store-link-on-sent-message ()
   (if djr/org-mu4e-must-capture-message
