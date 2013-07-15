@@ -65,8 +65,8 @@
 		(propertize " " 'face 'mode-line-buffer-status-face)))))
 
 (setq djr-mode-line-mail-status
-      '(:eval (if smtpmail-queue-mail
-		  (propertize " Q " 'face 'mode-line-mail-queued-face))))
+      '(:eval (if (djr/has-queued-mail-p)
+		  (propertize " Unsent Mail " 'face 'mode-line-mail-queued-face))))
 
 (setq djr-mode-line-evil-status
       '(:eval (cond 

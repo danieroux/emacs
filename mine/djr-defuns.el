@@ -97,3 +97,9 @@
 	  'delete-other-windows)
 
 (provide 'djr-defuns)
+(defun djr/has-queued-mail-p ()
+  (let* ((qfile (expand-file-name smtpmail-queue-index-file
+				  smtpmail-queue-dir))
+	 (size (eighth (file-attributes qfile))))
+    (not (= 0 size))))
+
