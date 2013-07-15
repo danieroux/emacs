@@ -45,12 +45,6 @@
 (require 'flymake)
 (require 'ffap)
 
-(require 'ido)
-(setq ido-enable-flex-matching t
-      ido-everywhere t
-      ido-use-filename-at-point 'guess)
-(ido-mode 1)
-
 (require 'paren)
 (show-paren-mode 1)
 
@@ -74,14 +68,13 @@
 (require 'rainbow-delimiters)
 (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
 
-(djr/ensure-package 'smex)
-(require 'smex)
-(smex-initialize)
+(add-to-list 'load-suffixes ".el.gpg")
 
 ;; My packages
-(add-to-list 'load-suffixes ".el.gpg")
 (require 'private)
 
+(require 'djr-ido)
+(require 'djr-smex)
 (require 'djr-vim)
 (require 'djr-org-mode)
 (require 'djr-really-autosave)
