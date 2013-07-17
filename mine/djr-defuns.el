@@ -51,6 +51,16 @@
   (package-refresh-contents)
   (save-buffers-kill-terminal))
 
+(defadvice mu4e-update-index
+  (after djr/wait-for-mu4e-update-index)
+  (djr/agenda)
+  (ad-deactivate 'mu4e-update-index))
+
+(defun djr/agenda-full-refresh ()
+  (interactive)
+  (ad-activate 'mu4e-update-index)
+  (mu4e-update-mail-and-index nil))
+
 (defun djr/agenda ()
   (interactive)
   (djr/mu4e-to-org (lambda ()
