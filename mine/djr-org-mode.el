@@ -46,13 +46,17 @@
                                     ("j" "Journal" entry (file "~/Dropbox/Documents/gtd/journal.org") "* %?" :clock-in t :clock-resume t)
                                     ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
                                     ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
-	%u %a")
+  %u
+
+%a")
                                     ("e" "Follow up email" entry (id "4566445f-82d5-47c7-86c7-dee29ef82112") "* NEXT %?                      :@online:
+  %u
   SCHEDULED: %^t
 
-  %a")
+%a")
                                     ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
-	%u %a"))))
+	%u
+%a"))))
 
 (setq org-stuck-projects
       '("+LEVEL=1+project/-DONE-CANCELLED" ("NEXT" "STARTED") ()))
@@ -72,10 +76,9 @@
                             ("drill" . ?D)
                             ("project" . ?P))))
 
-(setq org-agenda-tags-todo-honor-ignore-options t)
-(setq org-agenda-todo-ignore-scheduled 'future)
-
-(setq org-agenda-skip-function-global nil)
+(setq org-agenda-tags-todo-honor-ignore-options t
+      org-agenda-todo-ignore-scheduled 'future
+      org-agenda-skip-function-global nil)
 
 (defun gtd-context (tag)
   `(tags-todo ,(concat "+project+" tag "/!-DONE-CANCELLED-WAITING")
@@ -101,7 +104,7 @@
                                    ,@(gtd-agenda-entry "n" "@notebook")
                                    ,@(gtd-agenda-entry "e" "@errands")
                                    ,@(gtd-agenda-entry "o" "@online")
-                                   ,@(gtd-agenda-entry "a" "@agenda")
+                                   ,@(gtd-agenda-entry "A" "@agenda")
                                    ,@(gtd-agenda-entry "h" "@home")
                                    ,@(gtd-agenda-entry "b" "@banking")
                                    ,@(gtd-agenda-entry "c" "@calls")
@@ -155,18 +158,17 @@
 ;; Remove completed items from search results
 ;(setq org-agenda-skip-timestamp-if-done t)
 
-(setq org-agenda-span 'day)
-
-(setq org-deadline-warning-days 5)
+(setq org-agenda-span 'day
+      org-deadline-warning-days 5)
 
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
-(setq org-cycle-separator-lines 0)
-(setq org-log-done 'time)
+(setq org-cycle-separator-lines 0
+      org-log-done 'time)
 
 (setq org-src-fontify-natively t)
 
-(setq org-ditaa-jar-path "~/Dropbox/java/ditaa0_90.jar")
-(setq org-plantuml-jar-path "~/Dropbox/java/plantuml.jar")
+(setq org-ditaa-jar-path "~/Dropbox/java/ditaa0_90.jar"
+      org-plantuml-jar-path "~/Dropbox/java/plantuml.jar")
 
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
@@ -224,13 +226,12 @@
 
 (setq org-agenda-sticky nil)
 
-(setq org-enforce-todo-checkbox-dependencies t)
-(setq org-enforce-todo-dependencies t)
+(setq org-enforce-todo-checkbox-dependencies t
+      org-enforce-todo-dependencies t)
 
 (setq org-use-speed-commands t
       org-speed-commands-user (quote (("0" . ignore)
-				     ("w" . org-refile)
-				     )))
+				      ("w" . org-refile))))
 
 (setq org-agenda-persistent-filter t)
 
