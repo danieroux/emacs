@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (setq mu4e-maildir (expand-file-name "~/Dropbox/Maildir"))
 
@@ -25,7 +25,7 @@
 (setq
  mu4e-use-fancy-chars t
  mu4e-attachment-dir "~/Desktop"
-					;mu4e-headers-skip-duplicates t
+ ;; mu4e-headers-skip-duplicates t
  mu4e-view-show-images t
  mu4e-view-image-max-width 800
  mu4e-view-show-addresses t
@@ -83,7 +83,6 @@
 
 (defun djr/mu4e-inbox ()
   (interactive)
-  (mu4e)
   (setq mu4e-headers-include-related nil)
   (mu4e-headers-search "maildir:/INBOX"))
 

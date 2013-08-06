@@ -46,10 +46,10 @@
 (require 'ffap)
 
 (require 'paren)
-(show-paren-mode 1)
+(show-paren-mode t)
 
 (require 'recentf)
-(recentf-mode 1)
+(recentf-mode t)
 
 (require 'saveplace)
 (setq-default save-place t)
@@ -92,7 +92,7 @@
 (require 'djr-paredit)
 (require 'djr-clojure)
 (require 'djr-ledger)
-(require 'djr-erc)
+;(require 'djr-erc)
 ;(require 'djr-blog)
 (require 'djr-w3m)
 (require 'djr-expand-region)
