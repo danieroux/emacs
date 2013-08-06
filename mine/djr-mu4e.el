@@ -214,4 +214,10 @@
   (newline)
   (mu4e~headers-search-execute "maildir:/INBOX" 't))
 
+(defun djr/delete-replied-mail-in-inbox (msg)
+  "Delete the replied email - they are also in the 'me' folder"
+  (mu4e~headers-search-execute "maildir:/INBOX flag:replied" 't))
+
+;(add-to-list 'mu4e-headers-actions '("Delete replied" . djr/delete-replied-mail-in-inbox) t)
+
 (provide 'djr-mu4e)
