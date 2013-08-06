@@ -100,12 +100,16 @@
 (defun djr/org-mu4e-capture-cancel ()
   (interactive)
   (setq djr/org-mu4e-must-capture-message nil
-	global-mode-string ""))
+	global-mode-string (delq 'djr-org-capture-mode-line-string global-mode-string)))
 (djr/org-mu4e-capture-cancel)
 
 (defun djr/org-mu4e-capture-next-message ()
   (setq djr/org-mu4e-must-capture-message t
-	global-mode-string "Org capturing this mail"))
+	djr-org-capture-mode-line-string "Org capturing this mail")
+  (or global-mode-string (setq global-mode-string '("")))
+  (or (memq 'djr-org-capture-mode-line-string global-mode-string)
+      (setq global-mode-string
+	    (append global-mode-string '(djr-org-capture-mode-line-string)))))
 
 (defun djr/org-mu4e-store-link-on-sent-message ()
   (if djr/org-mu4e-must-capture-message
@@ -127,6 +131,8 @@
 		  :description ,description
 		  :link ,link
 		  :message-id ,msgid))))
+
+(setq djr/org-mu4e-must-capture-message nil)
 
 (defun djr~org-mu4e-make-link-from-captured-message ()
   (if djr/org-mu4e-must-capture-message
