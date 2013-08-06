@@ -8,19 +8,31 @@
 (require 'org-checklist)
 (require 'org-mobile)
 
+(require 'org-occur-goto)
+
 (require 'djr-org-timeout)
 (require 'djr-org-drill)
 
 (setq org-modules (quote (org-habit)))
 
 ;; Files
-(setq org-agenda-files (quote ("~/Dropbox/Documents" "~/Dropbox/Documents/gtd")))
+(setq org-agenda-files (quote ("~/Dropbox/Documents"
+			       "~/Dropbox/Documents/gtd")))
+
 (setq org-directory "~/Dropbox/Documents/gtd")
 
-(setq org-mobile-files (quote ("~/Dropbox/Documents/gtd/gtd.org" "~/Dropbox/Documents/gtd/consulting.org" "~/Dropbox/Documents/gtd/agenda.org"))
+(setq org-mobile-files (quote ("agendas.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
       org-mobile-agendas (quote ("P" "e" "c" "b" "o" "n" "h" "A" "w" "E"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
+
+(defun djr/org-mobile-push-agendas-org-only ()
+  "Replaces org-mobile-push"
+  (interactive)
+  (message "Creating agendas.org only")
+  (org-mobile-create-sumo-agenda)
+  (org-mobile-create-index-file)
+  (org-mobile-write-checksums))
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-default-notes-file "~/Dropbox/Documents/gtd/notes.org")
@@ -59,7 +71,7 @@
 %a"))))
 
 (setq org-stuck-projects
-      '("+LEVEL=1+project/-DONE-CANCELLED" ("NEXT" "STARTED") ()))
+      '("+LEVEL=1+project-persistent/-DONE-CANCELLED" ("NEXT" "STARTED") ()))
 
 (setq org-tag-alist (quote ((:startgroup)
                             ("@errands" . ?e)
@@ -80,12 +92,26 @@
       org-agenda-todo-ignore-scheduled 'future
       org-agenda-skip-function-global nil)
 
-(defun gtd-context (tag)
-  `(tags-todo ,(concat "+project+" tag "/!-DONE-CANCELLED-WAITING")
+(setq org-agenda-sorting-strategy
+      (quote ((agenda
+	       habit-down
+	       scheduled-up
+	       deadline-up)
+	      (todo priority-down category-keep)
+	      (tags priority-down category-keep)
+	      (search category-keep))))
+
+(defun gtd-refile ()
+  "Includes email and anything in an inbox"
+  `(tags "refile" ((org-agenda-overriding-header "Inbox"))))
+
+(defun gtd-agenda ()
+  `(agenda "-MAYBE" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project"))))))
+
+(defun gtd-context (tag &optional if-mode)
+  `(tags-todo ,(concat "+project+" tag if-mode "/!-DONE-CANCELLED-WAITING")
 	      ((org-agenda-overriding-header ,tag)
 	       (org-tags-match-list-sublevels t)
-	       (org-agenda-sorting-strategy
-		'(todo-state-down effort-up category-keep))
 	       (org-agenda-tags-todo-honor-ignore-options t)
 	       (org-agenda-todo-ignore-scheduled 'future))))
 
@@ -93,14 +119,22 @@
   `((,key ,context-tag ,@(gtd-context context-tag))))
 
 (setq org-agenda-custom-commands `(("H" "@home"
-                                    ((tags "refile" ((org-agenda-overriding-header "Inbox")))
-				     (agenda "-MAYBE" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo '("NEXT" "STARTED" "WAITING" "project")))))
-				     ,(gtd-context "@home")
-				     ,(gtd-context "@banking")
+                                    (,(gtd-refile)
+				     ,(gtd-agenda)
+				     ,(gtd-context "@home" "-consulting")
+				     ,(gtd-context "@banking" "-consulting")
+				     ,(gtd-context "@online" "-consulting")
+				     ,(gtd-context "@notebook" "-consulting")
+				     ,(gtd-context "@calls" "-consulting")
+				     ,(gtd-context "@watch")))
+				   ("N" "@notebook"
+                                    (,(gtd-refile)
+				     ,(gtd-agenda)
 				     ,(gtd-context "@online")
 				     ,(gtd-context "@notebook")
+				     ,(gtd-context "@errands")
 				     ,(gtd-context "@calls")
-				     ,(gtd-context "@watch")))
+				     ,(gtd-context "@banking")))
                                    ,@(gtd-agenda-entry "n" "@notebook")
                                    ,@(gtd-agenda-entry "e" "@errands")
                                    ,@(gtd-agenda-entry "o" "@online")
@@ -108,13 +142,16 @@
                                    ,@(gtd-agenda-entry "h" "@home")
                                    ,@(gtd-agenda-entry "b" "@banking")
                                    ,@(gtd-agenda-entry "c" "@calls")
+                                   ,@(gtd-agenda-entry "W" "@watch")
 				   ("w" "Waiting" todo "WAITING" ((org-agenda-overriding-header "Waiting")))
                                    ("r" "refile" tags "refile" nil)
                                    ("p" "projects" tags "+LEVEL=1+project-persistent-MAYBE/-CANCELLED-DONE" nil)
-                                   ("s" "Maybe" tags "+LEVEL=1+MAYBE" nil)
                                    ("E" "Todo items without context (in error)" 
                                     ((tags "+project+TODO=\"NEXT\"-{@.*}"))
 				    ((org-agenda-overriding-header "context free")))))
+
+;; Client specific agendas and settings
+(require 'djr-org-mode-private)
 
 ;; Refile
 (setq org-completion-use-ido t
@@ -170,7 +207,7 @@
 (setq org-ditaa-jar-path "~/Dropbox/java/ditaa0_90.jar"
       org-plantuml-jar-path "~/Dropbox/java/plantuml.jar")
 
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
 (org-babel-do-load-languages
  (quote org-babel-load-languages)
@@ -202,7 +239,7 @@
     (cancel-timer org-mobile-push-timer))
   (setq org-mobile-push-timer
         (run-with-idle-timer
-         (* 60 secs) nil 'org-mobile-push)))
+         (* 60 secs) nil 'djr/org-mobile-push-agendas-org-only)))
 
 (add-hook 'after-save-hook
  (lambda ()
@@ -243,5 +280,5 @@
 
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link nil :maxlevel 10 :fileskip0 t :compact t :narrow 150)))
-  
+
 (provide 'djr-org-mode)

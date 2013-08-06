@@ -53,7 +53,7 @@
 
 (defadvice mu4e-update-index
   (after djr/wait-for-mu4e-update-index)
-  (djr/agenda)
+  (djr/agenda-home)
   (ad-deactivate 'mu4e-update-index))
 
 (defun djr/agenda-full-refresh ()
@@ -61,11 +61,18 @@
   (ad-activate 'mu4e-update-index)
   (mu4e-update-mail-and-index nil))
 
-(defun djr/agenda ()
+(defun djr/agenda-home ()
   (interactive)
+  (djr~agenda "H"))
+
+(defun djr/agenda-notebook ()
+  (interactive)
+  (djr~agenda "N"))
+
+(defun djr~agenda (mode)
   (djr/mu4e-to-org (lambda ()
 		     (org-mobile-pull)
-		     (org-agenda nil "H")
+		     (org-agenda nil mode)
 		     (delete-other-windows))))
 
 (defun djr/split-window-below ()
