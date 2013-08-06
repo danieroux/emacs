@@ -3,7 +3,8 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 (global-set-key (kbd "M-o") 'ido-find-file)
-(global-set-key (kbd "M-O") 'recentf-ido-find-file)
+;; Interferes with arrow keys
+;;(global-set-key (kbd "M-O") 'recentf-ido-find-file)
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 
 (global-set-key "\C-cl" 'org-store-link)
