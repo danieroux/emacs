@@ -1,12 +1,4 @@
-;; From http://stackoverflow.com/questions/1167484/how-to-gracefully-shutdown-emacs-daemon/2270603
-(defun shutdown-emacs-server ()
-  (interactive)
-  (when (not (eq window-system 'x))
-    (message "Initializing x windows system.")
-    (x-initialize-window-system)
-    (when (not x-display-name) (setq x-display-name (getenv "DISPLAY")))
-    (select-frame (make-frame-on-display x-display-name '((window-system . x)))) )
-  (let ((last-nonmenu-event nil)(window-system "x"))(save-buffers-kill-emacs)))
+;; -*- lexical-binding: t -*-
 
 ;; From emacs-starter-kit
 (defun indent-buffer ()
