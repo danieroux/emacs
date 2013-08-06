@@ -75,19 +75,22 @@
       mail-user-agent 'mu4e-user-agent
       smtpmail-smtp-service 465)
 
-(autoload 'mu4e "mu4e")
+;; Load mu4e, it has become core to me
+(require 'mu4e)
+(require 'org-mu4e)
 
-(eval-after-load "mu4e"
-  '(progn
-     (require 'org-mu4e)
-     (add-hook 'message-sent-hook 'djr/org-mu4e-store-link-on-sent-message)
-     (add-hook 'message-cancel-hook 'djr/org-mu4e-capture-cancel)))
+(add-hook 'message-sent-hook 'djr/org-mu4e-store-link-on-sent-message)
 
 (defun djr/mu4e-inbox ()
   (interactive)
   (mu4e)
   (setq mu4e-headers-include-related nil)
   (mu4e-headers-search "maildir:/INBOX"))
+
+;; message-cancel-hook does not do what I expected
+(defadvice message-kill-buffer (after djr/cancel-message)
+  (djr/org-mu4e-capture-cancel))
+(ad-activate 'message-kill-buffer)
 
 (defadvice message-send (after djr/capture-sent-message)
   (if djr/org-mu4e-must-capture-message
