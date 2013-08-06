@@ -22,8 +22,7 @@
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")
-		    ("org" . "http://orgmode.org/elpa/")
-		    ("melpa" . "http://melpa.milkbox.net/packages/")))
+		    ("org" . "http://orgmode.org/elpa/")))
     (add-to-list 'package-archives source t))
 
   (package-initialize))
