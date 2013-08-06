@@ -98,6 +98,7 @@
 (require 'djr-expand-region)
 (require 'djr-projectile)
 (require 'djr-magit)
+(require 'djr-multiple-cursors)
 (require 'djr-modeline)
 
 (setq browse-url-browser-function (quote browse-url-generic)
