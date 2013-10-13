@@ -21,6 +21,7 @@
 
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
+		    ("melpa" . "http://melpa.milkbox.net/packages/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")
 		    ("org" . "http://orgmode.org/elpa/")))
     (add-to-list 'package-archives source t))
@@ -30,6 +31,12 @@
 (defun djr/ensure-package (p)
   (when (not (package-installed-p p))
     (package-install p)))
+
+;; For the filtering of packages per repository
+(djr/ensure-package 'melpa)
+(setq package-archive-enable-alist
+      '(("melpa"
+	 helm)))
 
 (defun djr/install-packages (packages)
   "Ensures that the packages are installed"
