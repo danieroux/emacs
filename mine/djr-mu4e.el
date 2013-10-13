@@ -48,8 +48,9 @@
 
 ;; More bookmarks (with email 
 (setq mu4e-bookmarks
-      '(("flag:unread AND NOT maildir:/me AND NOT flag:trashed"          "Unread messages"               ?v)
+      '(("flag:unread AND NOT maildir:/me AND NOT flag:trashed"           "Unread messages"               ?v)
 	("maildir:/INBOX AND flag:unread AND NOT flag:trashed"            "Unread to me"                  ?m)
+	("maildir:/INBOX AND flag:replied AND NOT flag:trashed"           "Replied to me"                 ?r)
 	("maildir:/accounts AND flag:unread AND NOT flag:trashed"         "Unread to accounts"            ?a)
 	("maildir:/others AND flag:unread AND NOT flag:trashed"           "Unread not to me"              ?n)
 	("mime:application/pdf AND NOT flag:thrashed"                     "Messages with documents"       ?d)))
