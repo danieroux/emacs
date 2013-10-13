@@ -59,15 +59,16 @@
 
 (add-hook 'org-mode-hook (lambda ()
 			   (mapcar (lambda (state)
+				     (fix-up-xterm-control-arrows)
 				     (evil-declare-key state org-mode-map
-				       (kbd "M-l") 'org-metaright
-				       (kbd "M-h") 'org-metaleft
-				       (kbd "M-k") 'org-metaup
-				       (kbd "M-j") 'org-metadown
-				       (kbd "M-L") 'org-shiftmetaright
-				       (kbd "M-H") 'org-shiftmetaleft
-				       (kbd "M-K") 'org-shiftmetaup
-				       (kbd "M-J") 'org-shiftmetadown))
+				       (kbd "M-<right>") 'org-metaright
+				       (kbd "M-<left>") 'org-metaleft
+				       (kbd "M-<up>") 'org-metaup
+				       (kbd "M-<down>") 'org-metadown
+				       (kbd "M-S-<right>") 'org-shiftmetaright
+				       (kbd "M-S-<left>") 'org-shiftmetaleft
+				       (kbd "M-S-<up>") 'org-shiftmetaup
+				       (kbd "M-S-<down>") 'org-shiftmetadown))
 				   '(normal insert))))
 
 (defun fix-up-xterm-control-arrows ()
