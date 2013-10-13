@@ -82,7 +82,7 @@
 (require 'djr-calendar)
 (require 'djr-autocomplete)
 (require 'djr-frequency)
-(require 'djr-dired-open)
+(require 'djr-dired)
 (require 'djr-guru-mode)
 (require 'djr-keybindings)
 (require 'djr-addressbook)
@@ -112,6 +112,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode 1)
 
+
+(set-default-coding-systems 'utf-8)
 (set-language-environment 'utf-8)
 (prefer-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -124,7 +126,7 @@
 
 (delete-selection-mode 1)
 
-(global-highlight-changes-mode t)
+(global-highlight-changes-mode -1)
 
 (blink-cursor-mode (- (*) (*) (*)))
 

@@ -1,5 +1,4 @@
 ;; http://xahlee.org/emacs/emacs_dired_open_file_in_ext_apps.html
-
 (defun open-in-external-app ()
   "Open the current file or dired marked files in external app.
    Works in Microsoft Windows, Mac OS X, Linux."
@@ -23,4 +22,7 @@
        ((string-equal system-type "gnu/linux")
         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList))))))
 
-(provide 'djr-dired-open)
+(add-hook 'dired-load-hook
+	  (function (lambda () (load "dired-x"))))
+
+(provide 'djr-dired)
