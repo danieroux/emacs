@@ -1,6 +1,7 @@
 (global-unset-key [(control x)(control z)])
 
-(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-/") 'djr/helm-occur-org)
+(global-set-key (kbd "M-?") 'djr/helm-occur-my-brain)
 
 (global-set-key (kbd "M-o") 'ido-find-file)
 ;; Interferes with arrow keys
