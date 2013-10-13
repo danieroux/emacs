@@ -269,7 +269,9 @@
 
 (setq org-use-speed-commands t
       org-speed-commands-user (quote (("0" . ignore)
-				      ("w" . org-refile))))
+				      ("j" . ignore)
+				      ("k" . ignore)
+				      ("S" . widen))))
 
 (setq org-agenda-persistent-filter t)
 
