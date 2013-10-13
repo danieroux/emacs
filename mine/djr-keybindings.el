@@ -110,7 +110,9 @@
     (define-key map "\e[5;5~" [C-prior])
     (define-key map "\e[6;5~" [C-next])))
 
-(add-hook 'after-init-hook
+;; Does not work, since I start emacsclient sessions - find the hook for that TODO
+;; And server-visit-hook does not work either?
+(add-hook 'server-visit-hook
 	  'fix-up-xterm-control-arrows)
 
 (provide 'djr-keybindings)
