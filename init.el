@@ -73,6 +73,7 @@
 ;; My packages
 (require 'private)
 
+(require 'djr-melpa)
 (require 'djr-ido)
 (require 'djr-smex)
 (require 'djr-vim)
