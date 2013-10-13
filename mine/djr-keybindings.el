@@ -7,7 +7,11 @@
 ;;(global-set-key (kbd "M-O") 'recentf-ido-find-file)
 (global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 
-(global-set-key "\C-cl" 'org-store-link)
+;; OrgMode link handling
+(global-unset-key [(control c) (control l)])
+(global-unset-key [(control c) (l)])
+(global-set-key (kbd "C-c C-l") 'org-store-link)
+(global-set-key (kbd "C-c l") 'org-insert-link)
 
 ;; Should be mirrored in .tmux.commands
 (global-set-key (kbd "<f1>") 'org-capture)
