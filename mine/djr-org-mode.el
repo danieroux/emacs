@@ -8,8 +8,6 @@
 (require 'org-checklist)
 (require 'org-mobile)
 
-(require 'org-occur-goto)
-
 (require 'djr-org-timeout)
 (require 'djr-org-drill)
 
