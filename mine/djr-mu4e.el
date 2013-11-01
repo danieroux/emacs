@@ -214,4 +214,13 @@
 
 ;(add-to-list 'mu4e-headers-actions '("Delete replied" . djr/delete-replied-mail-in-inbox) t)
 
+(defun djr/mu4e-open-message-in-google (msg)
+  (let* ((msgid (mu4e-message-field msg :message-id))
+	 (url (concat "https://mail.google.com/mail/u/0/?shva=1#search/rfc822msgid%3A"
+		      (url-encode-url msgid))))
+    (start-process "" nil "open" url)))
+
+(add-to-list 'mu4e-view-actions
+        '("gopen in gmail" . djr/mu4e-open-message-in-google) t)
+
 (provide 'djr-mu4e)
