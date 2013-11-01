@@ -269,8 +269,14 @@
 
 (setq org-use-speed-commands t
       org-speed-commands-user (quote (("0" . ignore)
+				      ("1" . ignore) ;; For org-drill
+				      ("2" . ignore)
+				      ("3" . ignore)
+				      ("4" . ignore)
+				      ("5" . ignore)
 				      ("j" . ignore)
 				      ("k" . ignore)
+				      ("K" . org-cut-special)
 				      ("S" . widen))))
 
 (setq org-agenda-persistent-filter t)
