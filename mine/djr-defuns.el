@@ -6,14 +6,6 @@
   (save-excursion
     (indent-region (point-min) (point-max) nil)))
 
-;; From emacs-starter-kit
-(defun recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
 (defun djr/initialise-package ()
   (interactive)
 
@@ -31,12 +23,6 @@
 (defun djr/ensure-package (p)
   (when (not (package-installed-p p))
     (package-install p)))
-
-;; For the filtering of packages per repository
-(djr/ensure-package 'melpa)
-(setq package-archive-enable-alist
-      '(("melpa"
-	 helm)))
 
 (defun djr/install-packages (packages)
   "Ensures that the packages are installed"
@@ -84,32 +70,6 @@
   (if (getenv "TMUX")
       (shell-command "tmux split-window -v e")
     (split-window-right)))
-
-(defun djr/org-capture-exit ()
-  (if (equal "single-frame-capture" (frame-parameter nil 'name))
-      (save-buffers-kill-terminal)))
-
-(defun djr/org-capture ()
-  "Create a new frame and run org-capture."
-  (interactive)
-  (make-frame '((name . "single-frame-capture")))
-  (select-frame-by-name "single-frame-capture")
-  (setq word-wrap 1)
-  (setq truncate-lines nil)
-  (org-capture nil "i"))
-
-(defadvice org-capture-finalize
-  (after delete-capture-frame activate)
-  (djr/org-capture-exit))
-
-(defadvice org-capture-destroy
-  (after delete-capture-frame activate)
-  (djr/org-capture-exit))
-
-;; make the frame contain a single window. by default org-capture
-;; splits the window.
-(add-hook 'org-capture-mode-hook
-	  'delete-other-windows)
 
 (defun djr/has-queued-mail-p ()
   (let* ((qfile (expand-file-name smtpmail-queue-index-file
