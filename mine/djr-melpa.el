@@ -5,4 +5,8 @@
       '(("melpa"
 	 helm)))
 
+(setq package-archive-exclude-alist
+	'(("melpa"
+	   magit)))
+
 (provide 'djr-melpa)
