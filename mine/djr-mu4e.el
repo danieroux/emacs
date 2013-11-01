@@ -40,12 +40,6 @@
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
-(add-to-list 'evil-emacs-state-modes 'mu4e-main-mode)
-(add-to-list 'evil-emacs-state-modes 'mu4e-headers-mode)
-(add-to-list 'evil-emacs-state-modes 'mu4e-view-mode)
-
-(add-hook 'mu4e-view-mode-hook 'evil-emacs-state)
-
 ;; More bookmarks (with email 
 (setq mu4e-bookmarks
       '(("flag:unread AND NOT maildir:/me AND NOT flag:trashed"           "Unread messages"               ?v)
