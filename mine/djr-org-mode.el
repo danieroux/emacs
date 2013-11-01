@@ -284,4 +284,21 @@
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link nil :maxlevel 10 :fileskip0 t :compact t :narrow 150)))
 
+(setq org-icalendar-use-scheduled '(event-if-todo)
+      org-icalendar-use-deadline '(event-if-todo)
+      org-icalendar-categories '(all-tags todo-state category))
+
+(defun djr/org-mode-ical-home ()
+  (interactive)
+  (djr/org-mode-ical-export
+   '("~/Dropbox/Documents/gtd/gtd.org")
+   "GTD Home"
+   "gtd-calendar-home.ics"))
+
+(defun djr/org-mode-ical-export (agenda-files calendar-name ics-name)
+  (let* ((org-agenda-files agenda-files)
+	 (org-icalendar-combined-name calendar-name)
+	 (org-icalendar-combined-agenda-file (expand-file-name ics-name djr/org-icalendar-directory)))
+    (org-icalendar-combine-agenda-files t)))
+
 (provide 'djr-org-mode)
