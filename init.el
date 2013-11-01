@@ -19,24 +19,24 @@
       x-select-enable-primary t)
 
 (setq dotfiles-dir (file-name-directory load-file-name))
-(add-to-list 'load-path dotfiles-dir)
 
 ;; Extensions that have been downloaded manually (not through ELPA)
 (setq external-dir (concat dotfiles-dir "external"))
 
 ;; My own files
 (setq my-dir (concat dotfiles-dir "mine"))
-(add-to-list 'load-path external-dir)
-(add-to-list 'load-path my-dir)
 
-(add-to-list 'exec-path "/usr/local/bin")
-(add-to-list 'exec-path "/opt/local/bin")
-(add-to-list 'exec-path "~/bin")
-(add-to-list 'exec-path "/usr/pkg/bin")
+(dolist (config-directory `(,dotfiles-dir
+			    ,external-dir
+			    ,my-dir))
+  (push config-directory load-path))
 
-(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/usr/pkg/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":/opt/local/bin"))
+(dolist (path '("/usr/local/bin"
+		"/opt/local/bin"
+		"/usr/pkg/bin"
+		"~/bin"))
+  (push path exec-path)
+  (setenv "PATH" (concat (getenv "PATH") ":" path)))
 
 ;; Standard EMACS packages
 (require 'cl)
