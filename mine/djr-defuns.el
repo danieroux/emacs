@@ -30,6 +30,7 @@
     (djr/ensure-package p)))
 
 (defun djr/bootstrap ()
+  "Run this after a fresh git clone - the bootstrap.sh script calls this"
   (interactive)
   (djr/initialise-package)
   (package-refresh-contents)

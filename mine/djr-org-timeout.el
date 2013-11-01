@@ -2,7 +2,7 @@
   "The expected, non-suspended timeout")
 (defvar djr/auto-clocking-out-overtime nil
   "The threshold at which this clock is considered overtime")
-(defvar djr/auto-clocking-out-window 10
+(defvar djr/auto-clocking-out-window 60
   "How long a suspension needs to go on before we automatically clock out")
 (defvar djr/auto-clocking-out-timer nil
   "The timer that keeps all auto-clocking out going")

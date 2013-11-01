@@ -112,7 +112,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode 1)
 
-
 (set-default-coding-systems 'utf-8)
 (set-language-environment 'utf-8)
 (prefer-coding-system 'utf-8)
