@@ -61,13 +61,6 @@
 (djr/ensure-package 'zenburn-theme)
 (load-theme 'zenburn t)
 
-;; External packages
-; (require 'key-chord)
-; (key-chord-mode 1)
-
-(require 'rainbow-delimiters)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-
 (add-to-list 'load-suffixes ".el.gpg")
 
 ;; My packages
@@ -103,6 +96,7 @@
 (require 'djr-which-func)
 (require 'djr-modeline)
 (require 'djr-easymenu)
+(require 'djr-rainbow-delimiters)
 (require 'djr-helm)
 
 (setq browse-url-browser-function (quote browse-url-generic)
