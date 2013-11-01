@@ -100,6 +100,7 @@
 (require 'djr-projectile)
 (require 'djr-magit)
 (require 'djr-multiple-cursors)
+(require 'djr-which-func)
 (require 'djr-modeline)
 (require 'djr-easymenu)
 (require 'djr-helm)

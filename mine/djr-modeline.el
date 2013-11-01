@@ -107,6 +107,7 @@
 	    djr-mode-line-mode-name
 	    " "
 	    (propertize "%M" 'face 'font-lock-type-face)
+	    which-func-format
 	    ; "%l"
 	    " %-"))
 
