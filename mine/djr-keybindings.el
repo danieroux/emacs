@@ -69,6 +69,12 @@
   (org-back-to-heading)
   (evil-change-state 'insert))
 
+(defun djr/org-insert-new-heading ()
+  (interactive)
+  (end-of-buffer)
+  (org-insert-heading-respect-content)
+  (evil-change-state 'insert))
+
 (add-hook 'org-mode-hook (lambda ()
 			   (mapcar (lambda (state)
 				     (fix-up-xterm-control-arrows)
@@ -78,12 +84,24 @@
 				       (kbd "M-<right>") 'org-metaright
 				       (kbd "M-<left>") 'org-metaleft
 				       (kbd "M-<up>") 'org-metaup
+				       (kbd "C-<down>") 'djr/org-insert-new-heading
+
+				       (kbd "M-<right>") 'org-metaright
+				       (kbd "M-<left>") 'org-metaleft
+				       (kbd "M-<up>") 'org-metaup
 				       (kbd "M-<down>") 'org-metadown
+
 				       (kbd "M-S-<right>") 'org-shiftmetaright
 				       (kbd "M-S-<left>") 'org-shiftmetaleft
 				       (kbd "M-S-<up>") 'org-shiftmetaup
 				       (kbd "M-S-<down>") 'org-shiftmetadown))
 				   '(normal insert))))
+
+(evil-declare-key 'motion calendar-mode-map
+  "h" 'calendar-backward-day
+  "j" 'calendar-forward-week
+  "k" 'calendar-backward-week
+  "l" 'calendar-forward-day)
 
 (defun fix-up-xterm-control-arrows ()
   (interactive)
@@ -97,24 +115,6 @@
 
     (define-key map "\e[5A"   [C-up])
     (define-key map "\e[5B"   [C-down])
-(evil-declare-key 'motion calendar-mode-map
-  "h" 'calendar-backward-day
-  "j" 'calendar-forward-week
-  "k" 'calendar-backward-week
-  "l" 'calendar-forward-day)
-
-(evil-declare-key 'motion calendar-mode-map
-  "h" 'calendar-backward-day
-  "j" 'calendar-forward-week
-  "k" 'calendar-backward-week
-  "l" 'calendar-forward-day)
-
-(evil-declare-key 'motion calendar-mode-map
-  "h" 'calendar-backward-day
-  "j" 'calendar-forward-week
-  "k" 'calendar-backward-week
-  "l" 'calendar-forward-day)
-
     (define-key map "\e[5C"   [C-right])
     (define-key map "\e[5D"   [C-left])
 
@@ -143,9 +143,9 @@
 (add-hook 'server-visit-hook
 	  'fix-up-xterm-control-arrows)
 
-(provide 'djr-keybindings)
 ;; My current emacs is not ready for this
 ;; (when *osx*
 ;;  (autoload 'omlg-grab-link "org-mac-link")
 ;;  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))
 
+(provide 'djr-keybindings)
