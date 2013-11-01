@@ -6,7 +6,8 @@
 (global-set-key (kbd "M-o") 'ido-find-file)
 ;; Interferes with arrow keys
 ;;(global-set-key (kbd "M-O") 'recentf-ido-find-file)
-(global-set-key (kbd "M-SPC") 'ido-switch-buffer)
+;;(global-set-key (kbd "M-SPC") 'ido-switch-buffer)
+(global-set-key (kbd "M-SPC") 'djr/helm)
 
 ;; OrgMode link handling
 (global-unset-key [(control c) (control l)])
