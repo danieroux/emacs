@@ -97,6 +97,12 @@
 
     (define-key map "\e[5A"   [C-up])
     (define-key map "\e[5B"   [C-down])
+(evil-declare-key 'motion calendar-mode-map
+  "h" 'calendar-backward-day
+  "j" 'calendar-forward-week
+  "k" 'calendar-backward-week
+  "l" 'calendar-forward-day)
+
     (define-key map "\e[5C"   [C-right])
     (define-key map "\e[5D"   [C-left])
 
