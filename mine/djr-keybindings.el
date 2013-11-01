@@ -132,3 +132,8 @@
 	  'fix-up-xterm-control-arrows)
 
 (provide 'djr-keybindings)
+;; My current emacs is not ready for this
+;; (when *osx*
+;;  (autoload 'omlg-grab-link "org-mac-link")
+;;  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))
+
