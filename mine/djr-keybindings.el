@@ -63,7 +63,7 @@
 	  (lambda ()
 	    (define-key mu4e-main-mode-map "g" 'mu4e-update-mail-show-window)))
 
-(defun enter-org-speedmode ()
+(defun djr/enter-org-speedmode ()
   "Moves to start of heading where org-use-speed-commands starts to work. Switch to insert for it to take effect."
   (interactive)
   (org-back-to-heading)
@@ -79,7 +79,7 @@
 			   (mapcar (lambda (state)
 				     (fix-up-xterm-control-arrows)
 				     (evil-declare-key 'normal org-mode-map
-				       (kbd "s") 'enter-org-speedmode)
+				       (kbd "s") 'djr/enter-org-speedmode)
 				     (evil-declare-key state org-mode-map
 				       (kbd "M-<right>") 'org-metaright
 				       (kbd "M-<left>") 'org-metaleft
