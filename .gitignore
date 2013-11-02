@@ -13,3 +13,5 @@ archive-contents
 /.org-id-locations
 elim
 elpa/*
+/.mc-lists.el
+/projectile-bookmarks.eld
