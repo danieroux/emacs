@@ -125,6 +125,9 @@
 
 (blink-cursor-mode (- (*) (*) (*)))
 
+; No fringe
+(set-fringe-mode '(0 . 0))
+
 (setq visible-bell t
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
