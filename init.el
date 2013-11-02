@@ -9,10 +9,6 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(if (eq window-system 'x)
-    (add-hook 'window-setup-hook (lambda nil (set-default-font "Bitstream Vera Sans Mono-14"))))
-(setq default-frame-alist '((font . "Bitstream Vera Sans Mono 14")))
-
 ;; after copy Ctrl+c in X11 apps, you can paste by `yank' in emacs
 (setq x-select-enable-clipboard t
 ;; after mouse selection in X11, you can paste by `yank' in emacs
@@ -66,6 +62,9 @@
 ;; My packages
 (require 'private)
 
+(when (equal system-type 'darwin)
+  (require 'djr-osx))
+
 (require 'djr-melpa)
 (require 'djr-ido)
 (require 'djr-smex)
@@ -98,9 +97,6 @@
 (require 'djr-easymenu)
 (require 'djr-rainbow-delimiters)
 (require 'djr-helm)
-
-(when (equal system-type 'darwin)
-  (require 'djr-osx))
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")

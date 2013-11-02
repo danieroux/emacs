@@ -143,9 +143,9 @@
 (add-hook 'server-visit-hook
 	  'fix-up-xterm-control-arrows)
 
-;; My current emacs is not ready for this
-;; (when *osx*
-;;  (autoload 'omlg-grab-link "org-mac-link")
-;;  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))
+(when *osx*
+ (autoload 'omlg-grab-link "org-mac-link")
+ (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))
+(require 'org-mac-link)
 
 (provide 'djr-keybindings)
