@@ -96,6 +96,7 @@
 (require 'djr-modeline)
 (require 'djr-easymenu)
 (require 'djr-rainbow-delimiters)
+(require 'djr-aspell)
 (require 'djr-helm)
 
 (setq browse-url-browser-function (quote browse-url-generic)
