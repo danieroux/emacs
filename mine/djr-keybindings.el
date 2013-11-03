@@ -17,6 +17,7 @@
 
 ;; Should be mirrored in .tmux.commands
 (global-set-key (kbd "<f1>") 'org-capture)
+(global-set-key (kbd "S-<f1>") 'org-capture)
 (global-set-key (kbd "S-<f2>") 'org-agenda)
 (global-set-key (kbd "<f2>") 'djr/agenda)
 
