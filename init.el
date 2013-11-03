@@ -124,6 +124,8 @@
 
 (global-highlight-changes-mode -1)
 
+(global-auto-revert-mode t)
+
 (blink-cursor-mode (- (*) (*) (*)))
 
 ; No fringe
