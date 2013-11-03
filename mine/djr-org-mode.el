@@ -45,15 +45,19 @@
       org-fast-tag-selection-include-todo t
       org-fast-tag-selection-single-key t
       org-use-fast-todo-selection t
+      org-treat-S-cursor-todo-selection-as-state-change nil
       org-hide-leading-stars t
-      org-agenda-skip-additional-timestamps-same-entry nil)
+      org-agenda-skip-additional-timestamps-same-entry nil
+      org-id-method (quote uuidgen)
+      org-id-link-to-org-use-id t)
 
 ;; Todo config
 (setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
 
 (setq org-capture-templates (quote (("p" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org") "* %^{Project name}
 ** NEXT %^{First task}%?")
-                                    ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org") "* %?" :clock-in t :clock-resume t)
+                                    ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org") "* %?
+  %u")
                                     ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
                                     ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
   %u
@@ -156,9 +160,9 @@
 
 ;; Refile
 (setq org-completion-use-ido t
-      org-refile-targets (quote ((org-agenda-files :maxlevel . 1) (nil :maxlevel . 1)))
+      org-refile-targets (quote ((org-agenda-files :maxlevel . 9) (nil :maxlevel . 9)))
       org-refile-use-outline-path (quote file)
-      org-outline-path-complete-in-steps t
+      org-outline-path-complete-in-steps nil 
       org-refile-allow-creating-parent-nodes (quote confirm))
 
 ;; Clocking
@@ -166,6 +170,9 @@
 
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)))
+
+(org-clock-persistence-insinuate)
+(setq org-clock-into-drawer t)
 
 ;; Crypt
 (require 'org-crypt)
@@ -275,8 +282,10 @@
 				      ("4" . ignore)
 				      ("5" . ignore)
 				      ("j" . ignore)
+				      ("J" . org-clock-goto)
 				      ("k" . ignore)
 				      ("K" . org-cut-special)
+				      ("q" . bh/show-org-agenda)
 				      ("S" . widen))))
 
 (setq org-agenda-persistent-filter t)
@@ -306,5 +315,35 @@
 	 (org-icalendar-combined-name calendar-name)
 	 (org-icalendar-combined-agenda-file (expand-file-name ics-name djr/org-icalendar-directory)))
     (org-icalendar-combine-agenda-files t)))
+
+;; http://comments.gmane.org/gmane.emacs.orgmode/68791
+(defvar bh/insert-inactive-timestamp t)
+
+(defun bh/toggle-insert-inactive-timestamp ()
+  (interactive)
+  (setq bh/insert-inactive-timestamp (not bh/insert-inactive-timestamp))
+  (message "Heading timestamps are %s"
+           (if bh/insert-inactive-timestamp "ON" "OFF")))
+
+(defun bh/insert-inactive-timestamp ()
+  (interactive)
+  (org-insert-time-stamp nil t t nil nil nil))
+
+(defun bh/insert-heading-inactive-timestamp ()
+  (save-excursion
+    (when bh/insert-inactive-timestamp
+      (org-return)
+      (org-cycle)
+      (bh/insert-inactive-timestamp))))
+
+(defun bh/show-org-agenda ()
+  (interactive)
+  (if org-agenda-sticky
+      (switch-to-buffer "*Org Agenda( )*")
+    (switch-to-buffer "*Org Agenda*"))
+  (delete-other-windows))
+
+(add-hook 'org-insert-heading-hook
+	  'bh/insert-heading-inactive-timestamp 'append)
 
 (provide 'djr-org-mode)

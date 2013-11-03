@@ -27,7 +27,7 @@
 (global-set-key (kbd "C-x 3") 'djr/split-window-right)
 
 ;; Ctrl-Space 
-(global-set-key (kbd "C-@") 'er/expand-region)
+;; (global-set-key (kbd "C-@") 'er/expand-region)
 
 ;; (key-chord-define-global "\h" '(lambda () (interactive) (org-agenda nil "H")))
 
@@ -74,6 +74,11 @@
   (end-of-buffer)
   (org-insert-heading-respect-content)
   (evil-change-state 'insert))
+
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            (define-key org-agenda-mode-map "q" 'bury-buffer))
+          'append)
 
 (add-hook 'org-mode-hook (lambda ()
 			   (mapcar (lambda (state)
