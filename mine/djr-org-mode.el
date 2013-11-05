@@ -15,7 +15,8 @@
 
 ;; Files
 (setq org-agenda-files (quote ("~/Dropbox/Documents"
-			       "~/Dropbox/Documents/gtd")))
+			       "~/Dropbox/Documents/gtd"
+			       "~/Dropbox/Documents/brain/brain.org")))
 
 (setq org-directory "~/Dropbox/Documents/gtd")
 
@@ -160,7 +161,7 @@
 
 ;; Refile
 (setq org-completion-use-ido t
-      org-refile-targets (quote ((org-agenda-files :maxlevel . 9) (nil :maxlevel . 9)))
+      org-refile-targets (quote ((org-agenda-files :maxlevel . 1) (nil :maxlevel . 1)))
       org-refile-use-outline-path (quote file)
       org-outline-path-complete-in-steps nil 
       org-refile-allow-creating-parent-nodes (quote confirm))

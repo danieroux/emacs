@@ -126,6 +126,8 @@
 
 (global-auto-revert-mode t)
 
+(visual-line-mode t)
+
 (blink-cursor-mode (- (*) (*) (*)))
 
 ; No fringe

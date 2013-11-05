@@ -19,7 +19,7 @@
 (global-set-key (kbd "<f1>") 'org-capture)
 (global-set-key (kbd "S-<f1>") 'org-capture)
 (global-set-key (kbd "S-<f2>") 'org-agenda)
-(global-set-key (kbd "<f2>") 'djr/agenda)
+(global-set-key (kbd "<f2>") 'bh/show-org-agenda)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
