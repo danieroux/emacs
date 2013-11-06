@@ -1,3 +1,5 @@
+(require 'djr-xmonad)
+
 (global-unset-key [(control x)(control z)])
 
 (global-set-key (kbd "M-/") 'djr/helm-occur-org)
@@ -152,6 +154,7 @@
 (when *osx*
  (autoload 'omlg-grab-link "org-mac-link")
  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))
+
 (require 'org-mac-link)
 
 (provide 'djr-keybindings)

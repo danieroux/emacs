@@ -19,6 +19,11 @@
 ;; Extensions that have been downloaded manually (not through ELPA)
 (setq external-dir (concat dotfiles-dir "external"))
 
+;; jwiegley's: https://github.com/jwiegley/use-package
+(add-to-list 'load-path (concat external-dir "/use-package"))
+;;(require 'use-package)
+(require 'bind-key)
+
 ;; My own files
 (setq my-dir (concat dotfiles-dir "mine"))
 
@@ -76,8 +81,6 @@
 (require 'djr-autocomplete)
 (require 'djr-frequency)
 (require 'djr-dired)
-(require 'djr-guru-mode)
-(require 'djr-keybindings)
 (require 'djr-addressbook)
 (require 'djr-mu4e)
 (require 'djr-offlineimap)
@@ -97,6 +100,8 @@
 (require 'djr-rainbow-delimiters)
 (require 'djr-aspell)
 (require 'djr-helm)
+(require 'djr-guru-mode)
+(require 'djr-keybindings)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
