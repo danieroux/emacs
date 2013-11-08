@@ -15,3 +15,5 @@ elim
 elpa/*
 /.mc-lists.el
 /projectile-bookmarks.eld
+/eshell/lastdir
+/eshell/history
