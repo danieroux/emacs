@@ -1,4 +1,4 @@
-(djr/ensure-package 'helm)
+(djr/ensure-melpa-package 'helm)
 
 (require 'helm-config)
 (require 'helm-files)

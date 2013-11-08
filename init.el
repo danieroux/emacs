@@ -70,7 +70,6 @@
 (when (equal system-type 'darwin)
   (require 'djr-osx))
 
-(require 'djr-melpa)
 (require 'djr-ido)
 (require 'djr-smex)
 (require 'djr-vim)

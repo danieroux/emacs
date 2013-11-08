@@ -1,5 +1,7 @@
 (require 'djr-xmonad)
 
+(bind-key* "<f10>" 'toggle-fullscreen)
+
 (global-unset-key [(control x)(control z)])
 
 (global-set-key (kbd "M-/") 'djr/helm-occur-org)

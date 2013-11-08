@@ -13,7 +13,6 @@
 
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
-		    ("melpa" . "http://melpa.milkbox.net/packages/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")
 		    ("org" . "http://orgmode.org/elpa/")))
     (add-to-list 'package-archives source t))
@@ -23,6 +22,15 @@
 (defun djr/ensure-package (p)
   (when (not (package-installed-p p))
     (package-install p)))
+
+(defun djr/ensure-melpa-package (p)
+  (when (not (package-installed-p p))
+    (progn
+      (let* ((package-archives '(("melpa" . "http://melpa.milkbox.net/packages/"))))
+        (package-initialize)
+	(package-refresh-contents)
+        (package-install p))
+      (djr/initialise-package))))
 
 (defun djr/install-packages (packages)
   "Ensures that the packages are installed"
@@ -77,5 +85,12 @@
 				  smtpmail-queue-dir))
 	 (size (eighth (file-attributes qfile))))
     (not (= 0 size))))
+
+(defun toggle-fullscreen ()
+  "Toggle full screen"
+  (interactive)
+  (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 
 (provide 'djr-defuns)
