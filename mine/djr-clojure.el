@@ -1,12 +1,15 @@
 (djr/install-packages '(clojure-mode
 			ac-nrepl
-			nrepl
-			nrepl-ritz))
+			cider))
 
 (require 'ac-nrepl)
 
-(setq nrepl-popup-stacktraces nil
-      nrepl-popup-stacktraces-in-repl t)
+(setq cider-popup-stacktraces nil
+      cider-popup-stacktraces-in-repl t
+      cider-repl-pop-to-buffer-on-connect nil
+      cider-repl-popup-stacktraces t
+      cider-repl-display-in-current-window t
+      cider-auto-select-error-buffer t)
 
 (setq auto-mode-alist (cons '("\\.edn$" . clojure-mode) auto-mode-alist))  ; *.edn are Clojure files
 (setq auto-mode-alist (cons '("\\.cljs$" . clojure-mode) auto-mode-alist)) ; *.cljs are Clojure files
@@ -14,12 +17,12 @@
 (add-to-list 'same-window-buffer-names "*nrepl*")
 
 (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-(add-hook 'nrepl-interaction-mode-hook 'nrepl-turn-on-eldoc-mode)
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
-(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-(add-hook 'nrepl-mode-hook 'paredit-mode)
-(add-hook 'nrepl-mode-hook 'subword-mode)
-(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+(add-hook 'cider-repl-mode-hook 'paredit-mode)
+(add-hook 'cider-repl-mode-hook 'subword-mode)
+(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
 
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'nrepl-mode))
