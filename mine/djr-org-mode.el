@@ -208,6 +208,11 @@
       org-deadline-warning-days 5)
 
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
+
+(setq org-habit-following-days 0
+      org-habit-show-habits t
+      org-habit-preceding-days 30)
+
 (setq org-cycle-separator-lines 0
       org-log-done 'time)
 
