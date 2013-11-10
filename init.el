@@ -102,6 +102,7 @@
 (require 'djr-keybindings)
 (require 'djr-ace-jump)
 (require 'djr-scala)
+(require 'djr-eshell)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
