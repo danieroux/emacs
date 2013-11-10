@@ -103,6 +103,7 @@
 (require 'djr-ace-jump)
 (require 'djr-scala)
 (require 'djr-eshell)
+(require 'djr-asciidoc)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
