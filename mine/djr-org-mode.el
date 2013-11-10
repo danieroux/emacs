@@ -352,4 +352,7 @@
 (add-hook 'org-insert-heading-hook
 	  'bh/insert-heading-inactive-timestamp 'append)
 
+;; More control on output format
+(setq org-export-preserve-breaks t)
+
 (provide 'djr-org-mode)
