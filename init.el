@@ -32,13 +32,6 @@
 			    ,my-dir))
   (push config-directory load-path))
 
-(dolist (path '("/usr/local/bin"
-		"/opt/local/bin"
-		"/usr/pkg/bin"
-		"~/bin"))
-  (push path exec-path)
-  (setenv "PATH" (concat (getenv "PATH") ":" path)))
-
 ;; Standard EMACS packages
 (require 'cl)
 (require 'uniquify)
@@ -56,6 +49,12 @@
 (setq-default save-place t)
 
 (require 'djr-defuns)
+
+(dolist (path '("/usr/local/bin"
+		"/opt/local/bin"
+		"/usr/pkg/bin"
+		"~/bin"))
+  (djr/add-to-paths path))
 
 (djr/initialise-package)
 
