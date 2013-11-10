@@ -49,6 +49,11 @@
 	    (define-key evil-normal-state-local-map (kbd "M-.") 'nrepl-jump)
 	    (define-key evil-normal-state-local-map (kbd "M-,") 'nrepl-jump-back)))
 
+(add-hook 'scala-mode-hook
+	  (lambda ()
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'ensime-edit-definition)
+	    (define-key evil-normal-state-local-map (kbd "M-,") 'ensime-pop-find-definition-stack)))
+
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    (mapcar (lambda (state)
