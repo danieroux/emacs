@@ -19,8 +19,9 @@
 ;; OrgMode link handling
 (global-unset-key [(control c) (control l)])
 (global-unset-key [(control c) (l)])
-(global-set-key (kbd "C-c C-l") 'org-store-link)
-(global-set-key (kbd "C-c l") 'org-insert-link)
+
+(bind-key* "C-c C-l" 'org-store-link)
+(bind-key* "C-c l" 'org-insert-link)
 
 ;; Should be mirrored in .tmux.commands
 (global-set-key (kbd "<f1>") 'org-capture)
