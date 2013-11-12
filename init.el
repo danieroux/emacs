@@ -21,7 +21,7 @@
 
 ;; jwiegley's: https://github.com/jwiegley/use-package
 (add-to-list 'load-path (concat external-dir "/use-package"))
-;;(require 'use-package)
+(require 'use-package)
 (require 'bind-key)
 
 ;; My own files
@@ -33,22 +33,24 @@
   (push config-directory load-path))
 
 ;; Standard EMACS packages
-(require 'cl)
-(require 'uniquify)
-(require 'ansi-color)
-(require 'flymake)
-(require 'ffap)
+(use-package cl)
+(use-package uniquify)
+(use-package ansi-color)
+(use-package flymake)
+(use-package ffap)
 
-(require 'paren)
-(show-paren-mode t)
+(use-package paren
+  :init (show-paren-mode t))
 
-(require 'recentf)
-(recentf-mode t)
+(use-package recentf
+  :init (recentf-mode t))
 
-(require 'saveplace)
-(setq-default save-place t)
+(use-package saveplace
+  :init (setq-default save-place t))
 
-(require 'djr-defuns)
+(use-package djr-defuns)
+
+(djr/initialise-package)
 
 (dolist (path '("/usr/local/bin"
 		"/opt/local/bin"
@@ -56,54 +58,52 @@
 		"~/bin"))
   (djr/add-to-paths path))
 
-(djr/initialise-package)
-
 (djr/ensure-package 'zenburn-theme)
 (load-theme 'zenburn t)
 
 (add-to-list 'load-suffixes ".el.gpg")
 
 ;; My packages
-(require 'private)
+(use-package private)
 
 (when (equal system-type 'darwin)
-  (require 'djr-osx))
+  (use-package djr-osx))
 
-(require 'djr-ido)
-(require 'djr-smex)
-(require 'djr-vim)
-(require 'djr-org-mode)
-(require 'djr-really-autosave)
-(require 'djr-clean-emacs-directory)
-(require 'djr-calendar)
-(require 'djr-autocomplete)
-(require 'djr-frequency)
-(require 'djr-dired)
-(require 'djr-addressbook)
-(require 'djr-mu4e)
-(require 'djr-offlineimap)
-(require 'djr-twitter)
-(require 'djr-paredit)
-(require 'djr-clojure)
-(require 'djr-ledger)
-;(require 'djr-erc)
-;(require 'djr-blog)
-(require 'djr-w3m)
-(require 'djr-expand-region)
-(require 'djr-projectile)
-(require 'djr-magit)
-(require 'djr-multiple-cursors)
-(require 'djr-modeline)
-(require 'djr-easymenu)
-(require 'djr-rainbow-delimiters)
-(require 'djr-aspell)
-(require 'djr-helm)
-(require 'djr-guru-mode)
-(require 'djr-keybindings)
-(require 'djr-ace-jump)
-(require 'djr-scala)
-(require 'djr-eshell)
-(require 'djr-asciidoc)
+(use-package djr-ido)
+(use-package djr-smex)
+(use-package djr-vim)
+(use-package djr-org-mode)
+(use-package djr-really-autosave)
+(use-package djr-clean-emacs-directory)
+(use-package djr-calendar)
+(use-package djr-autocomplete)
+(use-package djr-frequency)
+(use-package djr-dired)
+(use-package djr-addressbook)
+(use-package djr-mu4e)
+(use-package djr-offlineimap)
+(use-package djr-twitter)
+(use-package djr-paredit)
+(use-package djr-clojure)
+(use-package djr-ledger)
+(use-package djr-erc)
+;(use-package djr-blog)
+(use-package djr-w3m)
+(use-package djr-expand-region)
+(use-package djr-projectile)
+(use-package djr-magit)
+(use-package djr-multiple-cursors)
+(use-package djr-modeline)
+(use-package djr-easymenu)
+(use-package djr-rainbow-delimiters)
+(use-package djr-aspell)
+(use-package djr-helm)
+(use-package djr-guru-mode)
+(use-package djr-keybindings)
+(use-package djr-ace-jump)
+(use-package djr-scala)
+(use-package djr-eshell)
+(use-package djr-asciidoc)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")

@@ -1,4 +1,4 @@
-(require 'ido)
+(use-package ido)
 
 (djr/ensure-package 'ido-ubiquitous)
 
