@@ -16,7 +16,8 @@
 ;; Files
 (setq org-agenda-files (quote ("~/Dropbox/Documents"
 			       "~/Dropbox/Documents/gtd"
-			       "~/Dropbox/Documents/brain/brain.org")))
+			       "~/Dropbox/Documents/brain/brain.org"
+			       "~/Dropbox/Documents/consulting/consulting.org")))
 
 (setq org-directory "~/Dropbox/Documents/gtd")
 
@@ -184,25 +185,7 @@
       org-crypt-disable-auto-save t)
 
 (setq org-agenda-include-diary nil)
-;; Keep tasks with dates on the global todo lists
-;(setq org-agenda-todo-ignore-with-date nil)
-
-;; Keep tasks with deadlines on the global todo lists
-;; (setq org-agenda-todo-ignore-deadlines t)
-
 (setq org-agenda-todo-ignore-scheduled 'future)
-
-;; Keep tasks with timestamps on the global todo lists
-;(setq org-agenda-todo-ignore-timestamp nil)
-
-;; Remove completed deadline tasks from the agenda view
-;(setq org-agenda-skip-deadline-if-done t)
-
-;; Remove completed scheduled tasks from the agenda view
-;; (setq org-agenda-skip-scheduled-if-done t)
-
-;; Remove completed items from search results
-;(setq org-agenda-skip-timestamp-if-done t)
 
 (setq org-agenda-span 'day
       org-deadline-warning-days 5)
