@@ -105,8 +105,8 @@
 	    djr-mode-line-buffer-name
 	    "  "
 	    djr-mode-line-mode-name
-	    " "
-	    (propertize "%M" 'face 'font-lock-type-face)
+	    "  "
+	    '(:eval global-mode-string)
 	    ; "%l"
 	    " %-"))
 
