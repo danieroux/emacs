@@ -104,6 +104,8 @@
 (use-package djr-scala)
 (use-package djr-eshell)
 (use-package djr-asciidoc)
+(use-package djr-elfeed)
+(use-package djr-midnight)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
