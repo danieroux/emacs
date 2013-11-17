@@ -10,7 +10,10 @@
 (dolist (mode '(mu4e-main-mode
 		mu4e-headers-mode
 		mu4e-view-mode
-		info-mode))
+		info-mode
+		elfeed-show-mode
+		elfeed-search-mode
+		twittering-mode))
   (push mode evil-emacs-state-modes))
 
 (add-hook 'mu4e-view-mode-hook 'evil-emacs-state)

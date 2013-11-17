@@ -53,13 +53,16 @@
 	    'mu4e-main-mode
 	    'mu4e-view-mode
 	    'magit-status-mode
-	    'mu4e-headers-mode))
+	    'mu4e-headers-mode
+	    'erc-mode
+	    'elfeed-show-mode
+	    'elfeed-search-mode
+	    'twittering-mode))
 
 (setq djr-mode-line-buffer-status
       '(:eval (cond 
 	       ((and (buffer-modified-p)
-		     (not
-		      (member major-mode djr-mode-line-modified-never-saveable)))
+		     (not (member major-mode djr-mode-line-modified-never-saveable)))
 		(propertize "*" 'face 'mode-line-buffer-status-face-modified))
 	       (t
 		(propertize " " 'face 'mode-line-buffer-status-face)))))
