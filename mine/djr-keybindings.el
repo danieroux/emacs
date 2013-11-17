@@ -29,6 +29,11 @@
 (global-set-key (kbd "S-<f2>") 'org-agenda)
 (global-set-key (kbd "<f2>") 'bh/show-org-agenda)
 
+(global-unset-key (kbd "<f3>"))
+(bind-key* "<f3> m" 'mu4e)
+(bind-key* "<f3> e" 'elfeed)
+(bind-key* "<f3> t" 'twit)
+
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
