@@ -99,4 +99,11 @@
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 
+(defun djr/pull ()
+  "Pull information sources (moving away from push based)"
+  (interactive)
+  (mu4e-update-index)
+  (elfeed-update)
+  (twittering-update-active-buffers t))
+
 (provide 'djr-defuns)
