@@ -8,6 +8,7 @@
 
 (add-hook 'eshell-mode-hook
 	  (lambda ()
-	    (setq pcomplete-ignore-case t)))
+	    (setq pcomplete-ignore-case t)
+	    (add-to-list 'eshell-visual-commands "less")))
 
 (provide 'djr-eshell)
