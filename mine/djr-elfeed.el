@@ -3,6 +3,8 @@
 
 (djr/ensure-package 'elfeed)
 
+;; <---- Copy and paste from https://github.com/skeeto/.emacs.d/blob/master/etc/feed-setup.el
+
 (defvar elfeed-tagger-db (make-hash-table :test 'equal)
   "Marks what feeds get what tags.")
 
@@ -34,5 +36,67 @@
     (apply #'elfeed-tag entry tags)))
 
 (add-hook 'elfeed-new-entry-hook 'elfeed-tagger-db-tagger)
+
+;; ----> End copy and paste from https://github.com/skeeto/.emacs.d/blob/master/etc/feed-setup.el
+
+(defun djr/elfeed-mark-all-read-in-buffer ()
+  (interactive)
+  (mark-whole-buffer)
+  (elfeed-search-untag-all-unread)
+  (elfeed-search-update--force))
+
+(defun djr/elfeed-feeds-with-tag (tag)
+  "Find all feed URLs that matches a certain tag"
+  (loop for (url . tags) in elfeed-feeds-alist
+	when (member tag tags)
+	collect url))
+
+(defun djr/elfeed-update-frequent ()
+  "Some feeds I want to update many times a day, and I mark them with 'frequent'"
+  (interactive)
+  (let* ((elfeed-feeds (djr/elfeed-feeds-with-tag 'frequent)))
+    (elfeed-update)))
+
+(defun djr/elfeed-get-search-term-from-char (kar)
+  (let* ((lookup '((?c . "+comic")
+		   (?f . "+frequent")
+		   (?n . "NC:") ; New LinkedIn Connections, using the djr/elfeed-rewrite-linked-in function
+		   (?m . "metafilter")))
+	 (search (assoc-default kar lookup)))
+    (concat "+unread " search)))
+
+(defun djr/elfeed-limit ()
+  "Shortcuts to often used filters"
+  (interactive)
+  (let* ((limit (read-char "Limit to ..."))
+	 (search (djr/elfeed-get-search-term-from-char limit)))
+    (setq elfeed-search-filter search)
+    (elfeed-search-update :force)))
+
+(defun djr/elfeed-rewrite-linked-in (title)
+  "Modify the LinkedIn feed title to show the new connection first, making scanning that much easier"
+  (or (save-match-data
+	(and (string-match "\\(.*\\) is now connected to \\(.*\\)" title)
+	     (let* ((known (match-string 1 title))
+		    (new (match-string 2 title)))
+	       (and new
+		    known
+		    (concat "NC: " new " -> " known)))))
+      title))
+
+(ert-deftest test-djr/elfeed-rewrite-linked-in ()
+  "Ensure that only LinkedIn connections titles get rewritten"
+  (should (equal "As is" (djr/elfeed-rewrite-linked-in "As is")))
+  (should (equal "connected" (djr/elfeed-rewrite-linked-in "connected")))
+  (should (equal "NC: Sarie Smit (Some Random Job Title) -> Piet Potgieter"
+		 (djr/elfeed-rewrite-linked-in "Piet Potgieter is now connected to Sarie Smit (Some Random Job Title)"))))
+
+(defun djr/elfeed-entry-filter-title (entry)
+  "Change TITLE of ENTRY"
+  (let ((current (elfeed-entry-title entry)))
+    (setf (elfeed-entry-title entry)
+          (djr/elfeed-rewrite-linked-in current))))
+
+(add-hook 'elfeed-new-entry-hook 'djr/elfeed-entry-filter-title)
 
 (provide 'djr-elfeed)

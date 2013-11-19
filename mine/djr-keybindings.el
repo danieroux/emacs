@@ -30,9 +30,15 @@
 (global-set-key (kbd "<f2>") 'bh/show-org-agenda)
 
 (global-unset-key (kbd "<f3>"))
-(bind-key* "<f3> m" 'mu4e)
-(bind-key* "<f3> e" 'elfeed)
+(bind-key* "<f3> m" 'djr/mu4e-inbox)
+(bind-key* "<f3> n" 'elfeed)
 (bind-key* "<f3> t" 'twit)
+
+(add-hook 'elfeed-search-mode-hook
+	  (lambda ()
+	    (bind-key "f" 'djr/elfeed-update-frequent elfeed-search-mode-map)
+	    (bind-key "l" 'djr/elfeed-limit elfeed-search-mode-map)
+	    (bind-key "R" 'djr/elfeed-mark-all-read-in-buffer elfeed-search-mode-map)))
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
