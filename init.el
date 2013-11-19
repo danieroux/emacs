@@ -99,13 +99,14 @@
 (use-package djr-aspell)
 (use-package djr-helm)
 (use-package djr-guru-mode)
-(use-package djr-keybindings)
 (use-package djr-ace-jump)
 (use-package djr-scala)
 (use-package djr-eshell)
 (use-package djr-asciidoc)
 (use-package djr-elfeed)
 (use-package djr-midnight)
+
+(use-package djr-keybindings)
 
 (setq browse-url-browser-function (quote browse-url-generic)
       browse-url-generic-program "open")
