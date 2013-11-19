@@ -74,7 +74,7 @@
     (elfeed-search-update :force)))
 
 (defun djr/elfeed-rewrite-linked-in (title)
-  "Modify the LinkedIn feed title to show the new connection first, making scanning that much easier"
+  "Modify the LinkedIn feed title to to make scanning much easier"
   (or (save-match-data
 	(and (string-match "\\(.*\\) is now connected to \\(.*\\)" title)
 	     (let* ((known (match-string 1 title))
@@ -82,17 +82,27 @@
 	       (and new
 		    known
 		    (concat "NC: " new " -> " known)))))
+      (save-match-data
+	(and (string-match "\\(.*\\) has updated their current title to \\(.*\\)" title)
+	     (let* ((person (match-string 1 title))
+		    (new-job-title (match-string 2 title)))
+	       (and person
+		    new-job-title
+		    (concat "NT: " person " -> " new-job-title)))))
       title))
 
 (ert-deftest test-djr/elfeed-rewrite-linked-in ()
   "Ensure that only LinkedIn connections titles get rewritten"
   (should (equal "As is" (djr/elfeed-rewrite-linked-in "As is")))
   (should (equal "connected" (djr/elfeed-rewrite-linked-in "connected")))
+  (should (equal "is now connected to" (djr/elfeed-rewrite-linked-in "is now connected to")))
   (should (equal "NC: Sarie Smit (Some Random Job Title) -> Piet Potgieter"
-		 (djr/elfeed-rewrite-linked-in "Piet Potgieter is now connected to Sarie Smit (Some Random Job Title)"))))
+		 (djr/elfeed-rewrite-linked-in "Piet Potgieter is now connected to Sarie Smit (Some Random Job Title)")))
+  (should (equal "NT: Sarie Smit -> Some Random Job Title at Somewhere"
+		 (djr/elfeed-rewrite-linked-in "Sarie Smit has updated their current title to Some Random Job Title at Somewhere"))))
 
 (defun djr/elfeed-entry-filter-title (entry)
-  "Change TITLE of ENTRY"
+  "Filter entry and change title if required"
   (let ((current (elfeed-entry-title entry)))
     (setf (elfeed-entry-title entry)
           (djr/elfeed-rewrite-linked-in current))))
