@@ -51,15 +51,15 @@
 
 ;; (key-chord-define-global "\h" '(lambda () (interactive) (org-agenda nil "H")))
 
-(add-hook 'nrepl-mode-hook
+(add-hook 'cider-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'nrepl-jump)
-	    (define-key evil-normal-state-local-map (kbd "M-,") 'nrepl-jump-back)))
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump)
+	    (define-key evil-normal-state-local-map (kbd "M-,") 'cider-jump-back)))
 
 (add-hook 'clojure-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'nrepl-jump)
-	    (define-key evil-normal-state-local-map (kbd "M-,") 'nrepl-jump-back)))
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump)
+	    (define-key evil-normal-state-local-map (kbd "M-,") 'cider-jump-back)))
 
 (add-hook 'scala-mode-hook
 	  (lambda ()
@@ -172,6 +172,7 @@
 ;; And server-visit-hook does not work either?
 (add-hook 'server-visit-hook
 	  'fix-up-xterm-control-arrows)
+
 
 (when *osx*
  (autoload 'omlg-grab-link "org-mac-link")
