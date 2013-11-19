@@ -13,7 +13,8 @@
 		info-mode
 		elfeed-show-mode
 		elfeed-search-mode
-		twittering-mode))
+		twittering-mode
+		ert-results-mode))
   (push mode evil-emacs-state-modes))
 
 (add-hook 'mu4e-view-mode-hook 'evil-emacs-state)

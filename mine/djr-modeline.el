@@ -57,7 +57,8 @@
 	    'erc-mode
 	    'elfeed-show-mode
 	    'elfeed-search-mode
-	    'twittering-mode))
+	    'twittering-mode
+	    'ert-results-mode))
 
 (setq djr-mode-line-buffer-status
       '(:eval (cond 
