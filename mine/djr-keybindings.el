@@ -29,13 +29,16 @@
 (global-set-key (kbd "S-<f2>") 'org-agenda)
 (global-set-key (kbd "<f2>") 'bh/show-org-agenda)
 
+(defun djr/twittering-fix-clobbering ()
+  "twittering-mode seems to clobber the current buffer?"
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*twittering*"))
+  (twit))
+
 (global-unset-key (kbd "<f3>"))
 (bind-key* "<f3> m" 'djr/mu4e-inbox)
 (bind-key* "<f3> n" 'elfeed)
-(bind-key* "<f3> t" '(lambda ()
-		       ;; twittering-mode seems to take over whatever the current buffer is?
-		       (switch-to-buffer (get-buffer-create "twitter"))
-		       (twit)))
+(bind-key* "<f3> t" 'djr/twittering-fix-clobbering)
 
 (add-hook 'elfeed-search-mode-hook
 	  (lambda ()
