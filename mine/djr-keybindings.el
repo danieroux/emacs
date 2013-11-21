@@ -32,7 +32,10 @@
 (global-unset-key (kbd "<f3>"))
 (bind-key* "<f3> m" 'djr/mu4e-inbox)
 (bind-key* "<f3> n" 'elfeed)
-(bind-key* "<f3> t" 'twit)
+(bind-key* "<f3> t" '(lambda ()
+		       ;; twittering-mode seems to take over whatever the current buffer is?
+		       (switch-to-buffer (get-buffer-create "twitter"))
+		       (twit)))
 
 (add-hook 'elfeed-search-mode-hook
 	  (lambda ()
