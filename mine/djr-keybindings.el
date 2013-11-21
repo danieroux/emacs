@@ -66,6 +66,16 @@
 	    (define-key evil-normal-state-local-map (kbd "M-.") 'ensime-edit-definition)
 	    (define-key evil-normal-state-local-map (kbd "M-,") 'ensime-pop-find-definition-stack)))
 
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
+	    (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)))
+
+(add-hook 'ielm-mode-hook
+	  (lambda ()
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
+	    (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)))
+
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    (mapcar (lambda (state)

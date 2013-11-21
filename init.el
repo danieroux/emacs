@@ -105,6 +105,7 @@
 (use-package djr-asciidoc)
 (use-package djr-elfeed)
 (use-package djr-midnight)
+(use-package djr-elisp)
 
 (use-package djr-keybindings)
 
