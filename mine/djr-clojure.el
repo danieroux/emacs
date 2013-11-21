@@ -19,10 +19,8 @@
 (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
 (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
 
-(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-(add-hook 'cider-repl-mode-hook 'paredit-mode)
-(add-hook 'cider-repl-mode-hook 'subword-mode)
-(add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode)
+(dolist (mode '(ac-nrepl-setup paredit-mode subword-mode rainbow-delimiters-mode))
+  (add-hook 'cider-repl-mode-hook mode))
 
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'nrepl-mode))

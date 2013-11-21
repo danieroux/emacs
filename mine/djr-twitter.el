@@ -18,4 +18,6 @@
 ;;				  (cancel-timer twittering-timer-for-redisplaying)
 ;;				  (cancel-timer twittering-timer)))
 
+(add-hook 'twittering-edit-mode-hook 'flyspell-mode)
+
 (provide 'djr-twitter)

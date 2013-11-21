@@ -43,7 +43,7 @@
   (interactive)
   (mark-whole-buffer)
   (elfeed-search-untag-all-unread)
-  (elfeed-search-update--force))
+  (elfeed-search-update :force))
 
 (defun djr/elfeed-feeds-with-tag (tag)
   "Find all feed URLs that matches a certain tag"
