@@ -29,6 +29,8 @@
 (global-set-key (kbd "S-<f2>") 'org-agenda)
 (global-set-key (kbd "<f2>") 'bh/show-org-agenda)
 
+(bind-key (kbd "*") 'twittering-favorite twittering-mode-map)
+
 (defun djr/twittering-fix-clobbering ()
   "twittering-mode seems to clobber the current buffer?"
   (interactive)
@@ -39,6 +41,8 @@
 (bind-key* "<f3> m" 'djr/mu4e-inbox)
 (bind-key* "<f3> n" 'elfeed)
 (bind-key* "<f3> t" 'djr/twittering-fix-clobbering)
+(bind-key* "<f3> c" 'mu4e-compose-new)
+(bind-key* "<f3> C" 'djr/mu4e-compose-new-with-follow-up)
 
 (add-hook 'elfeed-search-mode-hook
 	  (lambda ()
