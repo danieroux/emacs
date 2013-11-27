@@ -65,6 +65,10 @@
   %u
 
 %a")
+                                    ("s" "Single task" entry (id "C3478345-CEEF-497D-97EF-32AB278FBCF3") "* NEXT %?
+  %u
+
+%a")
                                     ("e" "Follow up email" entry (id "4566445f-82d5-47c7-86c7-dee29ef82112") "* NEXT %?                      :@online:
   %u
   SCHEDULED: %^t
@@ -270,6 +274,7 @@
 				      ("3" . ignore)
 				      ("4" . ignore)
 				      ("5" . ignore)
+				      ("d" . org-decrypt-entry)
 				      ("j" . ignore)
 				      ("J" . org-clock-goto)
 				      ("k" . ignore)
@@ -331,6 +336,8 @@
       (switch-to-buffer "*Org Agenda( )*")
     (switch-to-buffer "*Org Agenda*"))
   (delete-other-windows))
+
+(run-with-idle-timer 300 t 'bh/show-org-agenda)
 
 (add-hook 'org-insert-heading-hook
 	  'bh/insert-heading-inactive-timestamp 'append)
