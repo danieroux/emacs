@@ -22,14 +22,13 @@
 	    mail-host-address "danie-notebook")
       (add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")))
 
-(setq
- mu4e-use-fancy-chars t
- mu4e-attachment-dir "~/Desktop"
- ;; mu4e-headers-skip-duplicates t
- mu4e-view-show-images t
- mu4e-view-image-max-width 800
- mu4e-view-show-addresses t
- message-kill-buffer-on-exit t)
+(setq mu4e-use-fancy-chars t
+      mu4e-attachment-dir "~/Desktop"
+      ;; mu4e-headers-skip-duplicates t
+      mu4e-view-show-images t
+      mu4e-view-image-max-width 800
+      mu4e-view-show-addresses t
+      message-kill-buffer-on-exit t)
 
 (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
 
