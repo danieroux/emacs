@@ -31,7 +31,9 @@
       message-kill-buffer-on-exit t)
 
 (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
+(add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
 
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
 (setq mu4e-html2text-command "w3m -dump -T text/html")
 
 (setq mu4e-view-show-images t)
