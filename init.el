@@ -56,7 +56,7 @@
 		"/opt/local/bin"
 		"/usr/pkg/bin"
 		"~/bin"))
-  (djr/add-to-paths path))
+  (djr/prepend-to-paths path))
 
 (djr/ensure-package 'zenburn-theme)
 (load-theme 'zenburn t)

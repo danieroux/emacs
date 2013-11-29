@@ -6,10 +6,10 @@
   (save-excursion
     (indent-region (point-min) (point-max) nil)))
 
-(defun djr/add-to-paths (path)
+(defun djr/prepend-to-paths (path)
   "Adds directory to exec and ENV paths"
-  (push path exec-path)
-  (setenv "PATH" (concat (getenv "PATH") ":" path))
+  (setq exec-path (cons path exec-path))
+  (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
   (setq eshell-path-env (getenv "PATH")))
 
 (defun djr/initialise-package ()
