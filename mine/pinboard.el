@@ -34,6 +34,18 @@
 
 ;;; Code:
 
+;;; Interesting entry points:
+
+(defun pinboard-add-interactively (url &optional description tags)
+  "Interactively add the url to pinboard.in with optional details - will cause an error if it could not complete"
+  (interactive)
+  (let ((a-url (read-from-minibuffer "URL to add to Pinboard? " url))
+	(a-description (read-from-minibuffer "title? " description))
+	(a-tags (read-from-minibuffer "tags? " tags)))
+    (pinboard-api-add a-url a-description a-tags)))
+
+;;; The rest:
+
 (defgroup pinboard nil
   "pinboard.in integration"
   :group 'comm)
@@ -49,51 +61,67 @@
 
 (defun pinboard-build-add-request (url &optional description tags)
   (when (not (string-set-p url)) (error "For this to be useful, we need a URL"))
-  (concat "add?url=" (url-hexify-string url)
+  (concat "&url=" (url-hexify-string url)
 	  (when (string-set-p description)
 	    (concat "&description=" (url-hexify-string description)))
 	  (when (string-set-p tags)
 	    (concat "&tags=" (url-hexify-string tags)))))
 
 (defun pinboard-response (buffer)
-  "Returns the response string - 'done' if it worked, else the error"
   (unwind-protect
       (with-current-buffer buffer
         (save-excursion
           (goto-char url-http-end-of-headers)
-          (let* ((response (car (xml-parse-region (point) (- (re-search-forward "<!--") 5)))))
-	    ;; From - (result ((code . "done")))
-	    (cdr (assoc 'code (plist-get response 'result))))))))
+          (xml-parse-region (point)
+			    (point-max))))))
 
-(defun pinboard-auth-request (request)
+(defun pinboard-auth-request (call &optional parameters)
   ;; https://pinboard.in/settings/password
-  (concat "https://api.pinboard.in/v1/posts/" request "&auth_token=" pinboard-api-token))
+  (concat "https://api.pinboard.in/v1/" call "?auth_token=" pinboard-api-token parameters))
 
-(defun pinboard-add (url &optional description tags)
+(defun pinboard-api-add (url &optional description tags)
   "Add the url to pinboard.in with optional details - will cause an error if it could not complete"
   (url-retrieve
-   (pinboard-auth-request (pinboard-build-add-request url description tags))
+   (pinboard-auth-request "posts/add" (pinboard-build-add-request url description tags))
    (lambda (status)
-     (let ((m-error (plist-get status :error))
-	   (response (pinboard-response (current-buffer))))
+     (let* ((m-error (plist-get status :error))
+	    (full-response (car (pinboard-response (current-buffer))))
+	    ;; (result ((code . "done")))
+	    (response (cdr (assoc 'code (plist-get full-response 'result))))) 
        (when m-error
 	 (signal (car m-error) (cadr m-error)))
        (when (not (string-equal "done" response))
 	 (error "pinboard.in - could not complete adding %s because: %s" url response))))))
 
-(defun pinboard-add-interactively (url &optional description tags)
-  "Interactively add the url to pinboard.in with optional details - will cause an error if it could not complete"
-  (interactive)
-  (let ((a-url (read-from-minibuffer "URL to add to Pinboard? " url))
-	(a-description (read-from-minibuffer "title? " description))
-	(a-tags (read-from-minibuffer "tags? " tags)))
-    (pinboard-add a-url a-description a-tags)))
+(defun pinboard-api-tags-get ()
+  "Gets a full list of all user's tags - does not retain the count"
+  (let* ((retrieved-buffer
+	  (url-retrieve-synchronously
+	   (pinboard-auth-request "tags/get")))
+	 (parsed-tree
+	  (pinboard-response retrieved-buffer)))
+    (pinboard-parse-tags parsed-tree)))
+
+(defun pinboard-parse-tags (xml-parsed-tree)
+  (let ((taglist
+	 (cdr (remove-if-not (lambda (x) (listp x))
+			     (car xml-parsed-tree)))))
+    (loop for (ignore (count-pair tag-pair)) in taglist
+	  collect (cdr tag-pair))))
+
+(defun pinboard--test-xml-parse ()
+  (with-temp-buffer
+    (insert "<tags><tag count='1' tag='business' /><tag count='5' tag='xml' /><tag count='1' tag='xp' /></tags>")
+    (xml-parse-region)))
+
+(ert-deftest test-parse-tags ()
+  (should (equal '("business" "xml" "xp") (pinboard-parse-tags (pinboard--test-xml-parse)))))
 
 (ert-deftest test-build-request ()
-  (should (equal "add?url=http%3A%2F%2Fdanieroux.com&description=Home%20page&tags=personal%2Cblog" (pinboard-build-add-request "http://danieroux.com" "Home page" "personal,blog")))
-  (should (equal "add?url=http%3A%2F%2Fdanieroux.com" (pinboard-build-add-request "http://danieroux.com" nil nil)))
-  (should (equal "add?url=http%3A%2F%2Fdanieroux.com" (pinboard-build-add-request "http://danieroux.com" "" "")))
-  (should (equal "add?url=http%3A%2F%2Fdanieroux.com" (pinboard-build-add-request "http://danieroux.com")))
+  (should (equal "&url=http%3A%2F%2Fdanieroux.com&description=Home%20page&tags=personal%2Cblog" (pinboard-build-add-request "http://danieroux.com" "Home page" "personal,blog")))
+  (should (equal "&url=http%3A%2F%2Fdanieroux.com" (pinboard-build-add-request "http://danieroux.com" nil nil)))
+  (should (equal "&url=http%3A%2F%2Fdanieroux.com" (pinboard-build-add-request "http://danieroux.com" "" "")))
+  (should (equal "&url=http%3A%2F%2Fdanieroux.com" (pinboard-build-add-request "http://danieroux.com")))
   (should-error (pinboard-build-add-request nil)))
 
 (provide 'pinboard)
