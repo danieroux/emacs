@@ -110,9 +110,6 @@
 
 (use-package djr-keybindings)
 
-(setq browse-url-browser-function (quote browse-url-generic)
-      browse-url-generic-program "open")
-
 (mouse-avoidance-mode 'exile)
 (turn-off-auto-fill)
 
