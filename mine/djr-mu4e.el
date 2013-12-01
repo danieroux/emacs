@@ -56,10 +56,11 @@
 ;; setup some handy shortcuts
 ;; More shortcuts (with email addresses) in private.el
 (setq mu4e-maildir-shortcuts
-      '( ("/INBOX"               . ?i)
-         ("/me"                  . ?m)
-         ("/others"              . ?O)
-	 ("/accounts"            . ?a)))
+      `(("/INBOX"               . ?i)
+        ("/me"                  . ?m)
+        ("/others"              . ?O)
+	(,mu4e-drafts-folder    . ?d)
+	("/accounts"            . ?a)))
 
 (require 'smtpmail)
 ;; Authentication is handled by ~/.authinfo with this format:
