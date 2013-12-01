@@ -41,10 +41,17 @@
   (interactive)
   (let ((a-url (read-from-minibuffer "URL to add to Pinboard? " url))
 	(a-description (read-from-minibuffer "title? " description))
-	(a-tags (read-from-minibuffer "tags? " tags)))
+	(a-tags (pinboard-gather-tags)))
     (pinboard-api-add a-url a-description a-tags)))
 
-;;; The rest:
+(defun pinboard-refresh-tags-cache ()
+  "Refresh list of tags explicitly"
+  (interactive)
+  (with-temp-buffer
+    (insert (pp (pinboard-api-tags-get)))
+    (write-region nil nil pinboard-tags-cache-file-name)))
+
+;;; Customisations:
 
 (defgroup pinboard nil
   "pinboard.in integration"
@@ -55,29 +62,16 @@
   :group 'pinboard
   :type 'string)
 
-(defun string-set-p (str)
-  "Returns true if str is not-nil and not-empty"
-  (when str (not (string-equal "" str))))
+(defcustom pinboard-tags-cache-file-name (locate-user-emacs-file "pinboard-tags-cache")
+  "Where the pinboard.in cache file for tags is located")
 
-(defun pinboard-build-add-request (url &optional description tags)
-  (when (not (string-set-p url)) (error "For this to be useful, we need a URL"))
-  (concat "&url=" (url-hexify-string url)
-	  (when (string-set-p description)
-	    (concat "&description=" (url-hexify-string description)))
-	  (when (string-set-p tags)
-	    (concat "&tags=" (url-hexify-string tags)))))
+(defcustom pinboard-completing-read-function 
+  (if (fboundp 'ido-completing-read) 'ido-completing-read 'completing-read)
+  "The function to use for choosing tags"
+  :group 'pinboard
+  :type 'function)
 
-(defun pinboard-response (buffer)
-  (unwind-protect
-      (with-current-buffer buffer
-        (save-excursion
-          (goto-char url-http-end-of-headers)
-          (xml-parse-region (point)
-			    (point-max))))))
-
-(defun pinboard-auth-request (call &optional parameters)
-  ;; https://pinboard.in/settings/password
-  (concat "https://api.pinboard.in/v1/" call "?auth_token=" pinboard-api-token parameters))
+;;; API:
 
 (defun pinboard-api-add (url &optional description tags)
   "Add the url to pinboard.in with optional details - will cause an error if it could not complete"
@@ -102,6 +96,62 @@
 	  (pinboard-response retrieved-buffer)))
     (pinboard-parse-tags parsed-tree)))
 
+;;; Supporting:
+
+(defun pinboard-completing-read (&rest args)
+  "Call the completing-read function defined through the variable pinboard-completing-read-function" 
+  (apply pinboard-completing-read-function args))
+
+(defun pinboard-gather-tags ()
+  "Returns a string of tags - use C-j to break the ido loop"
+  (interactive)
+  (let* ((tag-list (pinboard--get-tags-from-cache-or-online))
+	 (selected-tags (delete-dups (pinboard--gather-tags tag-list))))
+    (mapconcat 'identity selected-tags " ")))
+
+(defun pinboard--load-tags-from-cache ()
+  (interactive)
+  (with-temp-buffer
+    (insert-file-contents pinboard-tags-cache-file-name)
+    (read (current-buffer))))
+
+(defun pinboard--get-tags-from-cache-or-online ()
+  (when (not (file-exists-p pinboard-tags-cache-file-name))
+    (pinboard-refresh-tags-cache))
+  (pinboard--load-tags-from-cache))
+
+(defun string-set-p (str)
+  "Returns true if str is not-nil and not-empty"
+  (when str (not (string-equal "" str))))
+
+(defun pinboard--gather-tags (tag-list)
+  "Recursively ask for a tag until an empty input is received (use C-j) for this"
+  (interactive)
+  (let ((tag (pinboard-completing-read "tag? " tag-list)))
+    (if (string-set-p tag)
+	(cons tag (pinboard--gather-tags tag-list))
+      '())))
+
+(defun pinboard-build-add-request (url &optional description tags)
+  (when (not (string-set-p url)) (error "For this to be useful, we need a URL"))
+  (concat "&url=" (url-hexify-string url)
+	  (when (string-set-p description)
+	    (concat "&description=" (url-hexify-string description)))
+	  (when (string-set-p tags)
+	    (concat "&tags=" (url-hexify-string tags)))))
+
+(defun pinboard-response (buffer)
+  (unwind-protect
+      (with-current-buffer buffer
+        (save-excursion
+          (goto-char url-http-end-of-headers)
+          (xml-parse-region (point)
+			    (point-max))))))
+
+(defun pinboard-auth-request (call &optional parameters)
+  ;; https://pinboard.in/settings/password
+  (concat "https://api.pinboard.in/v1/" call "?auth_token=" pinboard-api-token parameters))
+
 (defun pinboard-parse-tags (xml-parsed-tree)
   (let ((taglist
 	 (cdr (remove-if-not (lambda (x) (listp x))
@@ -109,6 +159,7 @@
     (loop for (ignore (count-pair tag-pair)) in taglist
 	  collect (cdr tag-pair))))
 
+;;; Tests:
 (defun pinboard--test-xml-parse ()
   (with-temp-buffer
     (insert "<tags><tag count='1' tag='business' /><tag count='5' tag='xml' /><tag count='1' tag='xp' /></tags>")
