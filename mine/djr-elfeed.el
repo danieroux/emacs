@@ -3,6 +3,8 @@
 
 (djr/ensure-package 'elfeed)
 
+(require 'org-elfeed)
+
 ;; <---- Copy and paste from https://github.com/skeeto/.emacs.d/blob/master/etc/feed-setup.el
 
 (defvar elfeed-tagger-db (make-hash-table :test 'equal)
