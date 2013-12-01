@@ -13,6 +13,7 @@
   (interactive)
   (pinboard-add-interactively w3m-current-url w3m-current-title))
 
-(bind-key "a" 'djr/w3m-pinboard-add-current-buffer w3m-mode-map)
+(add-hook 'w3m-load-hook (lambda ()
+			   (bind-key "a" 'djr/w3m-pinboard-add-current-buffer w3m-mode-map)))
 
 (provide 'djr-w3m)
