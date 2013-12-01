@@ -3,9 +3,12 @@
 
 (require 'pinboard)
 
-(setq browse-url-browser-function 'w3m-browse-url
+(setq browse-url-browser-function (lambda (url &rest ignored) (w3m-browse-url url t))
       w3m-default-display-inline-images t
-      w3m-use-cookies t)
+      w3m-use-cookies t
+      w3m-add-tab-number t
+      w3m-new-session-in-background t
+      w3m-use-favicon t)
 
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 
