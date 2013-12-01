@@ -54,6 +54,7 @@
 
 (dolist (path '("/usr/local/bin"
 		"/opt/local/bin"
+		"/usr/pkg/sbin"
 		"/usr/pkg/bin"
 		"~/bin"))
   (djr/prepend-to-paths path))

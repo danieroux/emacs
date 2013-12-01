@@ -69,7 +69,7 @@
   %u
 
 %a")
-                                    ("e" "Follow up email" entry (id "4566445f-82d5-47c7-86c7-dee29ef82112") "* NEXT %?                      :@online:
+                                    ("e" "Follow up email" entry (id "C3478345-CEEF-497D-97EF-32AB278FBCF3") "* NEXT %?                      :@online:
   %u
   SCHEDULED: %^t
 
