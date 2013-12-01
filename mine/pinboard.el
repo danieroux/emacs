@@ -71,12 +71,15 @@
 
 (defun pinboard-add (url &optional description tags)
   "Add the url to pinboard.in with optional details - will cause an error if it could not complete"
-  (let ((response (pinboard-response
-		   (url-retrieve-synchronously
-		    (pinboard-auth-request
-		     (pinboard-build-add-request url description tags))))))
-    (when (not (string-equal "done" response))
-      (error "pinboard.in - could not complete adding %s because: %s" url response))))
+  (url-retrieve
+   (pinboard-auth-request (pinboard-build-add-request url description tags))
+   (lambda (status)
+     (let ((m-error (plist-get status :error))
+	   (response (pinboard-response (current-buffer))))
+       (when m-error
+	 (signal (car m-error) (cadr m-error)))
+       (when (not (string-equal "done" response))
+	 (error "pinboard.in - could not complete adding %s because: %s" url response))))))
 
 (defun pinboard-add-interactively (url &optional description tags)
   "Interactively add the url to pinboard.in with optional details - will cause an error if it could not complete"
