@@ -43,6 +43,7 @@
 (bind-key* "<f3> e" 'eshell)
 (bind-key* "<f3> m" 'djr/mu4e-inbox)
 (bind-key* "<f3> n" 'elfeed)
+(bind-key* "<f3> s" 'w3m-search)
 (bind-key* "<f3> t" 'djr/twittering-fix-clobbering)
 (bind-key* "<f3> w" 'w3m)
 
