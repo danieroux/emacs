@@ -38,11 +38,13 @@
   (twit))
 
 (global-unset-key (kbd "<f3>"))
+(bind-key* "<f3> c" 'mu4e-compose-new)
+(bind-key* "<f3> C" 'djr/mu4e-compose-new-with-follow-up)
+(bind-key* "<f3> e" 'eshell)
 (bind-key* "<f3> m" 'djr/mu4e-inbox)
 (bind-key* "<f3> n" 'elfeed)
 (bind-key* "<f3> t" 'djr/twittering-fix-clobbering)
-(bind-key* "<f3> c" 'mu4e-compose-new)
-(bind-key* "<f3> C" 'djr/mu4e-compose-new-with-follow-up)
+(bind-key* "<f3> w" 'w3m)
 
 (add-hook 'elfeed-search-mode-hook
 	  (lambda ()
