@@ -130,8 +130,8 @@
   `((,key ,context-tag ,@(gtd-project-context context-tag))))
 
 (setq org-agenda-custom-commands `(("H" "@home"
-                                    (,(gtd-refile)
-				     ,(gtd-agenda)
+                                    (,(gtd-agenda)
+				     ,(gtd-refile)
 				     ,(gtd-project-context "@home" "-consulting")
 				     ,(gtd-project-context "@banking" "-consulting")
 				     ,(gtd-project-context "@online" "-consulting")
@@ -139,8 +139,8 @@
 				     ,(gtd-project-context "@calls" "-consulting")
 				     ,(gtd-project-context "@watch")))
 				   ("N" "@notebook"
-                                    (,(gtd-refile)
-				     ,(gtd-agenda)
+                                    (,(gtd-agenda)
+				     ,(gtd-refile)
 				     ,(gtd-project-context "@online")
 				     ,(gtd-project-context "@notebook")
 				     ,(gtd-project-context "@errands")
