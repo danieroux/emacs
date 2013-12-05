@@ -153,16 +153,10 @@
   (djr/org-mu4e-capture-next-message)
   (mu4e-compose-forward))
 
-(defun djr/mu4e-view-related-search ()
-  (interactive)
-  (mu4e-view-raw-message)
-  (message-narrow-to-headers-or-head)
-  (setq mu4e-headers-include-related t)
-  (let* ((raw-msgid (message-fetch-field "Message-ID"))
-	 (msgid (remove ?>
-			(remove ?< raw-msgid))))
-    (kill-buffer)
-    (mu4e~headers-search-execute msgid 't)))
+(defun djr/mu4e-view-related-search (msg) 
+  "Search for related messages to the current one" 
+  (let* ((msgid (mu4e-msg-field msg :message-id)))
+    (mu4e-headers-search (concat "\"msgid:" msgid "\""))))
 
 (setq djr~mu4e-inbox-buffer-name "*djr-mu4e-inbox*")
 
@@ -222,7 +216,8 @@
 		      (url-encode-url msgid))))
     (start-process "" nil "open" url)))
 
-(add-to-list 'mu4e-view-actions
-        '("gopen in gmail" . djr/mu4e-open-message-in-google) t)
+(add-to-list 'mu4e-view-actions '("gopen in gmail" . djr/mu4e-open-message-in-google) t)
+(add-to-list 'mu4e-view-actions '("rview related" . djr/mu4e-view-related-search) t)
+(add-to-list 'mu4e-view-actions '("bview in browser" . mu4e-action-view-in-browser) t)
 
 (provide 'djr-mu4e)

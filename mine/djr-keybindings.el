@@ -104,8 +104,7 @@
 (add-hook 'mu4e-view-mode-hook
 	  (lambda ()
 	    (define-key mu4e-view-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
-	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)
-	    (define-key mu4e-view-mode-map "c" 'djr/mu4e-view-related-search)))
+	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
 (add-hook 'mu4e-main-mode-hook
 	  (lambda ()
