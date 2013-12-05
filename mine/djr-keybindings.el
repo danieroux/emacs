@@ -38,9 +38,10 @@
   (twit))
 
 (global-unset-key (kbd "<f3>"))
-(bind-key* "<f3> c" 'mu4e-compose-new)
-(bind-key* "<f3> C" 'djr/mu4e-compose-new-with-follow-up)
+(bind-key* "<f3> c" 'djr/mu4e-compose-new-with-follow-up)
+(bind-key* "<f3> C" 'mu4e-compose-new)
 (bind-key* "<f3> e" 'eshell)
+(bind-key* "<f3> g" 'org-clock-goto)
 (bind-key* "<f3> m" 'djr/mu4e-inbox)
 (bind-key* "<f3> n" 'elfeed)
 (bind-key* "<f3> s" 'w3m-search)
@@ -194,7 +195,6 @@
 ;; And server-visit-hook does not work either?
 (add-hook 'server-visit-hook
 	  'fix-up-xterm-control-arrows)
-
 
 (when *osx*
  (autoload 'omlg-grab-link "org-mac-link")
