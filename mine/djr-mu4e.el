@@ -24,7 +24,7 @@
 
 (setq mu4e-use-fancy-chars t
       mu4e-attachment-dir "~/Desktop"
-      ;; mu4e-headers-skip-duplicates t
+      mu4e-headers-skip-duplicates t
       mu4e-view-show-images t
       mu4e-view-image-max-width 800
       mu4e-view-show-addresses t
