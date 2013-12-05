@@ -42,13 +42,14 @@
   (imagemagick-register-types))
 
 ;; More bookmarks (with email 
-(setq mu4e-bookmarks
-      '(("flag:unread AND NOT maildir:/me AND NOT flag:trashed"           "Unread messages"               ?v)
-	("maildir:/INBOX AND flag:unread AND NOT flag:trashed"            "Unread to me"                  ?m)
-	("maildir:/INBOX AND flag:replied AND NOT flag:trashed"           "Replied to me"                 ?r)
-	("maildir:/accounts AND flag:unread AND NOT flag:trashed"         "Unread to accounts"            ?a)
-	("maildir:/others AND flag:unread AND NOT flag:trashed"           "Unread not to me"              ?n)
-	("mime:application/pdf AND NOT flag:thrashed"                     "Messages with documents"       ?d)))
+(setq mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail].Starred) AND NOT flag:trashed"
+      mu4e-bookmarks `((,mu4e-combined-inbox-bookmark                             "Act-on inbox"                  ?i)
+		       ("flag:unread AND NOT maildir:/me AND NOT flag:trashed"    "Unread messages"               ?v)
+		       ("maildir:/INBOX AND flag:unread AND NOT flag:trashed"     "Unread to me"                  ?m)
+		       ("maildir:/INBOX AND flag:replied AND NOT flag:trashed"    "Replied to me"                 ?r)
+		       ("maildir:/accounts AND flag:unread AND NOT flag:trashed"  "Unread to accounts"            ?a)
+		       ("maildir:/others AND flag:unread AND NOT flag:trashed"    "Unread not to me"              ?n)
+		       ("mime:application/pdf AND NOT flag:thrashed"              "Messages with documents"       ?d)))
 
 ;; don't save message to Sent Messages, GMail/IMAP will take care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -56,11 +57,7 @@
 ;; setup some handy shortcuts
 ;; More shortcuts (with email addresses) in private.el
 (setq mu4e-maildir-shortcuts
-      `(("/INBOX"               . ?i)
-        ("/me"                  . ?m)
-        ("/others"              . ?O)
-	(,mu4e-drafts-folder    . ?d)
-	("/accounts"            . ?a)))
+      `((,mu4e-drafts-folder    . ?d)))
 
 (require 'smtpmail)
 ;; Authentication is handled by ~/.authinfo with this format:
@@ -81,7 +78,7 @@
 (defun djr/mu4e-inbox ()
   (interactive)
   (setq mu4e-headers-include-related nil)
-  (mu4e-headers-search "maildir:/INBOX"))
+  (mu4e-headers-search mu4e-combined-inbox-bookmark))
 
 ;; message-cancel-hook does not do what I expected
 (defadvice message-kill-buffer (after djr/cancel-message)
