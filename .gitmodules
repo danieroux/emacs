@@ -13,6 +13,9 @@
 [submodule "external/use-package"]
 	path = external/use-package
 	url = https://github.com/jwiegley/use-package
+[submodule "external/pinboard-api"]
+	path = external/pinboard-api
+	url = git@github.com:danieroux/pinboard-api-el.git
 [submodule "external/pinboard"]
 	path = external/pinboard
 	url = git@github.com:danieroux/pinboard-el.git
