@@ -3,7 +3,7 @@
 (add-to-list 'load-path (concat external-dir "/twittering-mode"))
 
 (require 'twittering-mode)
-(require 'org-twittering)
+(require 'twittering-org)
 
 (setq twittering-use-icon-storage t
       twittering-use-master-password t
