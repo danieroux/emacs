@@ -1,8 +1,8 @@
 (require 'w3m-load)
 (require 'org-w3m)
 
-(add-to-list 'load-path (concat external-dir "/pinboard"))
-(require 'pinboard)
+(add-to-list 'load-path (concat external-dir "/pinboard-api"))
+(require 'pinboard-api)
 
 (defun djr/w3m-browse-url-in-new-session (url &rest ignored)
   (w3m-browse-url url t))
@@ -12,7 +12,7 @@
 	(browse-url-generic-program "open"))
     (browse-url url)))
 
-(setq browse-url-browser-function '(("sheldoncomics\|twitter\|youtube" . djr/browse-on-mac)
+(setq browse-url-browser-function '(("sheldoncomics\\|twitter\\|youtube" . djr/browse-on-mac)
 				    ("." . djr/w3m-browse-url-in-new-session)))
 
 (setq w3m-default-display-inline-images t
