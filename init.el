@@ -4,6 +4,9 @@
 
 (toggle-debug-on-error)
 
+;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
+;; (byte-recompile-directory (expand-file-name "~/.emacs.d/mine") 0)
+
 ;; Kill the tool bar and scroll bar
 ;; I leave the menu bar, because I use it to discover features available in a mode
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
