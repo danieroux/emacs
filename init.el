@@ -59,7 +59,8 @@
 		"/opt/local/bin"
 		"/usr/pkg/sbin"
 		"/usr/pkg/bin"
-		"~/bin"))
+		"/Users/danie/bin"
+		"/Users/danie/Library/Haskell/bin"))
   (djr/prepend-to-paths path))
 
 (djr/ensure-package 'zenburn-theme)
@@ -108,6 +109,7 @@
 (use-package djr-elfeed)
 (use-package djr-midnight)
 (use-package djr-elisp)
+(use-package djr-haskell)
 
 (use-package djr-keybindings)
 
