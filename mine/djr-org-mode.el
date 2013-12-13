@@ -69,7 +69,7 @@
   %u
 
 %a")
-                                    ("e" "Follow up email" entry (id "C3478345-CEEF-497D-97EF-32AB278FBCF3") "* NEXT %?                      :@online:
+                                    ("e" "Follow up email" entry (id "C3478345-CEEF-497D-97EF-32AB278FBCF3") "* NEXT %? %a                     :@online:
   %u
   SCHEDULED: %^t
 
@@ -141,11 +141,12 @@
 				   ("N" "@notebook"
                                     (,(gtd-agenda)
 				     ,(gtd-refile)
-				     ,(gtd-project-context "@online")
 				     ,(gtd-project-context "@notebook")
+				     ,(gtd-project-context "@banking")
+				     ,(gtd-project-context "@online")
 				     ,(gtd-project-context "@errands")
 				     ,(gtd-project-context "@calls")
-				     ,(gtd-project-context "@banking")))
+				     ,(gtd-project-context "@watch")))
                                    ,@(gtd-agenda-entry "n" "@notebook")
                                    ,@(gtd-agenda-entry "e" "@errands")
                                    ,@(gtd-agenda-entry "o" "@online")
