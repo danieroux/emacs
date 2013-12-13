@@ -26,6 +26,7 @@
 	  (function (lambda () (load "dired-x"))))
 
 ;; http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html#Attaching-files-with-dired
+;; mark the file(s) in dired you would like to attach and press C-c RET C-a
 (require 'gnus-dired)
 ;; make the `gnus-dired-mail-buffers' function also work on
 ;; message-mode derived modes, such as mu4e-compose-mode

@@ -93,6 +93,7 @@
 		    (concat "NT: " person " -> " new-job-title)))))
       title))
 
+(require 'ert)
 (ert-deftest test-djr/elfeed-rewrite-linked-in ()
   "Ensure that only LinkedIn connections titles get rewritten"
   (should (equal "As is" (djr/elfeed-rewrite-linked-in "As is")))

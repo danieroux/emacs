@@ -8,7 +8,7 @@
 	(browse-url-generic-program "open"))
     (browse-url url)))
 
-(setq browse-url-browser-function '(("sheldoncomics\\|twitter\\|youtube\\|slideshare\\|instagram" . djr/browse-on-mac)
+(setq browse-url-browser-function '(("sheldoncomics\\|twitter\\|youtube\\|slideshare\\|instagram\\|linkedin" . djr/browse-on-mac)
 				    ("." . djr/w3m-browse-url-in-new-session)))
 
 (setq w3m-default-display-inline-images t
