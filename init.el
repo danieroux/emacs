@@ -84,7 +84,6 @@
 (use-package djr-autocomplete)
 (use-package djr-frequency)
 (use-package djr-dired)
-(use-package djr-addressbook)
 (use-package djr-mu4e)
 (use-package djr-twitter)
 (use-package djr-paredit)
