@@ -312,7 +312,7 @@
   (let* ((org-agenda-files agenda-files)
 	 (org-icalendar-combined-name calendar-name)
 	 (org-icalendar-combined-agenda-file (expand-file-name ics-name djr/org-icalendar-directory)))
-    (org-icalendar-combine-agenda-files t)))
+    (org-icalendar-combine-agenda-files)))
 
 ;; http://comments.gmane.org/gmane.emacs.orgmode/68791
 (defvar bh/insert-inactive-timestamp t)
