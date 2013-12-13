@@ -15,9 +15,10 @@
 
 ;; Files
 (setq org-agenda-files (quote ("~/Dropbox/Documents"
+			       "~/Dropbox/Documents/gtd/gtd.org.gpg"
 			       "~/Dropbox/Documents/gtd"
-			       "~/Dropbox/Documents/brain/brain.org"
-			       "~/Dropbox/Documents/consulting/consulting.org")))
+			       "~/Dropbox/Documents/brain/brain.org.gpg"
+			       "~/Dropbox/Documents/consulting/consulting.org.gpg")))
 
 (setq org-directory "~/Dropbox/Documents/gtd")
 
@@ -56,10 +57,12 @@
 ;; Todo config
 (setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
 
-(setq org-capture-templates (quote (("p" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org") "* %^{Project name}
+(setq org-capture-templates (quote (("p" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org.gpg") "* %^{Project name}
 ** NEXT %^{First task}%?")
-                                    ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org") "* %?
-  %u")
+                                    ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org.gpg") "* %?
+  %u
+
+%a")
                                     ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
                                     ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
   %u
@@ -301,7 +304,7 @@
 (defun djr/org-mode-ical-home ()
   (interactive)
   (djr/org-mode-ical-export
-   '("~/Dropbox/Documents/gtd/gtd.org")
+   '("~/Dropbox/Documents/gtd/gtd.org.gpg")
    "GTD Home"
    "gtd-calendar-home.ics"))
 

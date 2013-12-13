@@ -11,7 +11,7 @@
 
 (defun djr/helm-occur-my-brain ()
   (interactive)
-  (djr/helm-occur (list "brain.org")
+  (djr/helm-occur (list "brain.org.gpg")
 		  "search my brain"))
 
 (defun djr/helm-occur-org ()
