@@ -73,6 +73,21 @@
 (require 'mu4e)
 (require 'org-mu4e)
 
+(defun org-mu4e-store-link ()
+  "Redefine to never store queries, just messages"
+  (cond
+   ((or (eq major-mode 'mu4e-view-mode)
+	(eq major-mode 'mu4e-headers-mode))
+    (let* ((msg  (mu4e-message-at-point))
+	   (msgid   (or (plist-get msg :message-id) "<none>"))
+	   link)
+      (org-store-link-props :type "mu4e" :link link
+			    :message-id msgid)
+      (setq link (concat "mu4e:msgid:" msgid))
+      (org-add-link-props :link link
+			  :description (funcall org-mu4e-link-desc-func msg))
+      link))))
+
 (add-hook 'message-sent-hook 'djr/org-mu4e-store-link-on-sent-message)
 
 (defun djr/mu4e-inbox ()
