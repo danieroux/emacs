@@ -102,8 +102,8 @@
 (defun djr/pull ()
   "Pull information sources (moving away from push based)"
   (interactive)
-  (mu4e-update-index)
   (elfeed-update)
-  (twittering-update-active-buffers t))
+  (twittering-update-active-buffers t)
+  (mu4e-update-index))
 
 (provide 'djr-defuns)
