@@ -109,6 +109,7 @@
 (use-package djr-midnight)
 (use-package djr-elisp)
 (use-package djr-haskell)
+(use-package djr-discover)
 
 (use-package djr-keybindings)
 
