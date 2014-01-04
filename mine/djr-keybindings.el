@@ -15,6 +15,7 @@
 ;;(global-set-key (kbd "M-O") 'recentf-ido-find-file)
 ;;(global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 (global-set-key (kbd "M-SPC") 'djr/helm)
+(global-set-key (kbd "M-S-SPC") 'helm-projectile)
 
 ;; OrgMode link handling
 (global-unset-key [(control c) (control l)])
