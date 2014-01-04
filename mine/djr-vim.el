@@ -14,6 +14,7 @@
 		elfeed-show-mode
 		elfeed-search-mode
 		twittering-mode
+		inferior-haskell-mode
 		ert-results-mode))
   (push mode evil-emacs-state-modes))
 
