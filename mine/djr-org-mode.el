@@ -64,6 +64,10 @@
 
 %a")
                                     ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
+                                    ("f" "Fieldstone" entry (file "~/Dropbox/Documents/gtd/stones.org") "* %?
+  %u
+
+%a")
                                     ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
   %u
 

@@ -21,7 +21,7 @@
 	  (djr/save-and-backup))))))
 
 (setq auto-save-timeout 20
-      auto-save-interval 20)
+      auto-save-interval 300)
 
 (add-hook 'auto-save-hook 'really-auto-save-some-modes)
 

@@ -4,7 +4,7 @@
 (djr/ensure-melpa-package 'flx-ido)
 
 (use-package flx-ido
-  :init (flx-ido-mode 1))
+  :init (flx-ido-mode t))
 
 (setq ido-enable-flex-matching t
       ido-everywhere t
