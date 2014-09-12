@@ -22,3 +22,18 @@
 [submodule "external/rainbow-delimiters"]
 	path = external/rainbow-delimiters
 	url = https://github.com/jlr/rainbow-delimiters
+[submodule "external/discover.el"]
+	path = external/discover.el
+	url = https://github.com/mickeynp/discover.el
+[submodule "external/makey.el"]
+	path = external/makey.el
+	url = https://github.com/mickeynp/makey
+[submodule "external/structured-haskell-mode"]
+	path = external/structured-haskell-mode
+	url = https://github.com/chrisdone/structured-haskell-mode.git
+[submodule "external/markdown-mod"]
+	path = external/markdown-mod
+	url = git://jblevins.org/git/markdown-mode.git
+[submodule "external/markdown-mode"]
+	path = external/markdown-mode
+	url = git://jblevins.org/git/markdown-mode
