@@ -11,20 +11,24 @@
 (require 'djr-org-timeout)
 (require 'djr-org-drill)
 
+(require 'org-mode-observations)
 (setq org-modules (quote (org-habit)))
 
 ;; Files
-(setq org-agenda-files (quote ("~/Dropbox/Documents"
-			       "~/Dropbox/Documents/gtd/gtd.org.gpg"
-			       "~/Dropbox/Documents/gtd"
-			       "~/Dropbox/Documents/brain/brain.org.gpg"
-			       "~/Dropbox/Documents/consulting/consulting.org.gpg")))
+(setq brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
+      period-log-file "~/Dropbox/Documents/journal/period.org.gpg")
+
+(setq org-agenda-files `("~/Dropbox/Documents"
+			 "~/Dropbox/Documents/gtd/gtd.org.gpg"
+			 "~/Dropbox/Documents/gtd"
+			 ,brain-file
+			 "~/Dropbox/Documents/consulting/consulting.org.gpg"))
 
 (setq org-directory "~/Dropbox/Documents/gtd")
 
 (setq org-mobile-files (quote ("agendas.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
-      org-mobile-agendas (quote ("P" "e" "c" "b" "o" "n" "h" "A" "w" "E"))
+      org-mobile-agendas (quote ("O" "P" "e" "c" "b" "o" "n" "h" "A" "w" "E"))
       org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
 
 (defun djr/org-mobile-push-agendas-org-only ()
@@ -57,33 +61,53 @@
 ;; Todo config
 (setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
 
-(setq org-capture-templates (quote (("p" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org.gpg") "* %^{Project name}
+(setq djr-single-task-header-id "C3478345-CEEF-497D-97EF-32AB278FBCF3")
+(setq org-capture-templates `(("P" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org.gpg") "* %^{Project name}
 ** NEXT %^{First task}%?")
-                                    ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org.gpg") "* %?
+			      ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org.gpg") "* %?
   %u
 
 %a")
-                                    ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
-                                    ("f" "Fieldstone" entry (file "~/Dropbox/Documents/gtd/stones.org") "* %?
+			      ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
+			      ("f" "Fieldstone" entry (file "~/Dropbox/Documents/gtd/stones.org") "* %?
   %u
 
 %a")
-                                    ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
+			      ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
   %u
 
 %a")
-                                    ("s" "Single task" entry (id "C3478345-CEEF-497D-97EF-32AB278FBCF3") "* NEXT %?
+			      ("S" "Someday/Maybe" entry (file "~/Dropbox/Documents/gtd/someday_maybe.org") "* NEXT %?
   %u
 
 %a")
-                                    ("e" "Follow up email" entry (id "C3478345-CEEF-497D-97EF-32AB278FBCF3") "* NEXT %? %a                     :@online:
+			      ("I" "Pay Invoice" entry (id ,djr-single-task-header-id) "* NEXT %a :@banking:
+  %u
+
+%a")
+			      ("R" "Read paper" entry (id "54B79B33-F158-4200-A317-83DE22D6E6B6") "* NEXT %a :@open:
+  %u
+
+%a")
+			      ("s" "Single task" entry (id ,djr-single-task-header-id) "* NEXT %?
+  %u
+
+%a")
+			      ("e" "Follow up email" entry (id ,djr-single-task-header-id) "* NEXT %? %a                     :@online:
   %u
   SCHEDULED: %^t
 
 %a")
-                                    ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
+			      ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
 	%u
-%a"))))
+%a")
+			      
+			      ("d" "daily" entry (file ,period-log-file) "* %U
+
+%?")
+			      ("D" "dream" entry (file "~/Dropbox/Documents/journal/dream.org.gpg") "* %U
+
+%?")))
 
 (setq org-stuck-projects
       '("+LEVEL=1+project-persistent/-DONE-CANCELLED" ("NEXT" "STARTED") ()))
@@ -93,6 +117,7 @@
                             ("@banking" . ?b)
                             ("@calls" . ?c)
                             ("@home" . ?h)
+			    ("@open" . ?O)
 			    ("@notebook" . ?a)
 			    ("@cellphone" . ?m)
                             ("@online" . ?o)
@@ -139,8 +164,9 @@
 (setq org-agenda-custom-commands `(("H" "@home"
                                     (,(gtd-agenda)
 				     ,(gtd-refile)
-				     ,(gtd-project-context "@home" "-consulting")
 				     ,(gtd-project-context "@banking" "-consulting")
+				     ,(gtd-project-context "@home" "-consulting")
+				     ,(gtd-project-context "@open" "-consulting")
 				     ,(gtd-project-context "@online" "-consulting")
 				     ,(gtd-project-context "@notebook" "-consulting")
 				     ,(gtd-project-context "@calls" "-consulting")
@@ -148,15 +174,17 @@
 				   ("N" "@notebook"
                                     (,(gtd-agenda)
 				     ,(gtd-refile)
-				     ,(gtd-project-context "@notebook")
 				     ,(gtd-project-context "@banking")
+				     ,(gtd-project-context "@notebook")
+				     ,(gtd-project-context "@calls")
+				     ,(gtd-project-context "@open")
 				     ,(gtd-project-context "@online")
 				     ,(gtd-project-context "@errands")
-				     ,(gtd-project-context "@calls")
 				     ,(gtd-project-context "@watch")))
                                    ,@(gtd-agenda-entry "n" "@notebook")
                                    ,@(gtd-agenda-entry "e" "@errands")
                                    ,@(gtd-agenda-entry "o" "@online")
+                                   ,@(gtd-agenda-entry "O" "@open")
                                    ,@(gtd-agenda-entry "A" "@agenda")
                                    ,@(gtd-agenda-entry "h" "@home")
                                    ,@(gtd-agenda-entry "b" "@banking")
@@ -173,17 +201,25 @@
 (require 'djr-org-mode-private)
 
 ;; Refile
+(defun djr/org-mode-refile-current-task-as-single-task ()
+  "Refiles the current task as a single task in gtd.org"
+  (interactive)
+  (org-refile nil nil djr-single-task-header-id))
+
 (setq org-completion-use-ido t
-      org-refile-targets (quote ((org-agenda-files :maxlevel . 1) (nil :maxlevel . 1)))
+      org-refile-targets `((,(remove brain-file org-agenda-files) :level . 1)
+			   (,brain-file . (:level . 0))
+			   (,period-log-file . (:level . 0))
+			   (nil . (:level . 1)))
       org-refile-use-outline-path (quote file)
       org-outline-path-complete-in-steps nil 
-      org-refile-allow-creating-parent-nodes (quote confirm))
+      org-refile-allow-creating-parent-nodes nil)
 
 ;; Clocking
 (require 'bh-org-mode)  
 
 (setq org-agenda-clockreport-parameter-plist
-      (quote (:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)))
+      (quote (:link t :maxlevel 2 :fileskip0 t :compact t :narrow 80)))
 
 (org-clock-persistence-insinuate)
 (setq org-clock-into-drawer t)
