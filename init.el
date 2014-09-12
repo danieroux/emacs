@@ -90,7 +90,6 @@
 (use-package djr-clojure)
 (use-package djr-erc)
 (use-package djr-blog)
-(use-package djr-w3m)
 (use-package djr-expand-region)
 (use-package djr-projectile)
 (use-package djr-magit)
