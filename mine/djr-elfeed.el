@@ -1,9 +1,11 @@
 ;; https://github.com/skeeto/elfeed
 ;; https://github.com/skeeto/.emacs.d/blob/master/etc/feed-setup.el
 
-(djr/ensure-package 'elfeed)
+(djr/ensure-melpa-package 'elfeed)
 
 (require 'org-elfeed)
+
+(setq elfeed-sort-order 'ascending)
 
 ;; <---- Copy and paste from https://github.com/skeeto/.emacs.d/blob/master/etc/feed-setup.el
 
@@ -62,8 +64,7 @@
 (defun djr/elfeed-get-search-term-from-char (kar)
   (let* ((lookup '((?c . "+comic")
 		   (?f . "+frequent")
-		   (?n . "NC:") ; New LinkedIn Connections, using the djr/elfeed-rewrite-linked-in function
-		   (?m . "metafilter")))
+		   (?h . "haskell")))
 	 (search (assoc-default kar lookup)))
     (concat "+unread " search)))
 
@@ -74,6 +75,12 @@
 	 (search (djr/elfeed-get-search-term-from-char limit)))
     (setq elfeed-search-filter search)
     (elfeed-search-update :force)))
+
+(defun djr/elfeed-open-visible-in-browser ()
+  "Opens all the visible feeds in the browser"
+  (interactive)
+  (mark-whole-buffer)
+  (elfeed-search-browse-url))
 
 (defun djr/elfeed-rewrite-linked-in (title)
   "Modify the LinkedIn feed title to to make scanning much easier"
