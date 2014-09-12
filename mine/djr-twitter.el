@@ -13,7 +13,7 @@
 
 (setq twittering-private-info-file (expand-file-name "~/.emacs.d/twittering-mode.gpg"))
 
-(twittering-enable-unread-status-notifier)
+(twittering-disable-unread-status-notifier)
 
 (add-hook 'twittering-mode-init-hook 'twittering-icon-mode)
 ;; (add-hook 'twittering-mode-hook (lambda ()
