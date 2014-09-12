@@ -2,10 +2,12 @@
 
 (djr/ensure-package 'evil)
 
+;; Before require evil
+(setq evil-want-C-i-jump nil)
+
 (require 'evil)
 
-(setq evil-want-C-i-jump nil
-      evil-normal-state-cursor '("green" box))
+(setq evil-normal-state-cursor '("green" box))
 
 (dolist (mode '(mu4e-main-mode
 		mu4e-headers-mode
@@ -15,6 +17,9 @@
 		elfeed-search-mode
 		twittering-mode
 		inferior-haskell-mode
+		cider-repl-mode
+		calculator-mode
+		deft-mode
 		ert-results-mode))
   (push mode evil-emacs-state-modes))
 
