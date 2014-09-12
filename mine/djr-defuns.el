@@ -86,11 +86,22 @@
       (shell-command "tmux split-window -v e")
     (split-window-right)))
 
-(defun djr/has-queued-mail-p ()
+(defun djr/has-mu4e-compose-buffer-open-p ()
+  (assq 'mu4e-compose-mode
+	(mapcar
+	 (lambda (b)
+	   (cons (buffer-local-value 'major-mode b) b))
+	 (buffer-list))))
+
+(defun djr/queue-dir-has-files-p ()
   (let* ((qfile (expand-file-name smtpmail-queue-index-file
 				  smtpmail-queue-dir))
 	 (size (eighth (file-attributes qfile))))
     (not (= 0 size))))
+
+(defun djr/has-queued-mail-p ()
+  (or (djr/queue-dir-has-files-p)
+      (djr/has-mu4e-compose-buffer-open-p)))
 
 (defun toggle-fullscreen ()
   "Toggle full screen"
