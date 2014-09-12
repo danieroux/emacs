@@ -1,4 +1,13 @@
+;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
+
 (djr/ensure-package 'haskell-mode)
+
+(add-to-list 'load-path (concat external-dir "/structured-haskell-mode/elisp"))
+
+(require 'shm)
+
+(djr/ensure-melpa-package 'company-ghc)
+(require 'company)
 
 ;; http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
 (djr/ensure-melpa-package 'ghc)
@@ -20,7 +29,8 @@
 			       (ghc-init)
 			       (flymake-mode)
 			       (turn-on-haskell-doc-mode)
-			       (turn-on-haskell-indentation)
+			       (haskell-indentation-mode 0)
+			       (structured-haskell-mode)
 			       (define-key evil-normal-state-local-map (kbd "C-l") 'haskell-process-load-or-reload)
 			       (define-key evil-insert-state-local-map (kbd "C-l") 'haskell-process-load-or-reload)
 			       (define-key evil-normal-state-local-map (kbd "M-.") 'djr/haskell-find-tag-no-prompt)
