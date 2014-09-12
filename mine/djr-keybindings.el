@@ -6,6 +6,7 @@
 (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
 
 (global-unset-key [(control x)(control z)])
+(global-unset-key [(control c)(control a)])
 
 (global-set-key (kbd "M-/") 'djr/helm-occur-org)
 (global-set-key (kbd "M-?") 'djr/helm-occur-my-brain)
@@ -24,11 +25,15 @@
 (bind-key* "C-c C-l" 'org-store-link)
 (bind-key* "C-c l" 'org-insert-link)
 
-;; Should be mirrored in .tmux.commands
-(global-set-key (kbd "<f1>") 'org-capture)
-(global-set-key (kbd "S-<f1>") 'org-capture)
-(global-set-key (kbd "S-<f2>") 'org-agenda)
-(global-set-key (kbd "<f2>") 'bh/show-org-agenda)
+;; Some mirrored in .tmux.commands
+;;(global-set-key (kbd "<f4>") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
+;;(global-set-key (kbd "<f3>") 'bh/show-org-agenda)
+(global-set-key (kbd "C-c a") 'bh/show-org-agenda)
+(global-set-key (kbd "S-<f3>") 'org-agenda)
+(global-set-key (kbd "C-c A") 'org-agenda)
+(global-set-key (kbd "<f12>") 'djr/agenda-notebook)
+;;(global-set-key (kbd "C-c N") 'djr/agenda-notebook)
 
 (bind-key (kbd "*") 'twittering-favorite twittering-mode-map)
 
@@ -36,24 +41,29 @@
   "twittering-mode seems to clobber the current buffer?"
   (interactive)
   (switch-to-buffer (get-buffer-create "*twittering*"))
-  (twit))
+  (twit)
+  (twittering-visit-timeline "danieroux/will-read"))
 
-(global-unset-key (kbd "<f3>"))
-(bind-key* "<f3> c" 'djr/mu4e-compose-new-with-follow-up)
-(bind-key* "<f3> C" 'mu4e-compose-new)
-(bind-key* "<f3> e" 'eshell)
-(bind-key* "<f3> g" 'org-clock-goto)
-(bind-key* "<f3> m" 'djr/mu4e-inbox)
-(bind-key* "<f3> n" 'elfeed)
-(bind-key* "<f3> p" 'djr/pull)
-(bind-key* "<f3> s" 'w3m-search)
-(bind-key* "<f3> t" 'djr/twittering-fix-clobbering)
-(bind-key* "<f3> w" 'w3m)
+(global-unset-key (kbd "<f2>"))
+(bind-key* "<f2> c" 'djr/mu4e-compose-new-with-follow-up)
+(bind-key* "C-c n" 'djr/mu4e-compose-new-with-follow-up)
+
+(bind-key* "<f2> e" 'eshell)
+(bind-key* "<f2> g" 'org-clock-goto)
+(bind-key* "C-c g" 'org-clock-goto)
+(bind-key* "<f2> m" 'djr/mu4e-inbox)
+(bind-key* "C-c m" 'djr/mu4e-inbox)
+(bind-key* "<f2> p" 'djr/pull)
+(bind-key* "<f2> s" 'w3m-search)
+(bind-key* "<f2> t" 'djr/twittering-fix-clobbering)
+(bind-key* "<f2> n" 'elfeed)
+(bind-key* "<f2> w" 'w3m)
 
 (add-hook 'elfeed-search-mode-hook
 	  (lambda ()
 	    (bind-key "f" 'djr/elfeed-update-frequent elfeed-search-mode-map)
 	    (bind-key "l" 'djr/elfeed-limit elfeed-search-mode-map)
+	    (bind-key "B" 'djr/elfeed-open-visible-in-browser)
 	    (bind-key "R" 'djr/elfeed-mark-all-read-in-buffer elfeed-search-mode-map)))
 
 (global-set-key (kbd "M-x") 'smex)
@@ -102,16 +112,14 @@
 (add-hook 'mu4e-headers-mode-hook
 	  (lambda ()
 	    (define-key mu4e-headers-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
+	    (define-key mu4e-headers-mode-map "d" 'mu4e-headers-mark-for-delete)
 	    (define-key mu4e-headers-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
 (add-hook 'mu4e-view-mode-hook
 	  (lambda ()
 	    (define-key mu4e-view-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
+	    (define-key mu4e-view-mode-map "d" 'mu4e-view-mark-for-delete)
 	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
-
-(add-hook 'mu4e-main-mode-hook
-	  (lambda ()
-	    (define-key mu4e-main-mode-map "g" 'mu4e-update-mail-show-window)))
 
 (defun djr/enter-org-speedmode ()
   "Moves to start of heading where org-use-speed-commands starts to work. Switch to insert for it to take effect."
