@@ -1,18 +1,18 @@
 ;; -*- lexical-binding: t -*-
 
-(setq mu4e-maildir (expand-file-name "~/Dropbox/Maildir"))
+(setq mu4e-maildir (expand-file-name "~/Maildir"))
 
 (setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
       smtpmail-queue-dir (concat mu4e-maildir "/mu4e-queue"))
 
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-;; Not synced with offlineimap
-(setq mu4e-trash-folder  "/trash")
-(setq mu4e-refile-folder "/gtd.support")
 
-(setq mail-host-address "loom"
-      ;; offlineimap (on loom) handles the get
+;; Not synced with offlineimap
+(setq mu4e-trash-folder  "/not-really-trash")
+(setq mu4e-refile-folder "/gtd")
+
+(setq mail-host-address "weft"
       mu4e-get-mail-command "true"
       mu4e-view-wrap-lines t)
 
@@ -34,6 +34,7 @@
 (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
 
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
+
 (setq mu4e-html2text-command "w3m -dump -T text/html")
 
 (setq mu4e-view-show-images t)
@@ -60,7 +61,7 @@
       `((,mu4e-drafts-folder    . ?d)))
 
 (require 'smtpmail)
-;; Authentication is handled by ~/.authinfo with this format:
+;; Authentication is handled by ~/.authinfo.gpg with this format:
 ;; machine smtp.gmail.com login USER@gmail.com password PASSWORD port 465
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-stream-type 'ssl
@@ -92,7 +93,11 @@
 
 (defun djr/mu4e-inbox ()
   (interactive)
-  (setq mu4e-headers-include-related nil)
+
+  (setq mu4e-headers-include-related nil
+	mu4e~headers-sort-field :date
+	mu4e~headers-sort-direction 'ascending)
+
   (mu4e-headers-search mu4e-combined-inbox-bookmark))
 
 ;; message-cancel-hook does not do what I expected
@@ -168,6 +173,7 @@
 (defun djr/mu4e-view-related-search (msg) 
   "Search for related messages to the current one" 
   (let* ((msgid (mu4e-msg-field msg :message-id)))
+    (setq mu4e-headers-include-related t)
     (mu4e-headers-search (concat "\"msgid:" msgid "\""))))
 
 (setq djr~mu4e-inbox-buffer-name "*djr-mu4e-inbox*")
@@ -214,7 +220,7 @@
   (switch-to-buffer djr~mu4e-inbox-buffer-name)
   (insert "#+FILETAGS: refile mail")
   (newline)
-  (mu4e~headers-search-execute "maildir:/INBOX" 't))
+  (mu4e~headers-search-execute mu4e-combined-inbox-bookmark 't))
 
 (defun djr/delete-replied-mail-in-inbox (msg)
   "Delete the replied email - they are also in the 'me' folder"
