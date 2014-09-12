@@ -89,7 +89,7 @@
 (use-package djr-paredit)
 (use-package djr-clojure)
 (use-package djr-erc)
-;(use-package djr-blog)
+(use-package djr-blog)
 (use-package djr-w3m)
 (use-package djr-expand-region)
 (use-package djr-projectile)
@@ -110,6 +110,8 @@
 (use-package djr-elisp)
 (use-package djr-haskell)
 (use-package djr-discover)
+(use-package djr-markdown)
+(use-package djr-deft)
 
 (use-package djr-keybindings)
 
@@ -139,7 +141,7 @@
 
 (global-auto-revert-mode t)
 
-(visual-line-mode t)
+(global-visual-line-mode t)
 
 (blink-cursor-mode (- (*) (*) (*)))
 
