@@ -97,7 +97,6 @@
 (use-package djr-modeline)
 (use-package djr-easymenu)
 (use-package djr-rainbow-delimiters)
-(use-package djr-aspell)
 (use-package djr-helm)
 (use-package djr-guru-mode)
 (use-package djr-ace-jump)
@@ -111,6 +110,7 @@
 (use-package djr-discover)
 (use-package djr-markdown)
 (use-package djr-deft)
+(use-package djr-spell)
 
 (use-package djr-keybindings)
 
