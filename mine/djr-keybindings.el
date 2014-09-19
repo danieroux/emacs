@@ -63,7 +63,7 @@
 	  (lambda ()
 	    (bind-key "f" 'djr/elfeed-update-frequent elfeed-search-mode-map)
 	    (bind-key "l" 'djr/elfeed-limit elfeed-search-mode-map)
-	    (bind-key "B" 'djr/elfeed-open-visible-in-browser)
+	    (bind-key "B" 'djr/elfeed-open-visible-in-browser elfeed-search-mode-map)
 	    (bind-key "R" 'djr/elfeed-mark-all-read-in-buffer elfeed-search-mode-map)))
 
 (global-set-key (kbd "M-x") 'smex)
