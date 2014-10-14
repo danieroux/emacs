@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;; From the rich resource at http://doc.norang.ca/org-mode.html
 
 (djr/ensure-package 'org-plus-contrib)
@@ -380,6 +381,22 @@
       (switch-to-buffer "*Org Agenda( )*")
     (switch-to-buffer "*Org Agenda*"))
   (delete-other-windows))
+
+(defun djr/agenda-home ()
+  (interactive)
+  (djr~agenda "H"))
+
+(defun djr/agenda-notebook ()
+  (interactive)
+  (djr~agenda "N"))
+
+(defun djr~agenda (org-agenda-shortcut)
+  (interactive)
+  (djr/mu4e-to-org djr-mu4e-combined-inbox-bookmark
+		   (lambda ()
+		     (org-mobile-pull)
+		     (org-agenda nil org-agenda-shortcut)
+		     (delete-other-windows))))
 
 (run-with-idle-timer 300 t 'bh/show-org-agenda)
 

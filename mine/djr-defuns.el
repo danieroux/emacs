@@ -60,20 +60,6 @@
   (ad-activate 'mu4e-update-index)
   (mu4e-update-mail-and-index nil))
 
-(defun djr/agenda-home ()
-  (interactive)
-  (djr~agenda "H"))
-
-(defun djr/agenda-notebook ()
-  (interactive)
-  (djr~agenda "N"))
-
-(defun djr~agenda (mode)
-  (djr/mu4e-to-org (lambda ()
-		     (org-mobile-pull)
-		     (org-agenda nil mode)
-		     (delete-other-windows))))
-
 (defun djr/split-window-below ()
   (interactive)
   (if (getenv "TMUX")
