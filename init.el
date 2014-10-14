@@ -104,7 +104,7 @@
 (use-package djr-eshell)
 (use-package djr-asciidoc)
 (use-package djr-elfeed)
-(use-package djr-midnight)
+;(use-package djr-midnight)
 (use-package djr-elisp)
 (use-package djr-haskell)
 (use-package djr-discover)
