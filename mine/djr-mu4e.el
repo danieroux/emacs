@@ -42,9 +42,10 @@
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
-;; More bookmarks (with email 
-(setq djr-mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail].Starred) AND NOT flag:trashed"
-      mu4e-bookmarks `((,djr-mu4e-combined-inbox-bookmark                             "Act-on inbox"                  ?i)
+(defvar djr-mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail].Starred) AND NOT flag:trashed" "What I consider to be my 'inbox'")
+
+;; More bookmarks
+(setq mu4e-bookmarks `((,djr-mu4e-combined-inbox-bookmark                         "Act-on inbox"                  ?i)
 		       ("flag:unread AND NOT maildir:/me AND NOT flag:trashed"    "Unread messages"               ?v)
 		       ("maildir:/INBOX AND flag:unread AND NOT flag:trashed"     "Unread to me"                  ?m)
 		       ("maildir:/INBOX AND flag:replied AND NOT flag:trashed"    "Replied to me"                 ?r)
