@@ -1,5 +1,89 @@
 ;; -*- lexical-binding: t -*-
 
+;;; Store emails that are send/forwarded/replied to 
+
+;; Invoking djr/org-mu4e-capture-next-message or setting djr/org-mu4e-must-capture-message before composing a message will call org-capture after the email was sent successfully (using the capture template from djr/mu4e-org-mode-capture-template-for-sent-email)
+
+(defvar djr/org-mu4e-must-capture-message nil
+  "If set, the next composed mu4e message will automatically be captured with the template specified in djr/mu4e-org-mode-capture-template-for-sent-email")
+
+(defvar djr/mu4e-captured-message-p nil
+  "Plist with info about the most recently sent mu4e email for OrgMode purposes")
+
+(defvar djr/mu4e-org-mode-capture-template-for-sent-email "e"
+  "The specific template from org-capture-templates to use when capturing a sent email automatically")
+
+(add-hook 'message-sent-hook 'djr/org-mu4e-store-link-on-sent-message)
+
+(add-hook 'message-mode-hook (lambda ()
+			       (message-add-action 'djr/org-mu4e-capture-cancel
+						   'send 'postpone 'kill)
+
+			       (message-add-action 'djr/capture-sent-message-if-needed
+						   'send)))
+
+(defun djr~wipe-brackets (msgid)
+  (interactive)
+  (remove-if (lambda (c)
+	       (or (equal c ?>)
+		   (equal c ?<)))
+	     msgid))
+
+(defun djr/org-mu4e-store-link-on-sent-message ()
+  "Store the sent message in many useful places"
+  (interactive)
+  (let* ((msgid (message-fetch-field "Message-ID"))
+	 (description (message-fetch-field "Subject"))
+	 (link (concat "mu4e:msgid:" (djr~wipe-brackets msgid)))
+	 (org-link-string (org-make-link-string link description))
+	 (captured-message-p
+	  `(:type mu4e
+		 :description ,description
+		 :link ,link
+		 :annotation ,org-link-string
+		 :message-id ,msgid))
+	 (stored-link (list link description)))
+    (push stored-link org-stored-links)
+    (setq org-store-link-plist captured-message-p
+	  djr/mu4e-captured-message-p org-store-link-plist)))
+
+(defun djr/capture-sent-message-if-needed ()
+  (interactive)
+  (if djr/org-mu4e-must-capture-message
+      (progn 
+	(setq org-store-link-plist djr/mu4e-captured-message-p)
+	(setq org-capture-link-is-already-stored t)
+	(org-capture nil djr/mu4e-org-mode-capture-template-for-sent-email))))
+
+(defun djr/org-mu4e-capture-cancel ()
+  (interactive)
+  (setq djr/org-mu4e-must-capture-message nil 
+	global-mode-string (delq 'djr-org-capture-mode-line-string global-mode-string)))
+(djr/org-mu4e-capture-cancel)
+
+(defun djr/org-mu4e-capture-next-message ()
+  (setq djr/org-mu4e-must-capture-message t
+	djr-org-capture-mode-line-string "Org capturing current mail")
+  (or global-mode-string (setq global-mode-string '("")))
+  (or (memq 'djr-org-capture-mode-line-string global-mode-string)
+      (setq global-mode-string
+	    (append global-mode-string '(djr-org-capture-mode-line-string)))))
+
+(defun djr/mu4e-compose-new-with-follow-up ()
+  (interactive)
+  (djr/org-mu4e-capture-next-message)
+  (mu4e-compose-new))
+
+(defun djr/mu4e-compose-reply-with-follow-up ()
+  (interactive)
+  (djr/org-mu4e-capture-next-message)
+  (mu4e-compose-reply))
+
+(defun djr/mu4e-forward-with-follow-up ()
+  (interactive)
+  (djr/org-mu4e-capture-next-message)
+  (mu4e-compose-forward))
+
 ;;; Redefines
 
 (defun org-mu4e-store-link ()
@@ -16,80 +100,6 @@
       (org-add-link-props :link link
 			  :description (funcall org-mu4e-link-desc-func msg))
       link))))
-
-;;; Store emails that are send/forwarded/replied to 
-
-(add-hook 'message-sent-hook 'djr/org-mu4e-store-link-on-sent-message)
-
-;; message-cancel-hook does not do what I expected
-(defadvice message-kill-buffer (after djr/cancel-message)
-  (djr/org-mu4e-capture-cancel))
-(ad-activate 'message-kill-buffer)
-
-(defadvice message-send (after djr/capture-sent-message)
-  (if djr/org-mu4e-must-capture-message
-      (progn 
-	(org-store-link nil)
-	(org-capture nil "e")))
-  (djr/org-mu4e-capture-cancel))
-(ad-activate 'message-send)
-
-(defun djr/org-mu4e-capture-cancel ()
-  (interactive)
-  (setq djr/org-mu4e-must-capture-message t
-	global-mode-string (delq 'djr-org-capture-mode-line-string global-mode-string)))
-(djr/org-mu4e-capture-cancel)
-
-(defun djr/org-mu4e-capture-next-message ()
-  (setq djr/org-mu4e-must-capture-message t
-	djr-org-capture-mode-line-string "Org capturing this mail")
-  (or global-mode-string (setq global-mode-string '("")))
-  (or (memq 'djr-org-capture-mode-line-string global-mode-string)
-      (setq global-mode-string
-	    (append global-mode-string '(djr-org-capture-mode-line-string)))))
-
-(defun djr/org-mu4e-store-link-on-sent-message ()
-  (if djr/org-mu4e-must-capture-message
-      (let* ((msgid (message-fetch-field "Message-ID"))
-	     (description (message-fetch-field "Subject")))
-	(djr~org-mu4e-store-link-on-sent-message msgid description))))
-
-(defun djr~wipe-brackets (msgid)
-  (interactive)
-  (remove-if (lambda (c)
-	       (or (equal c ?>)
-		   (equal c ?<)))
-	     msgid))
-
-(defun djr~org-mu4e-store-link-on-sent-message (msgid description)
-  (let* ((link (concat "mu4e:msgid:" (djr~wipe-brackets msgid))))
-    (setq djr/org-mu4e-captured-message-p
-	  `(:type mu4e
-		  :description ,description
-		  :link ,link
-		  :message-id ,msgid))))
-
-(setq djr/org-mu4e-must-capture-message t)
-
-(defun djr~org-mu4e-make-link-from-captured-message ()
-  (if djr/org-mu4e-must-capture-message
-      (setq org-store-link-plist djr/org-mu4e-captured-message-p)))
-(add-hook 'org-store-link-functions 'djr~org-mu4e-make-link-from-captured-message)
-
-(defun djr/mu4e-compose-new-with-follow-up ()
-  (interactive)
-  (djr/org-mu4e-capture-next-message)
-  (mu4e-compose-new))
-
-(defun djr/mu4e-compose-reply-with-follow-up ()
-  (interactive)
-  (djr/org-mu4e-capture-next-message)
-  (mu4e-compose-reply))
-
-(defun djr/mu4e-forward-with-follow-up ()
-  (interactive)
-  (djr/org-mu4e-capture-next-message)
-  (mu4e-compose-forward))
 
 ;;; Define djr/mu4e-to-org that turns an email query into an OrgMode file
 
@@ -121,8 +131,8 @@
   (if djr~mu4e-to-org-continue-fun
       (funcall djr~mu4e-to-org-continue-fun))) 
 
-(defun djr/mu4e-to-org (&optional continue-fun)
-  "Execute a specific, hard-coded query and turn that into an OrgMode file with links to the messages."
+(defun djr/mu4e-to-org (mu4e-query &optional continue-fun)
+  "Execute the query and turn that into an OrgMode file with links to the messages"
   (interactive)
   (mu4e)
   (setq mu4e-headers-include-related nil)
@@ -137,6 +147,6 @@
   (switch-to-buffer djr~mu4e-inbox-buffer-name)
   (insert "#+FILETAGS: refile mail")
   (newline)
-  (mu4e~headers-search-execute djr-mu4e-combined-inbox-bookmark 't))
+  (mu4e~headers-search-execute mu4e-query 't))
 
 (provide 'djr-org-mu4e)
