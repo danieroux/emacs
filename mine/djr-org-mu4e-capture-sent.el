@@ -50,9 +50,8 @@
 (defun djr/capture-sent-message-if-needed ()
   (interactive)
   (if djr/org-mu4e-must-capture-message
-      (progn 
-	(setq org-store-link-plist djr/mu4e-captured-message-p)
-	(setq org-capture-link-is-already-stored t)
+      (let* ((org-store-link-plist djr/mu4e-captured-message-p)
+	     (org-capture-link-is-already-stored t))
 	(org-capture nil djr/mu4e-org-mode-capture-template-for-sent-email))))
 
 (defun djr/org-mu4e-capture-cancel ()
