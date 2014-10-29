@@ -57,6 +57,7 @@
 (bind-key* "<f2> t" 'djr/twittering-fix-clobbering)
 (bind-key* "<f2> n" 'elfeed)
 (bind-key* "<f2> w" 'w3m)
+(bind-key* "C-c i" 'id-manager)
 
 (add-hook 'elfeed-search-mode-hook
 	  (lambda ()

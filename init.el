@@ -111,6 +111,7 @@
 (use-package djr-markdown)
 (use-package djr-deft)
 (use-package djr-spell)
+(use-package djr-password-manager)
 
 (use-package djr-keybindings)
 

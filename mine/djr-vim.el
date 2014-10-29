@@ -20,7 +20,8 @@
 		cider-repl-mode
 		calculator-mode
 		deft-mode
-		ert-results-mode))
+		ert-results-mode
+		idm-record-dialog))
   (push mode evil-emacs-state-modes))
 
 (add-hook 'mu4e-view-mode-hook 'evil-emacs-state)

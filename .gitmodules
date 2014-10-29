@@ -37,3 +37,6 @@
 [submodule "external/markdown-mode"]
 	path = external/markdown-mode
 	url = git://jblevins.org/git/markdown-mode
+[submodule "external/emacs-id-manager"]
+	path = external/emacs-id-manager
+	url = https://github.com/kiwanami/emacs-id-manager
