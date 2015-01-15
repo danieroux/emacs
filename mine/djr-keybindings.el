@@ -25,13 +25,14 @@
 (bind-key* "C-c l" 'org-insert-link)
 
 ;; Some mirrored in .tmux.commands
-;;(global-set-key (kbd "<f4>") 'org-capture)
+(global-set-key (kbd "S-<f1>") 'org-capture)
 (global-set-key (kbd "C-c c") 'org-capture)
 ;;(global-set-key (kbd "<f3>") 'bh/show-org-agenda)
 (global-set-key (kbd "C-c a") 'bh/show-org-agenda)
 (global-set-key (kbd "S-<f3>") 'org-agenda)
 (global-set-key (kbd "C-c A") 'org-agenda)
 (global-set-key (kbd "<f12>") 'djr/agenda-notebook)
+(global-set-key (kbd "S-<f12>") 'djr/agenda-home)
 ;;(global-set-key (kbd "C-c N") 'djr/agenda-notebook)
 
 (bind-key (kbd "*") 'twittering-favorite twittering-mode-map)
@@ -114,12 +115,14 @@
 (add-hook 'mu4e-headers-mode-hook
 	  (lambda ()
 	    (define-key mu4e-headers-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
+	    (define-key mu4e-headers-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
 	    (define-key mu4e-headers-mode-map "d" 'mu4e-headers-mark-for-delete)
 	    (define-key mu4e-headers-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
 (add-hook 'mu4e-view-mode-hook
 	  (lambda ()
 	    (define-key mu4e-view-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
+	    (define-key mu4e-view-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
 	    (define-key mu4e-view-mode-map "d" 'mu4e-view-mark-for-delete)
 	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
