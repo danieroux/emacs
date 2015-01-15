@@ -57,6 +57,8 @@
 (bind-key* "<f2> t" 'djr/twittering-fix-clobbering)
 (bind-key* "<f2> n" 'elfeed)
 (bind-key* "<f2> w" 'w3m)
+; Triggered by QuickSilver
+(bind-key* "S-<f3>" 'id-manager)
 (bind-key* "C-c i" 'id-manager)
 
 (add-hook 'elfeed-search-mode-hook
