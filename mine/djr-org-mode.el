@@ -1,6 +1,8 @@
 ;; -*- lexical-binding: t -*-
 ;; From the rich resource at http://doc.norang.ca/org-mode.html
 
+; (package-install 'org-plus-contrib)
+
 (djr/ensure-package 'org-plus-contrib)
 
 (require 'org)
@@ -16,13 +18,15 @@
 (setq org-modules (quote (org-habit)))
 
 ;; Files
-(setq brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
+(setq gtd-file "~/Dropbox/Documents/gtd/gtd.org.gpg"
+      someday-file "~/Dropbox/Documents/gtd/someday_maybe.org"
+      brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
       period-log-file "~/Dropbox/Documents/journal/period.org.gpg")
 
 (setq org-agenda-files `("~/Dropbox/Documents"
-			 "~/Dropbox/Documents/gtd/gtd.org.gpg"
 			 "~/Dropbox/Documents/gtd"
 			 ,brain-file
+			 ,gtd-file
 			 "~/Dropbox/Documents/consulting/consulting.org.gpg"))
 
 (setq org-directory "~/Dropbox/Documents/gtd")
@@ -63,6 +67,7 @@
 (setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
 
 (setq djr-single-task-header-id "C3478345-CEEF-497D-97EF-32AB278FBCF3")
+
 (setq org-capture-templates `(("P" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org.gpg") "* %^{Project name}
 ** NEXT %^{First task}%?")
 			      ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org.gpg") "* %?
@@ -201,16 +206,19 @@
 ;; Client specific agendas and settings
 (require 'djr-org-mode-private)
 
-;; Refile
 (defun djr/org-mode-refile-current-task-as-single-task ()
   "Refiles the current task as a single task in gtd.org"
   (interactive)
-  (org-refile nil nil djr-single-task-header-id))
+  (let* ((org-refile-targets `((,gtd-file . (:tag . "single"))))
+	 ;; Because the tag captures the top level to, grab the second entry
+	 (rfloc (nth 1 (org-refile-get-targets))))
+    (org-refile nil nil rfloc)))
 
 (setq org-completion-use-ido t
       org-refile-targets `((,(remove brain-file org-agenda-files) :level . 1)
 			   (,brain-file . (:level . 0))
 			   (,period-log-file . (:level . 0))
+			   (,someday-file . (:level . 0))
 			   (nil . (:level . 1)))
       org-refile-use-outline-path (quote file)
       org-outline-path-complete-in-steps nil 
