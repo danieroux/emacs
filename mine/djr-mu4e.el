@@ -16,26 +16,32 @@
       mu4e-get-mail-command "true"
       mu4e-view-wrap-lines t)
 
-(if (equal system-type 'darwin)
-    (progn
-      (setq mu4e-mu-binary "/usr/pkg/bin/mu"
-	    mail-host-address "danie-notebook")
-      (add-to-list 'load-path "/usr/pkg/share/emacs/site-lisp/mu4e")))
+(when *osx*
+  (progn
+    ;; Hackish :-/
+    (setq mu4e-mu-binary "/usr/pkgsrc/local/mu/work/.destdir/usr/pkg/bin/mu"
+	  mail-host-address "danie-notebook")
+    (add-to-list 'load-path "/usr/pkgsrc/local/mu/work/.destdir/usr/pkg/share/emacs/site-lisp/mu4e")))
 
-(setq mu4e-use-fancy-chars t
+(setq mu4e-use-fancy-chars nil
+      mu4e-headers-results-limit 100
       mu4e-attachment-dir "~/Desktop"
       mu4e-headers-skip-duplicates t
       mu4e-view-show-images t
       mu4e-view-image-max-width 800
       mu4e-view-show-addresses t
+      mu4e-headers-fields '((:human-date . 12) (:from-or-to . 22) (:subject))
       message-kill-buffer-on-exit t)
 
+;; mu4e~view-copy-contact c or C-c
 (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
 (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
 
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
-(setq mu4e-html2text-command "w3m -dump -T text/html")
+(require 'mu4e-contrib)
+;;(setq mu4e-html2text-command "w3m -dump -T text/html")
+(setq mu4e-html2text-command 'mu4e-shr2text)
 
 (setq mu4e-view-show-images t)
 
@@ -49,9 +55,7 @@
 		       ("flag:unread AND NOT maildir:/me AND NOT flag:trashed"    "Unread messages"               ?v)
 		       ("maildir:/INBOX AND flag:unread AND NOT flag:trashed"     "Unread to me"                  ?m)
 		       ("maildir:/INBOX AND flag:replied AND NOT flag:trashed"    "Replied to me"                 ?r)
-		       ("maildir:/accounts AND flag:unread AND NOT flag:trashed"  "Unread to accounts"            ?a)
-		       ("maildir:/others AND flag:unread AND NOT flag:trashed"    "Unread not to me"              ?n)
-		       ("mime:application/pdf AND NOT flag:thrashed"              "Messages with documents"       ?d)))
+		       ("mime:application/pdf AND NOT flag:thrashed"              "Messages with PDFs"            ?p)))
 
 ;; don't save message to Sent Messages, GMail/IMAP will take care of this
 (setq mu4e-sent-messages-behavior 'delete)
