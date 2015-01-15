@@ -1,7 +1,15 @@
+;; (djr/install-melpa-package 'helm)
 (djr/ensure-melpa-package 'helm)
 
 (require 'helm-config)
 (require 'helm-files)
+
+(helm-autoresize-mode 1)
+
+(setq helm-recentf-fuzzy-match t
+      helm-buffers-fuzzy-matching t
+      helm-apropos-fuzzy-match t
+      helm-lisp-fuzzy-completion t)
 
 (defun djr/helm-occur (buffer-names &optional a-helm-buffer-name)
   (setq helm-multi-occur-buffer-list buffer-names)
@@ -22,6 +30,10 @@
 			   (if (eq major-mode 'org-mode)
 			       buffer)))
 		       (buffer-list)))))
+
+(unless helm-source-buffers-list
+  (setq helm-source-buffers-list
+	(helm-make-source "Buffers" 'helm-source-buffers)))
 
 (defun djr/helm ()
   (interactive)
