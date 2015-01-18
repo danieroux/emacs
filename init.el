@@ -2,8 +2,6 @@
 ;; - https://github.com/technomancy/emacs-starter-kit
 ;; - http://www.djcbsoftware.nl/dot-emacs.html
 
-(toggle-debug-on-error)
-
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d/mine") 0)
 
@@ -91,13 +89,13 @@
 (use-package djr-erc)
 (use-package djr-blog)
 (use-package djr-expand-region)
-(use-package djr-projectile)
 (use-package djr-magit)
 (use-package djr-multiple-cursors)
 (use-package djr-modeline)
 (use-package djr-easymenu)
 (use-package djr-rainbow-delimiters)
 (use-package djr-helm)
+;(use-package djr-projectile)
 (use-package djr-guru-mode)
 (use-package djr-ace-jump)
 (use-package djr-scala)
