@@ -28,8 +28,7 @@
 ;; My own files
 (setq my-dir (concat dotfiles-dir "mine"))
 
-(dolist (config-directory `(,dotfiles-dir
-			    ,external-dir
+(dolist (config-directory `(,external-dir
 			    ,my-dir))
   (push config-directory load-path))
 
