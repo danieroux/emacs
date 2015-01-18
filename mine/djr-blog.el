@@ -1,7 +1,8 @@
 ; https://github.com/punchagan/org2blog
 ; (not http://repo.or.cz/r/org2blog.git - the Atom option)
 
-(djr/install-packages '(xml-rpc))
+(use-package xml-rpc
+  :ensure t)
 
 (add-to-list 'load-path (concat external-dir "/metaweblog"))
 (add-to-list 'load-path (concat external-dir "/org2blog"))

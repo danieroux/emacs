@@ -46,3 +46,6 @@
 [submodule "external/metaweblog"]
 	path = external/metaweblog
 	url = https://github.com/punchagan/metaweblog
+[submodule "external/evil"]
+	path = external/evil
+	url = git://gitorious.org/evil/evil.git

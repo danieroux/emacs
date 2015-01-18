@@ -1,3 +1,4 @@
-(djr/ensure-package 'expand-region)
+(use-package expand-region
+  :ensure t)
 
 (provide 'djr-expand-region)

@@ -19,31 +19,11 @@
 
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
+		    ("melpa" . "http://melpa.milkbox.net/packages/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")))
     (add-to-list 'package-archives source t))
 
   (package-initialize))
-
-(defun djr/ensure-package (p)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-(defun djr/ensure-melpa-package (p)
-  (when (not (package-installed-p p))
-    (djr/install-melpa-package p)))
-
-(defun djr/install-melpa-package (p)
-    (progn
-      (let* ((package-archives '(("melpa" . "http://melpa.milkbox.net/packages/"))))
-        (package-initialize)
-	(package-refresh-contents)
-        (package-install p))
-      (djr/initialise-package)))
-
-(defun djr/install-packages (packages)
-  "Ensures that the packages are installed"
-  (dolist (p packages)
-    (djr/ensure-package p)))
 
 (defun djr/bootstrap ()
   "Run this after a fresh git clone - the bootstrap.sh script calls this"

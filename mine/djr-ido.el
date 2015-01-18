@@ -1,14 +1,15 @@
-(use-package ido)
+(use-package ido :ensure t)
 
-(djr/ensure-package 'ido-ubiquitous)
-(djr/ensure-package 'ido-vertical-mode)
-(djr/ensure-melpa-package 'flx-ido)
+(use-package ido-ubiquitous :ensure t)
+
+(use-package ido-vertical-mode
+  :ensure t
+  :init (ido-vertical-mode))
 
 (use-package flx-ido
+  :ensure t
+  :pin melpa
   :init (flx-ido-mode t))
-
-(require 'ido-vertical-mode)
-(ido-vertical-mode)
 
 (setq ido-enable-flex-matching t
       ido-everywhere t

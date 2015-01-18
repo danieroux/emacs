@@ -1,6 +1,5 @@
-(djr/ensure-package 'smex)
-
-(require 'smex)
-(smex-initialize)
+(use-package smex
+  :ensure t
+  :init (smex-initialize))
 
 (provide 'djr-smex)

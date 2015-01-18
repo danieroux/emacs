@@ -2,8 +2,6 @@
 
 (bind-key* "<f10>" 'toggle-fullscreen)
 
-(define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
-
 (global-unset-key [(control x)(control z)])
 (global-unset-key [(control c)(control a)])
 

@@ -60,8 +60,10 @@
 		"/Users/danie/Library/Haskell/bin"))
   (djr/prepend-to-paths path))
 
-(djr/ensure-package 'zenburn-theme)
-(load-theme 'zenburn t)
+(use-package zenburn-theme
+  :ensure t
+  :init
+  (load-theme 'zenburn t))
 
 (add-to-list 'load-suffixes ".el.gpg")
 

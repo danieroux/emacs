@@ -1,9 +1,7 @@
-(djr/ensure-package 'ace-jump-mode)
-
-(autoload
-  'ace-jump-mode
-  "ace-jump-mode"
-  "Emacs quick move minor mode"
-  t)
+(use-package ace-jump-mode
+  :ensure t
+  :commands ace-jump-mode
+  :init
+  (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode))
 
 (provide 'djr-ace-jump)

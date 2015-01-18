@@ -1,8 +1,6 @@
-(djr/install-packages '(clojure-mode
-			ac-nrepl
-			cider))
-
-(require 'ac-nrepl)
+(use-package clojure-mode :ensure t)
+(use-package ac-nrepl :ensure t)
+(use-package cider :ensure t)
 
 (setq cider-popup-stacktraces nil
       cider-popup-stacktraces-in-repl t

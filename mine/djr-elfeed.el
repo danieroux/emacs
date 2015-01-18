@@ -1,9 +1,11 @@
 ;; https://github.com/skeeto/elfeed
 ;; https://github.com/skeeto/.emacs.d/blob/master/etc/feed-setup.el
 
-(djr/ensure-melpa-package 'elfeed)
+(use-package elfeed
+  :ensure t
+  :pin melpa)
 
-(require 'org-elfeed)
+(use-package org-elfeed)
 
 (setq elfeed-sort-order 'ascending)
 

@@ -1,7 +1,6 @@
-;; (djr/install-melpa-package 'helm)
-(djr/ensure-melpa-package 'helm)
+(use-package helm-config
+  :ensure helm)
 
-(require 'helm-config)
 (require 'helm-files)
 
 (helm-autoresize-mode 1)

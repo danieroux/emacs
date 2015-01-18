@@ -1,16 +1,21 @@
 ;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
 
-(djr/ensure-package 'haskell-mode)
+(use-package haskell-mode
+  :ensure t)
 
-(add-to-list 'load-path (concat external-dir "/structured-haskell-mode/elisp"))
-
-(require 'shm)
-
-(djr/ensure-melpa-package 'company-ghc)
-(require 'company)
+(use-package shm
+  :load-path "external/structured-haskell-mode/elisp")
 
 ;; http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
-(djr/ensure-melpa-package 'ghc)
+(use-package ghc
+  :ensure t
+  :pin melpa)
+
+(use-package company-ghc
+  :ensure t
+  :pin melpa
+  :init
+  (add-to-list 'company-backends 'company-ghc))
 
 (autoload 'ghc-init "ghc" nil t)
 
