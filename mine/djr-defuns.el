@@ -19,7 +19,6 @@
 
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
-	            ("org" . "http://orgmode.org/elpa/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")))
     (add-to-list 'package-archives source t))
 
@@ -31,7 +30,7 @@
 
 (defun djr/ensure-melpa-package (p)
   (when (not (package-installed-p p))
-    (djr/install-melpa-package)))
+    (djr/install-melpa-package p)))
 
 (defun djr/install-melpa-package (p)
     (progn
