@@ -18,10 +18,8 @@
 
 (when *osx*
   (progn
-    ;; Hackish :-/
-    (setq mu4e-mu-binary "/usr/pkgsrc/local/mu/work/.destdir/usr/pkg/bin/mu"
-	  mail-host-address "danie-notebook")
-    (add-to-list 'load-path "/usr/pkgsrc/local/mu/work/.destdir/usr/pkg/share/emacs/site-lisp/mu4e")))
+    (setq mu4e-mu-binary "/usr/local/bin/mu"
+	  mail-host-address "danie-notebook")))
 
 (setq mu4e-use-fancy-chars nil
       mu4e-headers-results-limit 100
