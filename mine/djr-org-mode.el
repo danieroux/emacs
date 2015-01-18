@@ -1,9 +1,10 @@
 ;; -*- lexical-binding: t -*-
 ;; From the rich resource at http://doc.norang.ca/org-mode.html
 
-; (package-install 'org-plus-contrib)
-
-(djr/ensure-package 'org-plus-contrib)
+;; Core Org-Mode - installed via `make install` with this path set as prefix in local.mk from the Org build system
+(add-to-list 'load-path (concat external-dir "/org-mode-installed/emacs/site-lisp"))
+;; Contrib Org-Mode
+(add-to-list 'load-path (concat external-dir "/org-mode/contrib/lisp"))
 
 (require 'org)
 
@@ -139,13 +140,7 @@
       org-agenda-skip-function-global nil)
 
 (setq org-agenda-sorting-strategy
-      (quote ((agenda
-	       habit-down
-	       scheduled-up
-	       deadline-up)
-	      (todo priority-down category-keep)
-	      (tags priority-down category-keep)
-	      (search category-keep))))
+      '(time-up category-keep priority-down))
 
 (defun gtd-refile ()
   "Includes email and anything in an inbox"

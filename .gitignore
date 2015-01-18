@@ -20,3 +20,4 @@ elpa/*
 /pinboard-tags-cache
 /tramp
 /projectile.cache
+external/org-mode-installed
