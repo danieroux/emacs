@@ -20,9 +20,10 @@
 
 ;; Files
 (setq gtd-file "~/Dropbox/Documents/gtd/gtd.org.gpg"
-      someday-file "~/Dropbox/Documents/gtd/someday_maybe.org"
+      someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
       brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
-      period-log-file "~/Dropbox/Documents/journal/period.org.gpg")
+      period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
+      blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
 
 (setq org-agenda-files `("~/Dropbox/Documents"
 			 "~/Dropbox/Documents/gtd"
@@ -84,7 +85,7 @@
   %u
 
 %a")
-			      ("S" "Someday/Maybe" entry (file "~/Dropbox/Documents/gtd/someday_maybe.org") "* NEXT %?
+			      ("S" "Someday/Maybe" entry (file ,someday-file) "* NEXT %?
   %u
 
 %a")
@@ -96,7 +97,7 @@
   %u
 
 %a")
-			      ("s" "Single task" entry (id ,djr-single-task-header-id) "* NEXT %?
+			      ("s" "Single task" entry (id ,djr-single-task-header-id) "* NEXT %? %^g
   %u
 
 %a")
@@ -114,7 +115,11 @@
 %?")
 			      ("D" "dream" entry (file "~/Dropbox/Documents/journal/dream.org.gpg") "* %U
 
-%?")))
+%?")
+			      ("c" "The current Chrome tab" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %? %(org-mac-chrome-get-frontmost-url)  :@online:
+  %u
+
+%a")))
 
 (setq org-stuck-projects
       '("+LEVEL=1+project-persistent/-DONE-CANCELLED" ("NEXT" "STARTED") ()))
@@ -214,6 +219,7 @@
 			   (,brain-file . (:level . 0))
 			   (,period-log-file . (:level . 0))
 			   (,someday-file . (:level . 0))
+			   (,blog-ideas-file . (:level . 0))
 			   (nil . (:level . 1)))
       org-refile-use-outline-path (quote file)
       org-outline-path-complete-in-steps nil 
@@ -327,7 +333,7 @@
 				      ("J" . org-clock-goto)
 				      ("k" . ignore)
 				      ("K" . org-cut-special)
-				      ("q" . bh/show-org-agenda)
+				      ("q" . djr/show-org-agenda-refreshing-if-empty)
 				      ("S" . widen))))
 
 (setq org-agenda-persistent-filter t)
@@ -378,11 +384,13 @@
       (org-cycle)
       (bh/insert-inactive-timestamp))))
 
-(defun bh/show-org-agenda ()
+(defun djr/show-org-agenda-refreshing-if-empty ()
+  "If the Org Agenda buffer has been drawn, show it. Else refresh and show"
   (interactive)
-  (if org-agenda-sticky
-      (switch-to-buffer "*Org Agenda( )*")
-    (switch-to-buffer "*Org Agenda*"))
+  (if (or (not (get-buffer "*Org Agenda*"))
+	  (= 0 (buffer-size (get-buffer "*Org Agenda*"))))
+      (djr/agenda-notebook))
+  (switch-to-buffer "*Org Agenda*")
   (delete-other-windows))
 
 (defun djr/agenda-home ()
@@ -401,12 +409,16 @@
 		     (org-agenda nil org-agenda-shortcut)
 		     (delete-other-windows))))
 
-(run-with-idle-timer 300 t 'bh/show-org-agenda)
+(run-with-idle-timer 300 t 'djr/show-org-agenda-refreshing-if-empty)
 
 (add-hook 'org-insert-heading-hook
 	  'bh/insert-heading-inactive-timestamp 'append)
 
 ;; More control on output format
 (setq org-export-preserve-breaks t)
+
+;; Turn a org-mobile entry into a period.org.gpg entry
+(fset 'djr/make-period-entry
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([47 92 91 return 68 63 92 42 return 108 108 80 108 100 119 105 return escape 106 tab 86 106 106 120 107 107] 0 "%d")) arg)))
 
 (provide 'djr-org-mode)
