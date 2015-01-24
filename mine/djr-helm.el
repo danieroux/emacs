@@ -10,16 +10,12 @@
       helm-apropos-fuzzy-match t
       helm-lisp-fuzzy-completion t)
 
-(defun djr/helm-occur (buffer-names &optional a-helm-buffer-name)
-  (setq helm-multi-occur-buffer-list buffer-names)
-  (helm-other-buffer '(helm-source-moccur)
-		     (or a-helm-buffer-name
-			 "*helm-occur*")))
+(defun djr/helm-occur (buffer-names)
+  (helm-multi-occur-1 buffer-names))
 
 (defun djr/helm-occur-my-brain ()
   (interactive)
-  (djr/helm-occur (list "brain.org.gpg")
-		  "search my brain"))
+  (djr/helm-occur (list "brain.org.gpg")))
 
 (defun djr/helm-occur-org ()
   (interactive)
