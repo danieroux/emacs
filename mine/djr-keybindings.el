@@ -25,8 +25,7 @@
 ;; Some mirrored in .tmux.commands
 (global-set-key (kbd "S-<f1>") 'org-capture)
 (global-set-key (kbd "C-c c") 'org-capture)
-;;(global-set-key (kbd "<f3>") 'bh/show-org-agenda)
-(global-set-key (kbd "C-c a") 'bh/show-org-agenda)
+(global-set-key (kbd "C-c a") 'djr/show-org-agenda-refreshing-if-empty)
 (global-set-key (kbd "S-<f3>") 'org-agenda)
 (global-set-key (kbd "C-c A") 'org-agenda)
 (global-set-key (kbd "<f12>") 'djr/agenda-notebook)
@@ -72,11 +71,6 @@
 
 (global-set-key (kbd "C-x 2") 'djr/split-window-below)
 (global-set-key (kbd "C-x 3") 'djr/split-window-right)
-
-;; Ctrl-Space 
-;; (global-set-key (kbd "C-@") 'er/expand-region)
-
-;; (key-chord-define-global "\h" '(lambda () (interactive) (org-agenda nil "H")))
 
 (add-hook 'cider-mode-hook
 	  (lambda ()

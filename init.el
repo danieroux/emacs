@@ -99,7 +99,6 @@
 ;(use-package djr-projectile)
 (use-package djr-guru-mode)
 (use-package djr-ace-jump)
-;(use-package djr-scala)
 (use-package djr-eshell)
 (use-package djr-asciidoc)
 (use-package djr-elfeed)
