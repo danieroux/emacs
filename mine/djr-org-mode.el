@@ -20,6 +20,8 @@
 
 ;; Files
 (setq gtd-file "~/Dropbox/Documents/gtd/gtd.org.gpg"
+      consulting-file "~/Dropbox/Documents/consulting/consulting.org.gpg"
+      inbox-file "~/Dropbox/Documents/gtd/inbox.org"
       someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
       brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
       period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
@@ -29,17 +31,17 @@
 			 "~/Dropbox/Documents/gtd"
 			 ,brain-file
 			 ,gtd-file
-			 "~/Dropbox/Documents/consulting/consulting.org.gpg"))
+			 ,consulting-file))
 
 (setq org-directory "~/Dropbox/Documents/gtd")
 
 (setq org-mobile-files (quote ("agendas.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
-      org-mobile-agendas (quote ("O" "P" "e" "c" "b" "o" "n" "h" "A" "w" "E"))
-      org-mobile-inbox-for-pull "~/Dropbox/Documents/gtd/inbox.org")
+      org-mobile-agendas (quote ("M"))
+      org-mobile-inbox-for-pull inbox-file)
 
 (defun djr/org-mobile-push-agendas-org-only ()
-  "Replaces org-mobile-push"
+  "Replaces org-mobile-push. My files are .gpg encrypted, and this causes issues with MobileOrg"
   (interactive)
   (message "Creating agendas.org only")
   (org-mobile-create-sumo-agenda)
@@ -81,7 +83,7 @@
   %u
 
 %a")
-			      ("i" "inbox" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %?
+			      ("i" "inbox" entry (file ,inbox-file) "* NEXT %?
   %u
 
 %a")
@@ -106,7 +108,7 @@
   SCHEDULED: %^t
 
 %a")
-			      ("n" "note" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NOTE %?
+			      ("n" "note" entry (file ,inbox-file) "* NOTE %?
 	%u
 %a")
 			      
@@ -116,7 +118,7 @@
 			      ("D" "dream" entry (file "~/Dropbox/Documents/journal/dream.org.gpg") "* %U
 
 %?")
-			      ("c" "The current Chrome tab" entry (file "~/Dropbox/Documents/gtd/inbox.org") "* NEXT %? %(org-mac-chrome-get-frontmost-url)  :@online:
+			      ("c" "The current Chrome tab" entry (file ,inbox-file) "* NEXT %? %(org-mac-chrome-get-frontmost-url)  :@online:
   %u
 
 %a")))
@@ -186,6 +188,13 @@
 				     ,(gtd-project-context "@errands")
 				     ,(gtd-project-context "@watch")
 				     ,(gtd-refile)))
+				   ("M" "Mobile"
+                                    (,(gtd-agenda)
+				     ,(gtd-project-context "@open")
+				     ,(gtd-project-context "@calls")
+				     ,(gtd-project-context "@errands")
+				     ,(gtd-project-context "@online")
+				     ,(gtd-project-context "@banking")))
                                    ,@(gtd-agenda-entry "n" "@notebook")
                                    ,@(gtd-agenda-entry "e" "@errands")
                                    ,@(gtd-agenda-entry "o" "@online")
