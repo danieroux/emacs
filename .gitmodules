@@ -49,3 +49,6 @@
 [submodule "external/evil"]
 	path = external/evil
 	url = git://gitorious.org/evil/evil.git
+[submodule "external/emms"]
+	path = external/emms
+	url = git://git.sv.gnu.org/emms.git
