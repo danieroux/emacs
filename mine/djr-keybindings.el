@@ -59,6 +59,13 @@
 (bind-key* "S-<f3>" 'id-manager)
 (bind-key* "C-c i" 'id-manager)
 
+; Music player
+(bind-key* "<f7>" 'emms-previous)
+(bind-key* "<f8>" 'emms-pause)
+(bind-key* "S-<f8>" 'emms-playlist-mode-go)
+(bind-key* "<f9>" 'emms-next)
+(bind-key* "S-<f9>" 'djr/play-music)
+
 (add-hook 'elfeed-search-mode-hook
 	  (lambda ()
 	    (bind-key "f" 'djr/elfeed-update-frequent elfeed-search-mode-map)
