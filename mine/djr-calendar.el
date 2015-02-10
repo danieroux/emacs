@@ -1,4 +1,26 @@
-;; Google calendars
+(use-package calfw-cal
+  :load-path "external/calfw"
+  :config
+  (progn
+    (require 'calw-org)))
+
+(defun djr/open-calendars ()
+  (interactive)
+  (cfw:open-calendar-buffer
+   :contents-sources
+   (list
+    (cfw:org-create-source "Green")
+    (cfw:cal-create-source "Orange"))))
+
+(setq cfw:fchar-junction ?╋
+      cfw:fchar-vertical-line ?┃
+      cfw:fchar-horizontal-line ?━
+      cfw:fchar-left-junction ?┣
+      cfw:fchar-right-junction ?┫
+      cfw:fchar-top-junction ?┯
+      cfw:fchar-top-left-corner ?┏
+      cfw:fchar-top-right-corner ?┓
+      cfw:render-line-breaker 'cfw:render-line-breaker-none)
 
 (setq mark-diary-entries-in-calendar t
       diary-number-of-entries 7
@@ -14,7 +36,7 @@
     (kill-buffer (car (last (split-string tmpfile "/"))))))
 
 ;; google-calendars defined in private.el
-(defun getcals ()
+(defun djr/refresh-calendars ()
   (interactive)
   (find-file my-diary)
   (erase-buffer)
