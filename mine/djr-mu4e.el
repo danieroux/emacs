@@ -1,12 +1,12 @@
 ;; -*- lexical-binding: t -*-
 
-(setq mu4e-maildir (expand-file-name "~/Maildir"))
+(setq mu4e-maildir (expand-file-name "~/Mail"))
 
-(setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
+(setq smtpmail-queue-mail t
       smtpmail-queue-dir (concat mu4e-maildir "/mu4e-queue"))
 
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+(setq mu4e-drafts-folder "/[Gmail]/.Drafts")
+(setq mu4e-sent-folder   "/[Gmail]/.Sent Mail")
 
 ;; Not synced with offlineimap
 (setq mu4e-trash-folder  "/not-really-trash")
@@ -46,7 +46,7 @@
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
-(defvar djr-mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail].Starred) AND NOT flag:trashed" "What I consider to be my 'inbox'")
+(defvar djr-mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail]/.Starred) AND NOT flag:trashed" "What I consider to be my 'inbox'")
 
 ;; More bookmarks
 (setq mu4e-bookmarks `((,djr-mu4e-combined-inbox-bookmark                         "Act-on inbox"                  ?i)
