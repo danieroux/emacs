@@ -1,7 +1,9 @@
-(require 'eudcb-mab)
+(require 'eudcb-mab-sqlite)
 
 ; http://news.ycombinator.com/item?id=1995542
 (eudc-set-server "dummy" 'mab t)
+
+(setq eudc-contacts-file "~/Library/Application Support/AddressBook/Sources/12282D27-D3D9-47F5-AAE5-DC45C61D8FCF/AddressBook-v22.abcddb") 
 
 (eval-after-load
     "message"
