@@ -1,6 +1,6 @@
 ;;; eudcb-mab-sqlite.el --- Emacs Unified Directory Client - AddressBook backend
 
-;; Copyright (C) 2003-2014 Free Software Foundation, Inc.
+;; Copyright (C) 2003-2015 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@newartisans.com>
 ;; Maintainer: emacs-devel@gnu.org
@@ -24,8 +24,8 @@
 
 ;;; Commentary:
 ;;    This library provides an interface to use the Mac's AddressBook,
-;;    by way of the "contacts" command-line utility which can be found
-;;    by searching on the Net.
+;;    by querying the database using sqlite3. No additional software
+;;    need to be installed.
 
 ;;; Code:
 
