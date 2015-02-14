@@ -35,7 +35,7 @@
 
 (setq org-directory "~/Dropbox/Documents/gtd")
 
-(setq org-mobile-files (quote ("agendas.org"))
+(setq org-mobile-files (quote ("agendas.org" "~/Dropbox/Documents/gtd/conversations.org"))
       org-mobile-directory "~/Dropbox/MobileOrg"
       org-mobile-agendas (quote ("M"))
       org-mobile-inbox-for-pull inbox-file)
@@ -43,8 +43,8 @@
 (defun djr/org-mobile-push-agendas-org-only ()
   "Replaces org-mobile-push. My files are .gpg encrypted, and this causes issues with MobileOrg"
   (interactive)
-  (message "Creating agendas.org only")
   (org-mobile-create-sumo-agenda)
+  (org-mobile-copy-agenda-files)
   (org-mobile-create-index-file)
   (org-mobile-write-checksums))
 
