@@ -1,27 +1,26 @@
 ;;; eudcb-mab.el --- Emacs Unified Directory Client - AddressBook backend
 
-;; Copyright (C) 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+;; Copyright (C) 2003-2014 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@newartisans.com>
-;; Maintainer: FSF
+;; Maintainer: emacs-devel@gnu.org
 ;; Keywords: comm
+;; Package: eudc
 
 ;; This file is part of GNU Emacs.
 
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 2, or (at
-;; your option) any later version.
+;; GNU Emacs is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
 
-;; This program is distributed in the hope that it will be useful, but
-;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
+;; GNU Emacs is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-;; Boston, MA 02110-1301, USA.
+;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 ;;    This library provides an interface to use the Mac's AddressBook,
@@ -36,6 +35,7 @@
 ;;{{{      Internal cooking
 
 (defvar eudc-mab-conversion-alist nil)
+(defvar eudc-buffer-time nil)
 (defvar eudc-contacts-file
   "~/Library/Application Support/AddressBook/AddressBook.data")
 
@@ -56,10 +56,13 @@ RETURN-ATTRS is a list of attributes to return, defaulting to
 	(modified (nth 5 (file-attributes eudc-contacts-file)))
 	result)
     (with-current-buffer mab-buffer
+      (make-local-variable 'eudc-buffer-time)
       (goto-char (point-min))
-      (erase-buffer)
-      (call-process (executable-find "contacts") nil t nil
-		    "-H" "-l" "-f" fmt-string)
+      (when (or (eobp) (time-less-p eudc-buffer-time modified))
+	(erase-buffer)
+	(call-process (executable-find "contacts") nil t nil
+		      "-H" "-l" "-f" fmt-string)
+	(setq eudc-buffer-time modified))
       (goto-char (point-min))
       (while (not (eobp))
 	(let* ((args (split-string (buffer-substring (point)
@@ -126,5 +129,4 @@ RETURN-ATTRS is a list of attributes to return, defaulting to
 
 (provide 'eudcb-mab)
 
-;; arch-tag: 4bef8e65-f109-47c7-91b9-8a6ea3ed7bb1
 ;;; eudcb-mab.el ends here
