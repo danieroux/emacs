@@ -5,11 +5,6 @@
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d/mine") 0)
 
-;; Kill the tool bar and scroll bar
-;; I leave the menu bar, because I use it to discover features available in a mode
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
 ;; after copy Ctrl+c in X11 apps, you can paste by `yank' in emacs
 (setq x-select-enable-clipboard t
 ;; after mouse selection in X11, you can paste by `yank' in emacs

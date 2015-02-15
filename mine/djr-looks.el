@@ -12,6 +12,11 @@
 	       :height 180
 	       :weight 'normal))))
 
+;; Kill the tool bar and scroll bar
+;; I leave the menu bar, because I use it to discover features available in a mode
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
 (global-hl-line-mode 1)
 
 (global-highlight-changes-mode -1)

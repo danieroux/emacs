@@ -1,6 +1,6 @@
 (require 'djr-xmonad)
 
-(bind-key* "<f10>" 'toggle-fullscreen)
+(bind-key* "<f10>" 'toggle-frame-fullscreen)
 
 (global-unset-key [(control x)(control z)])
 (global-unset-key [(control c)(control a)])
