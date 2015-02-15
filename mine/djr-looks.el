@@ -34,4 +34,18 @@
       transient-mark-mode t
       font-lock-maximum-decoration t)
 
+(require 'bzg-naked)
+
+(defun djr/focus ()
+  (interactive)
+  (bzg-big-fringe-mode 1)
+  (hidden-mode-line-mode 1)
+  (djr/make-fullscreen))
+
+(defun djr/break ()
+  (interactive)
+  (bzg-big-fringe-mode -1)
+  (hidden-mode-line-mode -1)
+  (toggle-frame-fullscreen))
+
 (provide 'djr-looks)

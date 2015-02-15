@@ -71,6 +71,12 @@
   (or (djr/queue-dir-has-files-p)
       (djr/has-mu4e-compose-buffer-open-p)))
 
+(defun djr/make-fullscreen ()
+  (interactive)
+   (set-frame-parameter
+     nil 'fullscreen
+     'fullboth))
+
 (defun djr/pull ()
   "Pull information sources (moving away from push based)"
   (interactive)
