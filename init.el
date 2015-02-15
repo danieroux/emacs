@@ -59,11 +59,6 @@
 		"/Users/danie/Library/Haskell/bin"))
   (djr/prepend-to-paths path))
 
-(use-package zenburn-theme
-  :ensure t
-  :init
-  (load-theme 'zenburn t))
-
 (add-to-list 'load-suffixes ".el.gpg")
 
 ;; My packages
@@ -72,6 +67,7 @@
 (when (equal system-type 'darwin)
   (use-package djr-osx))
 
+(use-package djr-looks)
 (use-package djr-ido)
 (use-package djr-smex)
 (use-package djr-vim)
@@ -119,7 +115,6 @@
 
 (ansi-color-for-comint-mode-on)
 (fset 'yes-or-no-p 'y-or-n-p)
-(global-hl-line-mode 1)
 
 (setq confirm-kill-emacs 'y-or-n-p)
 
@@ -136,27 +131,13 @@
 
 (delete-selection-mode 1)
 
-(global-highlight-changes-mode -1)
-
 (global-auto-revert-mode t)
-
-(global-visual-line-mode t)
 
 ;; Save on tab-out - IntelliJ-like
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
 
-;; Turn "lambda" into λ - for example. In all modes that support it.
-(global-prettify-symbols-mode t)
-
-(blink-cursor-mode (- (*) (*) (*)))
-
-(setq visible-bell t
-      echo-keystrokes 0.1
-      font-lock-maximum-decoration t
-      inhibit-startup-message t
+(setq echo-keystrokes 0.1
       initial-major-mode 'org-mode ;; http://emacsredux.com/blog/2014/07/25/configure-the-scratch-buffers-mode/
-      initial-scratch-message nil
-      transient-mark-mode t
       mouse-yank-at-point t
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'post-forward
@@ -171,4 +152,5 @@
 (load custom-file 'noerror)
 
 (setq server-socket-dir "/tmp/danie-emacs-shared")
+
 (server-start)
