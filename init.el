@@ -141,6 +141,9 @@
 
 (global-visual-line-mode t)
 
+;; Save on tab-out - IntelliJ-like
+(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+
 ;; Turn "lambda" into λ - for example. In all modes that support it.
 (global-prettify-symbols-mode t)
 
