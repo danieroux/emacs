@@ -110,6 +110,7 @@
 (use-package djr-spell)
 (use-package djr-password-manager)
 (use-package djr-emms)
+(use-package djr-flycheck)
 
 (use-package djr-keybindings)
 
