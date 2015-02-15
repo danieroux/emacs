@@ -142,6 +142,9 @@
 
 (global-visual-line-mode t)
 
+;; Turn "lambda" into λ - for example. In all modes that support it.
+(global-prettify-symbols-mode t)
+
 (blink-cursor-mode (- (*) (*) (*)))
 
 ; No fringe

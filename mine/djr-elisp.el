@@ -6,10 +6,4 @@
 
 (require 'info-look)
 
-(font-lock-add-keywords 'emacs-lisp-mode
-			'(("(\\(lambda\\)\\>" (0 (prog1 ()
-					      (compose-region (match-beginning 1)
-							      (match-end 1)
-							      ?λ))))))
-
 (provide 'djr-elisp)
