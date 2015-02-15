@@ -15,7 +15,20 @@
 (require 'djr-org-timeout)
 (require 'djr-org-drill)
 
+(use-package org-pomodoro
+  :pin melpa
+  :ensure t
+  :init
+  (progn
+    (setq org-pomodoro-keep-killed-pomodoro-time t
+	  org-pomodoro-time-format "%.2m")
+    ; I also want a sound to play when I start - lets me know that the sound is on
+    (add-hook 'org-pomodoro-started-hook
+	      (lambda ()
+		(org-pomodoro-play-sound :pomodoro)))))
+
 (require 'org-mode-observations)
+
 (setq org-modules (quote (org-habit)))
 
 ;; Files
