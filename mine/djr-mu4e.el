@@ -8,7 +8,7 @@
 (setq mu4e-drafts-folder "/[Gmail]/.Drafts")
 (setq mu4e-sent-folder   "/[Gmail]/.Sent Mail")
 
-;; Not synced with offlineimap
+;; Not synced
 (setq mu4e-trash-folder  "/not-really-trash")
 (setq mu4e-refile-folder "/gtd")
 

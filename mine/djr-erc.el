@@ -40,7 +40,7 @@
 (setq erc-prompt-for-nickserv-password nil
       erc-nickserv-passwords `((freenode (("danieroux" . ,erc-password)))))
 
-(setq erc-autojoin-channels-alist '(("freenode.net" "#clojure.za")))
+(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs")))
 
 (defun djr/irc ()
   (interactive)

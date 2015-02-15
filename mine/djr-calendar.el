@@ -2,7 +2,7 @@
   :load-path "external/calfw"
   :config
   (progn
-    (require 'calw-org)))
+    (require 'calfw-org)))
 
 (defun djr/open-calendars ()
   (interactive)

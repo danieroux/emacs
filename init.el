@@ -23,7 +23,6 @@
 ;; jwiegley's: https://github.com/jwiegley/use-package
 (add-to-list 'load-path (concat external-dir "/use-package"))
 (require 'use-package)
-(require 'bind-key)
 
 ;; My own files
 (setq my-dir (concat dotfiles-dir "mine"))
@@ -147,13 +146,12 @@
 
 (blink-cursor-mode (- (*) (*) (*)))
 
-; No fringe
-(set-fringe-mode '(0 . 0))
-
 (setq visible-bell t
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
       inhibit-startup-message t
+      initial-major-mode 'org-mode ;; http://emacsredux.com/blog/2014/07/25/configure-the-scratch-buffers-mode/
+      initial-scratch-message nil
       transient-mark-mode t
       mouse-yank-at-point t
       truncate-partial-width-windows nil
@@ -162,6 +160,7 @@
       minibuffer-depth-indicate-mode t
       redisplay-dont-pause t ;; http://www.masteringemacs.org/articles/2011/10/02/improving-performance-emacs-display-engine
       xterm-mouse-mode t
+      gc-cons-threshold 20000000 ;; https://github.com/lewang/flx - GC opt
       gnutls-min-prime-bits nil)
 
 (setq custom-file (concat dotfiles-dir "custom.el"))

@@ -61,6 +61,7 @@
 
 ; Music player
 (bind-key* "<f7>" 'emms-previous)
+(bind-key* "S-<f7>" 'djr/helm-emms)
 (bind-key* "<f8>" 'emms-pause)
 (bind-key* "S-<f8>" 'emms-playlist-mode-go)
 (bind-key* "<f9>" 'emms-next)
