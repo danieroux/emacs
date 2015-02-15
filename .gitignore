@@ -21,3 +21,4 @@ elpa/*
 /tramp
 /projectile.cache
 external/org-mode-installed
+/emms/
