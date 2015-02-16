@@ -102,6 +102,7 @@
 (use-package djr-password-manager)
 (use-package djr-emms)
 (use-package djr-flycheck)
+(use-package djr-intellij)
 
 (use-package djr-keybindings)
 
@@ -127,9 +128,6 @@
 (delete-selection-mode 1)
 
 (global-auto-revert-mode t)
-
-;; Save on tab-out - IntelliJ-like
-(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
 
 (setq echo-keystrokes 0.1
       initial-major-mode 'org-mode ;; http://emacsredux.com/blog/2014/07/25/configure-the-scratch-buffers-mode/
