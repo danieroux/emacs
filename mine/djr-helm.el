@@ -1,6 +1,10 @@
 (use-package helm-config
   :ensure helm)
 
+(use-package helm-ag
+  :pin melpa
+  :ensure t)
+
 (require 'helm-files)
 
 (helm-autoresize-mode 1)

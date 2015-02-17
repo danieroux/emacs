@@ -86,7 +86,7 @@
 (use-package djr-easymenu)
 (use-package djr-rainbow-delimiters)
 (use-package djr-helm)
-;(use-package djr-projectile)
+(use-package djr-projectile)
 (use-package djr-guru-mode)
 (use-package djr-ace-jump)
 (use-package djr-eshell)
