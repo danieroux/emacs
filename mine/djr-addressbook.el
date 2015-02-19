@@ -1,4 +1,4 @@
-(require 'eudcb-mab-sqlite)
+(require 'eudcb-mab)
 
 ; http://news.ycombinator.com/item?id=1995542
 (eudc-set-server "dummy" 'mab t)

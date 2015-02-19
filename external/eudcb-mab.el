@@ -1,6 +1,6 @@
 ;;; eudcb-mab.el --- Emacs Unified Directory Client - AddressBook backend
 
-;; Copyright (C) 2003-2014 Free Software Foundation, Inc.
+;; Copyright (C) 2003-2015 Free Software Foundation, Inc.
 
 ;; Author: John Wiegley <johnw@newartisans.com>
 ;; Maintainer: emacs-devel@gnu.org
@@ -24,12 +24,14 @@
 
 ;;; Commentary:
 ;;    This library provides an interface to use the Mac's AddressBook,
-;;    by way of the "contacts" command-line utility which can be found
-;;    by searching on the Net.
+;;    by querying the database using sqlite3. No additional software
+;;    need to be installed as sqlite3 is a standard command on the
+;;    latest versions of OSX.
 
 ;;; Code:
 
 (require 'eudc)
+
 (require 'executable)
 
 ;;{{{      Internal cooking
@@ -37,12 +39,41 @@
 (defvar eudc-mab-conversion-alist nil)
 (defvar eudc-buffer-time nil)
 (defvar eudc-contacts-file
-  "~/Library/Application Support/AddressBook/AddressBook.data")
+  "~/Library/Application Support/AddressBook/AddressBook-v22.abcddb"
+  "This is the location for the 'Local' addressbook on Mavericks.
+
+To test if the location is correct, invoke
+'(eudc-mab-sqlite3-dump-mac-addressbook).
+
+If you have a remote source (like Google), find the right file in:
+~/Library/Application Support/AddressBook/Sources")
 
 (eudc-protocol-set 'eudc-query-function 'eudc-mab-query-internal 'mab)
 (eudc-protocol-set 'eudc-list-attributes-function nil 'mab)
 (eudc-protocol-set 'eudc-mab-conversion-alist nil 'mab)
 (eudc-protocol-set 'eudc-protocol-has-default-query-attributes nil 'mab)
+
+(defun eudc-mab-sqlite3-dump-mac-addressbook ()
+  "Return a colon separated list.
+
+The format is:
+
+LastName:FirstName:Phone:Email"
+  (interactive)
+  (let ((sqlite-db (expand-file-name eudc-contacts-file)))
+    (unless (and sqlite-db (file-readable-p sqlite-db))
+      (error "Cannot read sqlite database: %s" sqlite-db))
+    (call-process (executable-find "sqlite3") nil t nil
+		  "-separator" ":"
+		  sqlite-db
+		  "select p.ZLASTNAME,
+                          p.ZFIRSTNAME,
+                          n.ZFULLNUMBER,
+                          e.ZADDRESSNORMALIZED
+                   FROM ZABCDRECORD       as p,
+                        ZABCDEMAILADDRESS as e,
+                        ZABCDPHONENUMBER  as n
+                   WHERE (e.ZOWNER = p.Z_PK) AND (n.ZOWNER = p.Z_PK);")))
 
 (defun eudc-mab-query-internal (query &optional return-attrs)
   "Query MAB  with QUERY.
@@ -51,8 +82,7 @@ MAB attribute names.
 RETURN-ATTRS is a list of attributes to return, defaulting to
 `eudc-default-return-attributes'."
 
-  (let ((fmt-string "%ln:%fn:%p:%e")
-	(mab-buffer (get-buffer-create " *mab contacts*"))
+  (let ((mab-buffer (get-buffer-create " *mab contacts*"))
 	(modified (nth 5 (file-attributes eudc-contacts-file)))
 	result)
     (with-current-buffer mab-buffer
@@ -60,8 +90,7 @@ RETURN-ATTRS is a list of attributes to return, defaulting to
       (goto-char (point-min))
       (when (or (eobp) (time-less-p eudc-buffer-time modified))
 	(erase-buffer)
-	(call-process (executable-find "contacts") nil t nil
-		      "-H" "-l" "-f" fmt-string)
+	(eudc-mab-sqlite3-dump-mac-addressbook)
 	(setq eudc-buffer-time modified))
       (goto-char (point-min))
       (while (not (eobp))
@@ -128,5 +157,4 @@ RETURN-ATTRS is a list of attributes to return, defaulting to
 (eudc-register-protocol 'mab)
 
 (provide 'eudcb-mab)
-
 ;;; eudcb-mab.el ends here
