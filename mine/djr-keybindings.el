@@ -140,7 +140,8 @@
 
 (add-hook 'org-agenda-mode-hook
           (lambda ()
-            (define-key org-agenda-mode-map "q" 'bury-buffer))
+	    (define-key org-agenda-mode-map "q" 'bury-buffer)
+	    (define-key org-agenda-mode-map "P" 'org-pomodoro))
           'append)
 
 (add-hook 'org-mode-hook (lambda ()

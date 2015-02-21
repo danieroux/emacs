@@ -342,6 +342,7 @@
       org-enforce-todo-dependencies t)
 
 (setq org-use-speed-commands t
+      ;; Also see org-speed-commands-default
       org-speed-commands-user (quote (("0" . ignore)
 				      ("1" . ignore) ;; For org-drill
 				      ("2" . ignore)
@@ -353,12 +354,17 @@
 				      ("J" . org-clock-goto)
 				      ("k" . ignore)
 				      ("K" . org-cut-special)
+				      ("N" . org-narrow-to-subtree)
+				      ("P" . org-pomodoro)
 				      ("q" . djr/show-org-agenda-refreshing-if-empty)
-				      ("S" . widen))))
+				      ("s" . djr/org-mode-refile-current-task-as-single-task)
+				      ("z" . org-add-note)
+				      ("W" . widen))))
 
 (setq org-agenda-persistent-filter t)
 
-(setq org-agenda-clock-consistency-checks
+(setq org-clock-idle-time 5
+      org-agenda-clock-consistency-checks
       (quote (:max-duration "4:00"
               :min-duration 0
               :max-gap 0
