@@ -12,7 +12,6 @@
 (require 'org-checklist)
 (require 'org-mobile)
 
-(require 'djr-org-timeout)
 (require 'djr-org-drill)
 
 (use-package org-pomodoro
@@ -327,8 +326,6 @@
 
 ;; I prefer to keep archived entries within the original file
 (setq org-archive-default-command (quote org-archive-set-tag))
-
-(djr/auto-clocking-out)
 
 ;; Dim blocked tasks
 (setq org-agenda-dim-blocked-tasks 'invisible)
