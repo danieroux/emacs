@@ -24,9 +24,7 @@
 
 ;;; Commentary:
 ;;    This library provides an interface to use the Mac's AddressBook,
-;;    by querying the database using sqlite3. No additional software
-;;    need to be installed as sqlite3 is a standard command on the
-;;    latest versions of OSX.
+;;    by querying a database file using the external program `sqlite3'.
 
 ;;; Code:
 
@@ -59,7 +57,6 @@ If you have a remote source (like Google), find the right file in:
 The format is:
 
 LastName:FirstName:Phone:Email"
-  (interactive)
   (let ((sqlite-db (expand-file-name eudc-contacts-file)))
     (unless (and sqlite-db (file-readable-p sqlite-db))
       (error "Cannot read sqlite database: %s" sqlite-db))
@@ -76,7 +73,7 @@ LastName:FirstName:Phone:Email"
                    WHERE (e.ZOWNER = p.Z_PK) AND (n.ZOWNER = p.Z_PK);")))
 
 (defun eudc-mab-query-internal (query &optional return-attrs)
-  "Query MAB  with QUERY.
+  "Query MAB with QUERY.
 QUERY is a list of cons cells (ATTR . VALUE) where ATTRs should be valid
 MAB attribute names.
 RETURN-ATTRS is a list of attributes to return, defaulting to
@@ -152,7 +149,6 @@ RETURN-ATTRS is a list of attributes to return, defaulting to
   (message "MAB server selected"))
 
 ;;}}}
-
 
 (eudc-register-protocol 'mab)
 
