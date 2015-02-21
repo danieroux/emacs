@@ -104,6 +104,7 @@
 (use-package djr-flycheck)
 (use-package djr-intellij)
 (use-package djr-chrome-editboxes)
+(use-package djr-focus-mode)
 
 (use-package djr-keybindings)
 
