@@ -76,6 +76,8 @@
       org-hide-leading-stars t
       org-agenda-skip-additional-timestamps-same-entry nil
       org-id-method (quote uuidgen)
+      ; Make clocktable indents pretty-ish
+      org-pretty-entities t
       org-id-link-to-org-use-id t)
 
 ;; Todo config

@@ -91,7 +91,7 @@
   "Search for related messages to the current one" 
   (let* ((msgid (mu4e-msg-field msg :message-id)))
     (setq mu4e-headers-include-related t)
-    (mu4e-headers-search (concat "\"msgid:" msgid "\""))))
+    (mu4e-headers-search (concat "msgid:" msgid))))
 
 (defun djr/mu4e-open-message-in-google (msg)
   (let* ((msgid (mu4e-message-field msg :message-id))
