@@ -16,16 +16,15 @@
 (require 'djr-org-drill)
 
 (use-package org-pomodoro
-  :pin melpa
+  :load-path "external/org-pomodoro"
   :ensure t
   :init
   (progn
     (setq org-pomodoro-keep-killed-pomodoro-time t
-	  org-pomodoro-time-format "%.2m")
-    ; I also want a sound to play when I start - lets me know that the sound is on
-    (add-hook 'org-pomodoro-started-hook
-	      (lambda ()
-		(org-pomodoro-play-sound :pomodoro)))))
+	  org-pomodoro-sound (expand-file-name "~/Dropbox/Audio/wav/big-singing-bowl.wav")
+	  org-pomodoro-play-start-sound t
+	  org-pomodoro-start-sound (expand-file-name "~/Dropbox/Audio/wav/big-singing-bowl.wav")
+	  org-pomodoro-time-format "%.2m")))
 
 (require 'org-mode-observations)
 
