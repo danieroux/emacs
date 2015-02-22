@@ -1,7 +1,9 @@
-(add-to-list 'load-path (concat external-dir "/emacs-id-manager"))
-
-(autoload 'id-manager "id-manager" nil t)
-
-(setq idm-database-file "~/Dropbox/Documents/passwords.gpg")
+(use-package id-manager
+  :init
+  (progn
+    (setq idm-database-file "~/Dropbox/Documents/passwords.gpg")
+    ;; Triggered by QuickSilver
+    (bind-key* "S-<f3>" 'id-manager)
+    (bind-key* "C-c i" 'id-manager)))
 
 (provide 'djr-password-manager)
