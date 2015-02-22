@@ -15,7 +15,7 @@
 (require 'djr-org-drill)
 
 (use-package org-pomodoro
-  :load-path "external/org-pomodoro"
+  :pin melpa
   :ensure t
   :init
   (progn
