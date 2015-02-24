@@ -446,4 +446,42 @@
 (fset 'djr/make-period-entry
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([47 92 91 return 68 63 92 42 return 108 108 80 108 100 119 105 return escape 106 tab 86 106 106 120 107 107] 0 "%d")) arg)))
 
+(when *osx*
+  (require 'org-mac-link)
+  (autoload 'omlg-grab-link "org-mac-link")
+  (bind-key "C-c g" 'org-mac-grab-link org-mode-map))
+
+
+(global-unset-key [(control c) (control l)])
+(global-unset-key [(control c) (l)])
+(bind-key* "C-c C-l" 'org-store-link)
+(bind-key* "C-c l" 'org-insert-link)
+(bind-key* "<f2> g" 'org-clock-goto)
+(bind-key* "C-c g" 'org-clock-goto)
+(global-set-key (kbd "S-<f1>") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'djr/show-org-agenda-refreshing-if-empty)
+(global-set-key (kbd "S-<f3>") 'org-agenda)
+(global-set-key (kbd "C-c A") 'org-agenda)
+(global-set-key (kbd "<f12>") 'djr/agenda-notebook)
+(global-set-key (kbd "S-<f12>") 'djr/agenda-home)
+;;(global-set-key (kbd "C-c N") 'djr/agenda-notebook)
+
+(defun djr/enter-org-speedmode ()
+  "Moves to start of heading where org-use-speed-commands starts to work. Switch to insert for it to take effect."
+  (interactive)
+  (org-back-to-heading)
+  (evil-change-state 'insert))
+
+(defun djr/org-insert-new-heading ()
+  (interactive)
+  (end-of-buffer)
+  (org-insert-heading-respect-content)
+  (evil-change-state 'insert))
+
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+	    (define-key org-agenda-mode-map "q" 'bury-buffer)
+	    (define-key org-agenda-mode-map "P" 'org-pomodoro))
+          'append)
 (provide 'djr-org-mode)

@@ -28,5 +28,15 @@
   (browse-url-at-point))
 
 (bind-key "b" 'djr/twittering-browse-first-url-in-tweet twittering-mode-map)
+(bind-key (kbd "*") 'twittering-favorite twittering-mode-map)
+
+(defun djr/twittering-fix-clobbering ()
+  "twittering-mode seems to clobber the current buffer?"
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*twittering*"))
+  (twit)
+  (twittering-visit-timeline "danieroux/will-read"))
+
+(bind-key* "<f2> t" 'djr/twittering-fix-clobbering)
 
 (provide 'djr-twitter)

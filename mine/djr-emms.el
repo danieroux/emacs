@@ -1,6 +1,12 @@
 
 (use-package emms-setup
   :load-path "external/emms/lisp"
+  :bind* (("<f7>" . emms-previous)
+	  ("S-<f7>" . djr/helm-emms)
+	  ("<f8>" . emms-pause)
+	  ("S-<f8>" . emms-playlist-mode-go)
+	  ("<f9>" . emms-next)
+	  ("S-<f9>" . djr/play-music))
   :config
   (progn
     ; https://www.gnu.org/software/emms/manual/Using-TagLib.html

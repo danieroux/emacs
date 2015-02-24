@@ -9,67 +9,13 @@
 (global-set-key (kbd "M-?") 'djr/helm-occur-my-brain)
 
 (global-set-key (kbd "M-o") 'ido-find-file)
-;; Interferes with arrow keys
-;;(global-set-key (kbd "M-O") 'recentf-ido-find-file)
-;;(global-set-key (kbd "M-SPC") 'ido-switch-buffer)
 (global-set-key (kbd "M-SPC") 'djr/helm)
 (global-set-key (kbd "M-S-SPC") 'helm-projectile)
 
-;; OrgMode link handling
-(global-unset-key [(control c) (control l)])
-(global-unset-key [(control c) (l)])
-
-(bind-key* "C-c C-l" 'org-store-link)
-(bind-key* "C-c l" 'org-insert-link)
-
-;; Some mirrored in .tmux.commands
-(global-set-key (kbd "S-<f1>") 'org-capture)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c a") 'djr/show-org-agenda-refreshing-if-empty)
-(global-set-key (kbd "S-<f3>") 'org-agenda)
-(global-set-key (kbd "C-c A") 'org-agenda)
-(global-set-key (kbd "<f12>") 'djr/agenda-notebook)
-(global-set-key (kbd "S-<f12>") 'djr/agenda-home)
-;;(global-set-key (kbd "C-c N") 'djr/agenda-notebook)
-
-(bind-key (kbd "*") 'twittering-favorite twittering-mode-map)
-
-(defun djr/twittering-fix-clobbering ()
-  "twittering-mode seems to clobber the current buffer?"
-  (interactive)
-  (switch-to-buffer (get-buffer-create "*twittering*"))
-  (twit)
-  (twittering-visit-timeline "danieroux/will-read"))
-
 (global-unset-key (kbd "<f2>"))
-(bind-key* "<f2> c" 'djr/mu4e-compose-new-with-follow-up)
-(bind-key* "C-c n" 'djr/mu4e-compose-new-with-follow-up)
 
-(bind-key* "<f2> e" 'eshell)
-(bind-key* "<f2> g" 'org-clock-goto)
-(bind-key* "C-c g" 'org-clock-goto)
-(bind-key* "<f2> m" 'djr/mu4e-inbox)
-(bind-key* "C-c m" 'djr/mu4e-inbox)
-(bind-key* "<f2> p" 'djr/pull)
-(bind-key* "<f2> s" 'w3m-search)
-(bind-key* "<f2> t" 'djr/twittering-fix-clobbering)
-(bind-key* "<f2> n" 'elfeed)
-(bind-key* "<f2> w" 'w3m)
-
-; Music player
-(bind-key* "<f7>" 'emms-previous)
-(bind-key* "S-<f7>" 'djr/helm-emms)
-(bind-key* "<f8>" 'emms-pause)
-(bind-key* "S-<f8>" 'emms-playlist-mode-go)
-(bind-key* "<f9>" 'emms-next)
-(bind-key* "S-<f9>" 'djr/play-music)
-
-(add-hook 'elfeed-search-mode-hook
-	  (lambda ()
-	    (bind-key "f" 'djr/elfeed-update-frequent elfeed-search-mode-map)
-	    (bind-key "l" 'djr/elfeed-limit elfeed-search-mode-map)
-	    (bind-key "B" 'djr/elfeed-open-visible-in-browser elfeed-search-mode-map)
-	    (bind-key "R" 'djr/elfeed-mark-all-read-in-buffer elfeed-search-mode-map)))
+(when *my-primary-emacs-instance*
+  (bind-key* "<f2> p" 'djr/pull))
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -108,38 +54,6 @@
 		      (evil-declare-key state dired-mode-map
 			(kbd "E") 'open-in-external-app))
 		    '(normal insert))))
-
-(add-hook 'mu4e-headers-mode-hook
-	  (lambda ()
-	    (define-key mu4e-headers-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
-	    (define-key mu4e-headers-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
-	    (define-key mu4e-headers-mode-map "d" 'mu4e-headers-mark-for-delete)
-	    (define-key mu4e-headers-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
-
-(add-hook 'mu4e-view-mode-hook
-	  (lambda ()
-	    (define-key mu4e-view-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
-	    (define-key mu4e-view-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
-	    (define-key mu4e-view-mode-map "d" 'mu4e-view-mark-for-delete)
-	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
-
-(defun djr/enter-org-speedmode ()
-  "Moves to start of heading where org-use-speed-commands starts to work. Switch to insert for it to take effect."
-  (interactive)
-  (org-back-to-heading)
-  (evil-change-state 'insert))
-
-(defun djr/org-insert-new-heading ()
-  (interactive)
-  (end-of-buffer)
-  (org-insert-heading-respect-content)
-  (evil-change-state 'insert))
-
-(add-hook 'org-agenda-mode-hook
-          (lambda ()
-	    (define-key org-agenda-mode-map "q" 'bury-buffer)
-	    (define-key org-agenda-mode-map "P" 'org-pomodoro))
-          'append)
 
 (add-hook 'org-mode-hook (lambda ()
 			   (mapcar (lambda (state)
@@ -208,11 +122,5 @@
 ;; And server-visit-hook does not work either?
 (add-hook 'server-visit-hook
 	  'fix-up-xterm-control-arrows)
-
-(when *osx*
- (autoload 'omlg-grab-link "org-mac-link")
- (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link))
-
-(require 'org-mac-link)
 
 (provide 'djr-keybindings)

@@ -24,4 +24,6 @@
 	      (concat "*" command)
 	      (eshell-stringify-list (eshell-flatten-list args)))))))
 
+(bind-key* "<f2> e" 'eshell)
+
 (provide 'djr-eshell)

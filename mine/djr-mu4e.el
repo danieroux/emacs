@@ -35,7 +35,26 @@
 (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
 (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
 
+(add-hook 'mu4e-headers-mode-hook
+	  (lambda ()
+	    (define-key mu4e-headers-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
+	    (define-key mu4e-headers-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
+	    (define-key mu4e-headers-mode-map "d" 'mu4e-headers-mark-for-delete)
+	    (define-key mu4e-headers-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
+
+(add-hook 'mu4e-view-mode-hook
+	  (lambda ()
+	    (define-key mu4e-view-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
+	    (define-key mu4e-view-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
+	    (define-key mu4e-view-mode-map "d" 'mu4e-view-mark-for-delete)
+	    (define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
+
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
+
+(bind-key* "<f2> c" 'djr/mu4e-compose-new-with-follow-up)
+(bind-key* "C-c n" 'djr/mu4e-compose-new-with-follow-up)
+(bind-key* "<f2> m" 'djr/mu4e-inbox)
+(bind-key* "C-c m" 'djr/mu4e-inbox)
 
 (require 'mu4e-contrib)
 ;;(setq mu4e-html2text-command "w3m -dump -T text/html")
