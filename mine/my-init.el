@@ -149,4 +149,5 @@
 
 (setq server-socket-dir "/tmp/danie-emacs-shared")
 
-(server-start)
+(when *my-primary-emacs-instance*
+  (server-start))
