@@ -10,7 +10,7 @@
 ;; after mouse selection in X11, you can paste by `yank' in emacs
       x-select-enable-primary t)
 
-(setq dotfiles-dir (file-name-directory load-file-name))
+(setq dotfiles-dir (concat "../" (file-name-directory load-file-name))
 
 ;; Extensions that have been downloaded manually (not through ELPA)
 (setq external-dir (concat dotfiles-dir "external"))
@@ -151,3 +151,5 @@
 
 (when *my-primary-emacs-instance*
   (server-start))
+
+(provides 'djr-init)
