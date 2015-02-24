@@ -317,12 +317,13 @@
         (run-with-idle-timer
          (* 60 secs) nil 'djr/org-mobile-push-agendas-org-only)))
 
-(add-hook 'after-save-hook
- (lambda ()
-   (when (eq major-mode 'org-mode)
-     (dolist (file (org-mobile-files-alist))
-       (if (string= (expand-file-name (car file)) (buffer-file-name))
-           (org-mobile-push-with-delay 30))))))
+(when *my-primary-emacs-instance*
+  (add-hook 'after-save-hook
+	    (lambda ()
+	      (when (eq major-mode 'org-mode)
+		(dolist (file (org-mobile-files-alist))
+		  (if (string= (expand-file-name (car file)) (buffer-file-name))
+		      (org-mobile-push-with-delay 30)))))))
 
 (run-at-time "00:05" 86400 '(lambda () (org-mobile-push-with-delay 1))) ;; refreshes agenda file each day
 
@@ -362,8 +363,10 @@
 
 (setq org-agenda-persistent-filter t)
 
-(setq org-clock-idle-time 5
-      org-agenda-clock-consistency-checks
+(when *my-primary-emacs-instance*
+  (setq org-clock-idle-time 5))
+
+(setq org-agenda-clock-consistency-checks
       (quote (:max-duration "4:00"
               :min-duration 0
               :max-gap 0
@@ -410,7 +413,7 @@
       (bh/insert-inactive-timestamp))))
 
 (defun djr/show-org-agenda-refreshing-if-empty ()
-  "If the Org Agenda buffer has been drawn, show it. Else refresh and show"
+  "If the Org Agenda buffer has been drawn, show it. Else refresh and show."
   (interactive)
   (if (or (not (get-buffer "*Org Agenda*"))
 	  (= 0 (buffer-size (get-buffer "*Org Agenda*"))))
@@ -434,7 +437,8 @@
 		     (org-agenda nil org-agenda-shortcut)
 		     (delete-other-windows))))
 
-(run-with-idle-timer 300 t 'djr/show-org-agenda-refreshing-if-empty)
+(when *my-primary-emacs-instance*
+  (run-with-idle-timer 300 t 'djr/show-org-agenda-refreshing-if-empty))
 
 (add-hook 'org-insert-heading-hook
 	  'bh/insert-heading-inactive-timestamp 'append)

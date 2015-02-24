@@ -10,7 +10,7 @@
 ;; after mouse selection in X11, you can paste by `yank' in emacs
       x-select-enable-primary t)
 
-(setq dotfiles-dir (concat "../" (file-name-directory load-file-name))
+(setq dotfiles-dir user-emacs-directory)
 
 ;; Extensions that have been downloaded manually (not through ELPA)
 (setq external-dir (concat dotfiles-dir "external"))
@@ -36,11 +36,12 @@
 (use-package paren
   :init (show-paren-mode t))
 
-(use-package recentf
-  :init (recentf-mode t))
+(when *my-primary-emacs-instance*
+  (use-package recentf
+    :init (recentf-mode t))
 
-(use-package saveplace
-  :init (setq-default save-place t))
+  (use-package saveplace
+    :init (setq-default save-place t)))
 
 (use-package djr-defuns)
 
@@ -66,22 +67,16 @@
 (use-package djr-ido)
 (use-package djr-smex)
 (use-package djr-vim)
-(use-package djr-mu4e)
-(use-package djr-org-mode)
-(use-package djr-really-autosave)
 (use-package djr-clean-emacs-directory)
 (use-package djr-calendar)
 (use-package djr-autocomplete)
-(use-package djr-frequency)
 (use-package djr-dired)
-(use-package djr-twitter)
 (use-package djr-paredit)
 (use-package djr-clojure)
-(use-package djr-erc)
 (use-package djr-blog)
 (use-package djr-expand-region)
-(use-package djr-magit)
 (use-package djr-multiple-cursors)
+(use-package djr-magit)
 (use-package djr-modeline)
 (use-package djr-easymenu)
 (use-package djr-rainbow-delimiters)
@@ -91,7 +86,6 @@
 (use-package djr-ace-jump)
 (use-package djr-eshell)
 (use-package djr-asciidoc)
-(use-package djr-elfeed)
 ;(use-package djr-midnight)
 (use-package djr-elisp)
 (use-package djr-haskell)
@@ -100,12 +94,23 @@
 (use-package djr-deft)
 (use-package djr-spell)
 (use-package djr-password-manager)
-(use-package djr-emms)
 (use-package djr-flycheck)
 (use-package djr-intellij)
-(use-package djr-chrome-editboxes)
-(use-package djr-gmail-message-mode)
 (use-package djr-focus-mode)
+
+(when *my-primary-emacs-instance*
+  (use-package djr-really-autosave)
+  (use-package djr-mu4e)
+  (use-package djr-org-mode)
+  (use-package djr-twitter)
+  (use-package djr-elfeed)
+  (use-package djr-emms)
+  (use-package djr-chrome-editboxes)
+  (use-package djr-gmail-message-mode)
+  (use-package djr-frequency))
+
+(unless *my-primary-emacs-instance*
+  (use-package djr-erc))
 
 (use-package djr-keybindings)
 
@@ -151,5 +156,3 @@
 
 (when *my-primary-emacs-instance*
   (server-start))
-
-(provides 'djr-init)
