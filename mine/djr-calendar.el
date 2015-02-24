@@ -29,16 +29,21 @@
 (add-hook 'diary-list-entries-hook 'diary-include-other-diary-files)
 (add-hook 'diary-mark-entries-hook 'diary-mark-included-diary-files)
 
+(defun import-cal (ics-file)
+  (interactive)
+  (icalendar-import-file ics-file my-diary t)
+  (kill-buffer (car (last (split-string ics-file "/")))))
+
 (defun getcal (url)
   "Download ics file and add to diary"
   (let ((tmpfile (url-file-local-copy url)))
-    (icalendar-import-file tmpfile my-diary t)
-    (kill-buffer (car (last (split-string tmpfile "/"))))))
+   (import-cal tmpfile)))
 
 ;; google-calendars defined in private.el
 (defun djr/refresh-calendars ()
   (interactive)
   (find-file my-diary)
+  (flycheck-stop)
   (erase-buffer)
   (dolist (url google-calendars) (getcal url))
   (kill-buffer "diary.el"))
