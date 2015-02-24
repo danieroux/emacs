@@ -20,9 +20,11 @@
   :init
   (progn
     (setq org-pomodoro-keep-killed-pomodoro-time t
-	  org-pomodoro-sound (expand-file-name "~/Dropbox/Audio/wav/big-singing-bowl.wav")
-	  org-pomodoro-play-start-sound t
+	  org-pomodoro-sound (expand-file-name "~/Dropbox/Audio/wav/13699__harri__a.mp3")
+	  org-pomodoro-short-break-sound (expand-file-name "~/Dropbox/Audio/wav/13699__harri__a.mp3")
+	  org-pomodoro-long-break-sound (expand-file-name "~/Dropbox/Audio/wav/13699__harri__a.mp3")
 	  org-pomodoro-start-sound (expand-file-name "~/Dropbox/Audio/wav/big-singing-bowl.wav")
+	  org-pomodoro-play-start-sound t
 	  org-pomodoro-time-format "%.2m")))
 
 (require 'org-mode-observations)
