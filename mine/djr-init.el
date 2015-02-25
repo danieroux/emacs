@@ -64,6 +64,7 @@
   (use-package djr-osx))
 
 (use-package djr-looks)
+(use-package djr-hydra)
 (use-package djr-ido)
 (use-package djr-smex)
 (use-package djr-vim)
