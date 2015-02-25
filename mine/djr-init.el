@@ -78,7 +78,6 @@
 (use-package djr-multiple-cursors)
 (use-package djr-magit)
 (use-package djr-modeline)
-(use-package djr-easymenu)
 (use-package djr-rainbow-delimiters)
 (use-package djr-helm)
 (use-package djr-projectile)
