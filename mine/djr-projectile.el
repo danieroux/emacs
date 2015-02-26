@@ -11,8 +11,7 @@
   :ensure t
   :pin melpa)
 
-(defun projectile-helm-ag ()
-  (interactive)
-  (helm-ag (projectile-project-root)))
+(use-package ag
+  :ensure t)
 
 (provide 'djr-projectile)
