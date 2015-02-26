@@ -2,11 +2,7 @@
   :commands paredit-mode
   :ensure paredit
   :init
-  (progn
-    (add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
-    (add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
-    (add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
-    (add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
-    (add-hook 'clojure-mode-hook          (lambda () (paredit-mode +1)))))
+  (dolist (mode-hook djr-lisp-mode-hooks)
+    (add-hook mode-hook #'paredit-mode)))
 
 (provide 'djr-paredit)

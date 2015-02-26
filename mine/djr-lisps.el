@@ -5,6 +5,9 @@
     cider-repl-mode-hook
     clojure-mode-hook
     emacs-lisp-mode-hook
+    lisp-mode-hook
+    lisp-interaction-mode-hook
+    scheme-mode-hook
     inferior-emacs-lisp-mode)
   "A list of modes that are considered to be LISP modes")
 
