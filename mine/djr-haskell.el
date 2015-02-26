@@ -1,5 +1,7 @@
 ;; https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
 
+(use-package djr-company)
+
 (use-package haskell-mode
   :ensure t)
 
