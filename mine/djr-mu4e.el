@@ -51,13 +51,17 @@
 
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
-(bind-key* "<f2> c" 'djr/mu4e-compose-new-with-follow-up)
-(bind-key* "C-c n" 'djr/mu4e-compose-new-with-follow-up)
-(bind-key* "<f2> m" 'djr/mu4e-inbox)
-(bind-key* "C-c m" 'djr/mu4e-inbox)
+(defhydra hydra-mail (:color blue)
+  "Mail"
+  ("m" djr/mu4e-inbox "Inbox")
+  ("c" djr/mu4e-compose-new-with-follow-up "Compose new with follow up")
+  ("C" mu4e-compose-new "Compose new")
+  ("f" smtpmail-send-queued-mail "Flush mail queue")
+  ("Q" mu4e~main-toggle-mail-sending-mode "Toggle mail sending mode"))
+
+(bind-key* "C-c m" 'hydra-mail/body)
 
 (require 'mu4e-contrib)
-;;(setq mu4e-html2text-command "w3m -dump -T text/html")
 (setq mu4e-html2text-command 'mu4e-shr2text)
 
 (setq mu4e-view-show-images t)
