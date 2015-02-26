@@ -19,9 +19,6 @@
 [submodule "external/pinboard"]
 	path = external/pinboard
 	url = git@github.com:danieroux/pinboard-el.git
-[submodule "external/rainbow-delimiters"]
-	path = external/rainbow-delimiters
-	url = https://github.com/jlr/rainbow-delimiters
 [submodule "external/discover.el"]
 	path = external/discover.el
 	url = https://github.com/mickeynp/discover.el
