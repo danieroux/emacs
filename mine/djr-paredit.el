@@ -1,3 +1,5 @@
+(use-package djr-lisps)
+
 (use-package paredit-mode
   :commands paredit-mode
   :ensure paredit
