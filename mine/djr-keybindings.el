@@ -25,18 +25,13 @@
 
 (add-hook 'cider-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump)
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)
 	    (define-key evil-normal-state-local-map (kbd "M-,") 'cider-jump-back)))
 
 (add-hook 'clojure-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump)
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)
 	    (define-key evil-normal-state-local-map (kbd "M-,") 'cider-jump-back)))
-
-(add-hook 'scala-mode-hook
-	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'ensime-edit-definition)
-	    (define-key evil-normal-state-local-map (kbd "M-,") 'ensime-pop-find-definition-stack)))
 
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
