@@ -6,6 +6,4 @@
 
 (require 'info-look)
 
-(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-
 (provide 'djr-elisp)

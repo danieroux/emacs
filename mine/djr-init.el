@@ -70,7 +70,7 @@
 (use-package djr-vim)
 (use-package djr-clean-emacs-directory)
 (use-package djr-calendar)
-(use-package djr-autocomplete)
+;(use-package djr-autocomplete)
 (use-package djr-dired)
 (use-package djr-paredit)
 (use-package djr-clojure)
@@ -97,6 +97,7 @@
 (use-package djr-flycheck)
 (use-package djr-intellij)
 (use-package djr-focus-mode)
+(use-package djr-company)
 
 (when *my-primary-emacs-instance*
   (use-package djr-really-autosave)
