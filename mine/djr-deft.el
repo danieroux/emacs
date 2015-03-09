@@ -1,6 +1,8 @@
 ; http://jblevins.org/projects/deft
 
-(require 'deft)
+(use-package deft
+  :ensure t
+  :pin melpa)
 
 (setq deft-extension "md"
       deft-use-filename-as-title t
