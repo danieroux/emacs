@@ -1,1 +1,1 @@
-alias e find-file $1
+alias irc-instance open -n -a Emacs.app --args -q -l ~/.emacs.d/init-irc.el
