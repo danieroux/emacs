@@ -239,6 +239,17 @@
 	 (rfloc (nth 1 (org-refile-get-targets))))
     (org-refile nil nil rfloc)))
 
+(defun djr/eval-sexp-on-line ()
+  "On the current org header line, find the sexp and evaluate it"
+  (interactive)
+  (org-end-of-line)
+  (search-backward ")")
+  (forward-char)
+  (eval-last-sexp nil))
+
+;; S is too dangerous as it is, in VI mode, happy to repurpose it
+(define-key evil-normal-state-map "S" 'djr/eval-sexp-on-line)
+
 (setq org-completion-use-ido t
       org-refile-targets `((,(remove brain-file org-agenda-files) :level . 1)
 			   (,brain-file . (:level . 0))
@@ -362,6 +373,7 @@
 				      ("P" . org-pomodoro)
 				      ("q" . djr/show-org-agenda-refreshing-if-empty)
 				      ("s" . djr/org-mode-refile-current-task-as-single-task)
+				      ("S" . djr/eval-sexp-on-line)
 				      ("z" . org-add-note)
 				      ("W" . widen))))
 
