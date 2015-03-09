@@ -114,6 +114,7 @@
 (unless *my-primary-emacs-instance*
   (use-package djr-erc))
 
+(use-package djr-history)
 (use-package djr-keybindings)
 
 (mouse-avoidance-mode 'exile)

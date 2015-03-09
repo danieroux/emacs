@@ -21,30 +21,23 @@
 
 (add-hook 'cider-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)
-	    (define-key evil-normal-state-local-map (kbd "M-,") 'cider-jump-back)))
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)))
 
 (add-hook 'clojure-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)
-	    (define-key evil-normal-state-local-map (kbd "M-,") 'cider-jump-back)))
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)))
 
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
-	    (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)))
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
 
 (add-hook 'ielm-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
-	    (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)))
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
 
-(add-hook 'dired-mode-hook
+(add-hook 'org-mode-hook
 	  (lambda ()
-	    (mapcar (lambda (state)
-		      (evil-declare-key state dired-mode-map
-			(kbd "E") 'open-in-external-app))
-		    '(normal insert))))
+	    (define-key evil-normal-state-local-map (kbd "M-.") 'org-open-at-point)))
 
 (add-hook 'org-mode-hook (lambda ()
 			   (mapcar (lambda (state)
