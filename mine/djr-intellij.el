@@ -8,6 +8,7 @@
 ;; goto-chg.el:
 (use-package goto-chg
   :pin melpa
+  :commands goto-last-change
   :ensure t
   :bind ("<C-S-backspace>" . goto-last-change))
 

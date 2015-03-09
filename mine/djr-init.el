@@ -86,9 +86,10 @@
 (use-package djr-ace-jump)
 (use-package djr-eshell)
 (use-package djr-asciidoc)
-;(use-package djr-midnight)
+(use-package djr-midnight :disabled t)
 (use-package djr-elisp)
-(use-package djr-haskell)
+(use-package djr-company)
+(use-package djr-haskell :disabled t)
 (use-package djr-discover)
 (use-package djr-markdown)
 (use-package djr-deft)
@@ -97,7 +98,6 @@
 (use-package djr-flycheck)
 (use-package djr-intellij)
 (use-package djr-focus-mode)
-(use-package djr-company)
 
 (when *my-primary-emacs-instance*
   (use-package djr-really-autosave)

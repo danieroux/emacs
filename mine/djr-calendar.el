@@ -1,4 +1,5 @@
 (use-package calfw-cal
+  :defer t
   :load-path "external/calfw"
   :config
   (progn

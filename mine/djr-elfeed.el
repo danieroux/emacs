@@ -5,6 +5,7 @@
   :ensure t
   :pin melpa
   :bind* ("<f2> n" . elfeed)
+  :commands elfeed
   :config 
   (add-hook 'elfeed-search-mode-hook
 	    (lambda ()
@@ -13,7 +14,8 @@
 	      (bind-key "B" 'djr/elfeed-open-visible-in-browser elfeed-search-mode-map)
 	      (bind-key "R" 'djr/elfeed-mark-all-read-in-buffer elfeed-search-mode-map))))
 
-(use-package org-elfeed)
+(use-package org-elfeed
+  :defer t)
 
 (setq elfeed-sort-order 'ascending)
 

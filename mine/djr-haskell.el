@@ -3,23 +3,28 @@
 (use-package djr-company)
 
 (use-package haskell-mode
-  :ensure t)
-
-(use-package shm
-  :load-path "external/structured-haskell-mode/elisp")
-
-;; http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
-(use-package ghc
   :ensure t
-  :pin melpa)
+  :defer t
+  :config
+  (progn
+    (use-package shm
+      :defer t
+      :load-path "external/structured-haskell-mode/elisp")
+    
+    ;; http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
+    (use-package ghc
+      :ensure t
+      :defer t
+      :pin melpa)
 
-(use-package company-ghc
-  :ensure t
-  :pin melpa
-  :init
-  (add-to-list 'company-backends 'company-ghc))
+    (autoload 'ghc-init "ghc" nil t)
 
-(autoload 'ghc-init "ghc" nil t)
+    (use-package company-ghc
+      :ensure t
+      :defer t
+      :pin melpa
+      :init
+      (add-to-list 'company-backends 'company-ghc))))
 
 (defun djr/haskell-find-tag-no-prompt (&optional re-find)
   (interactive "P")

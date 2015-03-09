@@ -1,10 +1,12 @@
 (use-package clojure-mode
   :ensure t
+  :defer t
   :mode (("\\.edn$" . clojure-mode)
 	 ("\\.cljs$" . clojure-mode)))
 
 (use-package cider
   :ensure t
+  :defer t
   :init
   (progn
     (add-hook 'cider-repl-mode-hook #'subword-mode)

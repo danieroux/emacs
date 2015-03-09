@@ -1,4 +1,6 @@
-(use-package ido :ensure t)
+(use-package ido
+  :ensure t
+  :bind* ("M-o" . ido-find-file))
 
 (use-package ido-ubiquitous :ensure t)
 

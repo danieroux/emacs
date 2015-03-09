@@ -1,9 +1,13 @@
 (use-package helm-config
-  :ensure helm)
-
-(require 'helm-files)
-
-(helm-autoresize-mode 1)
+  :ensure helm
+  :bind* ("M-SPC" . djr/helm)
+  :init
+  (progn
+    (use-package helm-files)
+    (helm-autoresize-mode 1)
+    (unless helm-source-buffers-list
+      (setq helm-source-buffers-list
+	    (helm-make-source "Buffers" 'helm-source-buffers)))))
 
 (setq helm-recentf-fuzzy-match t
       helm-buffers-fuzzy-matching t
@@ -25,10 +29,6 @@
 			   (if (eq major-mode 'org-mode)
 			       buffer)))
 		       (buffer-list)))))
-
-(unless helm-source-buffers-list
-  (setq helm-source-buffers-list
-	(helm-make-source "Buffers" 'helm-source-buffers)))
 
 (defun djr/helm ()
   (interactive)

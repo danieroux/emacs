@@ -6,17 +6,18 @@
 ;; Contrib Org-Mode
 (add-to-list 'load-path (concat external-dir "/org-mode/contrib/lisp"))
 
-(require 'org)
+(use-package org
+  :commands org-mode)
 
-(require 'org-collector)
-(require 'org-checklist)
-(require 'org-mobile)
+(use-package org-mobile
+  :commands org-mobile-create-sumo-agenda)
 
-(require 'djr-org-drill)
+(use-package djr-org-drill)
 
 (use-package org-pomodoro
   :pin melpa
   :ensure t
+  :commands org-pomodoro
   :init
   (progn
     (setq org-pomodoro-keep-killed-pomodoro-time t
@@ -27,7 +28,8 @@
 	  org-pomodoro-play-start-sound t
 	  org-pomodoro-time-format "%.2m")))
 
-(require 'org-mode-observations)
+(use-package org-mode-observations
+  :commands org-mode-observations)
 
 (setq org-modules (quote (org-habit)))
 
@@ -227,7 +229,7 @@
 				    ((org-agenda-overriding-header "context free")))))
 
 ;; Client specific agendas and settings
-(require 'djr-org-mode-private)
+(use-package djr-org-mode-private)
 
 (defun djr/org-mode-refile-current-task-as-single-task ()
   "Refiles the current task as a single task in gtd.org"
@@ -249,7 +251,7 @@
       org-refile-allow-creating-parent-nodes nil)
 
 ;; Clocking
-(require 'bh-org-mode)  
+(use-package bh-org-mode)  
 
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link t :maxlevel 2 :fileskip0 t :compact t :narrow 80)))
@@ -258,7 +260,7 @@
 (setq org-clock-into-drawer t)
 
 ;; Crypt
-(require 'org-crypt)
+(use-package org-crypt)
 
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt"))
@@ -453,7 +455,7 @@
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([47 92 91 return 68 63 92 42 return 108 108 80 108 100 119 105 return escape 106 tab 86 106 106 120 107 107] 0 "%d")) arg)))
 
 (when *osx*
-  (require 'org-mac-link)
+  (use-package org-mac-link)
   (autoload 'omlg-grab-link "org-mac-link")
   (bind-key "C-c g" 'org-mac-grab-link org-mode-map))
 
