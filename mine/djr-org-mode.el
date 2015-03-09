@@ -25,6 +25,7 @@
 	  org-pomodoro-short-break-sound (expand-file-name "~/Dropbox/Audio/wav/13699__harri__a.mp3")
 	  org-pomodoro-long-break-sound (expand-file-name "~/Dropbox/Audio/wav/13699__harri__a.mp3")
 	  org-pomodoro-start-sound (expand-file-name "~/Dropbox/Audio/wav/big-singing-bowl.wav")
+	  org-pomodoro-killed-sound (expand-file-name "~/Dropbox/Audio/wav/jf-glass-breaking.wav")
 	  org-pomodoro-play-start-sound t
 	  org-pomodoro-time-format "%.2m")))
 
