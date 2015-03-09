@@ -1,9 +1,11 @@
 (use-package calfw-cal
   :defer t
-  :load-path "external/calfw"
-  :config
+  :ensure calfw
+  :pin melpa
+  :init
   (progn
-    (require 'calfw-org)))
+    (use-package calfw-cal)
+    (use-package calfw-org)))
 
 (defun djr/open-calendars ()
   (interactive)

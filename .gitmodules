@@ -46,9 +46,6 @@
 [submodule "external/emms"]
 	path = external/emms
 	url = git://git.sv.gnu.org/emms.git
-[submodule "external/calfw"]
-	path = external/calfw
-	url = https://github.com/kiwanami/emacs-calfw
 [submodule "external/org-pomodoro"]
 	path = external/org-pomodoro
 	url = git@github.com:danieroux/org-pomodoro.git
