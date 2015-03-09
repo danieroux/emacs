@@ -1,13 +1,25 @@
+(use-package dired
+  :commands dired
+  :config
+  (progn
+    (bind-key "a" 'gnus-dired-attach dired-mode-map)
+    (bind-key "e" 'open-eshell-here dired-mode-map)
+    (bind-key "E" 'open-in-external-app dired-mode-map)))
+
+(defun open-eshell-here ()
+  (interactive)
+  (eshell '(4)))
+
 ;; http://xahlee.org/emacs/emacs_dired_open_file_in_ext_apps.html
 (defun open-in-external-app ()
   "Open the current file or dired marked files in external app.
    Works in Microsoft Windows, Mac OS X, Linux."
   (interactive)
   (let (doIt
-         (myFileList
-          (cond
-           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
-           (t (list (buffer-file-name))))))
+	(myFileList
+	 (cond
+	  ((string-equal major-mode "dired-mode") (dired-get-marked-files))
+	  (t (list (buffer-file-name))))))
 
     (setq doIt (if (<= (length myFileList) 5)
                    t
