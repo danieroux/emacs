@@ -1,5 +1,5 @@
 (use-package magit
-  :ensure t
+  :commands magit-status
   :pin melpa)
 
 (provide 'djr-magit)

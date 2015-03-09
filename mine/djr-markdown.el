@@ -2,6 +2,7 @@
 
 (use-package markdown-mode
   :ensure t
+  :commands markdown-mode
   :pin melpa
   :mode ("\\.md\\'" . markdown-mode)
   :config

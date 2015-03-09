@@ -8,10 +8,6 @@
 (global-set-key (kbd "M-/") 'djr/helm-occur-org)
 (global-set-key (kbd "M-?") 'djr/helm-occur-my-brain)
 
-(global-set-key (kbd "M-o") 'ido-find-file)
-(global-set-key (kbd "M-SPC") 'djr/helm)
-(global-set-key (kbd "M-S-SPC") 'helm-projectile)
-
 (global-unset-key (kbd "<f2>"))
 
 (when *my-primary-emacs-instance*

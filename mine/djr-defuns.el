@@ -7,7 +7,7 @@
     (indent-region (point-min) (point-max) nil)))
 
 (defun djr/prepend-to-paths (path)
-  "Adds directory to exec and ENV paths"
+  "Adds directory to exec, ENV and eshell paths"
   (setq exec-path (cons path exec-path))
   (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
   (setq eshell-path-env (getenv "PATH")))

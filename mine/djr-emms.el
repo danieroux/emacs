@@ -1,4 +1,3 @@
-
 (use-package emms-setup
   :load-path "external/emms/lisp"
   :bind* (("<f7>" . emms-previous)
@@ -46,6 +45,7 @@
       (emms-add-directory-tree "~/Music/other")
       (emms-add-directory-tree "~/Music/iTunes/iTunes Media/Music"))))
 
+(autoload 'emms-stop "emms-setup" "Play the least heard first" t nil)
 (defun djr/emms-play-least-heard-first (playlist-name playlist-generation-fun)
   (emms-stop)
   (emms-playlist-set-playlist-buffer (emms-playlist-new (concat " *EMMS: " playlist-name "*")))

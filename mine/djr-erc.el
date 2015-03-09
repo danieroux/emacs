@@ -40,7 +40,7 @@
 (setq erc-prompt-for-nickserv-password nil
       erc-nickserv-passwords `((freenode (("danieroux" . ,erc-password)))))
 
-(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs")))
+(setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#org-mode" "")))
 
 (defun djr/irc ()
   (interactive)
