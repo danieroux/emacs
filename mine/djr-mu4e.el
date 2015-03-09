@@ -61,7 +61,7 @@
 
 (bind-key* "C-c m" 'hydra-mail/body)
 
-(require 'mu4e-contrib)
+(use-package mu4e-contrib)
 (setq mu4e-html2text-command 'mu4e-shr2text)
 
 (setq mu4e-view-show-images t)
@@ -97,9 +97,16 @@
       smtpmail-smtp-service 465)
 
 ;; Load mu4e, it has become core to me
-(require 'mu4e)
-(require 'org-mu4e)
-(require 'djr-org-mu4e)
+(use-package mu4e
+  :commands mu4e
+  :config
+  (progn
+    (add-to-list 'mu4e-view-actions '("gopen in gmail" . djr/mu4e-open-message-in-google) t)
+    (add-to-list 'mu4e-view-actions '("rview related" . djr/mu4e-view-related-search) t)
+    (add-to-list 'mu4e-view-actions '("bview in browser" . mu4e-action-view-in-browser) t)))
+
+(use-package org-mu4e)
+(use-package djr-org-mu4e)
 
 (defun djr/mu4e-inbox ()
   (interactive)
@@ -122,8 +129,12 @@
 		      (url-encode-url msgid))))
     (start-process "" nil "open" url)))
 
-(add-to-list 'mu4e-view-actions '("gopen in gmail" . djr/mu4e-open-message-in-google) t)
-(add-to-list 'mu4e-view-actions '("rview related" . djr/mu4e-view-related-search) t)
-(add-to-list 'mu4e-view-actions '("bview in browser" . mu4e-action-view-in-browser) t)
+;; http://www.emacswiki.org/emacs/FlySpell#toc5
+(defun fd-switch-dictionary()
+  (interactive)
+  (let* ((dic ispell-current-dictionary)
+    	 (change (if (string= dic "afrikaans") "english" "afrikaans")))
+    (ispell-change-dictionary change)
+    (message "Dictionary switched from %s to %s" dic change)))
 
 (provide 'djr-mu4e)
