@@ -11,8 +11,8 @@
   :bind* ("M-S-SPC" . helm-projectile)
   :pin melpa)
 
-(use-package ag
-  :commands projectile-ag
+(use-package ag 
+  :commands (projectile-ag ag/search)
   :ensure t)
 
 (provide 'djr-projectile)
