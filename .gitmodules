@@ -1,39 +1,12 @@
 [submodule "external/org-mode"]
 	path = external/org-mode
 	url = git://orgmode.org/org-mode.git
-[submodule "external/google-contacts"]
-	path = external/google-contacts
-	url = git://git.naquadah.org/google-contacts.el.git
-[submodule "external/offlineimap"]
-	path = external/offlineimap
-	url = git://git.naquadah.org/offlineimap-el.git
 [submodule "external/use-package"]
 	path = external/use-package
 	url = https://github.com/jwiegley/use-package
-[submodule "external/pinboard"]
-	path = external/pinboard
-	url = git@github.com:danieroux/pinboard-el.git
-[submodule "external/discover.el"]
-	path = external/discover.el
-	url = https://github.com/mickeynp/discover.el
-[submodule "external/makey.el"]
-	path = external/makey.el
-	url = https://github.com/mickeynp/makey
-[submodule "external/markdown-mod"]
-	path = external/markdown-mod
-	url = git://jblevins.org/git/markdown-mode.git
-[submodule "external/markdown-mode"]
-	path = external/markdown-mode
-	url = git://jblevins.org/git/markdown-mode
-[submodule "external/emacs-id-manager"]
-	path = external/emacs-id-manager
-	url = https://github.com/kiwanami/emacs-id-manager
 [submodule "external/org2blog"]
 	path = external/org2blog
 	url = http://github.com/punchagan/org2blog.git
 [submodule "external/metaweblog"]
 	path = external/metaweblog
 	url = https://github.com/punchagan/metaweblog
-[submodule "external/org-pomodoro"]
-	path = external/org-pomodoro
-	url = git@github.com:danieroux/org-pomodoro.git
