@@ -7,22 +7,24 @@
   :defer t
   :config
   (progn
+    ;; https://github.com/chrisdone/structured-haskell-mode
     (use-package shm
-      :defer t
-      :load-path "external/structured-haskell-mode/elisp")
+      :ensure t
+      :pin melpa
+      :defer t)
     
     ;; http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
     (use-package ghc
       :ensure t
-      :defer t
-      :pin melpa)
+      :pin melpa
+      :defer t)
 
     (autoload 'ghc-init "ghc" nil t)
 
     (use-package company-ghc
       :ensure t
-      :defer t
       :pin melpa
+      :defer t
       :init
       (add-to-list 'company-backends 'company-ghc))))
 
@@ -41,13 +43,14 @@
 			       (ghc-init)
 			       (flymake-mode)
 			       (turn-on-haskell-doc-mode)
+
 			       (haskell-indentation-mode 0)
 			       (structured-haskell-mode)
+
 			       (define-key evil-normal-state-local-map (kbd "C-l") 'haskell-process-load-or-reload)
 			       (define-key evil-insert-state-local-map (kbd "C-l") 'haskell-process-load-or-reload)
 			       (define-key evil-normal-state-local-map (kbd "M-.") 'djr/haskell-find-tag-no-prompt)
-			       (define-key evil-insert-state-local-map (kbd "M-.") 'djr/haskell-find-tag-no-prompt)
-			       (define-key evil-normal-state-local-map (kbd "M-,") 'pop-tag-mark)))
+			       (define-key evil-insert-state-local-map (kbd "M-.") 'djr/haskell-find-tag-no-prompt)))
 
 (setq haskell-tags-on-save t
       haskell-interactive-mode-eval-pretty t)
