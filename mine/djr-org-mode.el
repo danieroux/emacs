@@ -1,13 +1,17 @@
 ;; -*- lexical-binding: t -*-
 ;; From the rich resource at http://doc.norang.ca/org-mode.html
 
-;; Core Org-Mode - installed via `make install` with this path set as prefix in local.mk from the Org build system
-(add-to-list 'load-path (concat external-dir "/org-mode-installed/emacs/site-lisp"))
-;; Contrib Org-Mode
-(add-to-list 'load-path (concat external-dir "/org-mode/contrib/lisp"))
-
 (use-package org
-  :commands org-mode)
+  :commands org-mode
+  :pin manual
+  :load-path ("external/org-mode/lisp" "external/org-mode/contrib/lisp")
+  :init
+  (setq org-modules (quote (org-habit)))
+  :config
+  (org-add-link-type
+   "gmail"
+   (lambda (link)
+     (browse-url (concat "https://mail.google.com/mail/?shva=1#all/" link)))))
 
 (use-package org-mobile
   :commands org-mobile-create-sumo-agenda)
@@ -31,8 +35,6 @@
 
 (use-package org-mode-observations
   :commands org-mode-observations)
-
-(setq org-modules (quote (org-habit)))
 
 ;; Files
 (setq gtd-file "~/Dropbox/Documents/gtd/gtd.org.gpg"
@@ -66,11 +68,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-default-notes-file "~/Dropbox/Documents/gtd/notes.org")
-
-(org-add-link-type
- "gmail"
- (lambda (link)
-   (browse-url (concat "https://mail.google.com/mail/?shva=1#all/" link))))
 
 (setq org-blank-before-new-entry nil
       org-enforce-todo-dependencies t
@@ -300,23 +297,23 @@
 (setq org-ditaa-jar-path "~/Dropbox/java/ditaa0_90.jar"
       org-plantuml-jar-path "~/Dropbox/java/plantuml.jar")
 
-;(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+;; (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
-(org-babel-do-load-languages
- (quote org-babel-load-languages)
- (quote ((emacs-lisp . t)
-         (dot . t)
-         (ditaa . t)
-         (R . t)
-         (python . t)
-         (ruby . t)
-         (gnuplot . t)
-         (clojure . t)
-         (sh . t)
-         (ledger . t)
-         (org . t)
-         (plantuml . t)
-         (latex . t))))
+;; (org-babel-do-load-languages
+;;  (quote org-babel-load-languages)
+;;  (quote ((emacs-lisp . t)
+;;          (dot . t)
+;;          (ditaa . t)
+;;          (R . t)
+;;          (python . t)
+;;          (ruby . t)
+;;          (gnuplot . t)
+;;          (clojure . t)
+;;          (sh . t)
+;;          (ledger . t)
+;;          (org . t)
+;;          (plantuml . t)
+;;          (latex . t))))
 
 (setq org-confirm-babel-evaluate nil)
 
