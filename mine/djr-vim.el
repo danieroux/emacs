@@ -4,8 +4,8 @@
 (setq evil-want-C-i-jump nil)
 
 (use-package evil
-  :load-path "external/evil"
-  :pin manual
+  :ensure t
+  :pin melpa
   :init (evil-mode t)
   :config (dolist (mode '(mu4e-main-mode
 			  mu4e-headers-mode
