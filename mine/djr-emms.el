@@ -1,5 +1,6 @@
 (use-package emms-setup
-  :load-path "external/emms/lisp"
+  :pin melpa
+  :ensure emms
   :bind* (("<f7>" . emms-previous)
 	  ("S-<f7>" . djr/helm-emms)
 	  ("<f8>" . emms-pause)
