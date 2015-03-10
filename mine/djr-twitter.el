@@ -1,6 +1,8 @@
 ; https://github.com/hayamiz/twittering-mode/blob/3.0.x/README.markdown
 
-(add-to-list 'load-path (concat external-dir "/twittering-mode"))
+(use-package twittering-mode
+  :pin melpa
+  :ensure t)
 
 (require 'twittering-mode)
 (require 'twittering-org)
@@ -16,9 +18,6 @@
 (twittering-disable-unread-status-notifier)
 
 (add-hook 'twittering-mode-init-hook 'twittering-icon-mode)
-;; (add-hook 'twittering-mode-hook (lambda ()
-;;				  (cancel-timer twittering-timer-for-redisplaying)
-;;				  (cancel-timer twittering-timer)))
 
 (add-hook 'twittering-edit-mode-hook 'flyspell-mode)
 
