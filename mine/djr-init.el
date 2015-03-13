@@ -157,4 +157,5 @@
 (setq server-socket-dir "/tmp/danie-emacs-shared")
 
 (when *my-primary-emacs-instance*
-  (server-start))
+  (server-start)
+  (djr/fetch-mail))

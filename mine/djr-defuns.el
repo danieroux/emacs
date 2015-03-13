@@ -84,4 +84,9 @@
   (twittering-update-active-buffers t)
   (mu4e-update-index))
 
+(defun djr/fetch-mail ()
+  (interactive)
+  (async-shell-command (expand-file-name "~/bin/mbsync-all-forever") "*mbsync*")
+  (bury-buffer))
+
 (provide 'djr-defuns)
