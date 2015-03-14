@@ -1,6 +1,13 @@
 ;; Inspiration from:
 ;; - https://github.com/technomancy/emacs-starter-kit
 ;; - http://www.djcbsoftware.nl/dot-emacs.html
+;; - https://github.com/jwiegley/dot-emacs/blob/master/init.el
+;; - https://github.com/zenspider/elisp
+
+(defconst emacs-start-time (current-time))
+
+(unless noninteractive
+  (message "Loading %s..." load-file-name))
 
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d/mine") 0)
@@ -160,3 +167,15 @@
 (when *my-primary-emacs-instance*
   (server-start)
   (djr/fetch-mail))
+
+(when window-system
+  (let ((elapsed (float-time (time-subtract (current-time)
+                                            emacs-start-time))))
+    (message "Loading %s...done (%.3fs)" load-file-name elapsed))
+
+  (add-hook 'after-init-hook
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract (current-time)
+                                                         emacs-start-time))))
+                 (message "Loading %s...done (%.3fs) [after-init]"
+                          ,load-file-name elapsed))) t))
