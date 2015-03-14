@@ -1,5 +1,6 @@
 (use-package helm-config
   :ensure helm
+  :pin melpa
   :bind* ("M-SPC" . djr/helm)
   :init
   (progn
@@ -7,12 +8,12 @@
     (helm-autoresize-mode 1)
     (unless helm-source-buffers-list
       (setq helm-source-buffers-list
-	    (helm-make-source "Buffers" 'helm-source-buffers)))))
+	    (helm-make-source "Buffers" 'helm-source-buffers)))
 
-(setq helm-recentf-fuzzy-match t
-      helm-buffers-fuzzy-matching t
-      helm-apropos-fuzzy-match t
-      helm-lisp-fuzzy-completion t)
+    (setq helm-recentf-fuzzy-match t
+	  helm-buffers-fuzzy-matching t
+	  helm-apropos-fuzzy-match t
+	  helm-lisp-fuzzy-completion t)))
 
 (defun djr/helm-occur (buffer-names)
   (helm-multi-occur-1 buffer-names))

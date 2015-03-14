@@ -2,40 +2,40 @@
 
 (use-package twittering-mode
   :pin melpa
-  :ensure t)
+  :ensure t
+  :config 
 
-(require 'twittering-mode)
-(require 'twittering-org)
+  (require 'twittering-mode)
+  (require 'twittering-org)
 
-(setq twittering-use-icon-storage t
-      twittering-use-master-password t
-      twittering-reverse-mode t
-      twittering-timer-interval 600
-      twittering-number-of-tweets-on-retrieval 100)
+  (setq twittering-use-icon-storage t
+	twittering-use-master-password t
+	twittering-reverse-mode t
+	twittering-timer-interval 600
+	twittering-number-of-tweets-on-retrieval 100)
 
-(setq twittering-private-info-file (expand-file-name "~/.emacs.d/twittering-mode.gpg"))
+  (setq twittering-private-info-file (expand-file-name "~/.emacs.d/twittering-mode.gpg"))
 
-(twittering-disable-unread-status-notifier)
+  (twittering-disable-unread-status-notifier)
 
-(add-hook 'twittering-mode-init-hook 'twittering-icon-mode)
+  (add-hook 'twittering-mode-init-hook 'twittering-icon-mode)
 
-(add-hook 'twittering-edit-mode-hook 'flyspell-mode)
+  (add-hook 'twittering-edit-mode-hook 'flyspell-mode)
 
-(defun djr/twittering-browse-first-url-in-tweet ()
-  (interactive)
-  (twittering-goto-next-uri)
-  (browse-url-at-point))
+  (defun djr/twittering-browse-first-url-in-tweet ()
+    (interactive)
+    (twittering-goto-next-uri)
+    (browse-url-at-point))
 
-(bind-key "b" 'djr/twittering-browse-first-url-in-tweet twittering-mode-map)
-(bind-key (kbd "*") 'twittering-favorite twittering-mode-map)
+  (bind-key "b" 'djr/twittering-browse-first-url-in-tweet twittering-mode-map)
+  (bind-key (kbd "*") 'twittering-favorite twittering-mode-map))
 
+;;;###autoload
 (defun djr/twittering-fix-clobbering ()
   "twittering-mode seems to clobber the current buffer?"
   (interactive)
   (switch-to-buffer (get-buffer-create "*twittering*"))
   (twit)
   (twittering-visit-timeline "danieroux/will-read"))
-
-(bind-key* "<f2> t" 'djr/twittering-fix-clobbering)
 
 (provide 'djr-twitter)

@@ -89,4 +89,8 @@
   (async-shell-command (expand-file-name "~/bin/mbsync-all-forever") "*mbsync*")
   (bury-buffer))
 
+(defmacro hook-into-modes (func modes)
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
+
 (provide 'djr-defuns)
