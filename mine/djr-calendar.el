@@ -3,6 +3,25 @@
   :ensure calfw
   :pin melpa
   :commands djr/open-calendars
+
+  :init
+  (progn 
+    (setq cfw:fchar-junction ?╋
+	  cfw:fchar-vertical-line ?┃
+	  cfw:fchar-horizontal-line ?━
+	  cfw:fchar-left-junction ?┣
+	  cfw:fchar-right-junction ?┫
+	  cfw:fchar-top-junction ?┯
+	  cfw:fchar-top-left-corner ?┏
+	  cfw:fchar-top-right-corner ?┓
+	  cfw:render-line-breaker 'cfw:render-line-breaker-none)
+    (setq mark-diary-entries-in-calendar t
+	  diary-number-of-entries 7
+	  my-diary "~/Dropbox/Documents/gtd/diary.el")
+
+    (add-hook 'diary-list-entries-hook 'diary-include-other-diary-files)
+    (add-hook 'diary-mark-entries-hook 'diary-mark-included-diary-files))
+
   :config
   (progn
     (use-package calfw-cal)
@@ -15,23 +34,6 @@
    (list
     (cfw:org-create-source "Green")
     (cfw:cal-create-source "Orange"))))
-
-(setq cfw:fchar-junction ?╋
-      cfw:fchar-vertical-line ?┃
-      cfw:fchar-horizontal-line ?━
-      cfw:fchar-left-junction ?┣
-      cfw:fchar-right-junction ?┫
-      cfw:fchar-top-junction ?┯
-      cfw:fchar-top-left-corner ?┏
-      cfw:fchar-top-right-corner ?┓
-      cfw:render-line-breaker 'cfw:render-line-breaker-none)
-
-(setq mark-diary-entries-in-calendar t
-      diary-number-of-entries 7
-      my-diary "~/Dropbox/Documents/gtd/diary.el")
-
-(add-hook 'diary-list-entries-hook 'diary-include-other-diary-files)
-(add-hook 'diary-mark-entries-hook 'diary-mark-included-diary-files)
 
 (defun import-cal (ics-file)
   (interactive)
