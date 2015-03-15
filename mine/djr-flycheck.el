@@ -1,5 +1,6 @@
 (use-package flycheck
   :ensure t
+  :defer t
   :idle (add-hook 'after-init-hook #'global-flycheck-mode)
   :pin melpa
   :config

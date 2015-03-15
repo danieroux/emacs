@@ -3,11 +3,9 @@
 ;; http://oremacs.com/lispy
 (use-package lispy
   :ensure t
+  :defer t
   :pin melpa
-  :config
+  :init
   (hook-into-modes #'lispy-mode djr-lisp-mode-hooks))
-
-;;;###autoload
-(defun djr-lispy-load ())
 
 (provide 'djr-lispy)
