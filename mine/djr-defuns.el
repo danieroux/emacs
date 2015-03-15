@@ -62,10 +62,11 @@
 	 (buffer-list))))
 
 (defun djr/queue-dir-has-files-p ()
-  (let* ((qfile (expand-file-name smtpmail-queue-index-file
-				  smtpmail-queue-dir))
-	 (size (eighth (file-attributes qfile))))
-    (not (= 0 size))))
+  (and (boundp 'smtpmail-queue-index-file)
+       (let* ((qfile (expand-file-name smtpmail-queue-index-file
+				       smtpmail-queue-dir))
+	      (size (eighth (file-attributes qfile))))
+	 (not (= 0 size)))))
 
 (defun djr/has-queued-mail-p ()
   (or (djr/queue-dir-has-files-p)
