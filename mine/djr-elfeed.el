@@ -3,19 +3,26 @@
 
 (use-package elfeed
   :ensure t
+  :defer t
   :pin melpa
   :bind* ("<f2> n" . elfeed)
   :commands elfeed
   :config 
-  (add-hook 'elfeed-search-mode-hook
-	    (lambda ()
-	      (bind-key "f" 'djr/elfeed-update-frequent elfeed-search-mode-map)
-	      (bind-key "l" 'djr/elfeed-limit elfeed-search-mode-map)
-	      (bind-key "B" 'djr/elfeed-open-visible-in-browser elfeed-search-mode-map)
-	      (bind-key "R" 'djr/elfeed-mark-all-read-in-buffer elfeed-search-mode-map))))
+  (progn 
+    ;; elfeed-feeds-alist is defined in ~/.emacs.d/private.el.gpg
+    (setq elfeed-feeds
+	  (loop with specials = (mapcar #'car feed-patterns)
+		for (url . tags) in elfeed-feeds-alist
+		for real-url = (feed-expand tags url)
+		do (setf (gethash real-url elfeed-tagger-db) tags)
+		collect real-url))
 
-(use-package org-elfeed
-  :defer t)
+    (add-hook 'elfeed-search-mode-hook
+	      (lambda ()
+		(bind-key "f" 'djr/elfeed-update-frequent elfeed-search-mode-map)
+		(bind-key "l" 'djr/elfeed-limit elfeed-search-mode-map)
+		(bind-key "B" 'djr/elfeed-open-visible-in-browser elfeed-search-mode-map)
+		(bind-key "R" 'djr/elfeed-mark-all-read-in-buffer elfeed-search-mode-map)))))
 
 (setq elfeed-sort-order 'ascending)
 
@@ -36,14 +43,6 @@
         when (assoc tag feed-patterns)
         return (format (cadr it) url)
         finally (return url)))
-
-;; elfeed-feeds-alist is defined in ~/.emacs.d/private.el.gpg
-(setq elfeed-feeds
-      (loop with specials = (mapcar #'car feed-patterns)
-            for (url . tags) in elfeed-feeds-alist
-            for real-url = (feed-expand tags url)
-            do (setf (gethash real-url elfeed-tagger-db) tags)
-            collect real-url))
 
 (defun elfeed-tagger-db-tagger (entry)
   "Tag ENTRY using the `elfeed-tagger-db'."

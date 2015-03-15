@@ -10,7 +10,7 @@
   :pin melpa
   :commands goto-last-change
   :ensure t
-  :bind ("<C-S-backspace>" . goto-last-change))
+  :bind* ("<C-S-backspace>" . goto-last-change))
 
 ;; Save on tab-out
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))

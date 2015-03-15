@@ -24,6 +24,9 @@
 
 ;; jwiegley's: https://github.com/jwiegley/use-package
 (add-to-list 'load-path (concat external-dir "/use-package"))
+
+(eval-and-compile
+  (defvar use-package-verbose nil))
 (require 'use-package)
 
 ;; My own files

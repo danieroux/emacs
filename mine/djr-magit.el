@@ -1,7 +1,8 @@
 (use-package magit
-  :commands magit-status
   :pin melpa
-  :init
+  :commands magit-status
+  :ensure t
+  :config
   (setq magit-completing-read-function 'magit-ido-completing-read))
 
 (provide 'djr-magit)
