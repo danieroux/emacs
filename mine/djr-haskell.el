@@ -10,20 +10,20 @@
     ;; https://github.com/chrisdone/structured-haskell-mode
     (use-package shm
       :ensure t
-      :pin melpa
+      :pin "melpa"
       :defer t)
     
     ;; http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
     (use-package ghc
       :ensure t
-      :pin melpa
+      :pin "melpa"
       :defer t)
 
     (autoload 'ghc-init "ghc" nil t)
 
     (use-package company-ghc
       :ensure t
-      :pin melpa
+      :pin "melpa"
       :defer t
       :init
       (add-to-list 'company-backends 'company-ghc))))

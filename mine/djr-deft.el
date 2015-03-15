@@ -3,7 +3,7 @@
 (use-package deft
   :ensure t
   :defer t
-  :pin melpa
+  :pin "melpa"
   :commands deft
   :config 
   (setq deft-extension "md"

@@ -3,7 +3,7 @@
 (use-package markdown-mode
   :ensure t
   :commands markdown-mode
-  :pin melpa
+  :pin "melpa"
   :mode ("\\.md\\'" . markdown-mode)
   :config
   (progn

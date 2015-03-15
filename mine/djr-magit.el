@@ -1,5 +1,5 @@
 (use-package magit
-  :pin melpa
+  :pin "melpa"
   :commands magit-status
   :ensure t
   :config

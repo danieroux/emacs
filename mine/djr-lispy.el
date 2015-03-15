@@ -4,7 +4,7 @@
 (use-package lispy
   :ensure t
   :defer t
-  :pin melpa
+  :pin "melpa"
   :init
   (hook-into-modes #'lispy-mode djr-lisp-mode-hooks))
 

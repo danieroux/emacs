@@ -1,7 +1,7 @@
 (use-package calfw-cal
   :defer t
   :ensure calfw
-  :pin melpa
+  :pin "melpa"
   :commands djr/open-calendars
 
   :init

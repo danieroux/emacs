@@ -1,5 +1,5 @@
 (use-package ggtags
-  :pin melpa
+  :pin "melpa"
   :ensure t
   :init
   (add-hook 'c-mode-common-hook

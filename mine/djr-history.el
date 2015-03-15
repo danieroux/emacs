@@ -1,6 +1,6 @@
 (use-package history
   :ensure t
-  :pin melpa
+  :pin "melpa"
   :bind* (("M-," . history-prev-history)
 	  ("M->" . history-next-history))
   :init

@@ -4,7 +4,7 @@
 (use-package elfeed
   :ensure t
   :defer t
-  :pin melpa
+  :pin "melpa"
   :bind* ("<f2> n" . elfeed)
   :commands elfeed
   :config 

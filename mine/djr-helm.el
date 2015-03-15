@@ -1,6 +1,6 @@
 (use-package helm-config
   :ensure helm
-  :pin melpa
+  :pin "melpa"
   :bind* ("M-SPC" . djr/helm)
   :init
   (progn

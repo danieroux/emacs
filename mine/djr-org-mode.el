@@ -3,7 +3,7 @@
 
 (use-package org
   :commands org-mode
-  :pin manual
+  :pin "manual"
   :load-path ("external/org-mode/lisp" "external/org-mode/contrib/lisp")
   :init
   (setq org-modules (quote (org-habit)))
@@ -19,7 +19,7 @@
 (use-package djr-org-drill)
 
 (use-package org-pomodoro
-  :pin melpa
+  :pin "melpa"
   :ensure t
   :commands org-pomodoro
   :init

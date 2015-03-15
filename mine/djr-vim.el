@@ -5,7 +5,7 @@
 
 (use-package evil
   :ensure t
-  :pin melpa
+  :pin "melpa"
   :init (evil-mode t)
   :config (dolist (mode '(mu4e-main-mode
 			  mu4e-headers-mode

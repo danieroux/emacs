@@ -1,5 +1,5 @@
 (use-package emms-setup
-  :pin melpa
+  :pin "melpa"
   :ensure emms
   :bind* (("<f7>" . emms-previous)
 	  ("S-<f7>" . djr/helm-emms)

@@ -1,7 +1,7 @@
 (use-package hydra
   :ensure t
   :defer t
-  :pin melpa
+  :pin "melpa"
   :bind* (("C-x l" . hydra-launch/body)
 	  ("C-c p" . hydra-projectile/body))
   

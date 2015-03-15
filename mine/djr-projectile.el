@@ -1,6 +1,6 @@
 (use-package projectile
   :ensure t
-  :pin melpa
+  :pin "melpa"
 
   :idle
   (projectile-global-mode)
@@ -12,7 +12,7 @@
     (use-package helm-projectile
       :ensure t
       :bind* ("M-S-SPC" . helm-projectile)
-      :pin melpa)
+      :pin "melpa")
 
     (use-package ag 
       :commands (projectile-ag ag/search)

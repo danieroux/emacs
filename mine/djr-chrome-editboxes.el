@@ -2,7 +2,7 @@
 ; https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh/related
 
 (use-package edit-server
-  :pin melpa
+  :pin "melpa"
   :ensure t
   :idle (edit-server-start))
 

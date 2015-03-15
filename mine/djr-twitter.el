@@ -1,7 +1,7 @@
 ; https://github.com/hayamiz/twittering-mode/blob/3.0.x/README.markdown
 
 (use-package twittering-mode
-  :pin melpa
+  :pin "melpa"
   :ensure t
   :config 
 

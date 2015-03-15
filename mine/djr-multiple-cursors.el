@@ -1,6 +1,6 @@
 (use-package multiple-cursors
   :ensure t
   :defer t
-  :pin melpa)
+  :pin "melpa")
 
 (provide 'djr-multiple-cursors)
