@@ -21,11 +21,13 @@
     (setq emms-player-list `(,emms-player-afplay))
     (setq emms-source-file-default-directory "~/Music")
 
-    (require 'helm-emms)
-    (defun djr/helm-emms ()
-      (interactive)
-      (helm :sources '(helm-source-emms-files)
-	    :buffer "*Helm Emms*"))))
+    ;; https://github.com/emacs-helm/helm-emms
+    ;; (require 'helm-emms)
+    ;; (defun djr/helm-emms ()
+    ;;   (interactive)
+    ;;   (helm :sources '(helm-source-emms-files)
+    ;; 	    :buffer "*Helm Emms*"))
+    ))
 
 ;; Filters don't work for me. I want to script what I'm playing, not setup filters to apply
 ;; (emms-browser-make-filter "the-chaconne" (emms-browser-filter-only-dir "~/Music/the-chaconne"))
