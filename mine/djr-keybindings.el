@@ -13,9 +13,6 @@
 (when *my-primary-emacs-instance*
   (bind-key* "<f2> p" 'djr/pull))
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-
 (global-set-key (kbd "C-x 2") 'djr/split-window-below)
 (global-set-key (kbd "C-x 3") 'djr/split-window-right)
 
