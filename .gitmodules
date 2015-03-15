@@ -10,3 +10,6 @@
 [submodule "external/metaweblog"]
 	path = external/metaweblog
 	url = https://github.com/punchagan/metaweblog
+[submodule "external/benchmark-init-el"]
+	path = external/benchmark-init-el
+	url = git@github.com:dholm/benchmark-init-el.git
