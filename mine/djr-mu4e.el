@@ -32,8 +32,7 @@
     (setq mu4e-refile-folder "/gtd")
 
     (setq mail-host-address "weft"
-	  mu4e-get-mail-command "true"
-	  mu4e-view-wrap-lines t)
+	  mu4e-get-mail-command "true")
 
     (when *osx*
       (progn

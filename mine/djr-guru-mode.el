@@ -1,6 +1,6 @@
 (use-package guru-mode
   :ensure t
-  :init
+  :config
   (progn
     (setq my-affected-bindings-list '(("C-x b" "M-SPC" ido-switch-buffer)
 				      ("C-x C-f" "M-o" ido-find-file)

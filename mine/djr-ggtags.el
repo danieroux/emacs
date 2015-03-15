@@ -1,6 +1,7 @@
 (use-package ggtags
   :pin "melpa"
   :ensure t
+  :defer t
   :init
   (add-hook 'c-mode-common-hook
 	    (lambda ()
