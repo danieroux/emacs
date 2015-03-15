@@ -402,9 +402,7 @@
    "gtd-calendar-home.ics"))
 
 (defun djr/org-mode-ical-export (agenda-files calendar-name ics-name)
-  (let* ((org-agenda-files agenda-files)
-	 (org-icalendar-combined-name calendar-name)
-	 (org-icalendar-combined-agenda-file (expand-file-name ics-name djr/org-icalendar-directory)))
+  (let* ((org-agenda-files agenda-files))
     (org-icalendar-combine-agenda-files)))
 
 ;; http://comments.gmane.org/gmane.emacs.orgmode/68791
@@ -491,7 +489,7 @@
 
 (defun djr/org-insert-new-heading ()
   (interactive)
-  (end-of-buffer)
+  (goto-char (point-max))
   (org-insert-heading-respect-content)
   (evil-change-state 'insert))
 
