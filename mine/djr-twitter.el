@@ -6,7 +6,6 @@
   :config 
 
   (require 'twittering-mode)
-  (require 'twittering-org)
 
   (setq twittering-use-icon-storage t
 	twittering-use-master-password t
