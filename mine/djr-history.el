@@ -12,6 +12,7 @@
 		   cider-jump-to-var
 		   org-open-at-point
 		   djr/eval-sexp-on-line
+		   ido-find-file
 		   elisp-slime-nav-find-elisp-thing-at-point))
       (add-to-list 'history-advised-before-functions fun))
     (history-init-advices t)))
