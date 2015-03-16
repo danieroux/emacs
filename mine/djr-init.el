@@ -79,7 +79,6 @@
 (use-package djr-smex)
 (use-package djr-vim)
 (use-package djr-clean-emacs-directory)
-(use-package djr-calendar)
 (use-package djr-dired)
 ;(use-package djr-paredit)
 (use-package djr-lispy)
