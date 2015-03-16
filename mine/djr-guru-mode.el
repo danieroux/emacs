@@ -1,5 +1,9 @@
 (use-package guru-mode
   :ensure t
+
+  :init
+  (guru-global-mode +1)
+
   :config
   (progn
     (setq my-affected-bindings-list '(("C-x b" "M-SPC" ido-switch-buffer)
@@ -12,8 +16,6 @@
 	    (recommended-key (car (cdr cell)))
 	    (original-binding (car (cdr (cdr cell)))))
 	(define-key guru-mode-map
-	  (read-kbd-macro (car cell)) (guru-rebind original-key recommended-key original-binding))))
-    
-    :idle (guru-global-mode +1)))
+	  (read-kbd-macro (car cell)) (guru-rebind original-key recommended-key original-binding))))))
 
 (provide 'djr-guru-mode)

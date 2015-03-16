@@ -4,6 +4,6 @@
 (use-package edit-server
   :pin "melpa"
   :ensure t
-  :idle (edit-server-start))
+  :init (edit-server-start))
 
 (provide 'djr-chrome-editboxes)

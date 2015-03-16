@@ -2,7 +2,7 @@
   :ensure t
   :pin "melpa"
 
-  :idle
+  :init
   (projectile-global-mode)
 
   :config
