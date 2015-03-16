@@ -23,8 +23,15 @@
 			  *idm-record-dialog*))
 	    (push mode evil-emacs-state-modes)))
 
-(setq evil-normal-state-cursor '("green" box))
+(use-package ace-jump-mode
+  :ensure t
+  :commands ace-jump-mode
 
-(add-hook 'mu4e-view-mode-hook 'evil-emacs-state)
+  :init
+  (progn
+    (setq evil-ace-jump-active t)
+    (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-word-mode)))
+
+(setq evil-normal-state-cursor '("green" box))
 
 (provide 'djr-vim)

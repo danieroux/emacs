@@ -93,7 +93,6 @@
 (use-package djr-helm)
 (use-package djr-projectile)
 (use-package djr-guru-mode)
-(use-package djr-ace-jump)
 (use-package djr-eshell)
 (use-package djr-asciidoc)
 (use-package djr-midnight :disabled t)
