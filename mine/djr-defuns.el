@@ -85,11 +85,6 @@
   (twittering-update-active-buffers t)
   (mu4e-update-index))
 
-(defun djr/fetch-mail ()
-  (interactive)
-  (async-shell-command (expand-file-name "~/bin/mbsync-all-forever") "*mbsync*")
-  (bury-buffer))
-
 (defmacro hook-into-modes (func modes)
   `(dolist (mode-hook ,modes)
      (add-hook mode-hook ,func)))

@@ -2,7 +2,7 @@
 
 (use-package mu4e
   :bind* (("C-c m" . hydra-mail/body))
-  :commands (mu4e-headers-search mu4e-compose-new)
+  :commands (mu4e-headers-search mu4e-compose-new mu4e~proc-add)
 
   :init
   (progn
