@@ -101,8 +101,17 @@
 	       (t
 		(propertize mode-name 'face 'mode-line-mode-face)))))
 
+(setq djr-mode-line-possible-spinner
+      '(:eval (cond
+	       ((bound-and-true-p spinner-current)
+		(format " %s "
+			(elt spinner-current
+			     (% spinner--counter
+				(length spinner-current)))))
+	       (t "-- "))))
+
 (setq djr-mode-line-format 
-      (list "-- "
+      (list djr-mode-line-possible-spinner
 	    djr-mode-line-mail-status
 	    djr-mode-line-evil-status
 	    djr-mode-line-buffer-status
