@@ -40,9 +40,10 @@
 	      mail-host-address "danie-notebook")))
 
     (setq mu4e-use-fancy-chars nil
-	  mu4e-headers-results-limit 100
 	  mu4e-attachment-dir "~/Desktop"
+	  mu4e-headers-results-limit 100
 	  mu4e-headers-skip-duplicates t
+	  mu4e-headers-leave-behavior 'apply
 	  mu4e-view-show-images t
 	  mu4e-view-image-max-width 800
 	  mu4e-view-show-addresses t
@@ -85,17 +86,19 @@
 		(define-key mu4e-view-mode-map "d" 'mu4e-view-mark-for-delete)
 		(define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
-    (remove-hook 'text-mode-hook 'turn-on-auto-fill)
-
-    ))
+    (remove-hook 'text-mode-hook 'turn-on-auto-fill)))
 
 (defhydra hydra-mail (:color blue)
   "Mail"
-  ("m" djr/mu4e-inbox "Inbox")
-  ("c" djr/mu4e-compose-new-with-follow-up "Compose new with follow up")
-  ("C" mu4e-compose-new "Compose new")
-  ("f" smtpmail-send-queued-mail "Flush mail queue")
-  ("Q" mu4e~main-toggle-mail-sending-mode "Toggle mail sending mode"))
+  ("m" djr/mu4e-inbox "inbox")
+  ("c" djr/mu4e-compose-new-with-follow-up "compose new with follow up")
+  ("C" mu4e-compose-new "compose new")
+  ("b" mu4e-headers-search-bookmark "bookmarks")
+  ("u" djr/sync-mail-and-update-mu4e-quickly "quick mbsync update")
+  ("U" djr/sync-mail-and-update-mu4e "full mbsync update")
+  ("f" smtpmail-send-queued-mail "flush queue")
+  ("p" (switch-to-buffer (get-buffer djr/mbsync-buffer-name)) "mbsync process buffer")
+  ("Q" mu4e~main-toggle-mail-sending-mode "toggle mail sending mode"))
 
 (use-package smtpmail
   :commands (smtpmail-send-queued-mail message-send-and-exit)
@@ -104,6 +107,7 @@
   ;; Authentication is handled by ~/.authinfo.gpg with this format:
   ;; machine smtp.gmail.com login USER@gmail.com password PASSWORD port 465
   (setq message-send-mail-function 'smtpmail-send-it
+	sendmail-coding-system 'utf-8
 	smtpmail-stream-type 'ssl
 	smtpmail-smtp-server "smtp.gmail.com"
 	message-user-fqdn "danieroux.com"
