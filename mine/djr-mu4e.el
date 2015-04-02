@@ -73,6 +73,8 @@
 	      (lambda ()
 		(define-key mu4e-headers-mode-map "r" 'djr/mu4e-compose-reply-with-follow-up)
 		(define-key mu4e-headers-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
+		;; If I go to the next message, it means I want the current thread as read.
+		(define-key mu4e-headers-mode-map "n" 'djr/mu4e-mark-thread-as-read)
 		(define-key mu4e-headers-mode-map "d" 'mu4e-headers-mark-for-delete)
 		(define-key mu4e-headers-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
@@ -125,6 +127,10 @@
   (let* ((msgid (mu4e-msg-field msg :message-id)))
     (setq mu4e-headers-include-related t)
     (mu4e-headers-search (concat "msgid:" msgid))))
+
+(defun djr/mu4e-mark-thread-as-read ()
+  (interactive)
+  (mu4e-headers-mark-thread-using-markpair '(read)))
 
 (defun djr/mu4e-open-message-in-google (msg)
   (let* ((msgid (mu4e-message-field msg :message-id))
