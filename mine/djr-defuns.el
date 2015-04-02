@@ -85,6 +85,14 @@
   (twittering-update-active-buffers t)
   (mu4e-update-index))
 
+;; http://oremacs.com/2015/03/20/managing-emacs-packages/
+(defun djr/upgrade-packages ()
+  (interactive)
+  (save-window-excursion
+    (package-list-packages)
+    (package-menu-mark-upgrades)
+    (package-menu-execute t)))
+
 (defmacro hook-into-modes (func modes)
   `(dolist (mode-hook ,modes)
      (add-hook mode-hook ,func)))
