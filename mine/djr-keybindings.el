@@ -1,4 +1,4 @@
-(require 'djr-xmonad)
+(use-package djr-xmonad)
 
 (bind-key* "<f10>" 'toggle-frame-fullscreen)
 

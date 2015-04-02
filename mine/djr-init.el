@@ -9,7 +9,6 @@
 (unless noninteractive
   (message "Loading %s..." load-file-name))
 
-;; (byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d/mine") 0)
 
 ;; after copy Ctrl+c in X11 apps, you can paste by `yank' in emacs
@@ -59,8 +58,6 @@
 
 (dolist (path '("/usr/local/bin"
 		"/opt/local/bin"
-		"/usr/pkg/sbin"
-		"/usr/pkg/bin"
 		"/Users/danie/bin"
 		"/Users/danie/Library/Haskell/bin"))
   (djr/prepend-to-paths path))
@@ -79,6 +76,7 @@
 (use-package djr-ido)
 (use-package djr-smex)
 (use-package djr-vim)
+(use-package djr-org-mode :if *my-primary-emacs-instance*)
 (use-package djr-clean-emacs-directory)
 (use-package djr-dired)
 ;(use-package djr-paredit)
@@ -112,7 +110,6 @@
 (when *my-primary-emacs-instance*
   (use-package djr-really-autosave)
   (use-package djr-mu4e)
-  (use-package djr-org-mode)
   (use-package djr-twitter)
   (use-package djr-elfeed)
   (use-package djr-emms)
