@@ -18,7 +18,10 @@
   (use-package flx-ido
     :ensure t
     :pin "melpa"
-    :init (flx-ido-mode t))
+    :init (flx-ido-mode t)
+    :config
+    (setq flx-ido-use-faces nil
+	  flx-ido-threshold 2000))
 
   (setq ido-enable-flex-matching t
 	ido-everywhere t
@@ -29,8 +32,6 @@
 	ido-default-file-method 'selected-window
 	ido-default-buffer-method 'selected-window
 	;; Use the current window for indirect buffer display
-	org-indirect-buffer-display 'current-window)
-
-  (setq flx-ido-use-faces nil))
+	org-indirect-buffer-display 'current-window))
 
 (provide 'djr-ido)
