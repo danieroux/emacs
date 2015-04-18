@@ -1,3 +1,5 @@
+(use-package djr-helm)
+
 (use-package eshell
   :bind* ("C-'" . shell-switcher-switch-buffer)
   :init
@@ -10,9 +12,12 @@
   :config
   (progn
     (require 'em-smart)
+
     (add-hook 'eshell-mode-hook
-	      '(lambda () (eshell/export "EDITOR=emacsclient --socket-name /tmp/danie-emacs-shared/server")))
-    (add-hook 'eshell-mode-hook 'eshell-smart-initialize)
+	      '(lambda ()
+		 (eshell/export "EDITOR=emacsclient --socket-name /tmp/danie-emacs-shared/server")
+		 (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)
+		 (eshell-smart-initialize)))
 
     (add-hook 'eshell-pre-command-hook 'djr/spinner-start)
     (add-hook 'eshell-post-command-hook 'djr/spinner-stop)
