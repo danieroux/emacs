@@ -7,21 +7,24 @@
   :ensure t
   :pin "melpa"
   :init (evil-mode t)
-  :config (dolist (mode '(mu4e-main-mode
-			  mu4e-headers-mode
-			  mu4e-view-mode
-			  info-mode
-			  elfeed-show-mode
-			  elfeed-search-mode
-			  twittering-mode
-			  inferior-haskell-mode
-			  cider-repl-mode
-			  calculator-mode
-			  deft-mode
-			  ert-results-mode
-			  makey-key-mode
-			  *idm-record-dialog*))
-	    (push mode evil-emacs-state-modes)))
+  :config
+  (progn
+    (dolist (mode '(mu4e-main-mode
+		    mu4e-headers-mode
+		    mu4e-view-mode
+		    info-mode
+		    elfeed-show-mode
+		    elfeed-search-mode
+		    twittering-mode
+		    inferior-haskell-mode
+		    cider-repl-mode
+		    calculator-mode
+		    deft-mode
+		    ert-results-mode
+		    makey-key-mode
+		    *idm-record-dialog*))
+      (push mode evil-emacs-state-modes))
+    (delete 'rcirc-mode evil-emacs-state-modes)))
 
 (use-package ace-jump-mode
   :ensure t

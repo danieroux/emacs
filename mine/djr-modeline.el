@@ -59,6 +59,7 @@
 	    'elfeed-search-mode
 	    'twittering-mode
 	    'ert-results-mode
+	    'rcirc-mode
 	    'eshell-mode))
 
 (setq djr-mode-line-buffer-status
