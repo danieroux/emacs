@@ -74,8 +74,6 @@
 (use-package djr-looks)
 (use-package djr-spinner)
 (use-package djr-hydra)
-(use-package djr-ido)
-(use-package djr-smex)
 (use-package djr-vim)
 (use-package djr-org-mode :if *my-primary-emacs-instance*)
 (use-package djr-clean-emacs-directory)
