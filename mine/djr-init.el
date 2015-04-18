@@ -58,8 +58,9 @@
 
 (dolist (path '("/usr/local/bin"
 		"/opt/local/bin"
-		"/Users/danie/bin"
-		"/Users/danie/Library/Haskell/bin"))
+		"~/bin"
+		"~/.cabal/bin"
+		"~/Library/Haskell/bin"))
   (djr/prepend-to-paths path))
 
 (add-to-list 'load-suffixes ".el.gpg")

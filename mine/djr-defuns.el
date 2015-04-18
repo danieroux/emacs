@@ -6,11 +6,12 @@
   (save-excursion
     (indent-region (point-min) (point-max) nil)))
 
-(defun djr/prepend-to-paths (path)
+(defun djr/prepend-to-paths (plain-path)
   "Adds directory to exec, ENV and eshell paths"
-  (setq exec-path (cons path exec-path))
-  (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
-  (setq eshell-path-env (getenv "PATH")))
+  (let ((path (expand-file-name plain-path)))
+    (setq exec-path (cons path exec-path))
+    (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
+    (setq eshell-path-env (getenv "PATH"))))
 
 (defun djr/initialise-package ()
   (interactive)
@@ -20,6 +21,7 @@
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
 		    ("elpa" . "http://tromey.com/elpa/")
 		    ("melpa" . "http://melpa.org/packages/")
+		    ("melpa-stable" . "http://stable.melpa.org/packages/")
 		    ("gnu" . "http://elpa.gnu.org/packages/")))
     (add-to-list 'package-archives source t))
 
