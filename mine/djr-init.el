@@ -25,7 +25,7 @@
 (add-to-list 'load-path (concat external-dir "/use-package"))
 
 (eval-and-compile
-  (defvar use-package-verbose nil))
+  (defvar use-package-verbose t))
 (require 'use-package)
 
 ;; My own files
@@ -105,6 +105,7 @@
 (use-package djr-flycheck)
 (use-package djr-intellij)
 (use-package djr-focus-mode)
+(use-package djr-rcirc)
 
 (when *my-primary-emacs-instance*
   (use-package djr-really-autosave)
@@ -165,7 +166,8 @@
 (when *my-primary-emacs-instance*
   (server-start)
   (use-package djr-mu4e-mbsync)
-  (djr/sync-mail-and-update-mu4e))
+  ;; (djr/sync-mail-and-update-mu4e)
+  )
 
 (when window-system
   (let ((elapsed (float-time (time-subtract (current-time)

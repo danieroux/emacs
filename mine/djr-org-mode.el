@@ -58,6 +58,7 @@
 	inbox-file "~/Dropbox/Documents/gtd/inbox.org"
 	someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
 	brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
+	conversations-file "~/Dropbox/Documents/gtd/conversations.org"
 	period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
 	blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
 
@@ -269,6 +270,7 @@
 			     (,period-log-file . (:level . 0))
 			     (,someday-file . (:level . 0))
 			     (,blog-ideas-file . (:level . 0))
+			     (,conversations-file . (:level . 1))
 			     (nil . (:level . 1)))
 	org-refile-use-outline-path (quote file)
 	org-outline-path-complete-in-steps nil 
