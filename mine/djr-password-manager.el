@@ -1,4 +1,5 @@
 (use-package id-manager
+  :commands id-manager
   :init
   (progn
     (setq idm-database-file "~/Dropbox/Documents/passwords.gpg")

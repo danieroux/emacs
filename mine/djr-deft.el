@@ -2,7 +2,6 @@
 
 (use-package deft
   :ensure t
-  :defer t
   :pin "melpa"
   :commands deft
   :config 

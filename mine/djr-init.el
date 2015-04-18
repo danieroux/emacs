@@ -36,11 +36,11 @@
   (push config-directory load-path))
 
 ;; Standard EMACS packages
-(use-package cl)
-(use-package uniquify)
-(use-package ansi-color)
-(use-package flymake)
-(use-package ffap)
+(use-package cl :defer t)
+(use-package uniquify :defer t)
+(use-package ansi-color :defer t)
+(use-package flymake :defer t)
+(use-package ffap :defer t)
 
 (use-package paren
   :init (show-paren-mode t))
