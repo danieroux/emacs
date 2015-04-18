@@ -97,7 +97,7 @@
 (use-package djr-midnight :disabled t)
 (use-package djr-elisp)
 (use-package djr-company)
-(use-package djr-haskell :disabled t)
+(use-package djr-haskell)
 (use-package djr-discover)
 (use-package djr-markdown)
 (use-package djr-deft)
