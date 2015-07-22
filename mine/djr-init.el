@@ -149,8 +149,10 @@
 
 (global-auto-revert-mode t)
 
+(winner-mode 1)
+
 (setq echo-keystrokes 0.1
-      initial-major-mode 'org-mode ;; http://emacsredux.com/blog/2014/07/25/configure-the-scratch-buffers-mode/
+      initial-major-mode 'text-mode ;; http://emacsredux.com/blog/2014/07/25/configure-the-scratch-buffers-mode/
       mouse-yank-at-point t
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'post-forward
@@ -160,6 +162,8 @@
       xterm-mouse-mode t
       gc-cons-threshold 20000000 ;; https://github.com/lewang/flx - GC opt
       gnutls-min-prime-bits nil)
+
+(setq-default indent-tabs-mode nil)
 
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (load custom-file 'noerror)
