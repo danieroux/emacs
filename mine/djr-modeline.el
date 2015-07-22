@@ -60,6 +60,7 @@
 	    'twittering-mode
 	    'ert-results-mode
 	    'rcirc-mode
+            'haskell-interactive-mode
 	    'eshell-mode))
 
 (setq djr-mode-line-buffer-status
