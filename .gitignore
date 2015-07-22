@@ -22,3 +22,7 @@ elpa/*
 /projectile.cache
 external/org-mode-installed
 /emms/
+/rcirc-log/
+/semanticdb/
+/var/
+/.DS_Store
