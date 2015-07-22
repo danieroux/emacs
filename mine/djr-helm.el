@@ -17,6 +17,9 @@
       (setq helm-source-buffers-list
 	    (helm-make-source "Buffers" 'helm-source-buffers)))
 
+    (setq helm-mini-default-sources
+          '(helm-source-buffers-list helm-source-recentf helm-source-bookmarks helm-source-buffer-not-found))
+
     (setq helm-recentf-fuzzy-match t
 	  helm-buffers-fuzzy-matching t
 	  helm-apropos-fuzzy-match t
