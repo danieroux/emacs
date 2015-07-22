@@ -1,2 +1,5 @@
+alias nil  $*
+alias j  $*
+alias bb /usr/local/sbin/bitlbee -D
 alias irc-instance open -n -a Emacs.app --args -q -l ~/.emacs.d/init-irc.el
 alias secondary-instance open -n -a Emacs.app --args -q -l ~/.emacs.d/init-secondary.el
