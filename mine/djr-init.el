@@ -60,13 +60,15 @@
 		"/opt/local/bin"
 		"~/bin"
 		"~/.cabal/bin"
+                "/Applications/ghc-7.10.1.app/Contents/bin"
+                "/Users/danie/.stack/programs/x86_64-osx/ghc-7.8.4/bin"
 		"~/Library/Haskell/bin"))
   (djr/prepend-to-paths path))
 
 (add-to-list 'load-suffixes ".el.gpg")
 
 ;; My packages
-(use-package private)
+(use-package djr-private)
 
 (when (equal system-type 'darwin)
   (use-package djr-osx))
