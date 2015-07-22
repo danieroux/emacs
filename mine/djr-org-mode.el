@@ -12,7 +12,13 @@
   (setq org-modules (quote (org-habit)))
 
   :config
-  (progn 
+  (progn
+    (when *osx*
+      (use-package org-mac-link
+        :load-path ("/Users/danie/dotfiles/emacs.d/external/org-mode/contrib/lisp"))
+
+      (autoload 'omlg-grab-link "org-mac-link"))
+
     (org-clock-persistence-insinuate)
 
     ;; Crypt
