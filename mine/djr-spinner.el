@@ -7,6 +7,7 @@
       (spinner-start))
 
     (defun djr/spinner-stop ()
-      (spinner-stop))))
+      (if (bound-and-true-p spinner-current)
+          (spinner-stop)))))
 
 (provide 'djr-spinner)
