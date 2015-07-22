@@ -19,12 +19,11 @@
   (require 'package)
 
   (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-		    ("elpa" . "http://tromey.com/elpa/")
-		    ("melpa" . "http://melpa.org/packages/")
-		    ("melpa-stable" . "http://stable.melpa.org/packages/")
-		    ("gnu" . "http://elpa.gnu.org/packages/")))
+                    ("elpa" . "http://tromey.com/elpa/")
+                    ("melpa" . "http://melpa.org/packages/")
+                    ("melpa-stable" . "http://stable.melpa.org/packages/")
+                    ("gnu" . "http://elpa.gnu.org/packages/")))
     (add-to-list 'package-archives source t))
-
   (package-initialize))
 
 (defun djr/bootstrap ()
@@ -35,7 +34,7 @@
   (save-buffers-kill-terminal))
 
 (defadvice mu4e-update-index
-  (after djr/wait-for-mu4e-update-index)
+    (after djr/wait-for-mu4e-update-index)
   (djr/agenda-home)
   (ad-deactivate 'mu4e-update-index))
 
@@ -58,17 +57,17 @@
 
 (defun djr/has-mu4e-compose-buffer-open-p ()
   (assq 'mu4e-compose-mode
-	(mapcar
-	 (lambda (b)
-	   (cons (buffer-local-value 'major-mode b) b))
-	 (buffer-list))))
+        (mapcar
+         (lambda (b)
+           (cons (buffer-local-value 'major-mode b) b))
+         (buffer-list))))
 
 (defun djr/queue-dir-has-files-p ()
   (and (boundp 'smtpmail-queue-index-file)
        (let* ((qfile (expand-file-name smtpmail-queue-index-file
-				       smtpmail-queue-dir))
-	      (size (eighth (file-attributes qfile))))
-	 (not (= 0 size)))))
+                                       smtpmail-queue-dir))
+              (size (eighth (file-attributes qfile))))
+         (not (= 0 size)))))
 
 (defun djr/has-queued-mail-p ()
   (or (djr/queue-dir-has-files-p)
@@ -76,9 +75,9 @@
 
 (defun djr/make-fullscreen ()
   (interactive)
-   (set-frame-parameter
-     nil 'fullscreen
-     'fullboth))
+  (set-frame-parameter
+   nil 'fullscreen
+   'fullboth))
 
 (defun djr/pull ()
   "Pull information sources (moving away from push based)"

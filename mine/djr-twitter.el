@@ -1,4 +1,4 @@
-; https://github.com/hayamiz/twittering-mode/blob/3.0.x/README.markdown
+;; https://github.com/hayamiz/twittering-mode/blob/3.0.x/README.markdown
 
 (use-package twittering-mode
   :pin "melpa"
@@ -6,15 +6,15 @@
   :commands twit
   :defer t
 
-  :config 
-  (progn 
+  :config
+  (progn
     (require 'twittering-mode)
 
     (setq twittering-use-icon-storage t
-	  twittering-use-master-password t
-	  twittering-reverse-mode t
-	  twittering-timer-interval 600
-	  twittering-number-of-tweets-on-retrieval 100)
+          twittering-use-master-password t
+          twittering-reverse-mode t
+          twittering-timer-interval 600
+          twittering-number-of-tweets-on-retrieval 100)
 
     (setq twittering-private-info-file (expand-file-name "~/.emacs.d/twittering-mode.gpg"))
 

@@ -168,8 +168,7 @@
 (when *my-primary-emacs-instance*
   (server-start)
   (use-package djr-mu4e-mbsync)
-  ;; (djr/sync-mail-and-update-mu4e)
-  )
+  (djr/sync-mail-and-update-mu4e))
 
 (when window-system
   (let ((elapsed (float-time (time-subtract (current-time)

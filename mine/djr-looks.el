@@ -1,18 +1,17 @@
 (use-package zenburn-theme
   :ensure t
-  :init
-  (load-theme 'zenburn t)
-
   :config
   (progn
+    (load-theme 'zenburn t)
+
     (when (equal system-type 'darwin)
       (add-hook 'window-setup-hook
-		(lambda nil
-		  (set-face-attribute
-		   'default nil
-		   :family "Monaco"
-		   :height 180
-		   :weight 'normal))))
+                (lambda nil
+                  (set-face-attribute
+                   'default nil
+                   :family "Monaco"
+                   :height 180
+                   :weight 'normal))))
     ;; Kill the tool bar and scroll bar
     ;; I leave the menu bar, because I use it to discover features available in a mode
     (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -28,9 +27,9 @@
     (blink-cursor-mode (- (*) (*) (*)))
 
     (setq visible-bell t
-	  inhibit-startup-message t
-	  initial-scratch-message nil
-	  transient-mark-mode t
-	  font-lock-maximum-decoration t)))
+          inhibit-startup-message t
+          initial-scratch-message nil
+          transient-mark-mode t
+          font-lock-maximum-decoration t)))
 
 (provide 'djr-looks)
