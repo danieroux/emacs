@@ -13,7 +13,19 @@
       ("t" djr/twittering-fix-clobbering "Twitter")
       ("c" (org-clock-in '(4)) "Clock-in")
       ("d" deft "Deft"))
-    
+
+    (defhydra hydra-mail (:color blue)
+      "Mail"
+      ("m" djr/mu4e-inbox "inbox")
+      ("c" djr/mu4e-compose-new-with-follow-up "compose new with follow up")
+      ("C" mu4e-compose-new "compose new")
+      ("b" mu4e-headers-search-bookmark "bookmarks")
+      ("u" djr/sync-mail-and-update-mu4e-quickly "quick mbsync update")
+      ("U" djr/sync-mail-and-update-mu4e "full mbsync update")
+      ("f" smtpmail-send-queued-mail "flush queue")
+      ("p" (switch-to-buffer (get-buffer djr/mbsync-buffer-name)) "mbsync process buffer")
+      ("Q" mu4e~main-toggle-mail-sending-mode "toggle mail sending mode"))
+
     (defhydra hydra-projectile (:color teal)
       "
 Find File          Search/Tags       Buffers                  Cache
