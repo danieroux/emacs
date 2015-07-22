@@ -1,10 +1,17 @@
 ;; -*- lexical-binding: t -*-
 
-;; From emacs-starter-kit
+;; From spacemacs
 (defun indent-buffer ()
   (interactive)
   (save-excursion
-    (indent-region (point-min) (point-max) nil)))
+    (if (region-active-p)
+        (progn
+          (indent-region (region-beginning) (region-end))
+          (message "Indented selected region."))
+      (progn
+        (evil-indent (point-min) (point-max))
+        (message "Indented buffer.")))
+    (whitespace-cleanup)))
 
 (defun djr/prepend-to-paths (plain-path)
   "Adds directory to exec, ENV and eshell paths"
