@@ -5,6 +5,6 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
-  (setq company-idle-delay 0))
+  (setq company-idle-delay 0.2))
 
 (provide 'djr-company)
