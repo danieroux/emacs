@@ -80,7 +80,7 @@
 (use-package djr-org-mode :if *my-primary-emacs-instance*)
 (use-package djr-clean-emacs-directory)
 (use-package djr-dired)
-;(use-package djr-paredit)
+;; (use-package djr-paredit)
 (use-package djr-lispy)
 (use-package djr-clojure)
 (use-package djr-blog)
