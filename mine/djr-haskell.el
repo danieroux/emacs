@@ -18,19 +18,12 @@
 				   (turn-on-haskell-doc-mode)
 
 				   (haskell-indentation-mode 0)
-				   (structured-haskell-mode)
 				   
 				   (define-key evil-normal-state-local-map (kbd "C-l") 'haskell-process-load-or-reload)
 				   (define-key evil-insert-state-local-map (kbd "C-l") 'haskell-process-load-or-reload)
 				   (define-key evil-normal-state-local-map (kbd "M-.") 'djr/haskell-find-tag-no-prompt)
 				   (define-key evil-insert-state-local-map (kbd "M-.") 'djr/haskell-find-tag-no-prompt)))
 
-    ;; https://github.com/chrisdone/structured-haskell-mode
-    (use-package shm
-      :ensure t
-      :pin "melpa-stable"
-      :defer t)
-    
     ;; http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
     (use-package ghc
       :ensure t
