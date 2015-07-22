@@ -24,14 +24,6 @@
 	  (lambda ()
 	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)))
 
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
-
-(add-hook 'ielm-mode-hook
-	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
-
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (define-key evil-normal-state-local-map (kbd "M-.") 'org-open-at-point)))
