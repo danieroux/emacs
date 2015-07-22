@@ -19,6 +19,13 @@
 		 (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)
 		 (eshell-smart-initialize)))
 
+    ;; https://github.com/emacs-helm/helm/wiki#helmeshellcompletion
+    (add-hook 'eshell-mode-hook
+              #'(lambda ()
+                  (define-key eshell-mode-map
+                    [remap eshell-pcomplete]
+                    'helm-esh-pcomplete)))
+
     (add-hook 'eshell-pre-command-hook 'djr/spinner-start)
     (add-hook 'eshell-post-command-hook 'djr/spinner-stop)
 
