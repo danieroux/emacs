@@ -109,6 +109,7 @@
 (use-package djr-focus-mode)
 (use-package djr-rcirc)
 (use-package djr-dash)
+(use-package djr-google-this)
 
 (when *my-primary-emacs-instance*
   (use-package djr-really-autosave)
