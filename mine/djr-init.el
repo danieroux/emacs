@@ -60,8 +60,9 @@
 		"/opt/local/bin"
 		"~/bin"
 		"~/.cabal/bin"
+                "/usr/local/sbin"
                 "/Applications/ghc-7.10.1.app/Contents/bin"
-                "/Users/danie/.stack/programs/x86_64-osx/ghc-7.8.4/bin"
+                "/Users/danie/.stack/programs/x86_64-osx/ghc-7.10.2/bin"
 		"~/Library/Haskell/bin"))
   (djr/prepend-to-paths path))
 

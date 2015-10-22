@@ -1,3 +1,4 @@
+alias vi e
 alias nil  $*
 alias j  $*
 alias bb /usr/local/sbin/bitlbee -D

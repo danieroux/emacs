@@ -6,7 +6,7 @@
   ;; rcirc-server-alist, rcirc-authinfo and rcirc-default-nick are defined in private.el.gpg
   (setq rcirc-prompt "%n %t> "
         rcirc-scroll-show-maximum-output nil
-        rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
+        rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY" "KEEPALIVE")
         rcirc-fill-flag nil
         rcirc-log-flag t
         rcirc-kill-channel-buffers t)

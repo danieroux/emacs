@@ -1,4 +1,4 @@
-(use-package 'djr-completing-read)
+(use-package djr-completing-read)
 
 (use-package magit
   :pin "melpa"

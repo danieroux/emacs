@@ -96,6 +96,7 @@
   ;; machine smtp.gmail.com login USER@gmail.com password PASSWORD port 465
   (setq message-send-mail-function 'smtpmail-send-it
         sendmail-coding-system 'utf-8
+        mm-coding-system-priorities '(utf-8)
         smtpmail-stream-type 'ssl
         smtpmail-smtp-server "smtp.gmail.com"
         message-user-fqdn "danieroux.com"

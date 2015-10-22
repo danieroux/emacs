@@ -106,10 +106,7 @@
 (setq djr-mode-line-possible-spinner
       '(:eval (cond
 	       ((bound-and-true-p spinner-current)
-		(format " %s "
-			(elt spinner-current
-			     (% spinner--counter
-				(length spinner-current)))))
+                (spinner-print spinner-current))
 	       (t "-- "))))
 
 (setq djr-mode-line-format 
