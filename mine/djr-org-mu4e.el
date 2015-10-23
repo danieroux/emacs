@@ -4,20 +4,7 @@
 
 ;;; Redefines
 
-(defun org-mu4e-store-link ()
-  "Redefined to never store queries, just messages. I want to capture the message at point in headers mode as well."
-  (cond
-   ((or (eq major-mode 'mu4e-view-mode)
-        (eq major-mode 'mu4e-headers-mode))
-    (let* ((msg  (mu4e-message-at-point))
-           (msgid   (or (plist-get msg :message-id) "<none>"))
-           link)
-      (org-store-link-props :type "mu4e" :link link
-                            :message-id msgid)
-      (setq link (concat "mu4e:msgid:" msgid))
-      (org-add-link-props :link link
-                          :description (funcall org-mu4e-link-desc-func msg))
-      link))))
+(setq org-mu4e-link-query-in-headers-mode nil)
 
 ;;; Define djr/mu4e-to-org that turns an email query into an OrgMode file
 

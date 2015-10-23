@@ -26,7 +26,9 @@
 
 (eval-and-compile
   (defvar use-package-verbose t))
+
 (require 'use-package)
+(require 'bind-key)
 
 ;; My own files
 (setq my-dir (concat dotfiles-dir "mine"))
@@ -94,14 +96,12 @@
 (use-package djr-projectile)
 (use-package djr-guru-mode)
 (use-package djr-eshell)
-(use-package djr-asciidoc)
 (use-package djr-midnight :disabled t)
 (use-package djr-elisp)
 (use-package djr-company)
 (use-package djr-haskell)
 (use-package djr-discover)
 (use-package djr-markdown)
-(use-package djr-deft)
 (use-package djr-spell)
 (use-package djr-ggtags)
 (use-package djr-password-manager)
@@ -109,8 +109,8 @@
 (use-package djr-intellij)
 (use-package djr-focus-mode)
 (use-package djr-rcirc)
-(use-package djr-dash)
-(use-package djr-google-this)
+
+(use-package djr-smalls)
 
 (when *my-primary-emacs-instance*
   (use-package djr-really-autosave)

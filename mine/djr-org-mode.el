@@ -53,7 +53,7 @@
               org-pomodoro-long-break-sound (expand-file-name "~/Dropbox/Audio/wav/13699__harri__a.mp3")
               org-pomodoro-start-sound (expand-file-name "~/Dropbox/Audio/wav/big-singing-bowl.wav")
               org-pomodoro-killed-sound (expand-file-name "~/Dropbox/Audio/wav/jf-glass-breaking.wav")
-              org-pomodoro-play-start-sound t
+              org-pomodoro-start-sound-p t
               org-pomodoro-time-format "%.2m")))
 
     (use-package org-mode-observations
@@ -69,11 +69,12 @@
           period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
           blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
 
-    (setq org-agenda-files `("~/Dropbox/Documents"
-                             "~/Dropbox/Documents/gtd"
-                             ,brain-file
+    (setq org-agenda-files `( ;; "~/Dropbox/Documents"
+                             ;; "~/Dropbox/Documents/gtd" 
+                             ;; ,brain-file 
                              ,gtd-file
-                             ,consulting-file))
+                             ,consulting-file
+                             ))
 
     (setq org-directory "~/Dropbox/Documents/gtd")
 
@@ -110,9 +111,9 @@
 
     (setq djr-single-task-header-id "C3478345-CEEF-497D-97EF-32AB278FBCF3")
 
-    (setq org-capture-templates `(("P" "New Project" entry (file "~/Dropbox/Documents/gtd/gtd.org.gpg") "* %^{Project name}
+    (setq org-capture-templates `(("P" "New Project" entry (file ,gtd-file) "* %^{Project name}
 ** NEXT %^{First task}%?")
-                                  ("b" "Brain" entry (file "~/Dropbox/Documents/brain/brain.org.gpg") "* %?
+                                  ("b" "Brain" entry (file ,brain-file) "* %?
   %u
 
 %a")
@@ -318,21 +319,21 @@
 
     ;; (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
-    ;; (org-babel-do-load-languages
-    ;;  (quote org-babel-load-languages)
-    ;;  (quote ((emacs-lisp . t)
-    ;;          (dot . t)
-    ;;          (ditaa . t)
-    ;;          (R . t)
-    ;;          (python . t)
-    ;;          (ruby . t)
-    ;;          (gnuplot . t)
-    ;;          (clojure . t)
-    ;;          (sh . t)
-    ;;          (ledger . t)
-    ;;          (org . t)
-    ;;          (plantuml . t)
-    ;;          (latex . t))))
+    (org-babel-do-load-languages
+     (quote org-babel-load-languages)
+     (quote ((emacs-lisp . t)
+             (dot . t)
+             (ditaa . t)
+             (R . t)
+             (python . t)
+             (ruby . t)
+             (gnuplot . t)
+             (clojure . t)
+             (sh . t)
+             (ledger . t)
+             (org . t)
+             (plantuml . t)
+             (latex . t))))
 
     (setq org-confirm-babel-evaluate nil)
 
@@ -360,8 +361,8 @@
 
     (run-at-time "00:05" 86400 '(lambda () (org-mobile-push-with-delay 1))) ;; refreshes agenda file each day
 
-    ;; I prefer to keep archived entries within the original file
-    (setq org-archive-default-command (quote org-archive-set-tag))
+    (setq org-archive-default-command (quote org-archive-to-archive-sibling)
+          org-archive-location "%s_archive.gpg::")
 
     ;; Dim blocked tasks
     (setq org-agenda-dim-blocked-tasks 'invisible)

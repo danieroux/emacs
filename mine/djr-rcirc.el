@@ -45,9 +45,12 @@
       (setq rcirc-omit-mode nil)
       (rcirc-omit-mode)
       (set (make-local-variable 'scroll-conservatively) 8192))
-      (flyspell-mode 1))
 
-    ;; http://www.emacswiki.org/emacs/rcircOccur 
+    (flyspell-mode 1)
+
+    (defun rcirc-handler-NOTICE (process sender args text))
+
+    ;; http://www.emacswiki.org/emacs/rcircOccur
     (defun-rcirc-command occur (regexp)
       "Run `multi-occur' for all buffers in `rcirc-mode'."
       (interactive "sList lines matching regexp: ")
@@ -57,7 +60,7 @@
                          (when (eq major-mode 'rcirc-mode)
                            (setq result (cons buf result)))))
                      result) regexp))
-    
+
     (defun djr/rcirc-clear-screen ()
       (interactive)
       (goto-char (point-max))
@@ -67,6 +70,6 @@
 
     (bind-key "C-l" 'djr/rcirc-clear-screen rcirc-mode-map)
     (add-hook 'rcirc-mode-hook 'djr/rcirc-mode-setup)
-    (rcirc-track-minor-mode))
+    (rcirc-track-minor-mode)))
 
 (provide 'djr-rcirc)

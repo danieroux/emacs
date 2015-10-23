@@ -12,6 +12,7 @@
       ("n" elfeed "Elfeed")
       ("t" djr/twittering-fix-clobbering "Twitter")
       ("c" (org-clock-in '(4)) "Clock-in")
+      ("i" rcirc "IRC")
       ("d" deft "Deft"))
 
     (defhydra hydra-mail (:color blue)
