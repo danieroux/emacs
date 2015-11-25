@@ -165,6 +165,9 @@
       (2.5 . 4.0)
       (1.96 . 3.58)
       (1.7000000000000002 . 3.44)))))
+ '(package-selected-packages
+   (quote
+    (ido-completing-read+ history keyfreq gmail-message-mode edit-server emms elfeed twittering-mode adoc-mode discover dash-at-point beacon google-this rcirc-groups rcirc-color rcirc-notify flycheck id-manager ggtags markdown-mode company-ghc ghc haskell-mode company elisp-slime-nav shell-switcher guru-mode ag helm-projectile projectile helm rainbow-delimiters magit multiple-cursors expand-region xml-rpc cider lispy org-pomodoro ace-jump-mode evil hydra spinner zenburn-theme)))
  '(safe-local-variable-values (quote ((my-org-really-auto-save)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
