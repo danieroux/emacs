@@ -16,6 +16,10 @@
 ;; after mouse selection in X11, you can paste by `yank' in emacs
       x-select-enable-primary t)
 
+;; Homebrew
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+   (normal-top-level-add-subdirs-to-load-path))
+
 (setq dotfiles-dir user-emacs-directory)
 
 ;; Extensions that have been downloaded manually (not through ELPA)
