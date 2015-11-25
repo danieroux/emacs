@@ -40,12 +40,12 @@
   :group 'editing-basics
   (if djr-focus-mode
       (progn
+        (set-frame-parameter nil 'fullscreen 'fullboth)
 	(bzg-big-fringe-mode 1)
-	(pomodoro-top-mode-line-mode 1)
-	(djr/make-fullscreen))
+	(djr-pomodoro-top-mode-line-mode 1))
     (progn
       (bzg-big-fringe-mode -1)
-      (pomodoro-top-mode-line-mode -1)
-      (toggle-frame-fullscreen))))
+      (djr-pomodoro-top-mode-line-mode -1)
+      (set-frame-parameter nil 'fullscreen 'fullscreen-restore))))
 
 (provide 'djr-focus-mode)

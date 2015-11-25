@@ -82,9 +82,11 @@
 
 (defun djr/make-fullscreen ()
   (interactive)
-  (set-frame-parameter
-   nil 'fullscreen
-   'fullboth))
+  (set-frame-parameter nil 'fullscreen 'fullboth))
+
+(defun djr/no-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen 'fullscreen-restore))
 
 (defun djr/pull ()
   "Pull information sources (moving away from push based)"
