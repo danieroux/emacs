@@ -1,3 +1,4 @@
+;; Consider helm-dash-browser-func set to eww
 (use-package dash-at-point
   :ensure t
   :commands dash-at-point

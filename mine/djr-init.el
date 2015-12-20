@@ -7,7 +7,8 @@
 (defconst emacs-start-time (current-time))
 
 (unless noninteractive
-  (message "Loading %s..." load-file-name))
+  (message "Loading %s..." load-file-name)
+  (setq debug-on-error t))
 
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d/mine") 0)
 

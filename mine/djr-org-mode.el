@@ -494,6 +494,8 @@
     (global-set-key (kbd "C-c A") 'org-agenda)
     (global-set-key (kbd "<f12>") 'djr/agenda-notebook)
     (global-set-key (kbd "S-<f12>") 'djr/agenda-home)
+    ;; https://www.reddit.com/r/emacs/comments/3tn1ba/orgmode_homerowbindings_for_changing_level_etc/cx7r2l4
+
     ;;(global-set-key (kbd "C-c N") 'djr/agenda-notebook)
 
     (defun djr/enter-org-speedmode ()
