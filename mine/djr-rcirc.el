@@ -91,12 +91,19 @@
       (when (cdr (window-list nil 'nomini))
         (delete-window)))
 
+    (defun djr/rcirc-clear-screen-and-next-activity ()
+      (interactive)
+      (when (equal major-mode 'rcirc-mode)
+        (djr/rcirc-clear-screen))
+      (call-interactively 'rcirc-next-active-buffer))
+
     (defun djr/rcirc-clear-screen ()
       (interactive)
       (rcirc-clear-unread (current-buffer))
       (endless/bury-buffer))
 
-    (bind-key "C-l" 'djr/rcirc-clear-screen rcirc-mode-map)
+    (bind-key "C-c C-@" 'djr/rcirc-clear-screen-and-next-activity rcirc-track-minor-mode-map)
+    (bind-key "C-c C-SPC" 'djr/rcirc-clear-screen-and-next-activity rcirc-track-minor-mode-map)
 
     (add-hook 'rcirc-mode-hook 'djr/rcirc-mode-setup)
 
