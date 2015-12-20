@@ -5,6 +5,10 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
-  (setq company-idle-delay 0.2))
+  (progn
+    (use-package company-emoji
+      :ensure t
+      :init (company-emoji-init))
+    (setq company-idle-delay 0.2)))
 
 (provide 'djr-company)
