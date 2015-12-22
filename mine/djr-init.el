@@ -98,6 +98,7 @@
 (use-package djr-modeline)
 (use-package djr-rainbow-delimiters)
 (use-package djr-helm)
+(use-package djr-counsel)
 (use-package djr-projectile)
 (use-package djr-guru-mode)
 (use-package djr-eshell)

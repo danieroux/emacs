@@ -5,6 +5,6 @@
   :commands magit-status
   :ensure t
   :config
-  (setq magit-completing-read-function 'magit-ido-completing-read))
+  (setq magit-completing-read-function 'ivy-completing-read))
 
 (provide 'djr-magit)
