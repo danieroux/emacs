@@ -61,6 +61,12 @@
       (djr/general-to-less-general-slack-channel-name)
       (set (make-local-variable 'scroll-conservatively) 8192))
 
+    ;; Override
+    (defun rcirc-short-buffer-name (buffer)
+      "Override to ignore rcirc-short-buffer-name var - and to always use the real buffer-name"
+      (with-current-buffer buffer
+        (buffer-name)))
+
     ;; Swallow KEEPALIVE messages with a sledgehammer.
     (defun rcirc-handler-NOTICE (process sender args text))
 
