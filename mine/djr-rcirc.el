@@ -11,6 +11,7 @@
   (setq rcirc-prompt "%n %t> "
         rcirc-scroll-show-maximum-output nil
         rcirc-omit-responses '("AWAY" "MODE")
+        rcirc-omit-threshold 0
         rcirc-fill-flag nil
         rcirc-log-flag t
         rcirc-trap-errors-flag nil
