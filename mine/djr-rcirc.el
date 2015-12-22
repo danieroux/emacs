@@ -1,3 +1,7 @@
+(use-package s)
+(use-package dash)
+(use-package ivy)
+
 (use-package rcirc
   :defer t
   :commands rcirc
@@ -44,6 +48,26 @@
       (interactive)
       (rename-buffer
        (djr/general-to-less-general-slack-channel-name-1 (buffer-name))))
+
+    (defun djr/rcirc-is-server-buffer-p (buf)
+      (with-current-buffer buf rcirc-buffer-alist))
+
+    (defun djr/rcirc-chat-buffers ()
+      (-filter
+       (lambda (buf)
+         (and
+          (eq 'rcirc-mode (with-current-buffer buf major-mode))
+          (not (djr/rcirc-is-server-buffer-p buf))))
+       (buffer-list)))
+
+    (defun djr/ivy-rcirc-buffers ()
+      (interactive)
+      (ivy-read
+       "IRC buffers:"
+       (mapcar (lambda (buffer)
+                 (cons (buffer-name buffer) buffer))
+               (djr/rcirc-chat-buffers))
+       :action (lambda (buffer) (switch-to-buffer buffer))))
 
     (defun djr/general-to-less-general-slack-channel-name-1 (a-buffer-name)
       "Turns #general@znc-slackserver into #slackserver-g@znc-slackserver, or leaves buffer-name the same"
@@ -128,6 +152,7 @@
 
     (bind-key "C-c C-@" 'djr/rcirc-clear-screen-and-next-activity rcirc-track-minor-mode-map)
     (bind-key "C-c C-SPC" 'djr/rcirc-clear-screen-and-next-activity rcirc-track-minor-mode-map)
+    (bind-key "C-c SPC" 'djr/ivy-rcirc-buffers)
 
     (add-hook 'rcirc-mode-hook 'djr/rcirc-mode-setup)
 
