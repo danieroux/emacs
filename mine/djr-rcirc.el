@@ -40,13 +40,26 @@
 
     (set-face-foreground 'rcirc-dim-nick "grey" nil)
 
+    (defun djr/general-to-less-general-slack-channel-name ()
+      (interactive)
+      (rename-buffer
+       (djr/general-to-less-general-slack-channel-name-1 (buffer-name))))
+
+    (defun djr/general-to-less-general-slack-channel-name-1 (a-buffer-name)
+      "Turns #general@znc-slackserver into #slackserver-g@znc-slackserver, or leaves buffer-name the same"
+      (if (s-starts-with? "#general" a-buffer-name)
+          (let* ((server (second (s-split "@znc-" a-buffer-name))))
+            (format "#%s-g@znc-%s" server server))
+        a-buffer-name))
+
     (defun djr/rcirc-mode-setup ()
       (interactive)
       (setq rcirc-omit-mode nil)
       (rcirc-omit-mode)
+      (emojify-mode)
+      (flyspell-mode 1)
+      (djr/general-to-less-general-slack-channel-name)
       (set (make-local-variable 'scroll-conservatively) 8192))
-
-    (flyspell-mode 1)
 
     ;; Swallow KEEPALIVE messages with a sledgehammer.
     (defun rcirc-handler-NOTICE (process sender args text))
@@ -101,6 +114,11 @@
       (interactive)
       (rcirc-clear-unread (current-buffer))
       (endless/bury-buffer))
+
+    (defun djr/rcirc-fixup-modestring ()
+      (interactive)
+      (setq global-mode-string '(""))
+      (setq global-mode-string (append global-mode-string '(rcirc-activity-string))))
 
     (bind-key "C-c C-@" 'djr/rcirc-clear-screen-and-next-activity rcirc-track-minor-mode-map)
     (bind-key "C-c C-SPC" 'djr/rcirc-clear-screen-and-next-activity rcirc-track-minor-mode-map)
