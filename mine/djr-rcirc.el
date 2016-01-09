@@ -64,7 +64,7 @@
     (defun djr/ivy-rcirc-buffers ()
       (interactive)
       (ivy-read
-       "IRC buffers:"
+       "IRC buffers: "
        (mapcar (lambda (buffer)
                  (cons (buffer-name buffer) buffer))
                (djr/rcirc-chat-buffers))
