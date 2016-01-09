@@ -107,7 +107,7 @@
           org-id-link-to-org-use-id t)
 
     ;; Todo config
-    (setq org-todo-keywords (quote ((sequence "NEXT(n)" "MAYBE(m)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
+    (setq org-todo-keywords (quote ((sequence "NEXT(n)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(z) | NOTE(t)"))))
 
     (setq djr-single-task-header-id "C3478345-CEEF-497D-97EF-32AB278FBCF3")
 
@@ -351,6 +351,7 @@
             (run-with-idle-timer
              (* 60 secs) nil 'djr/org-mobile-push-agendas-org-only)))
 
+    ;; org-mobile
     (when *my-primary-emacs-instance*
       (add-hook 'after-save-hook
                 (lambda ()
@@ -359,7 +360,25 @@
                       (if (string= (expand-file-name (car file)) (buffer-file-name))
                           (org-mobile-push-with-delay 30)))))))
 
+
     (run-at-time "00:05" 86400 '(lambda () (org-mobile-push-with-delay 1))) ;; refreshes agenda file each day
+
+    ;; org-todotxt
+
+    (use-package org-todotxt)
+
+    (defun djr/org-todotxt-auto-push-all-agendas ()
+      (org-todotxt-push "~/Dropbox/Apps/Simpletask App Folder/todo.txt")
+      (org-todotxt-push "~/Dropbox/todo/clockwork-todo.txt"))
+
+    (setq org-todotxt-auto-push-function 'djr/org-todotxt-auto-push-all-agendas)
+    (setq org-todotxt-auto-push-file-list `(,gtd-file))
+    (setq org-todotxt-auto-push-delay 1)
+
+    (when *my-primary-emacs-instance*
+      (org-todotxt-install-after-save-hook))
+
+    ;; Archive
 
     (setq org-archive-default-command (quote org-archive-to-archive-sibling)
           org-archive-location "%s_archive.gpg::")
@@ -369,8 +388,6 @@
 
     ;; Compact the block agenda view
     (setq org-agenda-compact-blocks t)
-
-    (setq org-agenda-sticky nil)
 
     (setq org-enforce-todo-checkbox-dependencies t
           org-enforce-todo-dependencies t)
