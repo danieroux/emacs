@@ -24,6 +24,12 @@
 	  (lambda ()
 	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)))
 
+(defun tpa ()
+  (interactive)
+  (message "%s" (text-properties-at (point))))
+
+(define-key evil-normal-state-map (kbd "Q") 'tpa)
+
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (define-key evil-normal-state-local-map (kbd "M-.") 'org-open-at-point)))
