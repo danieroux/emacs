@@ -6,7 +6,8 @@
           ("C-h f" . counsel-describe-function)
           ("C-h v" . counsel-describe-variable)
           ("C-c C-r" . ivy-resume))
-  :init
+
+  :config
   (unbind-key "C-j" icomplete-minibuffer-map)
   ;; Does not bind?
   (bind-key "C-j" 'ivy-alt-done ivy-minibuffer-map)
@@ -14,9 +15,9 @@
   (bind-key "<tab>" 'ivy-partial ivy-minibuffer-map)
   (bind-key "C-l" 'ivy-backward-delete-char ivy-minibuffer-map)
 
-  :config
+  (setq counsel-find-file-at-point t)
   (ivy-mode 1)
-  (setq ivy-display-style 'fancy)
-  (setq ivy-use-virtual-buffers t))
+  (setq ivy-display-style 'fancy
+        ivy-use-virtual-buffers t))
 
 (provide 'djr-counsel)
