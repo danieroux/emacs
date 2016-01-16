@@ -367,13 +367,18 @@
 
     (use-package org-todotxt)
 
+    (setq org-agenda-sticky nil)
+
     (defun djr/org-todotxt-auto-push-all-agendas ()
-      (org-todotxt-push "~/Dropbox/Apps/Simpletask App Folder/todo.txt")
+      (interactive)
+      (org-todotxt-sync "~/Dropbox/Apps/Simpletask App Folder/todo.txt")
       (org-todotxt-push "~/Dropbox/todo/clockwork-todo.txt"))
 
-    (setq org-todotxt-auto-push-function 'djr/org-todotxt-auto-push-all-agendas)
-    (setq org-todotxt-auto-push-file-list `(,gtd-file))
-    (setq org-todotxt-auto-push-delay 1)
+    (setq org-todotxt-auto-push-function 'djr/org-todotxt-auto-push-all-agendas
+          org-todotxt-auto-push-file-list `(,gtd-file)
+          org-todotxt-auto-push-delay 1
+          org-todotxt-inbox-for-pull inbox-file
+          org-todotxt-enable-sync t)
 
     (when *my-primary-emacs-instance*
       (org-todotxt-install-after-save-hook))
