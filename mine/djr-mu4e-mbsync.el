@@ -33,9 +33,6 @@
 (defvar djr/mbsync-command "mbsync")
 (defvar djr/mbsync-args '("-a"))
 
-;; (setq djr/mbsync-args '("danieroux:[Gmail]/Starred"))
-(setq djr/mbsync-args '("-a"))
-
 (defun djr/add-new-messages-and-possibly-rerun-sentinel (proc msg)
   (setq djr/mbsync-process nil)
 

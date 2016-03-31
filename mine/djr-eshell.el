@@ -15,7 +15,7 @@
 
     (add-hook 'eshell-mode-hook
 	      '(lambda ()
-		 (eshell/export "EDITOR=emacsclient --socket-name /tmp/danie-emacs-shared/server")
+                 (eshell/export "EDITOR=emacsclient --socket-name /tmp/danie-emacs-shared/server")
 		 (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)
 		 (eshell-smart-initialize)))
 
@@ -59,7 +59,7 @@
 	      (find-file file)
 	      (forward-line line))
 	  (find-file (pop args)))))
-  
+
     (defun eshell/ag (needle)
       (ag/search needle (eshell/pwd)))))
 

@@ -64,7 +64,7 @@
 	    'eshell-mode))
 
 (setq djr-mode-line-buffer-status
-      '(:eval (cond 
+      '(:eval (cond
 	       ((and (buffer-modified-p)
 		     (not (member major-mode djr-mode-line-modified-never-saveable)))
 		(propertize "*" 'face 'mode-line-buffer-status-face-modified))
@@ -76,7 +76,7 @@
 		  (propertize " Unsent Mail " 'face 'mode-line-mail-queued-face))))
 
 (setq djr-mode-line-evil-status
-      '(:eval (cond 
+      '(:eval (cond
 	       ((evil-normal-state-p)
 		(propertize "V" 'face 'mode-line-evil-status-normal-face))
 	       ((evil-insert-state-p)
@@ -90,12 +90,12 @@
 
 (setq djr-mode-line-buffer-name
       '(:eval (cond
-	       ((buffer-file-name)
-		(list
-		 (propertize (abbreviate-file-name (file-name-directory (buffer-file-name))) 'face 'mode-line-directory-face)
-		 (propertize (file-name-nondirectory (buffer-file-name)) 'face 'mode-line-filename-face)))
-	       (t
-		(propertize "%b" 'face 'mode-line-filename-face)))))
+               ((buffer-file-name)
+                (list
+                 (propertize (abbreviate-file-name (file-name-directory (buffer-file-name))) 'face 'mode-line-directory-face)
+                 (propertize (file-name-nondirectory (buffer-file-name)) 'face 'mode-line-filename-face)))
+               (t
+                (propertize "%b" 'face 'mode-line-filename-face)))))
 
 (setq djr-mode-line-mode-name
       '(:eval (cond
@@ -109,7 +109,7 @@
                 (spinner-print spinner-current))
 	       (t "-- "))))
 
-(setq djr-mode-line-format 
+(setq djr-mode-line-format
       (list djr-mode-line-possible-spinner
 	    djr-mode-line-mail-status
 	    djr-mode-line-evil-status

@@ -6,6 +6,8 @@
 
 (setq org-mu4e-link-query-in-headers-mode nil)
 
+(setq djr~mu4e-to-org-continue-fun nil)
+
 ;;; Define djr/mu4e-to-org that turns an email query into an OrgMode file
 
 (defun djr~mu4e-message-to-orgline (msg &optional point)
@@ -15,8 +17,6 @@
     (progn
       (insert (format "* [[mu4e:msgid:%s][%s]]" msgid subject))
       (newline))))
-
-(setq djr~mu4e-to-org-continue-fun nil)
 
 (defun djr~mu4e-write-file (count)
   (switch-to-buffer djr~mu4e-inbox-buffer-name)

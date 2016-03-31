@@ -9,6 +9,7 @@
   :mode ("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode)
 
   :init
+
   (setq org-modules (quote (org-habit)))
 
   :config
@@ -69,12 +70,7 @@
           period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
           blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
 
-    (setq org-agenda-files `( ;; "~/Dropbox/Documents"
-                             ;; "~/Dropbox/Documents/gtd" 
-                             ;; ,brain-file 
-                             ,gtd-file
-                             ,consulting-file
-                             ))
+    (setq org-agenda-files `(,gtd-file ,consulting-file))
 
     (setq org-directory "~/Dropbox/Documents/gtd")
 
