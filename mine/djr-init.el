@@ -115,6 +115,7 @@
 (use-package djr-intellij)
 (use-package djr-focus-mode)
 (use-package djr-rcirc)
+(use-package djr-typo)
 
 (use-package djr-smalls)
 
