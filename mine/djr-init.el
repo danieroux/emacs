@@ -8,7 +8,8 @@
 
 (unless noninteractive
   (message "Loading %s..." load-file-name)
-  (setq debug-on-error t))
+  (setq debug-on-error t
+        debug-on-quit t))
 
 ;; (byte-recompile-directory (expand-file-name "~/.emacs.d/mine") 0)
 
@@ -153,7 +154,7 @@
 (set-selection-coding-system 'utf-8)
 (set-input-method nil)
 
-(icomplete-mode 1) 
+(icomplete-mode 1)
 
 (delete-selection-mode 1)
 
