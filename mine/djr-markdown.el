@@ -4,7 +4,7 @@
   :ensure t
   :commands markdown-mode
   :pin "melpa"
-  :mode ("\\.md\\'" . markdown-mode)
+  :mode ("\\.\\(md\\|\\|txt\\)$" . markdown-mode)
   :config
 
   (setq markdown-command "pandoc -s -f markdown -t html5")

@@ -116,6 +116,7 @@
 (use-package djr-focus-mode)
 (use-package djr-rcirc)
 (use-package djr-typo)
+(use-package djr-deft)
 
 (use-package djr-smalls)
 
