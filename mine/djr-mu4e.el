@@ -9,12 +9,10 @@
     (defvar djr-mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail]/.Starred) AND NOT flag:trashed" "What I consider to be my 'inbox'")
 
     (setq mu4e-bookmarks `((,djr-mu4e-combined-inbox-bookmark                         "Act-on inbox"                  ?i)
-                           ("flag:unread AND NOT maildir:/me AND NOT flag:trashed"    "Unread messages"               ?v)
-                           ("maildir:/INBOX AND flag:unread AND NOT flag:trashed"     "Unread to me"                  ?m)
-                           ("maildir:/INBOX AND flag:replied AND NOT flag:trashed"    "Replied to me"                 ?r)
-                           ("mime:application/pdf AND NOT flag:thrashed"              "Messages with PDFs"            ?p)))
+                           ((concat ,djr-mu4e-combined-inbox-bookmark " AND flag:unread")    "Unread to me"                  ?m)
+                           ("flag:unread AND NOT flag:trashed"  "Unread messages"               ?v)))
 
-    (setq mu4e-maildir (expand-file-name "~/Mail"))
+    (setq mu4e-maildir (expand-file-name "~/Maildir"))
     (setq mu4e-drafts-folder "/[Gmail]/.Drafts")
     (setq mu4e-sent-folder   "/[Gmail]/.Sent Mail")
 
@@ -30,7 +28,6 @@
     ;; Not synced
     (setq mu4e-trash-folder  "/not-really-trash")
     (setq mu4e-refile-folder "/gtd")
-
     (setq mail-host-address "weft"
           mu4e-get-mail-command "true")
 
@@ -124,6 +121,10 @@
 (defun djr/mu4e-mark-thread-as-read ()
   (interactive)
   (mu4e-headers-mark-thread-using-markpair '(read)))
+
+(defun djr/mu4e-mark-thread-as-deleted ()
+  (interactive)
+  (mu4e-headers-mark-thread-using-markpair '(delete)))
 
 (defun djr/mu4e-open-message-in-google (msg)
   (let* ((msgid (mu4e-message-field msg :message-id))
