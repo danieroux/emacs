@@ -336,29 +336,6 @@
                                         ; Use fundamental mode when editing plantuml blocks with C-c '
     (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
 
-    ;; https://github.com/matburt/mobileorg-android/wiki/FAQ#wiki-How_do_I_get_orgmode_to_execute_orgmobilepush_automatically
-    (defvar org-mobile-push-timer nil
-      "Timer that `org-mobile-push-timer' used to reschedule itself, or nil.")
-
-    (defun org-mobile-push-with-delay (secs)
-      (when org-mobile-push-timer
-        (cancel-timer org-mobile-push-timer))
-      (setq org-mobile-push-timer
-            (run-with-idle-timer
-             (* 60 secs) nil 'djr/org-mobile-push-agendas-org-only)))
-
-    ;; org-mobile
-    (when *my-primary-emacs-instance*
-      (add-hook 'after-save-hook
-                (lambda ()
-                  (when (eq major-mode 'org-mode)
-                    (dolist (file (org-mobile-files-alist))
-                      (if (string= (expand-file-name (car file)) (buffer-file-name))
-                          (org-mobile-push-with-delay 30)))))))
-
-
-    (run-at-time "00:05" 86400 '(lambda () (org-mobile-push-with-delay 1))) ;; refreshes agenda file each day
-
     ;; org-todotxt
 
     (use-package org-todotxt)
