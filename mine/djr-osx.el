@@ -1,4 +1,4 @@
-(require 'djr-addressbook)
+;; (require 'djr-addressbook)
 
 (setq *osx* t)
 
