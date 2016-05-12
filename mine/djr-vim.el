@@ -3,6 +3,28 @@
 ;; Before require evil
 (setq evil-want-C-i-jump nil)
 
+(use-package evil-leader
+  :ensure t
+  :init (global-evil-leader-mode)
+  :config
+  
+  (progn
+    (setq evil-leader/leader ","
+          evil-leader/no-prefix-mode-rx '(".*")
+          evil-leader/in-all-states t)
+
+    (evil-leader/set-key
+      "a" 'djr/show-org-agenda-refreshing-if-empty
+      "c" 'org-capture
+      "d" 'deft
+      "i" 'id-manager
+      "m" 'hydra-mail/body
+      "f" 'darkroom-mode
+      "A" 'org-agenda
+      ;; There should be A Better Way
+      "SPC" (lambda () (interactive) (insert ", "))
+      "RET" (lambda () (interactive) (insert ",") (newline)))))
+
 (use-package evil
   :ensure t
   :pin "melpa"
