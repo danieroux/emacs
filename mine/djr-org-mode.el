@@ -14,7 +14,7 @@
 
   :config
   (progn
-    (when *osx*
+    (when (equal system-type 'darwin)
       (use-package org-mac-link
         :load-path ("/Users/danie/dotfiles/emacs.d/external/org-mode/contrib/lisp"))
 

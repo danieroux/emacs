@@ -30,7 +30,7 @@
     (setq mail-host-address "weft"
           mu4e-get-mail-command "true")
 
-    (when *osx*
+    (when (equal system-type 'darwin)
       (progn
         (setq mu4e-mu-binary "/usr/local/bin/mu"
               mail-host-address "danie-notebook")))

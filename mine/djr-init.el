@@ -87,7 +87,6 @@
 (use-package djr-spinner)
 (use-package djr-hydra)
 (use-package djr-vim)
-(use-package djr-org-mode :if *my-primary-emacs-instance*)
 (use-package djr-clean-emacs-directory)
 (use-package djr-dired)
 ;; (use-package djr-paredit)
@@ -112,7 +111,6 @@
 (use-package djr-markdown)
 (use-package djr-spell)
 (use-package djr-ggtags)
-(use-package djr-password-manager)
 (use-package djr-flycheck)
 (use-package djr-intellij)
 (use-package djr-focus-mode)
@@ -122,7 +120,9 @@
 
 (use-package djr-smalls)
 
-(when *my-primary-emacs-instance*
+(when (equal system-type 'darwin)
+  (use-package djr-org-mode)
+  (use-package djr-password-manager)
   (use-package djr-really-autosave)
   (use-package djr-mu4e)
   (use-package djr-twitter)
@@ -179,8 +179,8 @@
 
 (setq server-socket-dir "/tmp/danie-emacs-shared")
 
-(when *my-primary-emacs-instance*
-  (server-start)
+(server-start)
+(when (equal system-type 'darwin)
   (use-package djr-mu4e-mbsync)
   (djr/sync-mail-and-update-mu4e))
 
