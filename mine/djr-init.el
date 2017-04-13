@@ -8,6 +8,7 @@
 
 (unless noninteractive
   (message "Loading %s..." load-file-name)
+  
   (setq debug-on-error t
         debug-on-quit t))
 
@@ -130,9 +131,6 @@
   (use-package djr-chrome-editboxes)
   (use-package djr-gmail-message-mode)
   (use-package djr-frequency))
-
-(unless *my-primary-emacs-instance*
-  (use-package djr-erc))
 
 (use-package djr-history)
 (use-package djr-keybindings)

@@ -16,7 +16,6 @@
     (setq mu4e-drafts-folder "/[Gmail]/.Drafts")
     (setq mu4e-sent-folder   "/[Gmail]/.Sent Mail")
 
-
     ;; don't save message to Sent Messages, GMail/IMAP will take care of this
     (setq mu4e-sent-messages-behavior 'delete)
 
@@ -66,6 +65,9 @@
     ;; mu4e~view-copy-contact c or C-c
     (add-hook 'mu4e-view-mode-hook 'goto-address-mode)
     (add-hook 'mu4e-compose-mode-hook 'turn-off-auto-fill)
+    ;; Hack. The cache sometimes gets lost or is never initialised
+    (add-hook 'mu4e-compose-mode-hook (lambda () (if (not mu4e~contacts)
+                                                (mu4e~request-contacts))))
 
     (add-hook 'mu4e-headers-mode-hook
               (lambda ()
@@ -73,6 +75,7 @@
                 (define-key mu4e-headers-mode-map "M" 'mu4e~main-toggle-mail-sending-mode)
                 ;; If I go to the next message, it means I want the current thread as read.
                 (define-key mu4e-headers-mode-map "n" 'djr/mu4e-mark-thread-as-read)
+                (define-key mu4e-headers-mode-map "D" 'djr/mu4e-mark-thread-as-deleted)
                 (define-key mu4e-headers-mode-map "d" 'mu4e-headers-mark-for-delete)
                 (define-key mu4e-headers-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
@@ -100,7 +103,7 @@
         mail-user-agent 'mu4e-user-agent
         smtpmail-smtp-service 465
 
-        smtpmail-queue-mail t
+        smtpmail-queue-mail nil
         smtpmail-queue-dir (concat mu4e-maildir "/mu4e-queue")))
 
 (defun djr/mu4e-inbox ()

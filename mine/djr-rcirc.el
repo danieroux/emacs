@@ -13,6 +13,7 @@
         rcirc-omit-responses '("AWAY" "MODE")
         rcirc-omit-threshold 0
         rcirc-fill-flag nil
+        rcirc-debug-flag t
         rcirc-log-flag t
         rcirc-trap-errors-flag nil
         rcirc-kill-channel-buffers t)
@@ -50,16 +51,24 @@
       (rename-buffer
        (djr/general-to-less-general-slack-channel-name-1 (buffer-name))))
 
-    (defun djr/rcirc-is-server-buffer-p (buf)
+    (defun djr//rcirc-is-server-buffer-p (buf)
       (with-current-buffer buf rcirc-buffer-alist))
 
-    (defun djr/rcirc-chat-buffers ()
+    (defun djr//rcirc-chat-buffers ()
       (-filter
        (lambda (buf)
          (and
           (eq 'rcirc-mode (with-current-buffer buf major-mode))
-          (not (djr/rcirc-is-server-buffer-p buf))))
+          (not (djr//rcirc-is-server-buffer-p buf))))
        (buffer-list)))
+
+    ;; Adapted from rcirc.el
+    (defun djr//rcirc-chat-buffers-sorted-by-last-activity ()
+      (sort (djr//rcirc-chat-buffers)
+            (lambda (b1 b2)
+              (let ((t1 (with-current-buffer b1 rcirc-last-post-time))
+                    (t2 (with-current-buffer b2 rcirc-last-post-time)))
+                (time-less-p t2 t1)))))
 
     (defun djr/ivy-rcirc-buffers ()
       (interactive)
@@ -67,7 +76,7 @@
        "IRC buffers: "
        (mapcar (lambda (buffer)
                  (cons (buffer-name buffer) buffer))
-               (djr/rcirc-chat-buffers))
+               (djr//rcirc-chat-buffers-sorted-by-last-activity))
        :action (lambda (buffer) (switch-to-buffer buffer))))
 
     (defun djr/general-to-less-general-slack-channel-name-1 (a-buffer-name)
@@ -93,10 +102,10 @@
         (buffer-name)))
 
     ;; Swallow KEEPALIVE messages with a sledgehammer.
-    (defun rcirc-handler-NOTICE (process sender args text))
+    ;; (defun rcirc-handler-NOTICE (process sender args text))
 
     ;; Slack does not set a topic, and breaks this handler. So stop handling topics as a quickfix.
-    (defun rcirc-handler-333 (process sender args _text))
+    ;; (defun rcirc-handler-333 (process sender args _text))
 
     (defun-rcirc-command slack (arg)
       "Open slack in the browser for this IRC integration"

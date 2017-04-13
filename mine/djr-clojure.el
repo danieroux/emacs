@@ -14,6 +14,11 @@
       (add-hook 'cider-repl-mode-hook #'subword-mode)
       (add-hook 'cider-mode-hook #'eldoc-mode)
 
+      (setq cider-cljs-lein-repl
+      "(do (require 'figwheel-sidecar.repl-api)
+           (figwheel-sidecar.repl-api/start-figwheel!)
+           (figwheel-sidecar.repl-api/cljs-repl))")
+
       (setq cider-show-error-buffer nil
 	    cider-repl-history-file "~/.cider_history"
 	    cider-popup-stacktraces-in-repl t

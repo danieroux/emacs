@@ -22,4 +22,11 @@
   :ensure t
   :mode ("\\.ad\\'" . adoc-mode))
 
+(use-package csv-mode
+  :ensure t)
+
+;(use-package git-gutter
+;  :ensure t
+;  :config (global-git-gutter-mode +1))
+
 (provide 'djr-smalls)

@@ -46,6 +46,7 @@
 		    makey-key-mode
                     haskell-error-mode
                     rcirc-groups-mode
+                    dig-mode
 		    *idm-record-dialog*))
       (push mode evil-emacs-state-modes))
     (delete 'rcirc-mode evil-emacs-state-modes)))

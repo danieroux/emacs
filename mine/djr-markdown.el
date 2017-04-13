@@ -7,7 +7,8 @@
   :mode ("\\.\\(md\\|\\|txt\\)$" . markdown-mode)
   :config
 
-  (setq markdown-command "pandoc -s -f markdown -t html5")
+  (setq markdown-command "pandoc -s -f markdown -t html")
+  (setq markdown-open-command "/usr/local/bin/pandoc -t latex -o /tmp/markdown.pdf")
 
   ;; (use-package markdown-preview-mode :ensure t)
   )

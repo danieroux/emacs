@@ -16,7 +16,19 @@
       :config
 
       (progn
+
+        ;; Redefine, to add aac
+        (define-emms-simple-player mpv '(file url streamlist playlist)
+          (concat "\\`\\(http\\|mms\\)://\\|"
+                  (emms-player-simple-regexp
+                   "ogg" "mp3" "wav" "mpg" "mpeg" "wmv" "wma"
+                   "mov" "avi" "divx" "ogm" "ogv" "asf" "mkv"
+                   "rm" "rmvb" "mp4" "flac" "vob" "m4a" "ape"
+                   "flv" "webm" "aac"))
+          "mpv" "--quiet" "--really-quiet")
+
         (add-to-list 'emms-player-list 'emms-player-mpv)
+
 
         ;; Break the emms model. emms wants to control the playing object. Be that playlist or file.
         ;; And really wants to go next - away from the current playlist
@@ -31,23 +43,6 @@
           (interactive)
           (let ((cmd (emms-player-mpv--format-command "playlist-previous")))
             (call-process-shell-command cmd nil nil nil)))))
-
-    ;; https://www.gnu.org/software/emms/manual/Using-TagLib.html
-    ;; (require 'emms-info-libtag)
-    ;; (setq emms-info-libtag-program-name "~/.emacs.d/external/emms/src/emms-print-metadata")
-    ;; (setq emms-info-functions '(emms-info-libtag))
-
-    (setq emms-source-file-default-directory "~/Music")
-
-    ;; Filters don't work for me. I want to script what I'm playing, not setup filters to apply
-    ;; (emms-browser-make-filter "the-chaconne" (emms-browser-filter-only-dir "~/Music/the-chaconne"))
-
-    (defun djr/emms-play-the-chaconne ()
-      (interactive)
-      (djr/emms-play-least-heard-first
-       "The Bach Chaconne"
-       '(lambda ()
-          (emms-add-directory "~/Music/the-chaconne"))))
 
     (defvar gmusicproxy-command "GMusicProxy --email <email> --password <password>"
       "Startup command for GMusicProxy (http://gmusicproxy.net)")
@@ -100,6 +95,13 @@
       (let ((url (url-encode-url (format "http://localhost:9999/get_by_search?type=artist&artist=%s&num_tracks=100" artist-search))))
         (emms-play-streamlist url)))
 
+    (defun djr/emms-play-the-chaconne ()
+      (interactive)
+      (djr/emms-play-least-heard-first
+       "The Bach Chaconne"
+       '(lambda ()
+          (emms-add-directory "~/Music/the-chaconne"))))
+
     (defun djr/emms-start-local-music-or-pause ()
       (interactive)
       (if emms-player-playing-p
@@ -113,6 +115,10 @@
 
     (defun djr/emms-streaming-p ()
       (eq 'streamlist (emms-track-type (emms-playlist-current-selected-track))))
+
+    (defun djr/emms-play-france-inter ()
+      (interactive)
+      (emms-play-streamlist "http://www.listenlive.eu/franceinter128.m3u"))
 
     (defun djr/emms-next ()
       (interactive)

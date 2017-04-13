@@ -68,6 +68,7 @@
           brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
           conversations-file "~/Dropbox/Documents/gtd/conversations.org"
           period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
+          daily-log-file "~/Dropbox/Documents/journal/daily.org.gpg"
           blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
 
     (setq org-agenda-files `(,gtd-file ,consulting-file))
@@ -147,9 +148,12 @@
   %u
 %a")
 
-                                  ("d" "daily" entry (file ,period-log-file) "* %U
+                                  ("p" "period" entry (file ,period-log-file) "* %U
 
 %?")
+                                  ("d" "daily" entry (file ,daily-log-file) "* %U
+
+- %?")
                                   ("D" "dream" entry (file "~/Dropbox/Documents/journal/dream.org.gpg") "* %U
 
 %?")
@@ -279,6 +283,8 @@
           org-refile-use-outline-path (quote file)
           org-outline-path-complete-in-steps nil
           org-refile-allow-creating-parent-nodes nil)
+
+    (setq org-use-sub-superscripts nil)
 
     ;; Clocking
     (use-package bh-org-mode)

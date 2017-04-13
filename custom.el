@@ -167,7 +167,7 @@
       (1.7000000000000002 . 3.44)))))
  '(package-selected-packages
    (quote
-    (emms-player-mpv g-music deft typo markdown-preview-mode f org-todotxt counsel ivy magit-gh-pulls company-emoji emojify ido-completing-read+ history keyfreq gmail-message-mode edit-server emms elfeed twittering-mode adoc-mode discover dash-at-point beacon google-this rcirc-groups rcirc-color rcirc-notify flycheck id-manager ggtags markdown-mode company-ghc ghc haskell-mode company elisp-slime-nav shell-switcher guru-mode ag helm-projectile projectile helm rainbow-delimiters magit multiple-cursors expand-region xml-rpc cider lispy org-pomodoro ace-jump-mode evil hydra spinner zenburn-theme)))
+    (oauth2 darkroom key-chord evil-leader git-gutter csv-mode emms-player-mpv g-music deft typo markdown-preview-mode f org-todotxt counsel ivy magit-gh-pulls company-emoji emojify ido-completing-read+ history keyfreq gmail-message-mode edit-server emms elfeed twittering-mode adoc-mode discover dash-at-point beacon google-this rcirc-groups rcirc-color rcirc-notify flycheck id-manager ggtags markdown-mode company-ghc ghc haskell-mode company elisp-slime-nav shell-switcher guru-mode ag helm-projectile projectile helm rainbow-delimiters magit multiple-cursors expand-region xml-rpc cider lispy org-pomodoro ace-jump-mode evil hydra spinner zenburn-theme)))
  '(safe-local-variable-values (quote ((my-org-really-auto-save)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
