@@ -353,14 +353,14 @@
       (org-todotxt-sync "~/Dropbox/Apps/Simpletask App Folder/todo.txt")
       (org-todotxt-push "~/Dropbox/todo/clockwork-todo.txt"))
 
-    (setq org-todotxt-auto-push-function 'djr/org-todotxt-auto-push-all-agendas
-          org-todotxt-auto-push-file-list `(,gtd-file)
-          org-todotxt-auto-push-delay 1
-          org-todotxt-inbox-for-pull inbox-file
-          org-todotxt-enable-sync t)
+    ;; (setq org-todotxt-auto-push-function 'djr/org-todotxt-auto-push-all-agendas
+    ;;       org-todotxt-auto-push-file-list `(,gtd-file)
+    ;;       org-todotxt-auto-push-delay 1
+    ;;       org-todotxt-inbox-for-pull inbox-file
+    ;;       org-todotxt-enable-sync )
 
-    (when *my-primary-emacs-instance*
-      (org-todotxt-install-after-save-hook))
+    ;; (when *my-primary-emacs-instance*
+    ;;   (org-todotxt-install-after-save-hook))
 
     ;; Archive
 

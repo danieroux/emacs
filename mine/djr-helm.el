@@ -2,19 +2,17 @@
   :ensure helm
   :pin "melpa"
   :bind* (("M-SPC" . helm-mini)
-	  ;; ("M-x" . helm-M-x)
+	  ("M-x" . helm-M-x)
 	  ;; helm-semantic-or-imenu
 	  ("M-:" . helm-eval-expression-with-eldoc)
-	  ;; ("M-o" . helm-find-files)
-          )
+	  ("M-o" . helm-find-files))
   :init
   (progn
     (use-package helm-files)
     (helm-autoresize-mode 1)
 
     ;; Make all functions in Emacs that use `completing-read'or `read-file-name' and friends use helm interface
-    ;; Trying ivy-mode for a while instead
-    ;; (helm-mode)
+    (helm-mode)
     (unless helm-source-buffers-list
       (setq helm-source-buffers-list
 	    (helm-make-source "Buffers" 'helm-source-buffers)))
