@@ -15,7 +15,7 @@
 
     (add-hook 'eshell-mode-hook
 	      '(lambda ()
-                 (eshell/export "EDITOR=emacsclient --socket-name /tmp/danie-emacs-shared/server")
+                 (eshell/export "EDITOR=emacsclient --socket-name ~/.emacs-server-shared")
 		 (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map)
 		 (eshell-smart-initialize)))
 

@@ -9,7 +9,8 @@
     (setq my-affected-bindings-list '(("C-x b" "M-SPC" ido-switch-buffer)
 				      ("C-x C-f" "M-o" ido-find-file)
 				      ;; ("C-x 1" "M-z" delete-other-windows)
-				      ("C-x o" "M-j" other-window)))
+				      ;; ("C-x o" "M-j" other-window)
+                                      ))
 
     (dolist (cell my-affected-bindings-list)
       (let ((original-key (car cell))

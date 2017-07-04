@@ -177,7 +177,7 @@
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (load custom-file 'noerror)
 
-(setq server-socket-dir "/tmp/danie-emacs-shared")
+(setq server-socket-dir "~/.emacs-server-shared")
 
 (server-start)
 (when (equal system-type 'darwin)
