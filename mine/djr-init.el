@@ -180,6 +180,7 @@
 (setq server-socket-dir "~/.emacs-server-shared")
 
 (server-start)
+
 (when (equal system-type 'darwin)
   (use-package djr-mu4e-mbsync)
   (djr/sync-mail-and-update-mu4e))

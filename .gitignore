@@ -27,3 +27,6 @@ external/org-mode-installed
 /var/
 /.DS_Store
 /emojis
+/.cask/
+/network-security.data
+/oauth2.plstore

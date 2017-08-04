@@ -131,8 +131,7 @@
 
 (defun djr/mu4e-open-message-in-google (msg)
   (let* ((msgid (mu4e-message-field msg :message-id))
-         (url (concat "https://mail.google.com/mail/u/0/?shva=1#search/rfc822msgid%3A"
-                      (url-encode-url msgid))))
+         (url (concat "https://inbox.google.com/search/rfc822msgid%3A" (url-encode-url msgid))))
     (start-process "" nil "open" url)))
 
 ;; http://www.emacswiki.org/emacs/FlySpell#toc5
