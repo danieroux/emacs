@@ -1,7 +1,7 @@
 (use-package darkroom
   :ensure t
   :commands (djr/darkroom darkroom-mode)
-  
+  :init (add-hook 'darkroom-mode-hook 'scroll-lock-mode)
   :config (setq darkroom-text-scale-increase 2))
 
 ;;; 
