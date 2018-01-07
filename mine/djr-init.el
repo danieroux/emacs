@@ -91,6 +91,7 @@
 (use-package djr-dired)
 ;; (use-package djr-paredit)
 (use-package djr-lispy)
+(use-package djr-smartparens)
 (use-package djr-clojure)
 ;; (use-package djr-blog)
 (use-package djr-expand-region)
