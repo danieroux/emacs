@@ -16,14 +16,6 @@
 (global-set-key (kbd "C-x 2") 'djr/split-window-below)
 (global-set-key (kbd "C-x 3") 'djr/split-window-right)
 
-(add-hook 'cider-mode-hook
-	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)))
-
-(add-hook 'clojure-mode-hook
-	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "M-.") 'cider-jump-to-var)))
-
 (defun tpa ()
   (interactive)
   (message "%s" (text-properties-at (point))))

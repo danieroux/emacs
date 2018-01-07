@@ -1,8 +1,7 @@
 ;; Some common LISP-y variables
 
 (defvar djr-lisp-mode-hooks 
-  '(cider-mode-hook
-    cider-repl-mode-hook
+  '(inf-clojure-mode-hook
     clojure-mode-hook
     emacs-lisp-mode-hook
     lisp-mode-hook
