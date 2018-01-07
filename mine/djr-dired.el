@@ -1,6 +1,18 @@
 (use-package dired
   :commands dired
 
+  :init
+  (progn
+    ;; From http://emacsrocks.com/e16.html
+    (setq dired-dwim-target t)
+
+    (setq ls-lisp-use-insert-directory-program nil)
+    (require 'ls-lisp)
+
+    ;; https://www.masteringemacs.org/article/working-multiple-files-dired
+    (require 'find-dired)
+    (setq find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld")))
+
   :config
   (progn
     (bind-key "a" 'gnus-dired-attach dired-mode-map)
@@ -8,7 +20,10 @@
     (bind-key "E" 'open-in-external-app dired-mode-map)
 
     (add-hook 'dired-load-hook
-              (function (lambda () (load "dired-x"))))
+              (function (lambda ()
+                          (progn
+                            (load "dired-x")
+                            (dired-hide-details-mode)))))
 
     ;; http://www.djcbsoftware.nl/code/mu/mu4e/Attaching-files-with-dired.html#Attaching-files-with-dired
     ;; mark the file(s) in dired you would like to attach and press C-c RET C-a
