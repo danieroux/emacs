@@ -154,8 +154,16 @@
                                   ("d" "daily" entry (file ,daily-log-file) "* %U
 
 - %?")
-                                  ("D" "dream" entry (file "~/Dropbox/Documents/journal/dream.org.gpg") "* %U
-
+                                  ;; https://www.farnamstreetblog.com/2014/02/decision-journal
+                                  ("D" "Decision" entry (file "~/Dropbox/Documents/journal/decisions.org.gpg") "* %U %?
+** Situation or context
+** Problem statement / frame
+** Variables that govern the situation
+** Complications or complexity as I see it
+** Alternatives that were seriously considered and why they were not chosen
+** A paragraph explaining the range of outcomes
+** A paragraph explaining what you expect to happen and the reasoning and actual probabilities you assign to each projected outcome
+** The time of day you're making the decision and how you feel physically and mentally
 %?")
                                   ("c" "The current Chrome tab" entry (file ,inbox-file) "* NEXT %? %(org-mac-chrome-get-frontmost-url)  :@online:
   %u
@@ -350,7 +358,7 @@
 
     (defun djr/org-todotxt-auto-push-all-agendas ()
       (interactive)
-      (org-todotxt-sync "~/Dropbox/Apps/Simpletask App Folder/todo/todo.txt")
+      (org-todotxt-sync "~/Dropbox/Apps/Simpletask App Folder/todo.txt")
       (org-todotxt-push "~/Dropbox/todo/clockwork-todo.txt"))
 
     (setq org-todotxt-auto-push-function 'djr/org-todotxt-auto-push-all-agendas
@@ -471,8 +479,8 @@
                          (org-agenda nil org-agenda-shortcut)
                          (delete-other-windows))))
 
-    (when *my-primary-emacs-instance*
-      (run-with-idle-timer 300 t 'djr/show-org-agenda-refreshing-if-empty))
+    ;; (when *my-primary-emacs-instance*
+    ;;   (run-with-idle-timer 300 t 'djr/show-org-agenda-refreshing-if-empty))
 
     (add-hook 'org-insert-heading-hook
               'bh/insert-heading-inactive-timestamp 'append)
