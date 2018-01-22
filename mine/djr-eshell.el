@@ -4,6 +4,7 @@
   :bind* ("C-'" . shell-switcher-switch-buffer)
   :init
   (setq eshell-where-to-jump 'begin
+        eshell-scroll-to-bottom-on-output t
 	eshell-review-quick-commands 'not-even-short-output
 	eshell-glob-case-insensitive t
 	eshell-prefer-lisp-functions t
@@ -61,6 +62,32 @@
 	  (find-file (pop args)))))
 
     (defun eshell/ag (needle)
-      (ag/search needle (eshell/pwd)))))
+      (ag/search needle (eshell/pwd)))
+
+    (defun djr/execute-in-main-eshell ()
+      (interactive)
+      (require 'eshell)
+      (let* ((start (if (use-region-p)
+                        (region-beginning)
+                      (save-excursion
+                        (beginning-of-line)
+                        (point))))
+             (end (if (use-region-p)
+                      (region-end)
+                    (save-excursion
+                      (end-of-line)
+                      (point))))
+             (command (buffer-substring start end)))
+        (let ((buf (current-buffer)))
+          (unless (get-buffer eshell-buffer-name)
+            (eshell))
+          (display-buffer eshell-buffer-name t)
+          (switch-to-buffer-other-window eshell-buffer-name)
+          (end-of-buffer)
+          (eshell-kill-input)
+          (insert command)
+          (eshell-send-input)
+          (end-of-buffer)
+          (switch-to-buffer-other-window buf))))))
 
 (provide 'djr-eshell)
