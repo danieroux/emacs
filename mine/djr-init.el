@@ -149,6 +149,8 @@
 (setq locale-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (set-input-method nil)
+;; Enable this 'dangerous' thing
+(put 'narrow-to-region 'disabled nil)
 
 (icomplete-mode 1)
 
