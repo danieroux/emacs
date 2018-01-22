@@ -68,11 +68,8 @@
 (dolist (path '("/usr/local/bin"
 		"/opt/local/bin"
 		"~/bin"
-		"~/.cabal/bin"
                 "/usr/local/sbin"
-                "/Applications/ghc-7.10.1.app/Contents/bin"
-                "/Users/danie/.stack/programs/x86_64-osx/ghc-7.10.2/bin"
-		"~/Library/Haskell/bin"))
+                "/Library/TeX/texbin"))
   (djr/prepend-to-paths path))
 
 (add-to-list 'load-suffixes ".el.gpg")
@@ -182,9 +179,9 @@
 
 (server-start)
 
-(when (equal system-type 'darwin)
-  (use-package djr-mu4e-mbsync)
-  (djr/sync-mail-and-update-mu4e))
+;; (when (equal system-type 'darwin)
+;;   (use-package djr-mu4e-mbsync)
+;;   (djr/sync-mail-and-update-mu4e))
 
 (when window-system
   (let ((elapsed (float-time (time-subtract (current-time)
