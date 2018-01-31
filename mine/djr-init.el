@@ -120,6 +120,7 @@
 
 (when (equal system-type 'darwin)
   (use-package djr-org-mode)
+  (use-package djr-org-mode-publish)
   (use-package djr-password-manager)
   (use-package djr-really-autosave)
   (use-package djr-mu4e)
