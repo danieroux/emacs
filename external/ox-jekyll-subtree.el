@@ -3,6 +3,8 @@
 ;; Copyright (C) 2015  Artur Malabarba
 
 ;; Author: Artur Malabarba <bruce.connor.am@gmail.com>
+;; Modified by Danie Roux <danie@danieroux.com>
+
 ;; Keywords: hypermedia
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -92,6 +94,7 @@ will be a sanitised version of the title, see
            (name (org-entry-get (point) "filename"))
            (title (org-get-heading t t))
            (series (org-entry-get (point) "series" t))
+           (twitter (org-entry-get (point) "twitter" t))
            (org-jekyll-categories
             (mapconcat
              (lambda (tag) (endless/convert-tag tag))
@@ -134,6 +137,8 @@ will be a sanitised version of the title, see
             (goto-char (1+ (match-beginning 0)))
             (when series
               (insert "series: \"" series "\"\n"))
+            (when twitter
+              (insert "twitter: \"" twitter "\"\n"))
             (when meta-title
               (insert "meta_title: \"" (format meta-title title) "\"\n"))
             (search-backward-regexp "\ndate *:\\(.*\\)$")
