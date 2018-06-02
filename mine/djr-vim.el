@@ -14,13 +14,10 @@
           evil-leader/in-all-states t)
 
     (evil-leader/set-key
-      "a" 'djr/show-org-agenda-refreshing-if-empty
       "c" 'org-capture
       "d" 'deft
       "i" 'id-manager
-      "m" 'hydra-mail/body
       "f" 'darkroom-mode
-      "A" 'org-agenda
       ;; There should be A Better Way
       "SPC" (lambda () (interactive) (insert ", "))
       "RET" (lambda () (interactive) (insert ",") (newline)))))
@@ -48,6 +45,7 @@
                     haskell-error-mode
                     rcirc-groups-mode
                     dig-mode
+                    cider-stacktrace-mode
 		    *idm-record-dialog*))
       (push mode evil-emacs-state-modes))
     (delete 'rcirc-mode evil-emacs-state-modes)))

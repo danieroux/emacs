@@ -25,8 +25,7 @@
 
   (require 'package)
 
-  (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-                    ("elpa" . "http://tromey.com/elpa/")
+  (dolist (source '(("elpa" . "http://tromey.com/elpa/")
                     ("melpa" . "http://melpa.org/packages/")
                     ("melpa-stable" . "http://stable.melpa.org/packages/")
                     ("gnu" . "http://elpa.gnu.org/packages/")))

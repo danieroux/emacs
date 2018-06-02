@@ -15,23 +15,28 @@
 
   :config
 
-  (use-package clj-refactor
-    :ensure t
+  (evil-leader/set-key "mj" 'djr/clojure-connect-to-repl))
 
-    :config
+(use-package cider
+  :ensure t
+  :pin melpa-stable
 
-    ;; Lifted from cljr--add-keybindings
-    (dolist (details cljr--all-helpers)
-      (let ((key (car details))
-            (fn (cadr details)))
-        (evil-leader/set-key (concat "r" key) fn))))
+  :config
+  (cider-register-cljs-repl-type 'custom-figwheel "(go-figwheel)")
+  (clj-refactor-mode 1)
+  (yas-minor-mode 1))
 
-  (use-package cider
-    :ensure t
+(use-package clj-refactor
+  :ensure t
 
-    :config
-    (cider-register-cljs-repl-type 'custom-figwheel "(go-figwheel)")
-    (clj-refactor-mode 1)
-    (yas-minor-mode 1)))
+  :config
+
+  (setq cljr-warn-on-eval nil)
+
+  ;; Lifted from cljr--add-keybindings
+  (dolist (details cljr--all-helpers)
+    (let ((key (car details))
+          (fn (cadr details)))
+      (evil-leader/set-key (concat "r" key) fn))))
 
 (provide 'djr-clojure)

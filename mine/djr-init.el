@@ -105,7 +105,6 @@
 (use-package djr-elisp)
 (use-package djr-company)
 (use-package djr-haskell)
-(use-package djr-discover)
 (use-package djr-markdown)
 (use-package djr-spell)
 (use-package djr-ggtags)
