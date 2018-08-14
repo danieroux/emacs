@@ -4,6 +4,10 @@
 (use-package gmail-message-mode
   :ensure t
   :commands gmail-message-mode
-  :pin "melpa")
+  :pin "melpa"
+
+  :config
+
+  (setq ham-mode-markdown-to-html-command  '("/usr/local/bin/pandoc" "--from" "markdown" "--to" "html" file)))
 
 (provide 'djr-gmail-message-mode)

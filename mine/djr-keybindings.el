@@ -9,6 +9,7 @@
 (global-set-key (kbd "M-?") 'djr/helm-occur-my-brain)
 
 (global-unset-key (kbd "<f2>"))
+(global-unset-key (kbd "C-\\"))
 
 (when *my-primary-emacs-instance*
   (bind-key* "<f2> p" 'djr/pull))

@@ -2,9 +2,10 @@
   :ensure t)
 
 (defvar djr/maildirs-for-quick-add '("INBOX/cur" "INBOX/new"
-                                     "[Gmail]/.Starred/new"
-                                     "[Gmail]/.Starred/cur"
-                                     "[Gmail]/.All Mail/new"))
+                                     "[Gmail]/Starred/new"
+                                     "[Gmail]/Starred/cur"
+                                     ;; "[Gmail]/.All Mail/new"
+                                     ))
 
 (defun djr/add-new-messages-from-maildirs (output-buffer-or-name)
   (interactive)

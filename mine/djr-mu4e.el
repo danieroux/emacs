@@ -1,12 +1,15 @@
 ;; -*- lexical-binding: t -*-
 
+(let ((default-directory "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp"))
+   (normal-top-level-add-subdirs-to-load-path))
+
 (use-package mu4e
   :bind* (("C-c m" . hydra-mail/body))
   :commands (mu4e mu4e-headers-search mu4e-compose-new mu4e~proc-add)
 
   :init
   (progn
-    (defvar djr-mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail]/.Starred) AND NOT flag:trashed" "What I consider to be my 'inbox'")
+    (defvar djr-mu4e-combined-inbox-bookmark "(maildir:/INBOX OR maildir:/[Gmail]/Starred) AND NOT flag:trashed" "What I consider to be my 'inbox'")
 
     (setq mu4e-bookmarks `((,djr-mu4e-combined-inbox-bookmark                         "Act-on inbox"                  ?i)
                            ((concat ,djr-mu4e-combined-inbox-bookmark " AND flag:unread")    "Unread to me"                  ?m)
@@ -87,6 +90,11 @@
                 (define-key mu4e-view-mode-map "f" 'djr/mu4e-forward-with-follow-up)))
 
     (remove-hook 'text-mode-hook 'turn-on-auto-fill)))
+
+;; Ugh.
+(defun gnutls-available-p ()
+  "Function redefined in order not to use built-in GnuTLS support"
+  nil)
 
 (use-package smtpmail
   :commands (smtpmail-send-queued-mail message-send-and-exit)

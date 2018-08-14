@@ -177,13 +177,13 @@
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (load custom-file 'noerror)
 
-(setq server-socket-dir "~/.emacs-server-shared")
+;; (setq server-socket-dir "~/.emacs-server-shared")
 
 (server-start)
 
-;; (when (equal system-type 'darwin)
-;;   (use-package djr-mu4e-mbsync)
-;;   (djr/sync-mail-and-update-mu4e))
+(when (equal system-type 'darwin)
+  (use-package djr-mu4e-mbsync)
+  (djr/sync-mail-and-update-mu4e))
 
 (when window-system
   (let ((elapsed (float-time (time-subtract (current-time)

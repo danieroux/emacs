@@ -126,4 +126,6 @@
 (setq-default mode-line-format djr-mode-line-format)
 (setq mode-line-format djr-mode-line-format)
 
+(setq display-time-24hr-format t)
+
 (provide 'djr-modeline)
