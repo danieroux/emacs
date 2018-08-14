@@ -34,4 +34,8 @@
 ;  :ensure t
 ;  :config (global-git-gutter-mode +1))
 
+;; https://github.com/k1LoW/emacs-ansible
+(use-package ansible
+  :ensure t)
+
 (provide 'djr-smalls)
