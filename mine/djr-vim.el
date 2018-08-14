@@ -45,6 +45,7 @@
                     haskell-error-mode
                     rcirc-groups-mode
                     dig-mode
+                    todotxt-mode
                     cider-stacktrace-mode
 		    *idm-record-dialog*))
       (push mode evil-emacs-state-modes))
