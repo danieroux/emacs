@@ -13,7 +13,8 @@
 		   djr/eval-sexp-on-line
 		   ido-find-file
 		   widget-button-press
-		   elisp-slime-nav-find-elisp-thing-at-point))
+		   elisp-slime-nav-find-elisp-thing-at-point
+                   cider-find-var))
       (add-to-list 'history-advised-before-functions fun))
     (history-init-advices t)))
 

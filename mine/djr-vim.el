@@ -36,7 +36,6 @@
 		    elfeed-search-mode
 		    twittering-mode
 		    inferior-haskell-mode
-		    cider-repl-mode
                     inf-clojure-mode
 		    calculator-mode
 		    deft-mode
