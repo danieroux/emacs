@@ -21,7 +21,7 @@
 (use-package todotxt
   :ensure t
   :config
-  (setq todotxt-file "/Users/danie/Dropbox/Apps/Simpletask App Folder/todo.txt"))
+  (setq todotxt-file "/Users/danie/Dropbox/todo/todo.txt"))
 
 (use-package adoc-mode
   :ensure t

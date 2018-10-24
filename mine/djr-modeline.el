@@ -111,7 +111,7 @@
 
 (setq djr-mode-line-format
       (list djr-mode-line-possible-spinner
-	    djr-mode-line-mail-status
+	    ;; djr-mode-line-mail-status
 	    djr-mode-line-evil-status
 	    djr-mode-line-buffer-status
 	    " "

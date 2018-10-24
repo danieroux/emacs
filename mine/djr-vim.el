@@ -18,6 +18,7 @@
       "d" 'deft
       "i" 'id-manager
       "f" 'darkroom-mode
+      "t" 'todotxt
       ;; There should be A Better Way
       "SPC" (lambda () (interactive) (insert ", "))
       "RET" (lambda () (interactive) (insert ",") (newline)))))
