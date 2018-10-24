@@ -34,26 +34,26 @@
   (setq clojure-align-forms-automatically t)
   (setq cider-prompt-for-symbol nil))
 
-;(use-package clj-refactor
-;  :ensure t
-;
-;  :hook (clojure-mode . (lambda ()
-;                          (clj-refactor-mode 1)
-;                          (yas-minor-mode 1)))
-;  :config
-;
-;  (setq cljr-warn-on-eval nil)
-;  (setq cljr-middleware-ignored-paths ".*cljs")
-;
-;  ;; Lifted from cljr--add-keybindings
-;  (dolist (details cljr--all-helpers)
-;    (let ((key (car details))
-;          (fn (cadr details)))
-;      (evil-leader/set-key (concat "r" key) fn))))
+(use-package clj-refactor
+  :ensure t
+
+  :hook (clojure-mode . (lambda ()
+                          (clj-refactor-mode 1)
+                          (yas-minor-mode 1)))
+  :config
+
+  (setq cljr-warn-on-eval nil)
+  (setq cljr-middleware-ignored-paths ".*cljs")
+
+  ;; Lifted from cljr--add-keybindings
+  (dolist (details cljr--all-helpers)
+    (let ((key (car details))
+          (fn (cadr details)))
+      (evil-leader/set-key (concat "r" key) fn))))
 
 ;; https://github.com/Malabarba/speed-of-thought-clojure
 (use-package sotclojure
   :ensure t
- :config (speed-of-thought-mode))
+  :config (speed-of-thought-mode))
 
 (provide 'djr-clojure)
