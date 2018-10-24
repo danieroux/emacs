@@ -17,7 +17,7 @@
   (progn
     (add-hook 'clojure-mode-hook
               (lambda ()
-                (define-key evil-normal-state-local-map (kbd "M-.") 'cider-find-var))))
+                (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function))))
 
   :config
   (evil-leader/set-key "mj" 'djr/clojure-connect-to-repl))
@@ -54,6 +54,11 @@
 ;; https://github.com/Malabarba/speed-of-thought-clojure
 (use-package sotclojure
   :ensure t
-  :config (speed-of-thought-mode))
+  :config (speed-of-thought-mode)
+
+  :init
+
+  ;; New cider renamed this, and sotclojure tracks the old one
+  (defalias 'cider--find-var 'cider-find-var))
 
 (provide 'djr-clojure)

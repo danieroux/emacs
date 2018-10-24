@@ -14,7 +14,7 @@
 		   ido-find-file
 		   widget-button-press
 		   elisp-slime-nav-find-elisp-thing-at-point
-                   cider-find-var))
+                   sotclojure-find-or-define-function))
       (add-to-list 'history-advised-before-functions fun))
     (history-init-advices t)))
 
