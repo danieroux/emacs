@@ -6,6 +6,10 @@
   :defer t
   :pin "melpa"
   :init
-  (hook-into-modes #'lispy-mode djr-lisp-mode-hooks))
+  (hook-into-modes #'lispy-mode djr-lisp-mode-hooks)
+
+  :config
+  (define-key lispy-mode-map "g" nil))
+
 
 (provide 'djr-lispy)

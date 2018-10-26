@@ -1,12 +1,6 @@
 (use-package f
   :ensure t)
 
-(defun djr/clojure-connect-to-repl ()
-  (interactive)
-  (let* ((port (f-read ".nrepl-port")))
-    (cider-create-sibling-cljs-repl
-     (cider-connect "localhost" port))))
-
 (use-package clojure-mode
   :ensure t
 
@@ -20,7 +14,7 @@
                 (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function))))
 
   :config
-  (evil-leader/set-key "mj" 'djr/clojure-connect-to-repl))
+  (evil-leader/set-key "mj" 'cider-connect-clj&cljs))
 
 (use-package cider
   :ensure t
