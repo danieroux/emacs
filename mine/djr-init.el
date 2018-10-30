@@ -114,6 +114,7 @@
 (use-package djr-rcirc)
 (use-package djr-typo)
 (use-package djr-deft)
+(use-package djr-eyebrowse)
 
 (use-package djr-smalls)
 
