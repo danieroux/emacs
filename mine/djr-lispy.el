@@ -9,7 +9,9 @@
   (hook-into-modes #'lispy-mode djr-lisp-mode-hooks)
 
   :config
-  (define-key lispy-mode-map "g" nil))
+  (define-key lispy-mode-map "g" nil)
+  (define-key lispy-mode-map "u" nil)
+  (setq lispy-visit-method 'projectile))
 
 
 (provide 'djr-lispy)
