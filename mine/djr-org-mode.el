@@ -69,6 +69,7 @@
           conversations-file "~/Dropbox/Documents/gtd/conversations.org"
           period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
           daily-log-file "~/Dropbox/Documents/journal/daily.org.gpg"
+          matter-log-file "~/Dropbox/Documents/matter/matter-log.org.gpg"
           blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
 
     (setq org-agenda-files `(,gtd-file ,consulting-file))
@@ -152,6 +153,9 @@
 
 %?")
                                   ("d" "daily" entry (file ,daily-log-file) "* %U
+
+- %?")
+                                  ("m" "Matter Log Entry" entry (file ,matter-log-file) "* %U
 
 - %?")
                                   ;; https://www.farnamstreetblog.com/2014/02/decision-journal
