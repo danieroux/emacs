@@ -5,13 +5,15 @@
   :ensure t
 
   :mode (("\\.edn$" . clojure-mode)
+         ("\\.repl$" . clojure-mode)
 	 ("\\.cljs$" . clojurescript-mode))
 
   :init
   (progn
     (add-hook 'clojure-mode-hook
               (lambda ()
-                (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function))))
+                (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function)
+                (setq evil-symbol-word-search t))))
 
   :config
   (evil-leader/set-key "mj" 'cider-connect-clj&cljs))
@@ -54,5 +56,8 @@
 
   ;; New cider renamed this, and sotclojure tracks the old one
   (defalias 'cider--find-var 'cider-find-var))
+
+;; (use-package zprint-mode
+;;   :hook (clojure-mode clojurescript-mode clojurec-mode))
 
 (provide 'djr-clojure)
