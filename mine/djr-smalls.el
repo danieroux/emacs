@@ -30,6 +30,11 @@
 (use-package csv-mode
   :ensure t)
 
+(use-package yaml-mode
+  :ensure t
+  ;; http://kaitai.io files
+  :mode ("\\.ksy\\'" . yaml-mode))
+
 ;(use-package git-gutter
 ;  :ensure t
 ;  :config (global-git-gutter-mode +1))
