@@ -50,10 +50,18 @@
 ;; https://github.com/Malabarba/speed-of-thought-clojure
 (use-package sotclojure
   :ensure t
-  :config (speed-of-thought-mode)
+  :config
+
+  ;; namespace, require
+  (sotclojure-define-function-abbrev "nr" "(:require [$])")
+  (sotclojure-define-function-abbrev "ni" "(:import [$])")
+
+  (sotclojure-define-function-abbrev "t" "throw (ex-info \"$\" {:cause e})")
+  (sotclojure-define-function-abbrev "rc" ";;; Rich Comments\n(comment\n$\n;;\n)")
+  (speed-of-thought-mode)
 
   :init
-
+  
   ;; New cider renamed this, and sotclojure tracks the old one
   (defalias 'cider--find-var 'cider-find-var))
 
