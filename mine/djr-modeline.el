@@ -32,6 +32,10 @@
 		    :foreground "#ffffff"
 		    :background "#e80000")
 
+(make-face 'mode-line-batter-low-face)
+(set-face-attribute 'mode-line-batter-low-face nil
+                    :inherit 'mode-line-buffer-status-face-modified)
+
 (make-face 'mode-line-directory-face)
 (set-face-attribute 'mode-line-directory-face nil
 		    :inherit 'mode-line-face)
@@ -71,6 +75,27 @@
 	       (t
 		(propertize " " 'face 'mode-line-buffer-status-face)))))
 
+;; Always enable display-battery
+(display-battery-mode)
+;; Remaining minutes
+(setq battery-mode-line-format "%m")
+
+(setq djr-mode-line-battery-status
+      '(:eval (let ((remaining (string-to-number battery-mode-line-string)))
+                (if (< remaining 30)
+                    (propertize battery-mode-line-string 'face 'mode-line-batter-low-face)
+                  (propertize "✓" 'face 'mode-line-face)))))
+
+(display-time)
+(setq display-time-24hr-format t
+      display-time-string-forms '(24-hours ":" minutes)
+      display-time-format "%R")
+
+(setq display-time-format "%I:%M:S")
+
+(setq djr-mode-line-time
+      '(:eval (propertize display-time-string 'face 'mode-line-face)))
+
 (setq djr-mode-line-mail-status
       '(:eval (if (djr/has-queued-mail-p)
 		  (propertize " Unsent Mail " 'face 'mode-line-mail-queued-face))))
@@ -98,8 +123,7 @@
                 (propertize "%b" 'face 'mode-line-filename-face)))))
 
 (setq djr-mode-line-mode-name
-      '(:eval (cond
-	       ((string-equal "Fundamental" mode-name) "")
+      '(:eval (cond ((string-equal "Fundamental" mode-name) "")
 	       (t
 		(propertize mode-name 'face 'mode-line-mode-face)))))
 
@@ -119,9 +143,14 @@
 	    "  "
 	    djr-mode-line-mode-name
 	    "  "
-	    '(:eval global-mode-string)
-	    ; "%l"
-	    " %-"))
+            "-- "
+            djr-mode-line-battery-status
+            " - "
+            djr-mode-line-time
+	    ;; '(:eval global-mode-string)
+	    ;; "%l"
+	    " %-"
+            ))
 
 (setq-default mode-line-format djr-mode-line-format)
 (setq mode-line-format djr-mode-line-format)
