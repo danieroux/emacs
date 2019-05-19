@@ -8,7 +8,7 @@
 (setq gnutls-verify-error t)
 (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
 
-(load "~/.finda/integrations/emacs/finda.el")
+;(load "~/.finda/integrations/emacs/finda.el")
 
 (setq ns-use-native-fullscreen nil)
 
