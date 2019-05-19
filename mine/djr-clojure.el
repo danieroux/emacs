@@ -1,6 +1,15 @@
 (use-package f
   :ensure t)
 
+;; The `clojure-indent-function` has hardcoded 'always-align statements in it
+;; This specifically messes with (:require) statements
+(defun djr-tonsky-indent (indent-point state)
+  (goto-char (elt state 1))
+  (if (clojure--not-function-form-p)
+      (1+ (current-column))
+    (forward-char 1)
+    (clojure--normal-indent calculate-lisp-indent-last-sexp 'always-indent)))
+
 (use-package clojure-mode
   :ensure t
 
@@ -10,6 +19,12 @@
 
   :init
   (progn
+    (add-hook 'clojure-mode-hook
+              (lambda ()
+                ;; Enable https://tonsky.me/blog/clojurefmt
+                (setq clojure-indent-style 'always-indent)
+                (setq clojure-align-forms-automatically t)
+                (setq-local lisp-indent-function #'djr-tonsky-indent)))
     (add-hook 'clojure-mode-hook
               (lambda ()
                 (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function)
