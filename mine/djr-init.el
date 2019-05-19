@@ -123,7 +123,7 @@
   (use-package djr-org-mode-publish)
   (use-package djr-password-manager)
   (use-package djr-really-autosave)
-  (use-package djr-mu4e)
+  ;(use-package djr-mu4e)
   (use-package djr-twitter)
   ;; (use-package djr-elfeed)
   (use-package djr-emms)
@@ -182,9 +182,9 @@
 
 (server-start)
 
-(when (equal system-type 'darwin)
-  (use-package djr-mu4e-mbsync)
-  (djr/sync-mail-and-update-mu4e))
+;(when (equal system-type 'darwin)
+;  (use-package djr-mu4e-mbsync)
+;  (djr/sync-mail-and-update-mu4e))
 
 (when window-system
   (let ((elapsed (float-time (time-subtract (current-time)

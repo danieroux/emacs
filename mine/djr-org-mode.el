@@ -40,7 +40,7 @@
     (use-package org-mobile)
 
     (use-package djr-org-drill)
-    (use-package djr-org-mu4e)
+    ;(use-package djr-org-mu4e)
 
     (use-package org-pomodoro
       :pin "melpa"
