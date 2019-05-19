@@ -43,4 +43,7 @@
 (use-package ansible
   :ensure t)
 
+(use-package terraform-mode
+  :ensure t)
+
 (provide 'djr-smalls)
