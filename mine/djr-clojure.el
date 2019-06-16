@@ -39,7 +39,8 @@
 
   :config
 
-  (cider-register-cljs-repl-type 'custom-figwheel "(go-figwheel)")
+  ;; Expects a function in the user namespace
+  (cider-register-cljs-repl-type 'user-custom "(start-cljs-repl)")
   (setq nrepl-log-messages nil)
   (setq nrepl-sync-request-timeout nil)
   (setq clojure-align-forms-automatically t)
