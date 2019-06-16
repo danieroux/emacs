@@ -80,10 +80,15 @@
 (when (equal system-type 'darwin)
   (use-package djr-osx))
 
+; org'ed
 (use-package djr-looks)
+; not org'ed, ignored
 (use-package djr-spinner)
+; not org'ed, ignored
 (use-package djr-hydra)
+; org'ed
 (use-package djr-vim)
+; org'ed
 (use-package djr-clean-emacs-directory)
 (use-package djr-dired)
 ;; (use-package djr-paredit)
@@ -96,12 +101,15 @@
 (use-package djr-magit)
 (use-package djr-modeline)
 (use-package djr-rainbow-delimiters)
+; org'ed
 (use-package djr-helm)
 ;; (use-package djr-counsel)
 (use-package djr-projectile)
 (use-package djr-guru-mode)
+; not org'ed, ignored
 (use-package djr-eshell)
 (use-package djr-midnight :disabled t)
+; org'ed
 (use-package djr-elisp)
 (use-package djr-company)
 (use-package djr-haskell)

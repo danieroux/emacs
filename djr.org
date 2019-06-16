@@ -1,0 +1,283 @@
+* TODO
+- [ ] djr/bootstrap
+- [ ] hook-into-modes?
+- [ ] Do I still need djr-private.el.gpg?
+- [ ] What do I need gnutls for? Twitter?
+- [ ] spinner is only used for eshell
+* Inspiration
+Inspiration from:
+
+- https://github.com/technomancy/emacs-starter-kit
+- http://www.djcbsoftware.nl/dot-emacs.html
+- https://github.com/jwiegley/dot-emacs/blob/master/init.el
+- https://github.com/zenspider/elisp
+ 
+* Init
+
+#+BEGIN_SRC emacs-lisp
+  (setq dotfiles-dir user-emacs-directory)
+
+  ;; Extensions that have been downloaded manually (not through ELPA)
+  (setq external-dir (concat dotfiles-dir "external"))
+
+  ;; jwiegley's: https://github.com/jwiegley/use-package
+  (add-to-list 'load-path (concat external-dir "/use-package"))
+
+  (eval-and-compile
+    (defvar use-package-verbose t))
+
+  (require 'use-package)
+  (require 'bind-key)
+#+END_SRC
+* Standard Emacs Packages
+#+BEGIN_SRC emacs-lisp
+  (use-package cl :defer t)
+  (use-package uniquify :defer t)
+  (use-package ansi-color :defer t)
+  (use-package flymake :defer t)
+  (use-package ffap :defer t)
+
+  (use-package paren
+    :init (show-paren-mode t))
+
+  (use-package recentf
+    :init (recentf-mode t))
+
+  (use-package saveplace
+    :init (setq-default save-place t))
+#+END_SRC
+* My functions
+#+BEGIN_SRC emacs-lisp
+
+;; From spacemacs
+(defun indent-buffer ()
+  (interactive)
+  (save-excursion
+    (if (region-active-p)
+        (progn
+          (indent-region (region-beginning) (region-end))
+          (message "Indented selected region."))
+      (progn
+        (evil-indent (point-min) (point-max))
+        (message "Indented buffer.")))
+    (whitespace-cleanup)))
+
+(defun djr/prepend-to-paths (plain-path)
+  "Adds directory to exec, ENV and eshell paths"
+  (let ((path (expand-file-name plain-path)))
+    (setq exec-path (cons path exec-path))
+    (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
+    (setq eshell-path-env (getenv "PATH"))))
+
+(defun djr/initialise-package ()
+  (interactive)
+
+  (require 'package)
+
+  (dolist (source '(("elpa" . "http://tromey.com/elpa/")
+                    ("melpa" . "http://melpa.org/packages/")
+                    ("melpa-stable" . "http://stable.melpa.org/packages/")
+                    ("gnu" . "http://elpa.gnu.org/packages/")))
+    (add-to-list 'package-archives source t))
+  (package-initialize))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (djr/initialise-package)
+
+  (dolist (path '("/usr/local/bin"
+                  "/opt/local/bin"
+                  "~/bin"
+                  "/usr/local/sbin"))
+    (djr/prepend-to-paths path))
+#+END_SRC
+* Looks
+#+BEGIN_SRC emacs-lisp
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (progn
+    (load-theme 'zenburn t)
+
+    (add-to-list 'default-frame-alist '(fullscreen . maximized))
+    (when (equal system-type 'darwin)
+      (add-hook 'window-setup-hook
+                (lambda nil
+                  (set-face-attribute 'default nil
+                                      :family "Monaco"
+                                      :height 180
+                                      :weight 'normal)
+                  (toggle-frame-maximized))))
+
+    ;; Kill the tool bar and scroll bar
+    ;; I leave the menu bar, because I use it to discover features available in a mode
+    (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+    (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+    (global-hl-line-mode 1)
+    (global-highlight-changes-mode -1)
+    (global-visual-line-mode t)
+
+    ;; Turn "lambda" into λ - for example. In all modes that support it.
+    (global-prettify-symbols-mode t)
+
+    (blink-cursor-mode (- (*) (*) (*)))
+
+    (setq visible-bell t
+          inhibit-startup-message t
+          initial-scratch-message nil
+          transient-mark-mode t
+          font-lock-maximum-decoration t)))
+#+END_SRC
+* VIM
+#+BEGIN_SRC emacs-lisp
+;; Make Emacs feel like home
+
+;; Before require evil
+(setq evil-want-C-i-jump nil)
+
+(use-package evil-leader
+  :ensure t
+  :init (global-evil-leader-mode)
+  :config
+  
+  (progn
+    (setq evil-leader/leader ","
+          evil-leader/no-prefix-mode-rx '(".*")
+          evil-leader/in-all-states t)
+
+    (evil-leader/set-key
+      "c" 'org-capture
+      "d" 'deft
+      "i" 'id-manager
+      "f" 'darkroom-mode
+      "t" 'todotxt
+      ;; There should be A Better Way
+      "SPC" (lambda () (interactive) (insert ", "))
+      "RET" (lambda () (interactive) (insert ",") (newline)))))
+
+(use-package evil
+  :ensure t
+  :pin "melpa"
+  :init (evil-mode t)
+  :config
+  (progn
+    (dolist (mode '(mu4e-main-mode
+		    mu4e-headers-mode
+		    mu4e-view-mode
+		    info-mode
+		    elfeed-show-mode
+		    elfeed-search-mode
+		    twittering-mode
+		    inferior-haskell-mode
+                    inf-clojure-mode
+		    calculator-mode
+		    deft-mode
+		    ert-results-mode
+		    makey-key-mode
+                    haskell-error-mode
+                    rcirc-groups-mode
+                    dig-mode
+                    todotxt-mode
+                    cider-stacktrace-mode
+                    special-mode        ; Lispy. Stupid mode name.
+                    cider-test-report-mode
+		    *idm-record-dialog*))
+      (push mode evil-emacs-state-modes))
+    (delete 'rcirc-mode evil-emacs-state-modes)))
+
+(use-package ace-jump-mode
+  :ensure t
+  :commands ace-jump-mode
+
+  :init
+  (progn
+    (setq evil-ace-jump-active t)
+    (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-word-mode)))
+
+(setq evil-normal-state-cursor '("green" box))
+#+END_SRC
+* Keep EMACS clean
+#+BEGIN_SRC emacs-lisp
+;; Keeps ~/.emacs.d clean
+
+(setq autosave-directory "~/tmp/emacs-cache/autosaves/")
+(make-directory autosave-directory t)
+
+(setq make-backup-files t ;; do make backups
+      backup-by-copying t     ;; and copy them here
+      backup-directory-alist '(("." . "~/tmp/emacs-cache/backups")) 
+      version-control t
+      kept-new-versions 2
+      kept-old-versions 5
+      delete-old-versions t
+      auto-save-list-file-prefix (concat autosave-directory ".saves-")
+      auto-save-file-name-transforms `((".*", autosave-directory t)))
+#+END_SRC
+* HELM
+#+BEGIN_SRC emacs-lisp
+(use-package helm-config
+  :ensure helm
+  :pin "melpa"
+  :bind* (("M-SPC" . helm-mini)
+	  ("M-x" . helm-M-x)
+	  ;; helm-semantic-or-imenu
+	  ("M-:" . helm-eval-expression-with-eldoc)
+	  ("M-o" . helm-find-files))
+  :init
+  (progn
+    (use-package helm-files)
+    (helm-autoresize-mode 1)
+
+    ;; Make all functions in Emacs that use `completing-read'or `read-file-name' and friends use helm interface
+    (helm-mode)
+    (unless helm-source-buffers-list
+      (setq helm-source-buffers-list
+	    (helm-make-source "Buffers" 'helm-source-buffers)))
+
+    (setq helm-mini-default-sources
+          '(helm-source-buffers-list helm-source-recentf helm-source-bookmarks helm-source-buffer-not-found))
+
+    (setq helm-recentf-fuzzy-match t
+	  helm-buffers-fuzzy-matching t
+	  helm-apropos-fuzzy-match t
+	  helm-lisp-fuzzy-completion t
+	  helm-M-x-fuzzy-match t)))
+
+(defun djr/helm-occur (buffer-names)
+  (helm-multi-occur-1 buffer-names))
+
+(defun djr/helm-occur-my-brain ()
+  (interactive)
+  (djr/helm-occur (list "brain.org.gpg")))
+
+(defun djr/helm-occur-org ()
+  (interactive)
+  (djr/helm-occur 
+   (remove nil (mapcar (lambda (buffer)
+			 (with-current-buffer buffer
+			   (if (eq major-mode 'org-mode)
+			       buffer)))
+		       (buffer-list)))))
+
+#+END_SRC
+* elisp
+#+BEGIN_SRC emacs-lisp
+(use-package elisp-slime-nav
+  :ensure t
+  :init
+  (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+    (add-hook hook 'turn-on-elisp-slime-nav-mode))
+  :config
+  (progn
+    (add-hook 'emacs-lisp-mode-hook
+              (lambda ()
+                (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
+
+    (add-hook 'ielm-mode-hook
+              (lambda ()
+                (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))))
+
+(require 'info-look)
+#+END_SRC

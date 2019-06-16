@@ -1,3 +1,4 @@
+;; org'ed
 (use-package elisp-slime-nav
   :ensure t
   :init
