@@ -73,7 +73,7 @@
   (sotclojure-define-function-abbrev "ni" "(:import [$])")
 
   (sotclojure-define-function-abbrev "t" "throw (ex-info \"$\" {:cause e})")
-  (sotclojure-define-function-abbrev "rc" ";;; Rich Comments\n(comment\n$\n;;\n)")
+  (sotclojure-define-function-abbrev "rc" ";;; Rich Comments\n(comment\n$\n()\n)")
   (speed-of-thought-mode)
 
   :init
