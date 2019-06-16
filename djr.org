@@ -1,9 +1,24 @@
-* TODO
+* Why
+
+Can't navigate to functions in literate mode. Dead in the water.
+
+So how does one declare Emacs config bankruptcy without doing so? 
+
+** Steps
+
+- [ ] Translate all of my configuration to literate mode
+- [ ] Keeping the old working with a flag
+- [ ] When I'm happy with the translation, delete the old
+- [ ] And then use the generated djr.el as my new config
+
+** TODO
+
 - [ ] djr/bootstrap
 - [ ] hook-into-modes?
 - [ ] Do I still need djr-private.el.gpg?
 - [ ] What do I need gnutls for? Twitter?
 - [ ] spinner is only used for eshell
+
 * Inspiration
 Inspiration from:
 
@@ -48,6 +63,10 @@ Inspiration from:
 #+END_SRC
 * My functions
 #+BEGIN_SRC emacs-lisp
+
+(defmacro hook-into-modes (func modes)
+  `(dolist (mode-hook ,modes)
+     (add-hook mode-hook ,func)))
 
 ;; From spacemacs
 (defun indent-buffer ()
@@ -94,41 +113,196 @@ Inspiration from:
 #+END_SRC
 * Looks
 #+BEGIN_SRC emacs-lisp
-(use-package zenburn-theme
-  :ensure t
-  :config
-  (progn
-    (load-theme 'zenburn t)
+  (use-package zenburn-theme
+    :ensure t
+    :config
+    (progn
+      (load-theme 'zenburn t)
 
-    (add-to-list 'default-frame-alist '(fullscreen . maximized))
-    (when (equal system-type 'darwin)
-      (add-hook 'window-setup-hook
-                (lambda nil
-                  (set-face-attribute 'default nil
-                                      :family "Monaco"
-                                      :height 180
-                                      :weight 'normal)
-                  (toggle-frame-maximized))))
+      (when (equal system-type 'darwin)
+	(add-hook 'window-setup-hook
+		  (lambda nil
+		    (set-face-attribute 'default nil
+					:family "Monaco"
+					:height 180
+					:weight 'normal)
+		    (toggle-frame-maximized))))
 
-    ;; Kill the tool bar and scroll bar
-    ;; I leave the menu bar, because I use it to discover features available in a mode
-    (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-    (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+      ;; Kill the tool bar and scroll bar
+      ;; I leave the menu bar, because I use it to discover features available in a mode
+      (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+      (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-    (global-hl-line-mode 1)
-    (global-highlight-changes-mode -1)
-    (global-visual-line-mode t)
+      (global-hl-line-mode 1)
+      (global-highlight-changes-mode -1)
+      (global-visual-line-mode t)
 
-    ;; Turn "lambda" into λ - for example. In all modes that support it.
-    (global-prettify-symbols-mode t)
+      ;; Turn "lambda" into λ - for example. In all modes that support it.
+      (global-prettify-symbols-mode t)
 
-    (blink-cursor-mode (- (*) (*) (*)))
+      (blink-cursor-mode (- (*) (*) (*)))
 
-    (setq visible-bell t
-          inhibit-startup-message t
-          initial-scratch-message nil
-          transient-mark-mode t
-          font-lock-maximum-decoration t)))
+      (setq visible-bell t
+	    inhibit-startup-message t
+	    initial-scratch-message nil
+	    transient-mark-mode t
+	    font-lock-maximum-decoration t)))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+  ;; From http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html
+
+  (make-face 'mode-line-face)
+  (set-face-attribute 'mode-line-face nil)
+
+  (make-face 'mode-line-evil-status-normal-face)
+  (set-face-attribute 'mode-line-evil-status-normal-face nil)
+
+  (make-face 'mode-line-evil-status-insert-face)
+  (set-face-attribute 'mode-line-evil-status-insert-face nil
+		      :foreground "#0000ff"
+		      :background "#eab700")
+
+  (make-face 'mode-line-evil-status-emacs-face)
+  (set-face-attribute 'mode-line-evil-status-emacs-face nil
+		      :foreground "#ffffff"
+		      :background "#e80000")
+
+  (make-face 'mode-line-mail-queued-face)
+  (set-face-attribute 'mode-line-mail-queued-face nil
+		      :foreground "#ffffff"
+		      :background "#e80000")
+
+  (make-face 'mode-line-buffer-status-face)
+  (set-face-attribute 'mode-line-buffer-status-face nil)
+
+  (make-face 'mode-line-buffer-status-face-modified)
+  (set-face-attribute 'mode-line-buffer-status-face-modified nil
+		      :inherit 'mode-line-buffer-status-face
+		      :foreground "#ffffff"
+		      :background "#e80000")
+
+  (make-face 'mode-line-batter-low-face)
+  (set-face-attribute 'mode-line-batter-low-face nil
+		      :inherit 'mode-line-buffer-status-face-modified)
+
+  (make-face 'mode-line-directory-face)
+  (set-face-attribute 'mode-line-directory-face nil)
+
+  (make-face 'mode-line-filename-face)
+  (set-face-attribute 'mode-line-filename-face nil
+		      :foreground "#eab700"
+		      :weight 'bold)
+
+  (make-face 'mode-line-mode-face)
+  (set-face-attribute 'mode-line-mode-face nil
+		      :foreground "gray80")
+
+  (setq djr-mode-line-modified-never-saveable
+	(list 'org-agenda-mode
+	      'org-agenda-commands-mode
+	      'mu4e-main-mode
+	      'mu4e-view-mode
+	      'magit-status-mode
+	      'mu4e-headers-mode
+	      'erc-mode
+	      'elfeed-show-mode
+	      'elfeed-search-mode
+	      'twittering-mode
+	      'ert-results-mode
+	      'rcirc-mode
+	      'haskell-interactive-mode
+	      'eshell-mode))
+
+  (setq djr-mode-line-buffer-status
+	'(:eval (cond
+		 ((and (buffer-modified-p)
+		       (not (member major-mode djr-mode-line-modified-never-saveable)))
+		  (propertize "*" 'face 'mode-line-buffer-status-face-modified))
+		 (t
+		  (propertize " " 'face 'mode-line-buffer-status-face)))))
+
+  ;; Always enable display-battery
+  (display-battery-mode)
+  ;; Remaining minutes
+  (setq battery-mode-line-format "%m")
+
+  (setq djr-mode-line-battery-status
+	'(:eval (let ((remaining (string-to-number battery-mode-line-string)))
+		  (if (< remaining 30)
+		      (propertize battery-mode-line-string 'face 'mode-line-batter-low-face)
+		    (propertize "✓" 'face 'mode-line-face)))))
+
+  (display-time)
+  (setq display-time-24hr-format t
+	display-time-string-forms '(24-hours ":" minutes)
+	display-time-format "%R")
+
+  (setq display-time-format "%I:%M:S")
+
+  (setq djr-mode-line-time
+	'(:eval (propertize display-time-string 'face 'mode-line-face)))
+
+  (setq djr-mode-line-mail-status
+	'(:eval (if (djr/has-queued-mail-p)
+		    (propertize " Unsent Mail " 'face 'mode-line-mail-queued-face))))
+
+  (setq djr-mode-line-evil-status
+	'(:eval (cond
+		 ((evil-normal-state-p)
+		  (propertize "V" 'face 'mode-line-evil-status-normal-face))
+		 ((evil-insert-state-p)
+		  (propertize "I" 'face 'mode-line-evil-status-insert-face))
+		 ((member major-mode evil-emacs-state-modes)
+		  (propertize "E" 'face 'mode-line-evil-status-normal-face))
+		 ((evil-emacs-state-p)
+		  (propertize "E" 'face 'mode-line-evil-status-emacs-face))
+		 (t
+		  (propertize "?" 'face 'mode-line-evil-status-emacs-face)))))
+
+  (setq djr-mode-line-buffer-name
+	'(:eval (cond
+		 ((buffer-file-name)
+		  (list
+		   (propertize (abbreviate-file-name (file-name-directory (buffer-file-name))) 'face 'mode-line-directory-face)
+		   (propertize (file-name-nondirectory (buffer-file-name)) 'face 'mode-line-filename-face)))
+		 (t
+		  (propertize "%b" 'face 'mode-line-filename-face)))))
+
+  (setq djr-mode-line-mode-name
+	'(:eval (cond ((string-equal "Fundamental" mode-name) "")
+		 (t
+		  (propertize mode-name 'face 'mode-line-mode-face)))))
+
+  (setq djr-mode-line-possible-spinner
+	'(:eval (cond
+		 ((bound-and-true-p spinner-current)
+		  (spinner-print spinner-current))
+		 (t "-- "))))
+
+  (setq djr-mode-line-format
+	(list djr-mode-line-possible-spinner
+	      ;; djr-mode-line-mail-status
+	      djr-mode-line-evil-status
+	      djr-mode-line-buffer-status
+	      " "
+	      djr-mode-line-buffer-name
+	      "  "
+	      djr-mode-line-mode-name
+	      "  "
+	      "-- "
+	      djr-mode-line-battery-status
+	      " - "
+	      djr-mode-line-time
+	      ;; '(:eval global-mode-string)
+	      ;; "%l"
+	      " %-"
+	      ))
+
+  (setq-default mode-line-format djr-mode-line-format)
+  (setq mode-line-format djr-mode-line-format)
+
+  (setq display-time-24hr-format t)
+
 #+END_SRC
 * VIM
 #+BEGIN_SRC emacs-lisp
@@ -262,8 +436,38 @@ Inspiration from:
 		       (buffer-list)))))
 
 #+END_SRC
+* projectile
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :pin "melpa"
+
+  :init
+  (projectile-global-mode)
+
+  :config
+  (progn 
+    (setq projectile-enable-caching t)
+
+    (use-package helm-projectile
+      :ensure t
+      :bind* ("M-S-SPC" . helm-projectile)
+      :pin "melpa")))
+
+#+END_SRC
 * elisp
 #+BEGIN_SRC emacs-lisp
+
+(defvar djr-lisp-mode-hooks 
+  '(inf-clojure-mode-hook
+    clojure-mode-hook
+    emacs-lisp-mode-hook
+    lisp-mode-hook
+    lisp-interaction-mode-hook
+    scheme-mode-hook
+    inferior-emacs-lisp-mode)
+  "A list of modes that are considered to be LISP modes")
+
 (use-package elisp-slime-nav
   :ensure t
   :init
@@ -280,4 +484,200 @@ Inspiration from:
                 (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))))
 
 (require 'info-look)
+
+;; http://oremacs.com/lispy
+(use-package lispy
+  :ensure t
+  :defer t
+  :pin "melpa"
+  :init
+  (hook-into-modes #'lispy-mode djr-lisp-mode-hooks)
+
+  :config
+  (define-key lispy-mode-map "g" nil)
+  (define-key lispy-mode-map "u" nil)
+  (setq lispy-visit-method 'helm-projectile
+        lispy-teleport-global 1
+        lispy-cider-connect-method 'cider-connect))
+
+(use-package paredit-mode
+  :commands paredit-mode
+  :ensure paredit
+  :init
+  (dolist (mode-hook djr-lisp-mode-hooks)
+    (add-hook mode-hook #'paredit-mode)))
+
+#+END_SRC
+* Clojure
+#+BEGIN_SRC emacs-lisp
+(use-package f
+  :ensure t)
+
+;; The `clojure-indent-function` has hardcoded 'always-align statements in it
+;; This specifically messes with (:require) statements
+(defun djr-tonsky-indent (indent-point state)
+  (goto-char (elt state 1))
+  (if (clojure--not-function-form-p)
+      (1+ (current-column))
+    (forward-char 1)
+    (clojure--normal-indent calculate-lisp-indent-last-sexp 'always-indent)))
+
+(use-package clojure-mode
+  :ensure t
+
+  :mode (("\\.edn$" . clojure-mode)
+         ("\\.repl$" . clojure-mode)
+	 ("\\.cljs$" . clojurescript-mode))
+
+  :init
+  (progn
+    (add-hook 'clojure-mode-hook
+              (lambda ()
+                ;; Enable https://tonsky.me/blog/clojurefmt
+                (setq clojure-indent-style 'always-indent)
+                (setq clojure-align-forms-automatically t)
+                (setq-local lisp-indent-function #'djr-tonsky-indent)))
+    (add-hook 'clojure-mode-hook
+              (lambda ()
+                (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function)
+                (setq evil-symbol-word-search t))))
+
+  :config
+  (evil-leader/set-key "mj" 'cider-connect-clj&cljs))
+
+(use-package cider
+  :ensure t
+  :pin melpa-stable
+
+  :config
+
+  ;; Expects a function in the user namespace
+  (cider-register-cljs-repl-type 'user-custom "(start-cljs-repl)")
+  (setq nrepl-log-messages nil)
+  (setq nrepl-sync-request-timeout nil)
+  (setq clojure-align-forms-automatically t)
+  (setq cider-prompt-for-symbol nil))
+
+(use-package clj-refactor
+  :ensure t
+
+  :hook (clojure-mode . (lambda ()
+                          (clj-refactor-mode 1)
+                          (yas-minor-mode 1)))
+  :config
+
+  (setq cljr-warn-on-eval nil)
+  (setq cljr-middleware-ignored-paths ".*cljs")
+
+  ;; Lifted from cljr--add-keybindings
+  (dolist (details cljr--all-helpers)
+    (let ((key (car details))
+          (fn (cadr details)))
+      (evil-leader/set-key (concat "r" key) fn))))
+
+;; https://github.com/Malabarba/speed-of-thought-clojure
+(use-package sotclojure
+  :ensure t
+  :config
+
+  ;; namespace, require
+  (sotclojure-define-function-abbrev "nr" "(:require [$])")
+  (sotclojure-define-function-abbrev "ni" "(:import [$])")
+
+  (sotclojure-define-function-abbrev "t" "throw (ex-info \"$\" {:cause e})")
+  (sotclojure-define-function-abbrev "rc" ";;; Rich Comments\n(comment\n$\n()\n)")
+  (speed-of-thought-mode)
+
+  :init
+  
+  ;; New cider renamed this, and sotclojure tracks the old one
+  (defalias 'cider--find-var 'cider-find-var))
+
+#+END_SRC
+* Save on tab-out
+#+BEGIN_SRC emacs-lisp
+;; Save on tab-out
+(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+#+END_SRC
+* Window moving
+#+BEGIN_SRC emacs-lisp
+(bind-key* "M-j" (lambda () (interactive) (ignore-errors (windmove-down))))
+(bind-key* "M-k" (lambda () (interactive) (ignore-errors (windmove-up))))
+(bind-key* "M-h" (lambda () (interactive) (ignore-errors (windmove-left))))
+(bind-key* "M-l" (lambda () (interactive) (ignore-errors (windmove-right))))
+
+(bind-key* "M-z" 'delete-other-windows)
+
+(bind-key* "C-x |" 'split-window-horizontally)
+(bind-key* "C-x -" 'split-window-vertically)
+#+END_SRC
+* company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (add-hook 'after-init-hook 'global-company-mode)
+    :config
+    (setq company-idle-delay 0.2))
+#+END_SRC
+* flycheck
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :pin "melpa"
+  :defer t
+  :init (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  (progn
+    (setq flycheck-completion-system 'ido)))
+#+END_SRC
+* password manager
+#+BEGIN_SRC emacs-lisp
+(use-package id-manager
+  :commands id-manager
+  :ensure t
+  :init
+  (progn
+    (setq idm-database-file "~/Dropbox/Documents/passwords.gpg")
+    ;; Triggered by QuickSilver
+    (bind-key* "S-<f3>" 'id-manager)
+    (bind-key* "C-c i" 'id-manager)))
+#+END_SRC
+* Paranoid mode
+#+BEGIN_SRC emacs-lisp
+
+(defvar my-org-really-auto-save t)
+
+(defun djr/save-and-backup ()
+  (save-buffer)
+  (backup-buffer-copy buffer-file-name
+		      (concat buffer-file-name "-" (format-time-string "%Y-%m-%d"))
+		      (file-modes buffer-file-name)
+		      nil))
+
+(defun really-auto-save-some-modes (&optional args)
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (save-excursion
+	(when (and
+	       buffer-file-name
+	       (buffer-modified-p)
+	       (eq major-mode 'org-mode)
+	       (eq my-org-really-auto-save t))
+	  (message (concat "Really auto-saving (and backing up)" buffer-file-name))
+	  (djr/save-and-backup))))))
+
+(setq auto-save-timeout 20
+      auto-save-interval 300)
+
+(add-hook 'auto-save-hook 'really-auto-save-some-modes)
+
+#+END_SRC
+* Magit
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :pin "melpa"
+  :commands magit-status
+  :ensure t)e
 #+END_SRC

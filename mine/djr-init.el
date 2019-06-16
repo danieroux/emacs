@@ -92,18 +92,24 @@
 (use-package djr-clean-emacs-directory)
 (use-package djr-dired)
 ;; (use-package djr-paredit)
+; org'ed
 (use-package djr-lispy)
+;; not org'ed, ignored
 (use-package djr-smartparens)
+; org'ed
 (use-package djr-clojure)
 ;; (use-package djr-blog)
 (use-package djr-expand-region)
 (use-package djr-multiple-cursors)
+;; org'ed
 (use-package djr-magit)
+;; org'ed
 (use-package djr-modeline)
 (use-package djr-rainbow-delimiters)
 ; org'ed
 (use-package djr-helm)
 ;; (use-package djr-counsel)
+;; org'ed
 (use-package djr-projectile)
 (use-package djr-guru-mode)
 ; not org'ed, ignored
@@ -111,14 +117,17 @@
 (use-package djr-midnight :disabled t)
 ; org'ed
 (use-package djr-elisp)
+;; org'ed
 (use-package djr-company)
 (use-package djr-haskell)
 (use-package djr-markdown)
 (use-package djr-spell)
 (use-package djr-ggtags)
 (use-package djr-flycheck)
+;; org'ed
 (use-package djr-intellij)
 (use-package djr-focus-mode)
+; not org'ed, ignored
 (use-package djr-rcirc)
 (use-package djr-typo)
 (use-package djr-deft)
@@ -129,6 +138,7 @@
 (when (equal system-type 'darwin)
   (use-package djr-org-mode)
   (use-package djr-org-mode-publish)
+  ;; org'ed
   (use-package djr-password-manager)
   (use-package djr-really-autosave)
   ;(use-package djr-mu4e)
@@ -140,6 +150,7 @@
   (use-package djr-frequency))
 
 (use-package djr-history)
+;; org'd
 (use-package djr-keybindings)
 
 (mouse-avoidance-mode 'exile)
