@@ -1,7 +1,8 @@
 ;; (package-initialize)
 
 (setq *my-primary-emacs-instance* t)
-(setq new-config nil)
+
+(setq new-config t)
 
 (if new-config
     (load (expand-file-name "djr.el" user-emacs-directory))
