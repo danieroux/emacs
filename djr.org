@@ -323,7 +323,6 @@ Inspiration from:
 
     (evil-leader/set-key
       "c" 'org-capture
-      "d" 'deft
       "i" 'id-manager
       "f" 'darkroom-mode
       "t" 'todotxt
@@ -633,15 +632,12 @@ Inspiration from:
 #+END_SRC
 * password manager
 #+BEGIN_SRC emacs-lisp
-(use-package id-manager
-  :commands id-manager
-  :ensure t
-  :init
-  (progn
-    (setq idm-database-file "~/Dropbox/Documents/passwords.gpg")
-    ;; Triggered by QuickSilver
-    (bind-key* "S-<f3>" 'id-manager)
-    (bind-key* "C-c i" 'id-manager)))
+  (use-package id-manager
+    :commands id-manager
+    :ensure t
+    :init
+    (progn
+      (setq idm-database-file "~/Dropbox/Documents/passwords.gpg")))
 #+END_SRC
 * Paranoid mode
 #+BEGIN_SRC emacs-lisp
@@ -679,5 +675,55 @@ Inspiration from:
 (use-package magit
   :pin "melpa"
   :commands magit-status
-  :ensure t)e
+  :ensure t)
+#+END_SRC
+* Org-mode
+#+BEGIN_SRC emacs-lisp
+  (setq todotxt-file "~/Dropbox/Documents/todotxt/todo.txt"
+	someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
+	brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
+	conversations-file "~/Dropbox/Documents/gtd/conversations.org"
+	period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
+	daily-log-file "~/Dropbox/Documents/journal/daily.org.gpg"
+	matter-log-file "~/Dropbox/Documents/matter/matter-log.org.gpg"
+	blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
+
+  (setq org-capture-templates `(("b" "Brain" entry (file ,brain-file) "* %?
+    %u
+
+  %a")
+				("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
+				("p" "period" entry (file ,period-log-file) "* %U
+
+  %?")
+				("d" "daily" entry (file ,daily-log-file) "* %U
+
+  - %?")
+				;; https://www.farnamstreetblog.com/2014/02/decision-journal
+				("D" "Decision" entry (file "~/Dropbox/Documents/journal/decisions.org.gpg") "* %U %?
+  ,** Situation or context
+  ,** Problem statement / frame
+  ,** Variables that govern the situation
+  ,** Complications or complexity as I see it
+  ,** Alternatives that were seriously considered and why they were not chosen
+  ,** A paragraph explaining the range of outcomes
+  ,** A paragraph explaining what you expect to happen and the reasoning and actual probabilities you assign to each projected outcome
+  ,** The time of day you're making the decision and how you feel physically and mentally
+  %?")))
+#+END_SRC
+* todotxt
+#+BEGIN_SRC emacs-lisp
+  (use-package todotxt
+    :ensure t)
+#+END_SRC
+* Emacs debugging
+#+BEGIN_SRC emacs-lisp
+  (defun print-point ()
+    (interactive)
+    (let* ((text-properties (text-properties-at (point)))) 
+      (message "Text properties %s - overlays: %s"
+	       text-properties
+	       (overlays-at (point)))))
+
+  (define-key evil-normal-state-map (kbd "Q") 'print-point)
 #+END_SRC
