@@ -435,10 +435,12 @@
 	lispy-teleport-global 1
 	lispy-cider-connect-method 'cider-connect))
 
-(use-package paredit
+;; https://github.com/noctuid/lispyville
+;; Keeps brackets balanced
+(use-package lispyville
+  :commands lispyville-mode
   :init
-  (dolist (mode-hook djr-lisp-mode-hooks)
-    (add-hook mode-hook #'paredit-mode)))
+  (add-hook 'lispy-mode-hook #'lispyville-mode))
 
 ;;; Clojure
 
