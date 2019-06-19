@@ -26,7 +26,8 @@
 
 (straight-use-package 'use-package)
 
-;;; Standard Emacs packages
+;;; Standard Emacs packages and twiddles
+
 (use-package cl :defer t :straight nil)
 (use-package uniquify :defer t :straight nil)
 (use-package ansi-color :defer t :straight nil)
@@ -44,6 +45,12 @@
 (use-package saveplace
   :straight nil
   :init (setq-default save-place t))
+
+(turn-off-auto-fill)
+(put 'narrow-to-region 'disabled nil)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq confirm-kill-emacs 'y-or-n-p)
+(setq-default indent-tabs-mode nil)
 
 ;;; Custom functions
 
@@ -504,9 +511,10 @@
   (sotclojure-define-function-abbrev "rc" ";;; Rich Comments\n(comment\n$\n()\n)")
   (speed-of-thought-mode))
 
-;;; Save on tab-out
+;;; Save on tab-out and auto-revert
 
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+(global-auto-revert-mode t)
 
 ;;; Window management
 
