@@ -30,80 +30,101 @@ Inspiration from:
 * Init
 
 #+BEGIN_SRC emacs-lisp
+(setq straight-use-package-by-default 't)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
   (setq dotfiles-dir user-emacs-directory)
 
   ;; Extensions that have been downloaded manually (not through ELPA)
-  (setq external-dir (concat dotfiles-dir "external"))
+  ;; (setq external-dir (concat dotfiles-dir "external"))
 
   ;; jwiegley's: https://github.com/jwiegley/use-package
-  (add-to-list 'load-path (concat external-dir "/use-package"))
+  ;(add-to-list 'load-path (concat external-dir "/use-package"))
 
-  (eval-and-compile
-    (defvar use-package-verbose t))
+  ;; (eval-and-compile
+  ;;   (defvar use-package-verbose t))
 
-  (require 'use-package)
-  (require 'bind-key)
+  ;; (require 'use-package)
+  ;; (require 'bind-key)
 #+END_SRC
 * Standard Emacs Packages
 #+BEGIN_SRC emacs-lisp
-  (use-package cl :defer t)
-  (use-package uniquify :defer t)
-  (use-package ansi-color :defer t)
-  (use-package flymake :defer t)
-  (use-package ffap :defer t)
+  (use-package cl :defer t :straight nil)
+  (use-package uniquify :defer t :straight nil)
+  (use-package ansi-color :defer t :straight nil)
+  (use-package flymake :defer t :straight nil)
+  (use-package ffap :defer t :straight nil)
 
   (use-package paren
+    :straight nil
     :init (show-paren-mode t))
 
   (use-package recentf
+    :straight nil
     :init (recentf-mode t))
 
   (use-package saveplace
+    :straight nil
     :init (setq-default save-place t))
 #+END_SRC
 * My functions
 #+BEGIN_SRC emacs-lisp
 
-(defmacro hook-into-modes (func modes)
-  `(dolist (mode-hook ,modes)
-     (add-hook mode-hook ,func)))
+  (defmacro hook-into-modes (func modes)
+    `(dolist (mode-hook ,modes)
+       (add-hook mode-hook ,func)))
 
-;; From spacemacs
-(defun indent-buffer ()
-  (interactive)
-  (save-excursion
-    (if (region-active-p)
-        (progn
-          (indent-region (region-beginning) (region-end))
-          (message "Indented selected region."))
-      (progn
-        (evil-indent (point-min) (point-max))
-        (message "Indented buffer.")))
-    (whitespace-cleanup)))
+  ;; From spacemacs
+  (defun indent-buffer ()
+    (interactive)
+    (save-excursion
+      (if (region-active-p)
+	  (progn
+	    (indent-region (region-beginning) (region-end))
+	    (message "Indented selected region."))
+	(progn
+	  (evil-indent (point-min) (point-max))
+	  (message "Indented buffer.")))
+      (whitespace-cleanup)))
 
-(defun djr/prepend-to-paths (plain-path)
-  "Adds directory to exec, ENV and eshell paths"
-  (let ((path (expand-file-name plain-path)))
-    (setq exec-path (cons path exec-path))
-    (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
-    (setq eshell-path-env (getenv "PATH"))))
+  (defun djr/prepend-to-paths (plain-path)
+    "Adds directory to exec, ENV and eshell paths"
+    (let ((path (expand-file-name plain-path)))
+      (setq exec-path (cons path exec-path))
+      (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
+      (setq eshell-path-env (getenv "PATH"))))
 
-(defun djr/initialise-package ()
-  (interactive)
+  ;; (defun djr/initialise-package ()
+  ;;   (interactive)
 
-  (require 'package)
+  ;;   (require 'package)
 
-  (dolist (source '(("elpa" . "http://tromey.com/elpa/")
-                    ("melpa" . "http://melpa.org/packages/")
-                    ("melpa-stable" . "http://stable.melpa.org/packages/")
-                    ("gnu" . "http://elpa.gnu.org/packages/")))
-    (add-to-list 'package-archives source t))
-  (package-initialize))
+  ;;   (dolist (source '(("elpa" . "http://tromey.com/elpa/")
+  ;;                     ("melpa" . "http://melpa.org/packages/")
+  ;;                     ("melpa-stable" . "http://stable.melpa.org/packages/")
+  ;;                     ("gnu" . "http://elpa.gnu.org/packages/")))
+  ;;     (add-to-list 'package-archives source t))
+  ;;   (package-initialize))
 
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (djr/initialise-package)
+  ;(djr/initialise-package)
 
   (dolist (path '("/usr/local/bin"
                   "/opt/local/bin"
@@ -114,7 +135,7 @@ Inspiration from:
 * Looks
 #+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
-    :ensure t
+    
     :config
     (progn
       (load-theme 'zenburn t)
@@ -312,7 +333,7 @@ Inspiration from:
 (setq evil-want-C-i-jump nil)
 
 (use-package evil-leader
-  :ensure t
+  
   :init (global-evil-leader-mode)
   :config
   
@@ -331,7 +352,7 @@ Inspiration from:
       "RET" (lambda () (interactive) (insert ",") (newline)))))
 
 (use-package evil
-  :ensure t
+  
   :pin "melpa"
   :init (evil-mode t)
   :config
@@ -361,7 +382,7 @@ Inspiration from:
     (delete 'rcirc-mode evil-emacs-state-modes)))
 
 (use-package ace-jump-mode
-  :ensure t
+  
   :commands ace-jump-mode
 
   :init
@@ -438,7 +459,7 @@ Inspiration from:
 * projectile
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
-  :ensure t
+  
   :pin "melpa"
 
   :init
@@ -449,7 +470,7 @@ Inspiration from:
     (setq projectile-enable-caching t)
 
     (use-package helm-projectile
-      :ensure t
+      
       :bind* ("M-S-SPC" . helm-projectile)
       :pin "melpa")))
 
@@ -468,7 +489,7 @@ Inspiration from:
   "A list of modes that are considered to be LISP modes")
 
 (use-package elisp-slime-nav
-  :ensure t
+  
   :init
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
     (add-hook hook 'turn-on-elisp-slime-nav-mode))
@@ -486,7 +507,7 @@ Inspiration from:
 
 ;; http://oremacs.com/lispy
 (use-package lispy
-  :ensure t
+  
   :defer t
   :pin "melpa"
   :init
@@ -510,7 +531,7 @@ Inspiration from:
 * Clojure
 #+BEGIN_SRC emacs-lisp
 (use-package f
-  :ensure t)
+  )
 
 ;; The `clojure-indent-function` has hardcoded 'always-align statements in it
 ;; This specifically messes with (:require) statements
@@ -522,7 +543,7 @@ Inspiration from:
     (clojure--normal-indent calculate-lisp-indent-last-sexp 'always-indent)))
 
 (use-package clojure-mode
-  :ensure t
+  
 
   :mode (("\\.edn$" . clojure-mode)
          ("\\.repl$" . clojure-mode)
@@ -545,7 +566,7 @@ Inspiration from:
   (evil-leader/set-key "mj" 'cider-connect-clj&cljs))
 
 (use-package cider
-  :ensure t
+  
   :pin melpa-stable
 
   :config
@@ -558,7 +579,7 @@ Inspiration from:
   (setq cider-prompt-for-symbol nil))
 
 (use-package clj-refactor
-  :ensure t
+  
 
   :hook (clojure-mode . (lambda ()
                           (clj-refactor-mode 1)
@@ -576,7 +597,7 @@ Inspiration from:
 
 ;; https://github.com/Malabarba/speed-of-thought-clojure
 (use-package sotclojure
-  :ensure t
+  
   :config
 
   ;; namespace, require
@@ -613,7 +634,7 @@ Inspiration from:
 * company
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :ensure t
+    
     :init
     (add-hook 'after-init-hook 'global-company-mode)
     :config
@@ -622,7 +643,7 @@ Inspiration from:
 * flycheck
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
-  :ensure t
+  
   :pin "melpa"
   :defer t
   :init (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -634,7 +655,7 @@ Inspiration from:
 #+BEGIN_SRC emacs-lisp
   (use-package id-manager
     :commands id-manager
-    :ensure t
+    
     :init
     (progn
       (setq idm-database-file "~/Dropbox/Documents/passwords.gpg")))
@@ -675,7 +696,7 @@ Inspiration from:
 (use-package magit
   :pin "melpa"
   :commands magit-status
-  :ensure t)
+  )
 #+END_SRC
 * Org-mode
 #+BEGIN_SRC emacs-lisp
@@ -713,8 +734,7 @@ Inspiration from:
 #+END_SRC
 * todotxt
 #+BEGIN_SRC emacs-lisp
-  (use-package todotxt
-    :ensure t)
+  (use-package todotxt)
 #+END_SRC
 * Emacs debugging
 #+BEGIN_SRC emacs-lisp
