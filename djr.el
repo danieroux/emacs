@@ -324,17 +324,19 @@
 
 ;;; Keep ~/.emacs.d clean
 
-(setq autosave-directory "~/tmp/emacs-cache/autosaves/")
+(setq emacs-cache "~/tmp/emacs-cache")
+(setq autosave-directory (concat emacs-cache "/autosaves"))
 (make-directory autosave-directory t)
 
 (setq make-backup-files t ;; do make backups
       backup-by-copying t     ;; and copy them here
       backup-directory-alist '(("." . "~/tmp/emacs-cache/backups"))
+      recentf-save-file (concat autosave-directory "/recentf")
       version-control t
       kept-new-versions 2
       kept-old-versions 5
       delete-old-versions t
-      auto-save-list-file-prefix (concat autosave-directory ".saves-")
+      auto-save-list-file-prefix (concat autosave-directory "/.saves-")
       auto-save-file-name-transforms `((".*", autosave-directory t)))
 
 ;;; Helm
@@ -360,13 +362,16 @@
 
 ;;; Projectile
 
+(setq projectile-known-projects-file (concat emacs-cache "/projectile-bookmarks.eld"))
+
 (use-package projectile
   :init
   (projectile-global-mode)
 
   :config
   (progn
-    (setq projectile-enable-caching t)
+    (setq projectile-enable-caching t
+          projectile-cache-file (concat emacs-cache "/projectile.cache"))
 
     (use-package helm-projectile
       :bind* ("M-S-SPC" . helm-projectile))))
