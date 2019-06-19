@@ -611,7 +611,10 @@
 
 ;;; todotxt
 
-(use-package todotxt)
+(use-package todotxt
+  :straight (:host github
+                   :repo "rpdillon/todotxt.el"
+                   :fork (:host github :repo "danieroux/todotxt.el")))
 
 ;;; Emacs Debug
 

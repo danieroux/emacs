@@ -2,7 +2,7 @@
  ("ace-jump-mode" . "8351e2df4fbbeb2a4003f2fb39f46d33803f3dac")
  ("ace-window" . "138a80cbc4e9ed17d3a085a3687f5223a142a9a3")
  ("avy" . "f91ae613a86187c8ca75e86f22e3f5ac9958399c")
- ("cider" . "bddaaebf696894251454034e3dc762534301ebff")
+ ("cider" . "200c88adb1314b5811ba749af42ffb6817c1ca1b")
  ("cl-lib" . "deb92588d9d83d46c4698936ea31c5f58d244f04")
  ("clj-refactor.el" . "50d2d8aad5e0bd8002173b300f8419d72ceab7af")
  ("clojure-mode" . "a9cbe6a37f51da1c37035390d43500b437e8bff2")

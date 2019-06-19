@@ -1,6 +1,7 @@
 /straight/build-cache.el
 /straight/build
 /straight/repos
+/straight/modified
 /transient
 /elpa
 /emms
