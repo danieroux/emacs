@@ -354,6 +354,9 @@
     ;; Make all functions in Emacs that use `completing-read' or `read-file-name' and friends use helm interface
     (helm-mode)
 
+    (setq helm-mini-default-sources
+          '(helm-source-buffers-list helm-source-recentf helm-source-bookmarks))
+
     (setq helm-recentf-fuzzy-match t
 	  helm-buffers-fuzzy-matching t
 	  helm-apropos-fuzzy-match t
