@@ -7,9 +7,11 @@
 ;; in minimalism - decided this day, 2019-06-19.
 
 ;;; Mark Start time
+
 (defconst emacs-start-time (current-time))
 
 ;;; Bootstrap straight.el
+
 (setq straight-use-package-by-default 't)
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -119,6 +121,12 @@
 	  initial-scratch-message nil
 	  transient-mark-mode t
 	  font-lock-maximum-decoration t)))
+
+;;; dark-room focus
+
+(use-package darkroom
+  :commands (darkroom-mode)
+  :init (add-hook 'darkroom-mode-hook 'scroll-lock-mode))
 
 ;;; Modeline
 
