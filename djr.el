@@ -54,6 +54,9 @@
 (setq confirm-kill-emacs 'y-or-n-p)
 (setq-default indent-tabs-mode nil)
 
+;; dired
+(setq dired-dwim-target t)
+
 ;;; Custom functions
 
 (defmacro hook-into-modes (func modes)
