@@ -287,6 +287,7 @@
       "i" 'id-manager
       "f" 'darkroom-mode
       "t" 'todotxt
+      "m" 'magit-status
       ;; There should be A Better Way
       "SPC" (lambda () (interactive) (insert ", "))
       "RET" (lambda () (interactive) (insert ",") (newline)))))
@@ -463,10 +464,7 @@
     (add-hook 'clojure-mode-hook
 	      (lambda ()
 		(define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function)
-		(setq evil-symbol-word-search t))))
-
-  :config
-  (evil-leader/set-key "mj" 'cider-connect-clj&cljs))
+		(setq evil-symbol-word-search t)))))
 
 (use-package cider
   :config
