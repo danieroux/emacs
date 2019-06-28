@@ -194,12 +194,14 @@
 
 ;; Always enable display-battery
 (display-battery-mode)
-;; Remaining minutes
-(setq battery-mode-line-format "%m")
 
+;; Charging status (-, ! or empty)  and Remaining minutes
+(setq battery-mode-line-format "%b%m")
 (setq djr-mode-line-battery-status
-      '(:eval (let ((remaining (string-to-number battery-mode-line-string)))
-		(if (and (< 0 remaining)
+      '(:eval (let ((charging-status (substring battery-mode-line-string 0 1))
+                    (remaining (string-to-number (substring battery-mode-line-string 1 nil))))
+		(if (and (not (string= "+" charging-status)) ; Charging
+                         (< 0 remaining)
 			 (< remaining 30))
 		    (propertize battery-mode-line-string 'face 'mode-line-batter-low-face)
 		  (propertize "✓" 'face 'mode-line-face)))))
