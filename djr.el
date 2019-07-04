@@ -602,6 +602,9 @@
 
 %a")
 			      ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
+                              ("m" "Matter Log Entry" entry (file ,matter-log-file) "* %U
+
+- %?")
 			      ("p" "period" entry (file ,period-log-file) "* %U
 
 %?")
