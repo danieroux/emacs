@@ -199,9 +199,8 @@
 (setq battery-mode-line-format "%b%m")
 (setq djr-mode-line-battery-status
       '(:eval (let ((charging-status (substring battery-mode-line-string 0 1))
-                    (remaining (string-to-number (substring battery-mode-line-string 1 nil))))
+                    (remaining (string-to-number (substring battery-mode-line-string 0 nil))))
 		(if (and (not (string= "+" charging-status)) ; Charging
-                         (< 0 remaining)
 			 (< remaining 30))
 		    (propertize battery-mode-line-string 'face 'mode-line-batter-low-face)
 		  (propertize "✓" 'face 'mode-line-face)))))
