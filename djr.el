@@ -629,6 +629,11 @@
                    :repo "rpdillon/todotxt.el"
                    :fork (:host github :repo "danieroux/todotxt.el")))
 
+;;; typo
+
+(use-package typo
+  :mode ("\\.md$" . typo-mode))
+
 ;;; Emacs Debug
 
 (setq debug-on-error t
