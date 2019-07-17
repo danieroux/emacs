@@ -586,7 +586,7 @@
 (use-package magit :commands magit-status)
 
 ;;; File variables
-(setq todotxt-file "~/Dropbox/Documents/todotxt/todo.txt"
+(setq todotxt-file "~/Dropbox/Apps/Simpletask App Folder/todo.txt"
       someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
       brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
       conversations-file "~/Dropbox/Documents/gtd/conversations.org"
