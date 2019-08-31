@@ -34,7 +34,7 @@
 (use-package uniquify :defer t :straight nil)
 (use-package ansi-color :defer t :straight nil)
 (use-package flymake :defer t :straight nil)
-(use-package ffap :defer t :straight nil)
+(use-package ffap :straight nil)
 
 (use-package paren
   :straight nil
@@ -594,6 +594,28 @@
       daily-log-file "~/Dropbox/Documents/journal/daily.org.gpg"
       matter-log-file "~/Dropbox/Documents/matter/matter-log.org.gpg"
       blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
+
+;;; Simplest Wiki that could possibly work
+;; A bunch of files linked with WikiWords - take the idea from Andy Hunt
+
+(defun djr/ffap-wiki-word (WikiWord)
+  "Find or create file name for WIKIWORD.
+
+A WikiWord is written in CamelCase.  This allows you to create your
+own personal Wiki, with files named after the wiki words, and using
+your normal file management to jump betw een them."
+  (let* ((current-buffer-extension (file-name-extension (buffer-file-name)))
+         (wiki-word-file-name (concat WikiWord "." current-buffer-extension))
+         (wiki-word-buffer (find-file-noselect wiki-word-file-name)))
+    ;; Ensure file exists on disk, helm does not respect `ffap-newfile-prompt'
+    (with-current-buffer wiki-word-buffer
+      (save-buffer))
+    (buffer-file-name wiki-word-buffer)))
+
+(setq wiki-word-regex "\\`[[:upper:]]+[[:lower:]]*[[:upper:]]+.*\\'")
+(add-to-list 'ffap-alist `(,wiki-word-regex . djr/ffap-wiki-word))
+
+(setq helm-ff-guess-ffap-filenames t)
 
 ;;; Org-Mode
 
