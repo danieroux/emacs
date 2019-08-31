@@ -596,6 +596,16 @@
       blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
 
 ;;; Org-Mode
+
+(defun bh/insert-heading-inactive-timestamp ()
+  (save-excursion
+    (org-return)
+    (org-cycle)
+    (org-insert-time-stamp nil t t nil nil nil)))
+
+(add-hook 'org-insert-heading-hook
+          'bh/insert-heading-inactive-timestamp 'append)
+
 (setq org-capture-templates `(("b" "Brain" entry (file ,brain-file) "* %?
   %u
 
