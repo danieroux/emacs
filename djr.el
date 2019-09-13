@@ -281,57 +281,54 @@
   :init (global-evil-leader-mode)
 
   :config
-  (progn
-    (setq evil-leader/leader ","
-	  evil-leader/no-prefix-mode-rx '(".*")
-	  evil-leader/in-all-states t)
+  (setq evil-leader/leader ","
+        evil-leader/no-prefix-mode-rx '(".*")
+        evil-leader/in-all-states t)
 
-    (evil-leader/set-key
-      "c" 'org-capture
-      "i" 'id-manager
-      "f" 'darkroom-mode
-      "t" 'todotxt
-      "m" 'magit-status
-      ;; There should be A Better Way
-      "SPC" (lambda () (interactive) (insert ", "))
-      "RET" (lambda () (interactive) (insert ",") (newline)))))
+  (evil-leader/set-key
+    "c" 'org-capture
+    "i" 'id-manager
+    "f" 'darkroom-mode
+    "t" 'todotxt
+    "m" 'magit-status
+    ;; There should be A Better Way
+    "SPC" (lambda () (interactive) (insert ", "))
+    "RET" (lambda () (interactive) (insert ",") (newline))))
 
 (use-package evil
   :init (evil-mode t)
 
   :config
-  (progn
-    (dolist (mode '(mu4e-main-mode
-		    mu4e-headers-mode
-		    mu4e-view-mode
-		    info-mode
-		    elfeed-show-mode
-		    elfeed-search-mode
-		    twittering-mode
-		    inferior-haskell-mode
-		    inf-clojure-mode
-		    calculator-mode
-		    deft-mode
-		    ert-results-mode
-		    makey-key-mode
-		    haskell-error-mode
-		    rcirc-groups-mode
-		    dig-mode
-		    todotxt-mode
-		    cider-stacktrace-mode
-		    special-mode        ; Lispy. Stupid mode name.
-		    cider-test-report-mode
-		    *idm-record-dialog*))
-      (push mode evil-emacs-state-modes))
-    (delete 'rcirc-mode evil-emacs-state-modes)))
+  (dolist (mode '(mu4e-main-mode
+                  mu4e-headers-mode
+                  mu4e-view-mode
+                  info-mode
+                  elfeed-show-mode
+                  elfeed-search-mode
+                  twittering-mode
+                  inferior-haskell-mode
+                  inf-clojure-mode
+                  calculator-mode
+                  deft-mode
+                  ert-results-mode
+                  makey-key-mode
+                  haskell-error-mode
+                  rcirc-groups-mode
+                  dig-mode
+                  todotxt-mode
+                  cider-stacktrace-mode
+                  special-mode        ; Lispy. Stupid mode name.
+                  cider-test-report-mode
+                  *idm-record-dialog*))
+    (push mode evil-emacs-state-modes))
+  (delete 'rcirc-mode evil-emacs-state-modes))
 
 (use-package ace-jump-mode
   :commands ace-jump-mode
 
   :init
-  (progn
-    (setq evil-ace-jump-active t)
-    (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-word-mode)))
+  (setq evil-ace-jump-active t)
+  (define-key evil-normal-state-map (kbd "SPC") 'evil-ace-jump-word-mode))
 
 (setq evil-normal-state-cursor '("green" box))
 
@@ -357,24 +354,20 @@
 (use-package helm
   :bind* (("M-SPC" . helm-mini)
 	  ("M-x" . helm-M-x)
-	  ;; helm-semantic-or-imenu
 	  ("M-:" . helm-eval-expression-with-eldoc)
 	  ("M-o" . helm-find-files))
   :config
-  (progn
-    (helm-autoresize-mode 1)
+  (helm-autoresize-mode 1)
 
-    ;; Make all functions in Emacs that use `completing-read' or `read-file-name' and friends use helm interface
-    (helm-mode)
+  ;; Make all functions in Emacs that use `completing-read' or `read-file-name' and friends use helm interface
+  (helm-mode)
 
-    (setq helm-mini-default-sources
-          '(helm-source-buffers-list helm-source-recentf helm-source-bookmarks))
-
-    (setq helm-recentf-fuzzy-match t
-	  helm-buffers-fuzzy-matching t
-	  helm-apropos-fuzzy-match t
-	  helm-lisp-fuzzy-completion t
-	  helm-M-x-fuzzy-match t)))
+  (setq helm-recentf-fuzzy-match t
+        helm-buffers-fuzzy-matching t
+        helm-apropos-fuzzy-match t
+        helm-lisp-fuzzy-completion t
+        helm-M-x-fuzzy-match t
+        helm-mini-default-sources '(helm-source-buffers-list helm-source-recentf helm-source-bookmarks)))
 
 ;;; Projectile
 
@@ -385,12 +378,11 @@
   (projectile-global-mode)
 
   :config
-  (progn
-    (setq projectile-enable-caching t
-          projectile-cache-file (concat emacs-cache "/projectile.cache"))
+  (setq projectile-enable-caching t
+        projectile-cache-file (concat emacs-cache "/projectile.cache"))
 
-    (use-package helm-projectile
-      :bind* ("M-S-SPC" . helm-projectile))))
+  (use-package helm-projectile
+    :bind* ("M-S-SPC" . helm-projectile)))
 
 ;;; Lisp Editing
 
@@ -405,19 +397,11 @@
   "A list of modes that are considered to be LISP modes")
 
 (use-package elisp-slime-nav
-
   :init
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-    (add-hook hook 'turn-on-elisp-slime-nav-mode))
-  :config
-  (progn
-    (add-hook 'emacs-lisp-mode-hook
-	      (lambda ()
-		(define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))
-
-    (add-hook 'ielm-mode-hook
-	      (lambda ()
-		(define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)))))
+    (progn 
+      (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
+      (add-hook hook 'turn-on-elisp-slime-nav-mode))))
 
 (require 'info-look)
 
@@ -458,17 +442,16 @@
 	 ("\\.cljs$" . clojurescript-mode))
 
   :init
-  (progn
-    (add-hook 'clojure-mode-hook
-	      (lambda ()
-		;; Enable https://tonsky.me/blog/clojurefmt
-		(setq clojure-indent-style 'always-indent)
-		(setq clojure-align-forms-automatically t)
-		(setq-local lisp-indent-function #'djr-tonsky-indent)))
-    (add-hook 'clojure-mode-hook
-	      (lambda ()
-		(define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function)
-		(setq evil-symbol-word-search t)))))
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              ;; Enable https://tonsky.me/blog/clojurefmt
+              (setq clojure-indent-style 'always-indent)
+              (setq clojure-align-forms-automatically t)
+              (setq-local lisp-indent-function #'djr-tonsky-indent)))
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function)
+              (setq evil-symbol-word-search t))))
 
 (use-package cider
   :config
@@ -541,16 +524,14 @@
   :defer t
   :init (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
-  (progn
-    (setq flycheck-completion-system 'ido)))
+  (setq flycheck-completion-system 'ido))
 
 ;;; Password management
 (use-package id-manager
   :commands id-manager
 
   :init
-  (progn
-    (setq idm-database-file "~/Dropbox/Documents/passwords.gpg")))
+  (setq idm-database-file "~/Dropbox/Documents/passwords.gpg"))
 
 ;;; Paranoia for org file saving
 
@@ -581,11 +562,14 @@
 
 (add-hook 'auto-save-hook 'djr/really-auto-save-some-modes)
 
-;;; Magit
+;;; One-liners
 
 (use-package magit :commands magit-status)
+(use-package markdown-mode)
+(use-package typo :mode ("\\.md$" . typo-mode))
 
 ;;; File variables
+
 (setq todotxt-file "~/Dropbox/Apps/Simpletask App Folder/todo.txt"
       someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
       brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
@@ -641,18 +625,7 @@ your normal file management to jump betw een them."
 %?")
 			      ("d" "daily" entry (file ,daily-log-file) "* %U
 
-- %?")
-			      ;; https://www.farnamstreetblog.com/2014/02/decision-journal
-			      ("D" "Decision" entry (file "~/Dropbox/Documents/journal/decisions.org.gpg") "* %U %?
-** Situation or context
-** Problem statement / frame
-** Variables that govern the situation
-** Complications or complexity as I see it
-** Alternatives that were seriously considered and why they were not chosen
-** A paragraph explaining the range of outcomes
-** A paragraph explaining what you expect to happen and the reasoning and actual probabilities you assign to each projected outcome
-** The time of day you're making the decision and how you feel physically and mentally
-%?")))
+- %?")))
 
 ;;; todotxt
 
@@ -661,26 +634,13 @@ your normal file management to jump betw een them."
                    :repo "rpdillon/todotxt.el"
                    :fork (:host github :repo "danieroux/todotxt.el")))
 
-;;; typo
-
-(use-package typo
-  :mode ("\\.md$" . typo-mode))
-
 ;;; Emacs Debug
 
 (setq debug-on-error t
       debug-on-quit t)
 
-(defun print-point ()
-  (interactive)
-  (let* ((text-properties (text-properties-at (point))))
-    (message "Text properties %s - overlays: %s"
-	     text-properties
-	     (overlays-at (point)))))
-
-(define-key evil-normal-state-map (kbd "Q") 'print-point)
-
 ;;; Startup Timing
+
 (when window-system
   (let ((elapsed (float-time (time-subtract (current-time)
 					    emacs-start-time))))
