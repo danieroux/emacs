@@ -286,10 +286,11 @@
         evil-leader/in-all-states t)
 
   (evil-leader/set-key
+    "a" 'todotxt-add-todo
+    "t" 'todotxt-open-file
     "c" 'org-capture
     "i" 'id-manager
     "f" 'darkroom-mode
-    "t" 'todotxt
     "m" 'magit-status
     ;; There should be A Better Way
     "SPC" (lambda () (interactive) (insert ", "))
@@ -560,7 +561,8 @@
 
 ;;; File variables
 
-(setq todotxt-file "~/Dropbox/Apps/Simpletask App Folder/todo.txt"
+(setq todotxt-default-file "~/Dropbox/Apps/Simpletask App Folder/todo.txt"
+      todotxt-default-archive-file "~/Dropbox/Apps/Simpletask App Folder/done.txt"
       someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
       brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
       conversations-file "~/Dropbox/Documents/gtd/conversations.org"
@@ -619,10 +621,10 @@ your normal file management to jump betw een them."
 
 ;;; todotxt
 
-(use-package todotxt
-  :straight (:host github
-                   :repo "rpdillon/todotxt.el"
-                   :fork (:host github :repo "danieroux/todotxt.el")))
+(use-package todotxt-mode
+  :straight (:host github :repo "avillafiorita/todotxt-mode")
+  :config
+  (setq todotxt-due-tag "due"))
 
 ;;; Emacs Debug
 
