@@ -83,6 +83,13 @@
     (setenv "PATH" (concat path ":" (getenv "PATH") ":"))
     (setq eshell-path-env (getenv "PATH"))))
 
+(defun djr/iso-date-string ()
+  "From http://ergoemacs.org/emacs/elisp_datetime.html"
+  (concat
+   (format-time-string "%Y-%m-%dT%T")
+   ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5)))
+    (format-time-string "%z"))))
+
 ;;; Path management
 (dolist (path '("/usr/local/bin"
 		"/opt/local/bin"
@@ -667,6 +674,16 @@ your normal file management to jump betw een them."
 		 (message "Loading %s...done (%.3fs) [after-init]"
 			  ,load-file-name elapsed))) t))
 
+;;; Skeletons and abbreviations
+(define-skeleton new-blog-danieroux-skeleton
+  "Creates a new Hugo-happy blog draft"
+  ""
+  > "---\n"
+  > "title: " str "\n"
+  > "date: " (djr/iso-date-string) "\n"
+  > "draft: true\n"
+  > "---\n")
+
 ;;; Sanity check
 
 (defun sanity-check (line-count)
@@ -681,7 +698,12 @@ your normal file management to jump betw een them."
     (sanity-check line-count)))
 
 (switch-to-buffer "*Messages*")
+;;; Finda
+
+(load "~/.finda/integrations/emacs/finda.el")
 
 ;;; End
+
 (provide 'djr)
+
 ;;; djr.el ends here
