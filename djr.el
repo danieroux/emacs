@@ -644,6 +644,18 @@ your normal file management to jump betw een them."
 ;;; Startup Timing
 
 (when window-system
+;;; ox-jekyll
+
+;; straight.el takes over use-package, so I can't use :load-path anymore.
+(add-to-list 'load-path "external")
+;; (require 'ox-jekyll-subtree)
+
+;; http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html
+(setq org-jekyll-use-src-plugin t)
+
+(setq endless/blog-base-url "http://conversations.danieroux.com/")
+(setq endless/blog-dir (expand-file-name "~/source/danieroux.github.io/"))
+
   (let ((elapsed (float-time (time-subtract (current-time)
 					    emacs-start-time))))
     (message "Loading %s...done (%.3fs)" load-file-name elapsed))
