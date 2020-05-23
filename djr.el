@@ -289,6 +289,7 @@
     "a" 'todotxt-add-todo
     "t" 'todotxt-open-file
     "c" 'org-capture
+    "d" 'deft
     "i" 'id-manager
     "f" 'darkroom-mode
     "m" 'magit-status
@@ -558,6 +559,15 @@
 (use-package magit :commands magit-status)
 (use-package markdown-mode :mode "\\.md\\'")
 (use-package typo :hook (markdown-mode . typo-mode))
+
+;;; Deft
+
+(use-package deft
+  :config
+  (setq deft-extensions '("md")
+        deft-use-filename-as-title t
+        deft-use-filter-string-for-filename t
+        deft-directory "~/Dropbox/blog.danieroux.com"))
 
 ;;; File variables
 
