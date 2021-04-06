@@ -94,7 +94,9 @@
 (dolist (path '("/usr/local/bin"
 		"/opt/local/bin"
 		"~/bin"
-		"/usr/local/sbin"))
+		"/usr/local/sbin"
+                "/opt/homebrew/bin"
+                "/opt/homebrew/sbin"))
   (djr/prepend-to-paths path))
 
 ;;; looks
@@ -572,9 +574,11 @@
 (use-package deft
   :config
   (setq deft-extensions '("md")
-        deft-use-filename-as-title t
-        deft-use-filter-string-for-filename t
-        deft-directory "~/Dropbox/blog.danieroux.com"))
+        deft-use-filename-as-title nil
+        deft-use-filter-string-for-filename nil
+        deft-default-extension "md"
+        deft-new-file-format "%Y-%m-%dT%H:%M:%S"
+        deft-directory "~/source/blog.danieroux.com/content/posts"))
 
 ;;; File variables
 
@@ -651,30 +655,20 @@ your normal file management to jump betw een them."
 ;;; Startup Timing
 
 (when window-system
-;;; ox-jekyll
-
-;; straight.el takes over use-package, so I can't use :load-path anymore.
-(add-to-list 'load-path "external")
-;; (require 'ox-jekyll-subtree)
-
-;; http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html
-(setq org-jekyll-use-src-plugin t)
-
-(setq endless/blog-base-url "http://conversations.danieroux.com/")
-(setq endless/blog-dir (expand-file-name "~/source/danieroux.github.io/"))
 
   (let ((elapsed (float-time (time-subtract (current-time)
-					    emacs-start-time))))
+                                            emacs-start-time))))
     (message "Loading %s...done (%.3fs)" load-file-name elapsed))
 
   (add-hook 'after-init-hook
-	    `(lambda ()
-	       (let ((elapsed (float-time (time-subtract (current-time)
-							 emacs-start-time))))
-		 (message "Loading %s...done (%.3fs) [after-init]"
-			  ,load-file-name elapsed))) t))
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract (current-time)
+                                                         emacs-start-time))))
+                 (message "Loading %s...done (%.3fs) [after-init]"
+                          ,load-file-name elapsed))) t))
 
 ;;; Skeletons and abbreviations
+
 (define-skeleton new-blog-danieroux-skeleton
   "Creates a new Hugo-happy blog draft"
   ""
@@ -700,7 +694,7 @@ your normal file management to jump betw een them."
 (switch-to-buffer "*Messages*")
 ;;; Finda
 
-(load "~/.finda/integrations/emacs/finda.el")
+;; (load "~/.finda/integrations/emacs/finda.el")
 
 ;;; End
 
