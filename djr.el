@@ -53,8 +53,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-emacs 'y-or-n-p)
 (setq-default indent-tabs-mode nil)
-
-;; dired
 (setq dired-dwim-target t)
 
 ;;; Custom functions
@@ -98,6 +96,12 @@
                 "/opt/homebrew/bin"
                 "/opt/homebrew/sbin"))
   (djr/prepend-to-paths path))
+
+;;; Private configs, that include sensitive information like passwords
+
+(add-to-list 'load-suffixes ".el.gpg")
+(load (expand-file-name "djr-private.el.gpg" user-emacs-directory))
+
 
 ;;; looks
 (use-package zenburn-theme
@@ -191,6 +195,7 @@
 	    'magit-status-mode
 	    'twittering-mode
 	    'ert-results-mode
+            'rcirc-mode
 	    'eshell-mode))
 
 (setq djr-mode-line-buffer-status
@@ -262,7 +267,8 @@
       (list djr-mode-line-possible-spinner
 	    djr-mode-line-evil-status
 	    djr-mode-line-buffer-status
-	    " "
+            '(:eval rcirc-activity-string)
+            " "
 	    djr-mode-line-buffer-name
 	    "  "
 	    djr-mode-line-mode-name
@@ -538,6 +544,7 @@
   (setq flycheck-completion-system 'ido))
 
 ;;; Password management
+
 (use-package id-manager
   :commands id-manager
 
@@ -677,6 +684,30 @@ your normal file management to jump betw een them."
   > "date: " (djr/iso-date-string) "\n"
   > "draft: true\n"
   > "---\n")
+
+;;; IRC
+
+(use-package rcirc
+  :straight nil
+  :init
+  (rcirc-track-minor-mode 1)
+
+  :config
+  ;; `rcirc-server-alist` and friends are in `djr-private.el.gpg`
+  (setq rcirc-fill-column 'window-text-width))
+
+;;; eshell
+
+;; http://www.emacswiki.org/emacs/EshellFunctions#toc3
+(defun eshell/e (&rest args)
+  "Edit a file with +line-number as an option."
+  (while args
+    (if (string-match "\\`\\+\\([0-9]+\\)\\'" (car args))
+	(let* ((line (string-to-number (match-string 1 (pop args))))
+	       (file (pop args)))
+	  (find-file file)
+	  (forward-line line))
+      (find-file (pop args)))))
 
 ;;; Sanity check
 
