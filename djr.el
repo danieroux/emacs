@@ -44,10 +44,7 @@
   :straight nil
   :init (recentf-mode t))
 
-(use-package saveplace
-  :straight nil
-  :init (setq-default save-place t))
-
+(save-place-mode t)
 (turn-off-auto-fill)
 (put 'narrow-to-region 'disabled nil)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -305,7 +302,9 @@
     "t" 'todotxt-open-file
     "c" 'org-capture
     "d" 'deft
+    "e" 'eshell-here
     "i" 'id-manager
+    "I" 'rcirc
     "f" 'darkroom-mode
     "m" 'magit-status
     ;; There should be A Better Way
@@ -414,7 +413,8 @@
   "A list of modes that are considered to be LISP modes")
 
 (use-package elisp-slime-nav
-  :init
+  :hook (emacs-lisp-mode-hook ielm-mode-hook)
+  :config
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
     (progn 
       (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
@@ -591,13 +591,10 @@
 
 (setq todotxt-default-file "~/Dropbox/Apps/Simpletask App Folder/todo.txt"
       todotxt-default-archive-file "~/Dropbox/Apps/Simpletask App Folder/done.txt"
-      someday-file "~/Dropbox/Documents/gtd/someday_maybe.org.gpg"
       brain-file "~/Dropbox/Documents/brain/brain.org.gpg"
       conversations-file "~/Dropbox/Documents/gtd/conversations.org"
       period-log-file "~/Dropbox/Documents/journal/period.org.gpg"
-      daily-log-file "~/Dropbox/Documents/journal/daily.org.gpg"
-      matter-log-file "~/Dropbox/Documents/matter/matter-log.org.gpg"
-      blog-ideas-file "~/Dropbox/Documents/gtd/blog_ideas.org.gpg")
+      daily-log-file "~/Dropbox/Documents/journal/daily.org.gpg")
 
 ;;; Simplest Wiki that could possibly work
 ;; A bunch of files linked with WikiWords - take the idea from Andy Hunt
@@ -632,15 +629,7 @@ your normal file management to jump betw een them."
 (add-hook 'org-insert-heading-hook
           'bh/insert-heading-inactive-timestamp 'append)
 
-(setq org-capture-templates `(("b" "Brain" entry (file ,brain-file) "* %?
-  %u
-
-%a")
-			      ("l" "liam" entry (file "~/Dropbox/Documents/liam.org") "* %?" :clock-in t :clock-resume t)
-                              ("m" "Matter Log Entry" entry (file ,matter-log-file) "* %U
-
-- %?")
-			      ("p" "period" entry (file ,period-log-file) "* %U
+(setq org-capture-templates `(("p" "period" entry (file ,period-log-file) "* %U
 
 %?")
 			      ("d" "daily" entry (file ,daily-log-file) "* %U
@@ -674,17 +663,6 @@ your normal file management to jump betw een them."
                  (message "Loading %s...done (%.3fs) [after-init]"
                           ,load-file-name elapsed))) t))
 
-;;; Skeletons and abbreviations
-
-(define-skeleton new-blog-danieroux-skeleton
-  "Creates a new Hugo-happy blog draft"
-  ""
-  > "---\n"
-  > "title: " str "\n"
-  > "date: " (djr/iso-date-string) "\n"
-  > "draft: true\n"
-  > "---\n")
-
 ;;; IRC
 
 (use-package rcirc
@@ -698,16 +676,58 @@ your normal file management to jump betw een them."
 
 ;;; eshell
 
-;; http://www.emacswiki.org/emacs/EshellFunctions#toc3
+(require 'eshell)
+(require 'em-smart)
+
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+
 (defun eshell/e (&rest args)
   "Edit a file with +line-number as an option."
   (while args
     (if (string-match "\\`\\+\\([0-9]+\\)\\'" (car args))
-	(let* ((line (string-to-number (match-string 1 (pop args))))
-	       (file (pop args)))
-	  (find-file file)
-	  (forward-line line))
+        (let* ((line (string-to-number (match-string 1 (pop args))))
+               (file (pop args)))
+          (find-file file)
+          (forward-line line))
       (find-file (pop args)))))
+
+(defun eshell/q ()
+  (insert "exit")
+  (kill-buffer)
+  (ignore-errors (delete-window)))
+
+;; http://www.howardism.org/Technical/Emacs/eshell-fun.html
+(defun eshell-here ()
+  "Opens up a new shell in the directory associated with the current
+buffer's file.  The eshell is renamed to match that directory to make
+multiple eshell windows easier."
+  (interactive)
+  (let* ((parent (if (buffer-file-name)
+                     (file-name-directory (buffer-file-name))
+                   default-directory))
+         (height (/ (window-total-height) 3))
+         (name (car (last (split-string parent "/" t)))))
+    (split-window-vertically (- height))
+    (other-window 1)
+    (eshell "new")
+    (rename-buffer (concat "*eshell: " name "*"))
+    (insert (concat "ls"))
+    (eshell-send-input)))
+
+;; http://www.emacswiki.org/emacs/EshellFunctions#toc3
+
+;;; emacsmacport
+;; https://gist.github.com/railwaycat/3498096
+
+(global-set-key [(hyper a)] 'mark-whole-buffer)
+(global-set-key [(hyper v)] 'yank)
+(global-set-key [(hyper c)] 'kill-ring-save)
+(global-set-key [(hyper l)] 'goto-line)
+
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'hyper)
 
 ;;; Sanity check
 
@@ -723,6 +743,7 @@ your normal file management to jump betw een them."
     (sanity-check line-count)))
 
 (switch-to-buffer "*Messages*")
+
 ;;; Finda
 
 ;; (load "~/.finda/integrations/emacs/finda.el")
