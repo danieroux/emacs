@@ -546,6 +546,7 @@
 ;;; Password management
 
 (use-package id-manager
+  :straight (id-manager :fork (:host github :repo "danieroux/emacs-id-manager"))
   :commands id-manager
 
   :init
