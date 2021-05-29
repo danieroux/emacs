@@ -40,10 +40,6 @@
   :straight nil
   :init (show-paren-mode t))
 
-(use-package recentf
-  :straight nil
-  :init (recentf-mode t))
-
 (save-place-mode t)
 (turn-off-auto-fill)
 (put 'narrow-to-region 'disabled nil)
@@ -364,6 +360,10 @@
       delete-old-versions t
       auto-save-list-file-prefix (concat autosave-directory "/.saves-")
       auto-save-file-name-transforms `((".*", autosave-directory t)))
+
+(use-package recentf
+  :straight nil
+  :init (recentf-mode t))
 
 ;;; Helm
 
