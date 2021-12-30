@@ -582,12 +582,30 @@
 
 (use-package deft
   :config
+
+  (defun deft-parse-title (file contents)
+    (let ((begin (string-match "^title:.*$" contents)))
+      (if begin
+          (funcall deft-parse-title-function
+                   (substring contents begin (match-end 0))))))
   (setq deft-extensions '("md")
         deft-use-filename-as-title nil
-        deft-use-filter-string-for-filename nil
+        deft-use-filter-string-for-filename t
         deft-default-extension "md"
         deft-new-file-format "%Y-%m-%dT%H:%M:%S"
+        deft-strip-title-regexp "title: \"\\|\"$"
+        deft-strip-summary-regexp "---\\(\n.*\\)*---"
         deft-directory "~/source/blog.danieroux.com/content/posts"))
+
+;;; Danie's Daily
+
+(define-skeleton djr/new-daily-skeleton
+  "Creates a new Hugo-happy blog draft"
+  ""
+  > "---\n"
+  > "title: \"" str "\"\n"
+  > "date: " (djr/iso-date-string) "\n"
+  > "---\n")
 
 ;;; File variables
 
