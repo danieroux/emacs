@@ -331,7 +331,8 @@
                   cider-stacktrace-mode
                   special-mode        ; Lispy. Stupid mode name.
                   cider-test-report-mode
-                  *idm-record-dialog*))
+                  *idm-record-dialog*
+                  *cider-error*))
     (push mode evil-emacs-state-modes))
   (delete 'rcirc-mode evil-emacs-state-modes))
 
