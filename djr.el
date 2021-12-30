@@ -415,7 +415,7 @@
 
 (use-package elisp-slime-nav
   :hook (emacs-lisp-mode-hook ielm-mode-hook)
-  :config
+  :init
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
     (progn 
       (define-key evil-normal-state-local-map (kbd "M-.") 'elisp-slime-nav-find-elisp-thing-at-point)
