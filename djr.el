@@ -151,12 +151,6 @@
 (set-face-attribute 'mode-line-evil-status-insert-face nil
 		    :foreground "#0000ff"
 		    :background "#eab700")
-
-(make-face 'mode-line-evil-status-emacs-face)
-(set-face-attribute 'mode-line-evil-status-emacs-face nil
-		    :foreground "#ffffff"
-		    :background "#e80000")
-
 (make-face 'mode-line-buffer-status-face)
 (set-face-attribute 'mode-line-buffer-status-face nil)
 
@@ -188,7 +182,6 @@
 	    'magit-status-mode
 	    'twittering-mode
 	    'ert-results-mode
-            'rcirc-mode
 	    'eshell-mode))
 
 (setq djr-mode-line-buffer-status
@@ -260,8 +253,6 @@
       (list djr-mode-line-possible-spinner
 	    djr-mode-line-evil-status
 	    djr-mode-line-buffer-status
-            '(:eval rcirc-activity-string)
-            " "
 	    djr-mode-line-buffer-name
 	    "  "
 	    djr-mode-line-mode-name
@@ -300,7 +291,6 @@
     "d" 'deft
     "e" 'eshell-here
     "i" 'id-manager
-    "I" 'rcirc
     "f" 'darkroom-mode
     "m" 'magit-status
     ;; There should be A Better Way
@@ -325,16 +315,15 @@
                   ert-results-mode
                   makey-key-mode
                   haskell-error-mode
-                  rcirc-groups-mode
                   dig-mode
                   todotxt-mode
                   cider-stacktrace-mode
                   special-mode        ; Lispy. Stupid mode name.
                   cider-test-report-mode
                   *idm-record-dialog*
+                  image-mode
                   *cider-error*))
-    (push mode evil-emacs-state-modes))
-  (delete 'rcirc-mode evil-emacs-state-modes))
+    (push mode evil-emacs-state-modes)))
 
 (use-package ace-jump-mode
   :commands ace-jump-mode
@@ -665,7 +654,7 @@ your normal file management to jump betw een them."
 
 ;;; Emacs Debug
 
-(setq debug-on-error t
+(setq debug-on-error nil
       debug-on-quit t)
 
 ;;; Startup Timing
@@ -682,17 +671,6 @@ your normal file management to jump betw een them."
                                                          emacs-start-time))))
                  (message "Loading %s...done (%.3fs) [after-init]"
                           ,load-file-name elapsed))) t))
-
-;;; IRC
-
-(use-package rcirc
-  :straight nil
-  :init
-  (rcirc-track-minor-mode 1)
-
-  :config
-  ;; `rcirc-server-alist` and friends are in `djr-private.el.gpg`
-  (setq rcirc-fill-column 'window-text-width))
 
 ;;; eshell
 
@@ -748,6 +726,7 @@ multiple eshell windows easier."
 
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'hyper)
+(add-to-list 'default-frame-alist '(undecorated . t))
 
 ;;; Sanity check
 
