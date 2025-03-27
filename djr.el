@@ -90,6 +90,10 @@
                 "/opt/homebrew/sbin"))
   (djr/prepend-to-paths path))
 
+(use-package direnv
+ :config
+ (direnv-mode))
+
 ;;; Private configs, that include sensitive information like passwords
 
 (add-to-list 'load-suffixes ".el.gpg")
@@ -258,11 +262,7 @@
 	    djr-mode-line-mode-name
 	    "  "
 	    "-- "
-	    djr-mode-line-battery-status
-	    " - "
-	    djr-mode-line-time
-	    ;; '(:eval global-mode-string)
-	    ;; "%l"
+	    '(:eval global-mode-string)
 	    " %-"
 	    ))
 
@@ -460,6 +460,8 @@
               (define-key evil-normal-state-local-map (kbd "M-.") 'sotclojure-find-or-define-function)
               (setq evil-symbol-word-search t))))
 
+(use-package inf-clojure)
+
 (use-package cider
   :config
   ;; Expects a function in the user namespace
@@ -655,7 +657,7 @@ your normal file management to jump betw een them."
 ;;; Emacs Debug
 
 (setq debug-on-error nil
-      debug-on-quit t)
+      debug-on-quit nil)
 
 ;;; Startup Timing
 
@@ -726,7 +728,7 @@ multiple eshell windows easier."
 
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'hyper)
-(add-to-list 'default-frame-alist '(undecorated . t))
+;; (add-to-list 'default-frame-alist '(undecorated . t))
 
 ;;; Sanity check
 
@@ -741,7 +743,8 @@ multiple eshell windows easier."
   (let* ((line-count (count-lines (point-min) (point-max))))
     (sanity-check line-count)))
 
-(switch-to-buffer "*Messages*")
+(setq initial-major-mode 'text-mode)
+(switch-to-buffer "*scratch*")
 
 ;;; Finda
 
