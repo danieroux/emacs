@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; djr.el  --- Danie Roux's new and improved Emacs Config.
 
 ;;; Commentary:
@@ -30,7 +31,8 @@
 
 ;;; Standard Emacs packages and twiddles
 
-(use-package cl :defer t :straight nil)
+;; `cl' (the pre-Emacs-27 compatibility library) is deprecated in Emacs
+;; 31 and nothing here uses it; `cl-lib' is built in.
 (use-package uniquify :defer t :straight nil)
 (use-package ansi-color :defer t :straight nil)
 (use-package flymake :defer t :straight nil)
@@ -78,8 +80,8 @@
   "From http://ergoemacs.org/emacs/elisp_datetime.html"
   (concat
    (format-time-string "%Y-%m-%dT%T")
-   ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5)))
-    (format-time-string "%z"))))
+   (let ((zone (format-time-string "%z")))
+     (concat (substring zone 0 3) ":" (substring zone 3 5)))))
 
 ;;; Path management
 (dolist (path '("/usr/local/bin"
@@ -155,6 +157,12 @@
 (set-face-attribute 'mode-line-evil-status-insert-face nil
 		    :foreground "#0000ff"
 		    :background "#eab700")
+
+;; Referenced by `djr-mode-line-evil-status' for emacs-state buffers
+;; (magit, help, dired, ...).  Was never defined, which made redisplay
+;; signal `invalid-face' in those buffers.
+(make-face 'mode-line-evil-status-emacs-face)
+(set-face-attribute 'mode-line-evil-status-emacs-face nil)
 (make-face 'mode-line-buffer-status-face)
 (set-face-attribute 'mode-line-buffer-status-face nil)
 
@@ -276,27 +284,6 @@
 ;; Before require evil
 (setq evil-want-C-i-jump nil)
 
-(use-package evil-leader
-  :init (global-evil-leader-mode)
-
-  :config
-  (setq evil-leader/leader ","
-        evil-leader/no-prefix-mode-rx '(".*")
-        evil-leader/in-all-states t)
-
-  (evil-leader/set-key
-    "a" 'todotxt-add-todo
-    "t" 'todotxt-open-file
-    "c" 'org-capture
-    "d" 'deft
-    "e" 'eshell-here
-    "i" 'id-manager
-    "f" 'darkroom-mode
-    "m" 'magit-status
-    ;; There should be A Better Way
-    "SPC" (lambda () (interactive) (insert ", "))
-    "RET" (lambda () (interactive) (insert ",") (newline))))
-
 (use-package evil
   :init (evil-mode t)
 
@@ -324,6 +311,50 @@
                   image-mode
                   *cider-error*))
     (push mode evil-emacs-state-modes)))
+
+;;; Leader keys
+
+;; `evil-leader' (unmaintained since 2014) is replaced by `general',
+;; which is maintained and does not use the positional arguments of
+;; `define-minor-mode' that Emacs now deprecates.
+;;
+;; `djr/leader-keys' reproduces the old configuration exactly: the
+;; leader is `,' in every evil state, and insert/emacs state get it both
+;; bare and prefixed with `C-' (what `evil-leader/in-all-states' plus
+;; `evil-leader/no-prefix-mode-rx' ".*" used to do).  `:keymaps
+;; 'override' keeps the leader winning over major mode bindings, as
+;; evil-leader's buffer-local maps did.
+(use-package general)
+
+(defun djr/leader-keys (&rest bindings)
+  "Bind leader keys for BINDINGS.
+BINDINGS is an alternating list of keys (anything `kbd' accepts) and
+commands, just like the arguments of the old `evil-leader/set-key'."
+  (apply #'general-define-key
+         :keymaps 'override
+         :states '(normal visual motion operator)
+         :prefix "," bindings)
+  (apply #'general-define-key
+         :keymaps 'override
+         :states '(insert emacs)
+         :prefix "," bindings)
+  (apply #'general-define-key
+         :keymaps 'override
+         :states '(insert emacs)
+         :prefix "C-," bindings))
+
+(djr/leader-keys
+  "a" 'todotxt-add-todo
+  "t" 'todotxt-open-file
+  "c" 'org-capture
+  "d" 'deft
+  "e" 'eshell-here
+  "i" 'id-manager
+  "f" 'darkroom-mode
+  "m" 'magit-status
+  ;; There should be A Better Way
+  "SPC" (lambda () (interactive) (insert ", "))
+  "RET" (lambda () (interactive) (insert ",") (newline)))
 
 (use-package ace-jump-mode
   :commands ace-jump-mode
@@ -381,7 +412,7 @@
 
 (use-package projectile
   :init
-  (projectile-global-mode)
+  (projectile-mode 1)
 
   :config
   (setq projectile-enable-caching t
@@ -484,7 +515,7 @@
   (dolist (details cljr--all-helpers)
     (let ((key (car details))
 	  (fn (cadr details)))
-      (evil-leader/set-key (concat "r" key) fn))))
+      (djr/leader-keys (concat "r" key) fn))))
 
 ;; https://github.com/Malabarba/speed-of-thought-clojure
 (use-package sotclojure
@@ -503,7 +534,14 @@
 
 ;;; Save on tab-out and auto-revert
 
-(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+;; `focus-out-hook' was removed in Emacs 27, replaced by
+;; `after-focus-change-function'.
+(defun djr/save-on-focus-out ()
+  "Save all file buffers when the last focused frame loses focus."
+  (unless (seq-some #'frame-focus-state (frame-list))
+    (save-some-buffers t)))
+
+(add-function :after after-focus-change-function #'djr/save-on-focus-out)
 (global-auto-revert-mode t)
 
 ;;; Window management

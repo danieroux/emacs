@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;; (package-initialize)
 
 (setq *my-primary-emacs-instance* t)
